@@ -55,7 +55,8 @@ const Attractive = () => {
             <NextButton 
                 disabled={isAllAnswer(rating, 4)}
                 link="audio" 
-                attractRating={rating}
+                rating={rating}
+                ratingType="attractRating"
             />
         </Box>
         </div>

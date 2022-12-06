@@ -22,8 +22,6 @@ const ItemCard = ({ title, img, setRating }) => {
             ...state, 
             [title] : event.target.textContent
         }))
-        getDefaultValue();
-
     }
 
     const attractRating = sessionStorage.getItem("attractRating");
@@ -73,8 +71,7 @@ const ItemCard = ({ title, img, setRating }) => {
                     )}
                     isOptionEqualToValue={(option, value) => option.id === value.id}
                     onChange={handleChange}
-                >     
-                </Autocomplete>
+                />     
             </CardContent>        
         </Card>
     )

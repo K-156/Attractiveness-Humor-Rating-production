@@ -31,7 +31,7 @@ const Description = () => {
         </Box>
         
         <Container>
-            <Box display="flex" justifyContent="center" height="200px" py={2} flexDirection="">
+            <Box display="flex" justifyContent="center" height="200px" py={2}>
                 <img src={require(`../../Assets/Logo/${itemName[id]}`)} alt="logo" />
             </Box>
             <Box>

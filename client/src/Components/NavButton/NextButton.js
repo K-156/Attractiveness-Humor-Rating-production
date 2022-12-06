@@ -5,13 +5,13 @@ import { HiArrowRight } from "react-icons/hi";
 
 import "./NavButton.css";
 
-const NextButton = ({ link, state, text, style, disabled, attractRating }) => {
+const NextButton = ({ link, state, text, style, disabled, rating, ratingType }) => {
 
     const navigate = useNavigate();
     const handleOnClick = () => {
 
-        if (attractRating !== undefined) {
-            sessionStorage.setItem("attractRating", JSON.stringify(attractRating))
+        if (rating !== undefined) {
+            sessionStorage.setItem(ratingType, JSON.stringify(rating))
         }
 
         navigate(`/${link}`, {

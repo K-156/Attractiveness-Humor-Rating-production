@@ -22,9 +22,9 @@ function App() {
             <Route path='/attractive/:id' element={<Description />} />
           <Route path='/login' element={<Login />} />
           <Route path='/audio' element={<Audio />} />
-            <Route path='/audio/q1' element={<AudioQn />} />
-
-
+            <Route path='/audio/q1' element={<AudioQn key="q1" title="1" link="audio/q2" ratingType="audio1Rating"/>} />
+            <Route path='/audio/q2' element={<AudioQn key="q2" title="2" link="complete" ratingType="audio2Rating"/>} />
+          <Route path='/complete' />
         </Routes>
       </Router>
     </div>
