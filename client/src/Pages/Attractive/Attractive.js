@@ -32,7 +32,7 @@ const Attractive = () => {
     const [rating, setRating] = useState();
 
     return(
-        <>
+        <div>
         <script>
             {document.title="Attractiveness"}
         </script>
@@ -58,7 +58,7 @@ const Attractive = () => {
                 attractRating={rating}
             />
         </Box>
-        </>
+        </div>
     )
 }
 
