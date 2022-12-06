@@ -2,6 +2,9 @@ import { Box, Card, CardContent, Typography} from "@mui/material";
 import { ReactComponent as CompleteSurvey } from "../../Assets/complete-survey.svg";
 
 const Complete = () => {
+
+    sessionStorage.clear();
+
     return (
     <div style={{display:"flex",  flexDirection:"column", alignItems: "center"}}>
         <script>
