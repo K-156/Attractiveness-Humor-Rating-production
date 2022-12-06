@@ -9,6 +9,7 @@ import connectDB from "./db/connect.js";
 
 // routers
 import authRouter from "./routes/authRoutes.js";
+import projectsRouter from './routes/projectsRoutes.js'
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
   res.send("Welcome");
 });
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/projects", projectsRouter)
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
