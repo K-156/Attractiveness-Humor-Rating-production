@@ -1,0 +1,9 @@
+.cardHeader {
+    text-transform: uppercase;
+    color:#264653;
+    text-align:center; 
+    height: 60px ;
+    display: flex ;
+    justify-content: center;
+    align-items: flex-end;
+}
