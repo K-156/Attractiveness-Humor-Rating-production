@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet'
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill } from "react-icons/bs"
-import NextButton from '../../Components/NavButton/NextButton';
 
+import NextButton from '../../Components/NavButton/NextButton';
+import { ReactComponent as LandingPage } from "../../Assets/landing-page.svg";
 import "./Home.css";
 
 const title="Job Application App";
@@ -17,10 +17,11 @@ const Home = () => {
 
     return(
         <div>
-            <Helmet>
-                <title>Welcome</title>
-            </Helmet>
-            <Box display="flex" justifyContent="flex-end">
+            <script>
+                {document.title="Welcome"}
+            </script>
+            
+            <Box display="flex" justifyContent="flex-end" mb={5}>
                 <Button onClick={()=>navigate("/login")}>
                     <BsFillGearFill size="25px" color="#A3A3A3"/>
                 </Button>
@@ -34,11 +35,10 @@ const Home = () => {
                     <NextButton 
                         text="Start" 
                         link="attractive"
-                        style={{display: "flex", justifyContent:"center"}}
                     />
                 </Grid>
-                <Grid item xs={5} px={4}> 
-                hello
+                <Grid item xs={5} px={4}>
+                    <LandingPage width="100%" height="0%"/>
                 </Grid>
 
             </Grid>
