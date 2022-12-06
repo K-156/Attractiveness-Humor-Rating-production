@@ -1,0 +1,21 @@
+{
+  "name": "attractiveness-humor-rating",
+  "version": "1.0.0",
+  "description": "A web application designed to do surveys for project research",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "start":"nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/K-156/Attractiveness-Humor-Rating.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/K-156/Attractiveness-Humor-Rating/issues"
+  },
+  "homepage": "https://github.com/K-156/Attractiveness-Humor-Rating#readme"
+}
