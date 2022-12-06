@@ -8,6 +8,7 @@ import Attractive from "./Pages/Attractive/Attractive";
 import Audio from "./Pages/Audio/Audio";
 import AudioQn from "./Pages/AudioQn/AudioQn";
 import Description from "./Pages/Description/Description";
+import Complete from "./Pages/Complete/Complete";
 import "./index.css";
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
           <Route path='/audio' element={<Audio />} />
             <Route path='/audio/q1' element={<AudioQn key="q1" title="1" link="audio/q2" ratingType="audio1Rating"/>} />
             <Route path='/audio/q2' element={<AudioQn key="q2" title="2" link="complete" ratingType="audio2Rating"/>} />
-          <Route path='/complete' />
+          <Route path='/complete' element={<Complete />} />
         </Routes>
       </Router>
     </div>

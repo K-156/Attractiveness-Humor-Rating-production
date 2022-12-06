@@ -1,12 +1,9 @@
-
 import { Box } from "@mui/material";
 
 import Instruction from "../../Components/Instruction/Instruction";
 import PrevButton from "../../Components/NavButton/PrevButton";
 import NextButton from "../../Components/NavButton/NextButton";
 import { ReactComponent as AudioPlayer } from "../../Assets/audio-player.svg";
-
-
 
 
 const instruction="You will be listening to FOUR different audios by the companies that you have selected the most and least attractive just now.\n" + 
