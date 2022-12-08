@@ -27,7 +27,7 @@ const Description = () => {
         </script>
 
         <Box>
-            <PrevButton text="Back" />
+            <PrevButton link="attractive"/>
         </Box>
         
         <Container>

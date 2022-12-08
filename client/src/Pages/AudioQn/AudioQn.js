@@ -37,7 +37,7 @@ const AudioQn = ({ title, link, ratingType}) => {
                     <AudioForm setRating={setRating} data={ratingType} />
                 </Grid>
                 <Grid item xs={12} py={2} px={9} display="flex" justifyContent="space-between">
-                    <PrevButton />
+                    <PrevButton link={parseInt(title) === 1 ? "audio" : "audio/q1"}/>
                     <NextButton 
                         disabled={isAllAnswer(rating, 5)}
                         link={link}

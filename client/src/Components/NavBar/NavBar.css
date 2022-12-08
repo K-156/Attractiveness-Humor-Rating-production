@@ -1,0 +1,49 @@
+#NavBar {
+    background: #264653;
+    position: absolute;
+    width: 250px;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+div > .navBarButton {
+    text-transform: none;
+    display: flex;
+    color: #FFFFFF;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+div > .navBarButton:hover {
+    color: #C59D5F;
+}
+
+.logoutPosition {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 30px;
+}
+
+div > .logoutButton {
+    text-transform: none;
+    display: flex;
+    color: #264653;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+div > .logoutButton:hover {
+    color: #FFFFFF;
+}
+
+#hamburger {
+    padding: 0;
+    display: flex;
+    justify-content: "flex-start";
+    position: absolute;
+    top: 15px;
+    left: 0px;
+
+}

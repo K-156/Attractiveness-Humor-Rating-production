@@ -5,11 +5,11 @@ import { HiArrowLeft } from "react-icons/hi";
 
 import "./NavButton.css";
 
-const PrevButton = ({ state, text, style }) => {
+const PrevButton = ({ state, text, style, link }) => {
 
     const navigate = useNavigate();
     const handleOnClick = () => {
-        navigate(-1, {
+        navigate(`/${link}`, {
             state: {state}
         })
     }
@@ -19,9 +19,9 @@ const PrevButton = ({ state, text, style }) => {
             <Button 
                 onClick={handleOnClick}
                 variant="contained" 
-                sx={{background: "#264653"}}
+                sx={{background: "#264653", '&:hover': {backgroundColor:"#C59D5F"}}}
             >
-                <HiArrowLeft style={{marginRight:"10px"}} /> {text === undefined ? "Previous" : text}
+                <HiArrowLeft style={{marginRight:"10px"}} /> {text === undefined ? "Previous" : text} 
             </Button>
         </Box>
     )
