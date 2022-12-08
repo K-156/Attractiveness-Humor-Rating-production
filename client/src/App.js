@@ -14,6 +14,8 @@ import Description from "./Pages/Description/Description";
 import Complete from "./Pages/Complete/Complete";
 import Overview from "./Pages/Overview/Overview";
 import DashboardLayout from "./Layout/DashboardLayout";
+import Details from "./Pages/Details/Details";
+
 
 function App() {
 
@@ -29,6 +31,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/details' element={<Details />} />
           <Route path='/attractive' element={<Attractive />} />
           <Route path='/attractive/:id' element={<Description />} />
           <Route path='/audio' element={<Audio />} />

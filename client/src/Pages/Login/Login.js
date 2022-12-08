@@ -11,25 +11,24 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const [login, setLogin] = useState({email:"", password:""});
+    const [formData, setFormData] = useState({email:"", password:""});
     const [error, setError] = useState({email: false, password: false});
     const handleOnChange = (event) => {
-        if (event.target.name == "email") {
-            setError((state) => ({...state, email: false}))
-        } else {
-            setError((state) => ({...state, password: false}))
-        }
-        setLogin((state) => ({
+        setFormData((state) => ({
             ...state, 
             [event.target.name] : event.target.value
         }))
+        setError((state) => ({
+            ...state, 
+            [event.target.name]: false
+        }))
     }
 
-    const handleOnSubmit = (event) => {
-        if (login.email === "") {
+    const handleOnSubmit = () => {
+        if (formData.email === "") {
             setError((state) => ({...state, email: false}))
         } 
-        if (login.password === "") {
+        if (formData.password === "") {
             setError((state) => ({...state, password: false}))
         }
         (sessionStorage.getItem("role") === "admin") ? navigate("/overview") : navigate("/details")
@@ -56,6 +55,7 @@ const Login = () => {
                                 required
                                 error={error.email}
                                 helperText={error.email ? "Enter your email" : ""}
+                                type="email"
                                 name="email"
                                 label="Email"
                                 sx={{mb: 4}}
@@ -89,8 +89,6 @@ const Login = () => {
                     <LoginImage width="100%" height="0%" />
                 </Grid>
             </Grid>
-           
-
         </div>
     )
 }
