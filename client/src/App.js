@@ -19,42 +19,57 @@ import Details from "./Pages/Details/Details";
 import AttractiveInstruction from "./Pages/Instructions/AttractiveInstruction";
 import AttractiveRate from "./Pages/Attractive/AttractiveRate";
 
-
 function App() {
-
   const [open, setOpen] = useState(true);
 
   return (
     <div id="app">
       <CssBaseline />
-      <AppContext.Provider
-        value={{open, setOpen}}
-      >
-      <Router> 
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/details' element={<Details />} />
-          <Route element={<SurveyLayout />}>
-            <Route path='/attractive' element={<AttractiveInstruction />} />
-            <Route path='/attractive/profile' element={<Profiles />} />
-            <Route path='/attractive/profile/:id' element={<Description />} />
-            <Route path='/attractive/rate' element={<AttractiveRate />} />
-            <Route path='/audio-instruction' element={<Audio />} />
-            <Route path='/audio/q1' element={<AudioQn key="q1" title="1" link="audio/q2" ratingType="audio1Rating"/>} />
-            <Route path='/audio/q2' element={<AudioQn key="q2" title="2" link="complete" ratingType="audio2Rating"/>} />
-          </Route>
-          <Route path='/complete' element={<Complete />} />    
-        
-        <Route element={<DashboardLayout />}>
-            <Route path='/overview' element={<Overview />} />
+      <AppContext.Provider value={{ open, setOpen }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/details" element={<Details />} />
+            <Route element={<SurveyLayout />}>
+              <Route path="/attractive" element={<AttractiveInstruction />} />
+              <Route path="/attractive/profile" element={<Profiles />} />
+              <Route path="/attractive/profile/:id" element={<Description />} />
+              <Route path="/attractive/rate" element={<AttractiveRate />} />
+              <Route path="/audio-instruction" element={<Audio />} />
+              <Route
+                path="/audio/q1"
+                element={
+                  <AudioQn
+                    key="q1"
+                    title="1"
+                    link="audio/q2"
+                    ratingType="audio1Rating"
+                  />
+                }
+              />
+              <Route
+                path="/audio/q2"
+                element={
+                  <AudioQn
+                    key="q2"
+                    title="2"
+                    link="complete"
+                    ratingType="audio2Rating"
+                  />
+                }
+              />
+            </Route>
+            <Route path="/complete" element={<Complete />} />
 
+            <Route element={<DashboardLayout />}>
+              <Route path="/overview" element={<Overview />} />
 
-            {/* FOR TESTING */}
-            <Route path='/test' element={<Overview />} />
-        </Route>
-        </Routes>
-      </Router>
+              {/* FOR TESTING */}
+              <Route path="/test" element={<Overview />} />
+            </Route>
+          </Routes>
+        </Router>
       </AppContext.Provider>
     </div>
   );
