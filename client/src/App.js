@@ -10,7 +10,7 @@ import Login from "./Pages/Login/Login";
 import Profiles from "./Pages/Attractive/Profiles";
 import Audio from "./Pages/Audio/AudioInstruction";
 import AudioRate from "./Pages/Audio/AudioRate";
-import Description from "./Pages/Description/Description";
+import Description from "./Pages/Attractive/Description";
 import Complete from "./Pages/Complete/Complete";
 import Overview from "./Pages/Overview/Overview";
 import DashboardLayout from "./Layout/DashboardLayout";
@@ -19,6 +19,7 @@ import Details from "./Pages/Details/Details";
 import AttractiveInstruction from "./Pages/Attractive/AttractiveInstruction";
 import AttractiveRate from "./Pages/Attractive/AttractiveRate";
 import Rank from "./Pages/Attractive/Rank";
+import ChatInstruction from "./Pages/Chat/ChatInstruction";
 
 
 function App() {
@@ -43,8 +44,12 @@ function App() {
             <Route path='/attractive/rate' element={<AttractiveRate />} />
             <Route path='/attractive/rank' element={<Rank />} />
             <Route path='/audio-instruction' element={<Audio />} />
-            <Route path='/audio/q1' element={<AudioRate key="q1" title="1" link="audio/q2" ratingType="audio1Rating"/>} />
-            <Route path='/audio/q2' element={<AudioRate key="q2" title="2" link="complete" ratingType="audio2Rating"/>} />
+            <Route path='/audio/q1' element={<AudioRate key="audioQ1" title="1" link="audio/q2" isWritten={false} />} />
+            <Route path='/audio/q2' element={<AudioRate key="audioQ2" title="2" link="chat-instruction" isWritten={false} />} />
+            <Route path='/intro-instruction' element={<Audio />} />
+            <Route path='/intro/q1' element={<AudioRate key="writtenQ1" title="1" link="intro/q2" isWritten={true} />} />
+            <Route path='/intro/q2' element={<AudioRate key="writtenQ2" title="2" link="chat-instruction" isWritten={true} />} />
+            <Route path='/chat-instruction' element={<ChatInstruction />} />
           </Route>
           <Route path='/complete' element={<Complete />} />    
         

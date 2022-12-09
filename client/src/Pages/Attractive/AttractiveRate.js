@@ -27,7 +27,6 @@ const itemName = [{
 const AttractiveRate = () => {
 
     const [rating, setRating] = useState({});
-    const [isSubmit, setIsSubmit]= useState(false);
 
     return (
         <div>
@@ -50,9 +49,6 @@ const AttractiveRate = () => {
                             title={item.name} 
                             img={item.img} 
                             setRating={setRating}
-                            isSubmit={isSubmit}
-                            setIsSubmit={setIsSubmit}
-                            rating={rating[index.toString()]}
                         />
                     </Grid>
                 )
@@ -61,9 +57,7 @@ const AttractiveRate = () => {
         <Box display="flex" justifyContent="space-between">
             <PrevButton link="attractive/profile"/>
             <NextButton 
-                setIsSubmit={setIsSubmit}
-                isSubmit={isSubmit}
-                isValid={isValid(rating, Object.keys(itemName).length)}
+                disabled={!isValid(rating, Object.keys(itemName).length)}
                 link="attractive/rank"
             />
         </Box>   

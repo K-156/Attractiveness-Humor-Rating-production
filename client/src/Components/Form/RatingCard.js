@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Box, Card, CardContent, FormControl, Typography, TextField } from "@mui/material";
 
@@ -6,27 +6,24 @@ const info = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem mag
 "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
 "atque culpa sit iusto quod accusantium "
 
-const ItemCard = ({ title, img, id, setRating, isSubmit, rating, setIsSubmit}) => {
+const ItemCard = ({ title, img, id, setRating }) => {
     
+    const [error, setError] = useState(false);
     const handleOnChange = (event) => {
+        const value = event.target.value;
+        if (value < 1 || value >  9) {
+            setError(true) 
+            return
+        } else {
+            setError(false)
+        }
+
         setRating((state) => ({
             ...state, 
             [id] : event.target.value
         }))
-        setIsSubmit(false)
+
     }
-
-    const [error, setError] = useState({isEmpty: false, outsideRange: false});
-    useEffect(() => {
-        if (isSubmit && (rating === "" || rating === undefined)) {
-            setError((state) => ({...state, isEmpty: true}))
-        } else if ( rating < 1 || rating > 9) {
-            setError((state) => ({...state, outsideRange: true}))
-        } else {
-            setError({isEmpty: false, outsideRange: false})
-        }
-    }, [isSubmit, rating]) 
-
     
     return(
         <Card>
@@ -50,9 +47,8 @@ const ItemCard = ({ title, img, id, setRating, isSubmit, rating, setIsSubmit}) =
                         type="number"
                         InputProps={{ inputProps: { min: 1, max: 9} }}
                         onChange={handleOnChange}
-                        error={error.isEmpty || error.outsideRange}
-                        helperText={error.isEmpty ? "Enter your rating" 
-                                    : error.outsideRange ? "Rating out of range" : " "}
+                        error={error}
+                        helperText={error ? "Rating out of range" : " "}
                     />
                 </FormControl>
             </CardContent>        

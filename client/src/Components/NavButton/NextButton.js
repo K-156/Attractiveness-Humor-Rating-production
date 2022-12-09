@@ -8,26 +8,16 @@ import "./NavButton.css";
 const NextButton = ({ link, state, text, style, disabled, 
                      storeItem, ratingType, setIsSubmit, isSubmit, isValid }) => {
 
-    console.log(isValid)
-    console.log(isSubmit)
-
     const navigate = useNavigate();
     const handleOnClick = () => {
 
-        if (setIsSubmit === undefined || isValid ) {
-
-            if (ratingType === "rank") {
-                sessionStorage.setItem("rank", storeItem)
-            }   
-
-            navigate(`/${link}`, {
-                state: {state}
-            })
-        }
-
-        if (isSubmit === false) {
-            setIsSubmit(true)
+        if (ratingType === "rank") {
+            sessionStorage.setItem("rank", storeItem)
         }   
+
+        navigate(`/${link}`, {
+            state: {state}
+        })
     }
         
     return (

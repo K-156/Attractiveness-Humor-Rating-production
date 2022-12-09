@@ -23,8 +23,6 @@ const ItemCard = ({ title, img, id, isSelect }) => {
         transition
     }
 
-    console.log(isSelect)
-
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
             <Card sx={{backgroundColor: isSelect[id] !== undefined ? "#f2e5d0" : "#FFFFFF"}}>

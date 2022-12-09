@@ -1,68 +1,47 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Box, Card, CardContent, FormControl, FormControlLabel, FormLabel, Grid, 
         Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import _ from "lodash";
 
-
-const AudioForm = ({ ques, setRating, rating, isSubmit, setIsSubmit }) => {
+const AudioForm = ({ ques, setRating, isWritten}) => {
 
     const [error, setError] = useState({});
     const [listen, setListen] = useState(false);
 
     const handleOnChange = (event) => {
-        const value = event.target.value
-        setError((state) => ({
-            ...state, 
-            [event.target.id]: {
-                isEmpty: false, 
-                outsideRange: (value < 1 || value > 9) ? true : false
-            }
-        }))
+        const id = event.target.id;
+        const value = event.target.value;
 
+        if (value < 1 || value >  9) {
+            setError((state)=> ({ ...state, [id]: true}))
+            return
+        } else {
+            setError((state)=> ({ ...state, [id]: false}))
+        }
+      
         setRating((state) => ({
             ...state, 
-            [event.target.id] : event.target.value
+            [id] : event.target.value
         }))
-        setIsSubmit(false)
     }
-
-    useEffect(()=> {
-        _.map(ques, (value, key) => {
-            setError((state)=> ({
-                ...state,
-                [key]: {isEmpty: false, outsideRange: false}
-            }))
-        })
-    }, [])
-
-    console.log(isSubmit)
-    useEffect(() => {
-        _.map(ques, (value, key) => {
-            setError((state)=> ({
-                ...state,
-                [key]: {
-                    isEmpty: isSubmit && (rating[key] === "" || rating[key] === undefined) ? true : false, 
-                    outsideRange: false
-                }
-            }))
-         })
-    }, [isSubmit]) 
 
     return(
         <>
-        { !listen ?
+        { !listen && !isWritten?
             <Card>
                 <CardContent>
                     <Box display="flex" justifyContent="center">
                         <FormControl>
-                            <FormLabel sx={{color:"#000000", fontSize:"14px"}}>I have finished listening to the recording</FormLabel>
+                            <FormLabel sx={{color:"#000000", fontSize:"14px"}}>
+                                I have finished listening to the recording
+                            </FormLabel>
                             <RadioGroup row sx={{justifyContent: "center"}}>
                                 <FormControlLabel 
                                     value={true} 
                                     control={<Radio size="small"/>} 
                                     label="Yes" 
-                                    labelPlacement="Start"
+                                    labelPlacement="start"
                                     sx={{".MuiFormControlLabel-label": {fontSize:"14px"}}}
                                     onChange={() => setListen(true)}
                                 />
@@ -71,9 +50,7 @@ const AudioForm = ({ ques, setRating, rating, isSubmit, setIsSubmit }) => {
                     </Box>
                 </CardContent>
             </Card>
-        
-        :
-            <>
+        : <>
             <Card sx={{background: "#264653", color:"#FFFFFF", mb:2}} >
                 <Box display="flex" justifyContent="center" sx={{p:"10px"}}>
                     <Typography>1 - not very, 9 - extremely</Typography>
@@ -97,9 +74,8 @@ const AudioForm = ({ ques, setRating, rating, isSubmit, setIsSubmit }) => {
                                         type="number"
                                         InputProps={{ inputProps: { min: 1, max: 9} }}
                                         onChange={handleOnChange}
-                                        error={error[key].isEmpty || error[key].outsideRange}
-                                        helperText={error[key].isEmpty ? "Enter your rating" 
-                                                    : error[key].outsideRange ? "Rating out of range" : ""}
+                                        error={error[key] !== undefined ? error[key] : false}
+                                        helperText={error[key] !== undefined && error[key] ? "Rating out of range" : ""}
                                     />
                                 </FormControl>       
                                 </Grid>
