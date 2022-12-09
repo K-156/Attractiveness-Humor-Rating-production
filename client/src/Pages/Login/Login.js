@@ -38,9 +38,6 @@ const Login = () => {
 
     return(
         <div>
-            <script>
-                {document.title="Login"}
-            </script>
             <PrevButton text="Back" link="" />
             <Grid container className="center" gap={2}>
                 <Grid item xs={5} px={2}>

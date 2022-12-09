@@ -1,26 +1,42 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography, TextField, Autocomplete, CardActionArea } from "@mui/material";
 import _ from "lodash";
 
 import "./ItemCard.css";
 
-const info = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
-"suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
-"atque culpa sit iusto quod accusantium "
+const ItemCard = ({ title, img, setRating }) => {
 
-const ItemCard = ({ title, img, id, candidateCount }) => {
-    
     const navigate = useNavigate();
     const handleOnClick = (event) => {
-        navigate(`/attractive/profile/${parseInt(event.target.id)+1}`, {
+        navigate(`/attractive/${event.target.id}`, {
             state: {
-                id: `${event.target.id}`,
-                candidateCount: {candidateCount}
+                id: `${event.target.id}`
             }
         })
     }
-        
+    
+    const handleChange = (event) => {
+        setRating((state) => ({
+            ...state, 
+            [title] : event.target.textContent
+        }))
+    }
+
+    const attractRating = sessionStorage.getItem("attractRating");
+    useEffect(() => {
+        if (attractRating !== null) {
+            setRating(JSON.parse(attractRating))
+        }
+    }, []);
+    const getDefaultValue = () => {
+        if (attractRating === null) { 
+            return "";
+        } 
+        const jsonRating = JSON.parse(attractRating)
+        return jsonRating[title];
+    }
 
     return(
         <Card>
@@ -28,24 +44,34 @@ const ItemCard = ({ title, img, id, candidateCount }) => {
                 <Typography variant="subtitle2" fontWeight="bold" className="cardHeader">
                     {title}
                 </Typography>
-                <Box display="flex" justifyContent="center" height="200px" py={2}>
-                    <img 
-                        id={title} 
-                        src={require(`../../Assets/Candidates/${img}`)} 
-                        alt="profile" 
-                    />
-                </Box>
-                <Typography variant="subtitle2" textAlign="center" my={2}>{info}</Typography>
-                <Box display="flex" justifyContent="center">
-                    <Button
-                        onClick={handleOnClick}
-                        id={id}
-                        sx={{background: "#264653", color:"#FFFFFF", '&:hover': {backgroundColor:"#C59D5F"}}}
-                    >
-                        View Profile
-                    </Button>
-                </Box>
-                
+                <CardActionArea onClick={handleOnClick}>
+                    <Box display="flex" justifyContent="center" height="200px" py={2}>
+                        <img 
+                            id={title} 
+                            src={require(`../../Assets/Logo/${img}`)} 
+                            alt="logo" 
+                        />
+                    </Box>
+                </CardActionArea>
+                <Autocomplete 
+                    disableClearable
+                    fullWidth
+                    defaultValue={() => getDefaultValue()}
+                    options={_.map(_.range(9), (score) => ({
+                                label: String(score + 1), 
+                                value: String(score + 1),
+                                key: String(score + 1)
+                            }))}
+                    renderInput={(params) => (
+                        <TextField 
+                            {...params} 
+                            label="Rate"
+                            name="rating"                            
+                        />
+                    )}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    onChange={handleChange}
+                />     
             </CardContent>        
         </Card>
     )

@@ -5,27 +5,18 @@ import { HiArrowRight } from "react-icons/hi";
 
 import "./NavButton.css";
 
-const NextButton = ({ link, state, text, style, disabled, 
-                    rating, ratingType, setIsSubmit, isSubmit }) => {
+const NextButton = ({ link, state, text, style, disabled, rating, ratingType }) => {
 
     const navigate = useNavigate();
     const handleOnClick = () => {
 
-        if (setIsSubmit === false) {
-            setIsSubmit(true)
-            return
+        if (rating !== undefined) {
+            sessionStorage.setItem(ratingType, JSON.stringify(rating))
         }
 
-        if (ratingType === "attractive") {
-            sessionStorage.setItem("attractive", rating)
-        }
-        
-        if (setIsSubmit === undefined || isSubmit === true) {
-            navigate(`/${link}`, {
-                state: {state}
-            })
-        }
-        
+        navigate(`/${link}`, {
+            state: {state}
+        })
     }
         
     return (
