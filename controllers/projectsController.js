@@ -13,7 +13,7 @@ const createProject = async (req, res) => {
 };
 
 const getAllProjects = async (req, res) => {
-  res.send("get all projects");
+  const projects = await Project.find({createdBy:req.user.userId})
 };
 
 const updateProject = async (req, res) => {
