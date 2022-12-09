@@ -16,14 +16,14 @@ const ItemCard = ({ title, img, id, setRating, isSubmit, rating, setIsSubmit}) =
         setIsSubmit(false)
     }
 
-    const [error, setError] = useState({isEmpty: false, withinRange: false});
+    const [error, setError] = useState({isEmpty: false, outsideRange: false});
     useEffect(() => {
         if (isSubmit && (rating === "" || rating === undefined)) {
             setError((state) => ({...state, isEmpty: true}))
-        } else if ( rating < 0 || rating > 9) {
-            setError((state) => ({...state, withinRange: true}))
+        } else if ( rating < 1 || rating > 9) {
+            setError((state) => ({...state, outsideRange: true}))
         } else {
-            setError({isEmpty: false, withinRange: false})
+            setError({isEmpty: false, outsideRange: false})
         }
     }, [isSubmit, rating]) 
 
@@ -44,14 +44,15 @@ const ItemCard = ({ title, img, id, setRating, isSubmit, rating, setIsSubmit}) =
                 <Typography variant="subtitle2" textAlign="center" my={2}>{info}</Typography>
                 <FormControl fullWidth>
                     <TextField
+                        required
                         id={id.toString()}
                         label="Rate"
                         type="number"
                         InputProps={{ inputProps: { min: 1, max: 9} }}
                         onChange={handleOnChange}
-                        error={error.isEmpty || error.withinRange}
+                        error={error.isEmpty || error.outsideRange}
                         helperText={error.isEmpty ? "Enter your rating" 
-                                    : error.withinRange ? "Rating out of range" : " "}
+                                    : error.outsideRange ? "Rating out of range" : " "}
                     />
                 </FormControl>
             </CardContent>        

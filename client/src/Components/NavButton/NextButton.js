@@ -8,6 +8,8 @@ import "./NavButton.css";
 const NextButton = ({ link, state, text, style, disabled, 
                      storeItem, ratingType, setIsSubmit, isSubmit, isValid }) => {
 
+    console.log(isValid)
+    console.log(isSubmit)
 
     const navigate = useNavigate();
     const handleOnClick = () => {
