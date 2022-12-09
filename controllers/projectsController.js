@@ -21,11 +21,32 @@ const getAllProjects = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
-  res.send("update project");
+  const { id: projectId } = req.params;
+
+  const { proj } = req.body;
+  if (!proj) {
+    throw new BadRequestError("Please provide all values");
+  }
+
+  const project = await Project.findOne({ _id: projectId });
+  if (!project) {
+    throw new NotFoundError(`No project with id ${projectId}`);
+  }
+
+  const updatedProject = await Project.findOneAndUpdate(
+    { _id: projectId },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(StatusCodes.OK).json({ updatedProject });
 };
 
-const showStats = async (req, res) => {
+const getProject = async (req, res) => {
   res.send("show stats");
 };
 
-export { createProject, updateProject, showStats, getAllProjects };
+export { createProject, updateProject, getProject, getAllProjects };
