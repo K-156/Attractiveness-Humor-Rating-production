@@ -33,7 +33,6 @@ const Details = () => {
                 toSubmit = false
             }
         })
-        console.log(toSubmit)
         if (toSubmit) {
             navigate("/attractive")
         }
@@ -41,6 +40,9 @@ const Details = () => {
 
     return(
         <div style={{display: "flex", justifyContent: "center"}}>
+            <script>
+                {document.title="Personal Details"}
+            </script>
             <Card sx={{px: 1, py: 2, mt: 4, width: "500px"}}>
                 <CardContent sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                     <Typography 
@@ -81,6 +83,7 @@ const Details = () => {
                                     label={detail}
                                     type={detail==="Age" ? "number" : "text"}
                                     sx={{my:1}}
+                                    InputProps={{ inputProps: { min: 0 } }}
                                     onChange={handleOnChange}
                                     error={error[detail.toLowerCase()]}
                                     helperText={error[detail.toLowerCase()] ? `Enter your ${detail.toLowerCase()}` : ""}
@@ -92,7 +95,7 @@ const Details = () => {
                     </FormControl>
                     <Button
                         type="submit"
-                        sx={{background: "#264653", color:"#FFFFFF", '&:hover': {backgroundColor:"#C59D5F"}, width:"80%"}}
+                        sx={{background: "#264653", color:"#FFFFFF", '&:hover': {backgroundColor:"#C59D5F"}, width:"80%", mt:2}}
                         onClick={handleOnSubmit}
                     > 
                         Submit

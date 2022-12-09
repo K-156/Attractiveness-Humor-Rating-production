@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 
 import Instruction from "../../Components/Instruction/Instruction";
-import PrevButton from "../../Components/NavButton/PrevButton";
 import NextButton from "../../Components/NavButton/NextButton";
 import { ReactComponent as AudioPlayer } from "../../Assets/audio-player.svg";
 
@@ -15,12 +14,11 @@ const Audio = () => {
     return(
         <div style={{display:"flex",  flexDirection:"column", alignItems: "center"}} >
             <script>
-                {document.title="Audio"}
+                {document.title="Instruction"}
             </script>
             <AudioPlayer width="20%" height="0%" style={{margin: "20px"}}/>
             <Instruction text={instruction}/>
-            <Box py={2} px={10} display="flex" justifyContent="space-between" width="100%">
-                <PrevButton link="attractive"/>
+            <Box py={2} px={10} display="flex" justifyContent="flex-end" width="100%">
                 <NextButton link="audio/q1"/>
             </Box>
         </div>
