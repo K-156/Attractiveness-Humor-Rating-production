@@ -46,7 +46,13 @@ const updateProject = async (req, res) => {
 };
 
 const getProject = async (req, res) => {
-  res.send("show stats");
+  const { id: projectId } = req.params;
+
+  const project = await Project.findOne({ _id: projectId });
+  if (!project) {
+    throw new NotFoundError(`No project with id ${projectId}`);
+  }
+  res.status(StatusCodes.OK).json({ project });
 };
 
 export { createProject, updateProject, getProject, getAllProjects };
