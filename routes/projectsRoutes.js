@@ -5,11 +5,10 @@ import {
   createProject,
   getAllProjects,
   updateProject,
-  showStats,
+  getProject,
 } from "../controllers/projectsController.js";
 
 router.route("/").post(createProject).get(getAllProjects);
-router.route("/stats").get(showStats);
-router.route("/:id").patch(updateProject);
+router.route("/:id").patch(updateProject).get(getProject);
 
 export default router;

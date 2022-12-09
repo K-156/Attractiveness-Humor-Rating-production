@@ -1,17 +1,58 @@
+import Project from "../models/Project.js";
+import { StatusCodes } from "http-status-codes";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
+
 const createProject = async (req, res) => {
-  res.send("create project");
+  const { proj } = req.body;
+  if (!proj) {
+    throw new BadRequestError("Please provide all values");
+  }
+
+  const project = await Project.create(req.body);
+  res.status(StatusCodes.CREATED).json({ project });
 };
 
 const getAllProjects = async (req, res) => {
-    res.send("get all projects");
-  };
+  const projects = await Project.find();
+  res.status(StatusCodes.OK).json({
+    projects,
+    totalProjects: projects.length,
+  });
+};
 
 const updateProject = async (req, res) => {
-  res.send("update project");
+  const { id: projectId } = req.params;
+
+  const { proj } = req.body;
+  if (!proj) {
+    throw new BadRequestError("Please provide all values");
+  }
+
+  const project = await Project.findOne({ _id: projectId });
+  if (!project) {
+    throw new NotFoundError(`No project with id ${projectId}`);
+  }
+
+  const updatedProject = await Project.findOneAndUpdate(
+    { _id: projectId },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(StatusCodes.OK).json({ updatedProject });
 };
 
-const showStats = async (req, res) => {
-  res.send("show stats");
+const getProject = async (req, res) => {
+  const { id: projectId } = req.params;
+
+  const project = await Project.findOne({ _id: projectId });
+  if (!project) {
+    throw new NotFoundError(`No project with id ${projectId}`);
+  }
+  res.status(StatusCodes.OK).json({ project });
 };
 
-export { createProject, updateProject, showStats, getAllProjects };
+export { createProject, updateProject, getProject, getAllProjects };

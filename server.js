@@ -4,6 +4,20 @@ const app = express();
 import dotenv from "dotenv";
 dotenv.config();
 
+// set up mutler for storing uploaded files
+// import multer from 'mutler'
+
+// let storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//       cb(null, 'uploads')
+//   },
+//   filename: (req, file, cb) => {
+//       cb(null, file.fieldname + '-' + Date.now())
+//   }
+// });
+
+// let upload = multer({ storage: storage });
+
 // db and authenticate user
 import connectDB from "./db/connect.js";
 
