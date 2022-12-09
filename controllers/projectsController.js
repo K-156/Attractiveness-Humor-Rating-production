@@ -13,7 +13,11 @@ const createProject = async (req, res) => {
 };
 
 const getAllProjects = async (req, res) => {
-  const projects = await Project.find({createdBy:req.user.userId})
+  const projects = await Project.find();
+  res.status(StatusCodes.OK).json({
+    projects,
+    totalProjects: projects.length,
+  });
 };
 
 const updateProject = async (req, res) => {
