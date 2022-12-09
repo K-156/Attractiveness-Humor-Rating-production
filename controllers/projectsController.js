@@ -1,10 +1,20 @@
+import Project from "../models/Project.js";
+import { StatusCodes } from "http-status-codes";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
+
 const createProject = async (req, res) => {
-  res.send("create project");
+  const { proj } = req.body;
+  if (!proj) {
+    throw new BadRequestError("Please provide all values");
+  }
+
+  const project = await Project.create(req.body);
+  res.status(StatusCodes.CREATED).json({ project });
 };
 
 const getAllProjects = async (req, res) => {
-    res.send("get all projects");
-  };
+  res.send("get all projects");
+};
 
 const updateProject = async (req, res) => {
   res.send("update project");

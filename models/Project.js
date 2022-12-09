@@ -1,36 +1,36 @@
 import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
-  // name: {
-  //   type: String,
-  //   required: [true, "Please provide name"],
-  // },
-  // description: {
-  //   type: String,
-  //   required: [true, "Please provide description"],
-  // },
-  // attractivenessInstruc: {
-  //   type: String,
-  //   required: [true, "Please provide attractiveness instructions"],
-  // },
-  // audioInstruc: {
-  //   type: String,
-  //   enum: ["withdrawal", "deposit"],
-  //   default: "withdrawal",
-  // },
   proj: [
     {
       name: String,
       description: String,
-      img: Image,
-      attributes: [
-        {
-          field: String,
-          value: String,
-        },
-      ],
+      img: {
+        data: Buffer,
+        contentType: String,
+      },
+      attributes: [{ _id: false, field: String, value: String }],
     },
   ],
+  attractivenessInstruc: {
+    type: String,
+    // required: [true, "Please provide attractiveness instructions"],
+  },
+  audioInstruc: {
+    type: String,
+    // required: [true, "Please provide attractiveness instructions"],
+  },
+  audioRatingInstruc: [],
+  writtenInstruc: {
+    type: String,
+    // required: [true, "Please provide written instructions"],
+  },
+  writtenIntro: [],
+  messageInstruc: {
+    type: String,
+    // required: [true, "Please provide message instructions"],
+  },
+  messageOptions: [],
 });
 
 export default mongoose.model("Projects", ProjectSchema);
