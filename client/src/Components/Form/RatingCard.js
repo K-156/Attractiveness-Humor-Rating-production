@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import { Box, Card, CardContent, FormControl, Typography, TextField } from "@mui/material";
-import _ from "lodash";
 
 const info = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
 "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
@@ -20,9 +19,9 @@ const ItemCard = ({ title, img, id, setRating, isSubmit, rating, setIsSubmit}) =
     const [error, setError] = useState({isEmpty: false, withinRange: false});
     useEffect(() => {
         if (isSubmit && (rating === "" || rating === undefined)) {
-            setError((state) => ({... state, isEmpty: true}))
+            setError((state) => ({...state, isEmpty: true}))
         } else if ( rating < 0 || rating > 9) {
-            setError((state) => ({... state, withinRange: true}))
+            setError((state) => ({...state, withinRange: true}))
         } else {
             setError({isEmpty: false, withinRange: false})
         }

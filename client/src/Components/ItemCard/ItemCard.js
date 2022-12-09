@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
-import _ from "lodash";
 
 import "./ItemCard.css";
 
@@ -9,7 +8,7 @@ const info = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem mag
 "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
 "atque culpa sit iusto quod accusantium "
 
-const ItemCard = ({ title, img, id, candidateCount }) => {
+const ItemCard = ({ title, img, id, candidateCount, }) => {
     
     const navigate = useNavigate();
     const handleOnClick = (event) => {
@@ -21,7 +20,6 @@ const ItemCard = ({ title, img, id, candidateCount }) => {
         })
     }
         
-
     return(
         <Card>
             <CardContent>
@@ -44,8 +42,7 @@ const ItemCard = ({ title, img, id, candidateCount }) => {
                     >
                         View Profile
                     </Button>
-                </Box>
-                
+                    </Box> 
             </CardContent>        
         </Card>
     )

@@ -14,7 +14,7 @@ const Timer = () => {
                 justifyContent="center" 
                 alignItems="center"
                 color="#C59D5F"
-                mb={2}
+                mb={1}
             >
                 <FiClock style={{marginRight:"15px"}}/>{timer}
             </Typography>            
