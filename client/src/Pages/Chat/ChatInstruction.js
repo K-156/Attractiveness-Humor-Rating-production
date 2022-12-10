@@ -7,7 +7,7 @@ import { ReactComponent as ChatboxImage } from "../../Assets/chatbox.svg";
 const instruction="Select ONE message that you would like to send to each candidate." +
                     "There will be TWO candidate"
 
-const Chat = () => {
+const ChatInstruction = () => {
     return(
         <div style={{display:"flex",  flexDirection:"column", alignItems: "center"}} >
             <script>
@@ -22,4 +22,4 @@ const Chat = () => {
     )
 }
 
-export default Chat;
+export default ChatInstruction;

@@ -21,6 +21,8 @@ import AttractiveRate from "./Pages/Attractive/AttractiveRate";
 import Rank from "./Pages/Attractive/Rank";
 import ChatInstruction from "./Pages/Chat/ChatInstruction";
 import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
+import Chat from "./Pages/Chat/Chat";
+
 
 function App() {
   const [open, setOpen] = useState(true);
@@ -87,6 +89,28 @@ function App() {
               }
             />
             <Route path="/chat-instruction" element={<ChatInstruction />} />
+            <Route path='/attractive' element={<AttractiveInstruction />} />
+            <Route path='/chat-instruction' element={<ChatInstruction />} />
+            <Route
+              path="/chat/q1"
+              element={
+                <Chat
+                  key="chatQ1"
+                  title="1"
+                  link="chat/q2"
+                />
+              }
+            />
+             <Route
+              path="/chat/q2"
+              element={
+                <Chat
+                  key="chatQ2"
+                  title="2"
+                  link="complete"
+                />
+              }
+            />
           </Route>
           <Route path="/complete" element={<Complete />} />
 
