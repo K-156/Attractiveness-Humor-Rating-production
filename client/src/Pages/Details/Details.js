@@ -12,29 +12,27 @@ const Details = () => {
     const detailList = ["Name", "Gender", "Age", "Occupation", "Race"]
 
     const [formData, setFormData] = useState({name: "", gender: "", age: "", occupation: "", race: ""});
-    const [error, setError] = useState({name: false, gender: false, age: false, occupation: false, race: false})
+    const [toSubmit, setToSubmit] = useState(false);
+    const [ageError, setAgeError] = useState(false);
 
     const handleOnChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        if (name === "age" && parseInt(value) < 1) {
+            setAgeError(true) 
+            return
+         } else { 
+            setAgeError(false) 
+        }
+
         setFormData((state) => ({
             ...state, 
-            [event.target.name]: event.target.value
+            [name]: value
         }))
-        setError((state) => ({
-            ...state, 
-            [event.target.name]: false
-        }))
-    }
 
-    const handleOnSubmit = () => {
-        let toSubmit = true
-        _.map(Object.keys(formData), (key)=> {
-            if (formData[key] === "") {
-                setError((state) => ({...state, [key]: true}))
-                toSubmit = false
-            }
-        })
-        if (toSubmit) {
-            navigate("/attractive")
+        if (!(Object.values(formData).includes(""))) {
+            setToSubmit(true)
         }
     }
 
@@ -66,8 +64,6 @@ const Details = () => {
                                         value={formData.gender}
                                         onChange={handleOnChange}
                                         sx={{my:1}}
-                                        error={error[detail.toLowerCase()]}
-                                        helperText={error[detail.toLowerCase()] ? "Select your gender" : ""}
                                     >
                                         <MenuItem id="female" value="female">Female</MenuItem>
                                         <MenuItem id="male" value="male">Male</MenuItem>
@@ -83,10 +79,10 @@ const Details = () => {
                                     label={detail}
                                     type={detail==="Age" ? "number" : "text"}
                                     sx={{my:1}}
-                                    InputProps={{ inputProps: { min: 0 } }}
+                                    InputProps={{ inputProps: { min: 1 } }}
                                     onChange={handleOnChange}
-                                    error={error[detail.toLowerCase()]}
-                                    helperText={error[detail.toLowerCase()] ? `Enter your ${detail.toLowerCase()}` : ""}
+                                    error={detail==="Age" ? ageError : false}
+                                    helperText={detail==="Age" && ageError ? "Age must be at least 1" :""}
                                 /> 
                             )
                         })}
@@ -94,9 +90,11 @@ const Details = () => {
                     </FormGroup>
                     </FormControl>
                     <Button
+                        disabled={!toSubmit}
                         type="submit"
-                        sx={{background: "#264653", color:"#FFFFFF", '&:hover': {backgroundColor:"#C59D5F"}, width:"80%", mt:2}}
-                        onClick={handleOnSubmit}
+                        variant="contained"
+                        sx={{background: "#264653", '&:hover': {backgroundColor:"#C59D5F"}, width:"80%", mt:2}}
+                        onClick={() => navigate("/attractive")}
                     > 
                         Submit
                     </Button>

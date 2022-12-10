@@ -18,7 +18,7 @@ const Audio = () => {
             </script>
             <AudioPlayer width="20%" height="0%" style={{margin: "20px"}}/>
             <Instruction text={instruction}/>
-            <Box py={2} px={10} display="flex" justifyContent="flex-end" width="100%">
+            <Box py={2} display="flex" justifyContent="flex-end" width="80%">
                 <NextButton link="audio/q1"/>
             </Box>
         </div>

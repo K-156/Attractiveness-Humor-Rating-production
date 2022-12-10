@@ -19,12 +19,6 @@ const itemName = [{
         img: "Female 4.jpg"
 }]
 
-const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. " +
-            "Consectetur voluptates suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? " +
-            "Perspiciatis commodi nostrum eum facere beatae atque culpa sit iusto quod accusantium " +
-            "laboriosam porro praesentium nobis quam dolorem possimus delectus voluptatibus dicta esse," +
-            " minima unde architecto."
-
 const details = {
         "School":"Singapore Management University",
         "Major":"Information Systems", 

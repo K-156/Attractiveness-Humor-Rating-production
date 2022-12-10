@@ -6,6 +6,7 @@ import _ from "lodash";
 import RatingCard from "../../Components/Form/RatingCard";
 import NextButton from "../../Components/NavButton/NextButton";
 import PrevButton from "../../Components/NavButton/PrevButton";
+import { isValid } from "../../Utils/isValid";
 
 
 const itemName = [{
@@ -26,17 +27,6 @@ const itemName = [{
 const AttractiveRate = () => {
 
     const [rating, setRating] = useState({});
-    const [isSubmit, setIsSubmit]= useState(false);
-
-    const isValid = (rating) => {
-        const entryList = Object.entries(rating)
-        if ("" in entryList || entryList.length === 0) {
-            return false
-        }
-        return true
-    }
-
-    console.log(isValid(rating));
 
     return (
         <div>
@@ -59,9 +49,6 @@ const AttractiveRate = () => {
                             title={item.name} 
                             img={item.img} 
                             setRating={setRating}
-                            isSubmit={isSubmit}
-                            setIsSubmit={setIsSubmit}
-                            rating={rating[index.toString()]}
                         />
                     </Grid>
                 )
@@ -70,11 +57,8 @@ const AttractiveRate = () => {
         <Box display="flex" justifyContent="space-between">
             <PrevButton link="attractive/profile"/>
             <NextButton 
-                setIsSubmit={setIsSubmit}
-                isSubmit={isSubmit}
-                link="audio-instruction"
-                rating={rating}
-                ratingType="attractive"
+                disabled={!isValid(rating, Object.keys(itemName).length)}
+                link="attractive/rank"
             />
         </Box>   
         </div>
