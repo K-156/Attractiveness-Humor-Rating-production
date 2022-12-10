@@ -20,27 +20,22 @@ const UserSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    // required: [true, "Please provide name"],
     trim: true,
   },
   gender: {
     type: String,
-    // required: [true, "Please provide gender"],
     enum: ["Female", "Male"],
   },
   age: {
     type: Number,
-    // required: [true, "Please provide age"],
     trim: true,
   },
   occupation: {
     type: String,
-    // required: [true, "Please provide occupation"],
     trim: true,
   },
   race: {
     type: String,
-    // required: [true, "Please provide race"],
     trim: true,
   },
 });

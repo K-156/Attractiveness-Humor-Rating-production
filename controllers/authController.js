@@ -32,4 +32,26 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user, token });
 };
 
-export { register, login };
+const updateUser = async (req, res) => {
+  const { id: userId } = req.params;
+
+  const { name, gender, age, occupation, race } =
+    req.body;
+  if (!name || !gender || !age || !occupation || !race ) {
+    throw new BadRequestError("Please provide all values");
+  }
+  const user = await User.findOne({ _id: userId }).select("+password");
+
+  user.name = name;
+  user.gender = gender;
+  user.age = age;
+  user.occupation = occupation;
+  user.race = race;
+
+  await user.save();
+  const token = user.createJWT();
+  user.password = undefined;
+  res.status(StatusCodes.OK).json({ user, token });
+};
+
+export { register, login, updateUser };
