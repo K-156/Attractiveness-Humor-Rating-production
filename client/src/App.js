@@ -20,6 +20,7 @@ import AttractiveInstruction from "./Pages/Attractive/AttractiveInstruction";
 import AttractiveRate from "./Pages/Attractive/AttractiveRate";
 import Rank from "./Pages/Attractive/Rank";
 import ChatInstruction from "./Pages/Chat/ChatInstruction";
+import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [open, setOpen] = useState(true);

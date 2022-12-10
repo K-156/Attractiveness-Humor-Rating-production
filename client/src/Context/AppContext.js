@@ -61,7 +61,7 @@ const AppProvider = ({ children }) => {
       value={{
         ...state,
         loginUser,
-        setOpen
+        setOpen,
       }}
     >
       {children}

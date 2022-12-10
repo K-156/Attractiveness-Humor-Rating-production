@@ -24,9 +24,11 @@ const Login = () => {
   const navigate = useNavigate();
   const { loginUser, user } = useAppContext();
 
+  const [isValid, setIsValid] = useState(true);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ email: false, password: false });
   const handleOnChange = (event) => {
+    setIsValid(true);
     setFormData((state) => ({
       ...state,
       [event.target.name]: event.target.value,
@@ -39,7 +41,13 @@ const Login = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    loginUser(formData);
+    loginUser(formData)
+      // if (!user) {
+      //   setIsValid(false)
+      // }
+    // console.log(loginUser(formData))
+    // if (!user) {
+    //   setIsValid(false);
 
     // if (formData.email === "") {
     //   setError((state) => ({ ...state, email: false }));
@@ -55,13 +63,9 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      setTimeout(() => {
-        navigate("/details");
-      }, 3000);
+      navigate("/details");
     }
   }, [user, navigate]);
-
-  const [isValid, setIsValid] = useState(true);
 
   return (
     <div>
@@ -89,38 +93,6 @@ const Login = () => {
               >
                 LOGIN
               </Typography>
-              {/* <form className="form" onSubmit={handleOnSubmit}>
-                <TextField
-                  required
-                  error={error.email}
-                  helperText={error.email ? "Enter your email" : ""}
-                  type="email"
-                  name="email"
-                  label="Email"
-                  sx={{ mb: 4 }}
-                  onChange={handleOnChange}
-                />
-                <TextField
-                  required
-                  error={error.password}
-                  helperText={error.email ? "Enter your password" : ""}
-                  name="password"
-                  label="Password"
-                  type="password"
-                  onChange={handleOnChange}
-                />
-                <Button
-                  type="submit"
-                  sx={{
-                    background: "#264653",
-                    color: "#FFFFFF",
-                    "&:hover": { backgroundColor: "#C59D5F" },
-                  }}
-                  // onClick={handleOnSubmit}
-                >
-                  Submit
-                </Button>
-              </form> */}
               <FormControl sx={{ width: "80%", my: 2 }}>
                 <FormGroup>
                   <TextField

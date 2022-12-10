@@ -18,6 +18,7 @@ const reducer = (state, action) => {
   if (action.type === LOGIN_USER_ERROR) {
     return {
       ...state,
+      isValid:false,
     };
   }
   throw new Error(`no such action: ${action.type}`);
