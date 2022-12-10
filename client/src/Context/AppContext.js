@@ -3,9 +3,9 @@ import reducer from "./reducer";
 import axios from "axios";
 
 import {
-  SETUP_USER_BEGIN,
-  SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR,
+  LOGIN_USER_BEGIN,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -14,9 +14,10 @@ const user = localStorage.getItem("user");
 const initialState = {
   user: user ? JSON.parse(user) : null,
   token,
+  open:false,
 };
 
-export const AppContext = createContext({});
+const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -29,22 +30,27 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
   };
-  const setupUser = async ({ currentUser, endPoint }) => {
-    dispatch({ type: SETUP_USER_BEGIN });
+
+  const setOpen = () => {
+    return !state.open
+  }
+
+  const loginUser = async (currentUser) => {
+    dispatch({ type: LOGIN_USER_BEGIN });
     try {
       const { data } = await axios.post(
-        `/api/v1/auth/${endPoint}`,
+        `/api/v1/auth/login`,
         currentUser
       );
       const { user, token } = data;
       dispatch({
-        type: SETUP_USER_SUCCESS,
+        type: LOGIN_USER_SUCCESS,
         payload: { user, token },
       });
       addUserToLocalStorage({ user, token });
     } catch (error) {
       dispatch({
-        type: SETUP_USER_ERROR,
+        type: LOGIN_USER_ERROR,
         payload: { msg: error.response.data.msg },
       });
     }
@@ -54,9 +60,8 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...state,
-        addUserToLocalStorage,
-        removeUserFromLocalStorage,
-        setupUser
+        loginUser,
+        setOpen
       }}
     >
       {children}
@@ -68,4 +73,4 @@ const useAppContext = () => {
   return useContext(AppContext);
 };
 
-export { AppProvider, useAppContext };
+export { AppProvider, useAppContext, AppContext, initialState };

@@ -4,7 +4,8 @@ const app = express();
 import dotenv from "dotenv";
 dotenv.config();
 
-import 'express-async-errors'
+import "express-async-errors";
+import morgan from "morgan";
 
 // set up mutler for storing uploaded files
 // import multer from 'mutler'
@@ -25,19 +26,22 @@ import connectDB from "./db/connect.js";
 
 // routers
 import authRouter from "./routes/authRoutes.js";
-import projectsRouter from './routes/projectsRoutes.js'
+import projectsRouter from "./routes/projectsRoutes.js";
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Welcome");
 });
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/projects", projectsRouter)
+app.use("/api/v1/projects", projectsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

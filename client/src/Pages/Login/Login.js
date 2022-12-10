@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../Context/AppContext";
+import { useAppContext } from "../../Context/AppContext";
 
 import {
   Alert,
@@ -18,10 +18,11 @@ import {
 import PrevButton from "../../Components/NavButton/PrevButton";
 import { ReactComponent as LoginImage } from "../../Assets/login.svg";
 import "./Login.css";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setupUser } = useAppContext();
+  const { loginUser, user } = useAppContext();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ email: false, password: false });
@@ -36,20 +37,29 @@ const Login = () => {
     }));
   };
 
-  console.log(formData);
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    loginUser(formData);
 
-  const handleOnSubmit = () => {
-    if (formData.email === "") {
-      setError((state) => ({ ...state, email: false }));
-    }
-    if (formData.password === "") {
-      setError((state) => ({ ...state, password: false }));
-    }
-    setupUser({ formData, endPoint: "login" });
-    sessionStorage.getItem("role") === "admin"
-      ? navigate("/overview")
-      : navigate("/details");
+    // if (formData.email === "") {
+    //   setError((state) => ({ ...state, email: false }));
+    // }
+    // if (formData.password === "") {
+    //   setError((state) => ({ ...state, password: false }));
+    // }
+
+    // sessionStorage.getItem("role") === "admin"
+    //   ? navigate("/overview")
+    //   : navigate("/details");
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/details");
+      }, 3000);
+    }
+  }, [user, navigate]);
 
   const [isValid, setIsValid] = useState(true);
 
@@ -79,6 +89,38 @@ const Login = () => {
               >
                 LOGIN
               </Typography>
+              {/* <form className="form" onSubmit={handleOnSubmit}>
+                <TextField
+                  required
+                  error={error.email}
+                  helperText={error.email ? "Enter your email" : ""}
+                  type="email"
+                  name="email"
+                  label="Email"
+                  sx={{ mb: 4 }}
+                  onChange={handleOnChange}
+                />
+                <TextField
+                  required
+                  error={error.password}
+                  helperText={error.email ? "Enter your password" : ""}
+                  name="password"
+                  label="Password"
+                  type="password"
+                  onChange={handleOnChange}
+                />
+                <Button
+                  type="submit"
+                  sx={{
+                    background: "#264653",
+                    color: "#FFFFFF",
+                    "&:hover": { backgroundColor: "#C59D5F" },
+                  }}
+                  // onClick={handleOnSubmit}
+                >
+                  Submit
+                </Button>
+              </form> */}
               <FormControl sx={{ width: "80%", my: 2 }}>
                 <FormGroup>
                   <TextField
