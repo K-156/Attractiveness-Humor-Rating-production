@@ -7,8 +7,7 @@ const ProjectSchema = new mongoose.Schema({
       description: String,
       img: {
         // need include image and audio uploads
-        data: Buffer,
-        contentType: String,
+        type:String
       },
       attributes: [{ _id: false, field: String, value: String }],
     },
