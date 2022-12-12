@@ -1,17 +1,16 @@
-import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 import Hamburger from "../Components/NavBar/Hamburger";
 import NavBar from "../Components/NavBar/NavBar";
-import { AppContext } from "../Context/AppContext";
+import { useAppContext } from "../Context/AppContext";
 
 const DashboardLayout = () => {
 
-    const {open, setOpen} = useContext(AppContext);
+    const {open} = useAppContext();
 
     return(
         <>
-        { !open ? <Hamburger open={open} setOpen={setOpen} /> : <NavBar/> }   
+        { !open ? <Hamburger /> : <NavBar/> }   
         <Outlet />
         </>    
     )

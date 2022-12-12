@@ -9,6 +9,7 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
+  SET_OPEN_NAVBAR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -35,7 +36,10 @@ const AppProvider = ({ children }) => {
   };
 
   const setOpen = () => {
-    return !state.open;
+    dispatch({
+      type: SET_OPEN_NAVBAR, 
+      payload: !state.open
+    });
   };
 
   const loginUser = async (currentUser) => {

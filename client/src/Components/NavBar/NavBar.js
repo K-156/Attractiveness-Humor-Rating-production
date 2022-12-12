@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Box, Button, Typography } from "@mui/material";
@@ -8,12 +8,15 @@ import { FiLogOut } from "react-icons/fi";
 
 import "./NavBar.css";
 import Hamburger from "./Hamburger";
-import { AppContext } from "../../Context/AppContext";
+import { useAppContext } from "../../Context/AppContext";
 
 const NavBar = () => {
 
     const navigate = useNavigate();
-    const {open, setOpen} = useContext(AppContext);
+    const { open } = useAppContext();
+    console.log(open)
+    // const [open, setOpen] = useState(true);
+
     const [tab, setTab] = useState("overview");
 
     const handleOnClick = (route) => {
@@ -24,7 +27,7 @@ const NavBar = () => {
     return (
     <>
     <div id="NavBar">
-        <Hamburger open={open} setOpen={setOpen} /> 
+        <Hamburger /> 
         <Box mt={13}>
             <Button 
                 className="navBarButton"
