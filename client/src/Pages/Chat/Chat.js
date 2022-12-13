@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import ChatTemplate from "../../Components/Chatbox/ChatTemplate";
 import NextButton from "../../Components/NavButton/NextButton";
 import PrevButton from "../../Components/NavButton/PrevButton";
-
+import Instruction from "../../Components/Instruction/Instruction";
 
 const Chat = ({title, link}) => {
 
@@ -13,6 +13,9 @@ const Chat = ({title, link}) => {
 
     return(
         <div>
+            <Box ml={5} mb={2}>
+            <Instruction type="chat"/>
+            </Box>
             <ChatTemplate 
                 selectMessage={selectMessage}
                 setSelectMessage={setSelectMessage}

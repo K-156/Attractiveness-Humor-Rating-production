@@ -58,6 +58,7 @@ const Rank = () => {
             <script>
                 {document.title="Profile Rating"}
             </script>
+            <Instruction type="rank" />
             <DndContext
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
@@ -65,7 +66,6 @@ const Rank = () => {
             >
             <Grid container spacing={1} py={2}>
                 <Grid item xs={12}>
-                    <Instruction text={instruction}/>
                 </Grid>
                 <SortableContext
                     items={Object.keys(itemName)}

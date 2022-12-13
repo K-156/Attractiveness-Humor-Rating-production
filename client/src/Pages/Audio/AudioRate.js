@@ -7,6 +7,7 @@ import NextButton from "../../Components/NavButton/NextButton";
 import AudioForm from "../../Components/Form/AudioForm";
 import { isValid } from "../../Utils/isValid";
 import IntroMessage from "../../Components/Message/IntroMessage";
+import Instruction from "../../Components/Instruction/Instruction";
 
 const ques = {
     "q1" : "How funny (humorous) am I?", 
@@ -31,6 +32,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             <script>
                 {document.title= isWritten ? `Introduction ${title}` : `Audio ${title}`}
             </script>
+            <Instruction type={isWritten ? "intro" : "audio"} />
             <Grid container className="center" gap={2}>
                 <Grid item xs={4} px={4}> 
                     <Box display="flex" justifyContent="center" height="200px" py={2}>

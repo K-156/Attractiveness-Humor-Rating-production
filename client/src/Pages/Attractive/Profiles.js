@@ -4,6 +4,7 @@ import _ from "lodash";
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import NextButton from "../../Components/NavButton/NextButton";
 import PrevButton from "../../Components/NavButton/PrevButton";
+import Instruction from "../../Components/Instruction/Instruction";
 
 
 const itemName = [{
@@ -28,7 +29,7 @@ const Profiles = () => {
         <script>
             {document.title="Attractiveness"}
         </script>
-
+        <Instruction type="attractive" />
         <Grid container spacing={1} py={2}> 
             {_.map(itemName, (item, index) => {
                 return(

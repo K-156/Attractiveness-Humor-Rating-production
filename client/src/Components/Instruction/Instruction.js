@@ -1,22 +1,38 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 
-const Instruction = ({text}) => {
+const Instruction = ({ type }) => {
+
+    const text = sessionStorage.getItem(type);
+
     return(
-        <Card sx={{background: "#264653", color:"#FFFFFF", mx: 10, width:"80%" }}>
-            <CardContent>
-                <Box display="flex" justifyContent="center">
-                    <Typography variant="subtitle1" fontWeight="bold">Instruction</Typography>
-                </Box>
-                <Box 
-                    display="flex" 
-                    justifyContent="center" 
-                    textAlign="center"
-                    pt={1.5}
+        <div display="flex" justifycontent="flex-start">
+            <Tooltip 
+                title={text}
+                placement="bottom-start"
+                slotProps= {{
+                    tooltip: {
+                        sx: {
+                            backgroundColor: "#D7E5EB", 
+                            color: "#264653", 
+                            p: 2, 
+                            border: "solid 1px #264653", 
+                            fontSize: "12px", 
+                            textAlign: "center", 
+                            maxWidth: 800, 
+                            whiteSpace: "pre-line"
+                        }
+                    }
+                }}                
+            >
+                <Button
+                    variant="contained"
+                    sx={{background: "#264653", textTransform: "none", '&:hover': {backgroundColor:"#264653"}}}            
                 >
-                    <Typography variant="subtitle2">{text}</Typography>
-                </Box>
-            </CardContent>
-        </Card>
+                    Instruction
+                </Button>
+            </Tooltip>
+        </div>
+        
     )
 }
 
