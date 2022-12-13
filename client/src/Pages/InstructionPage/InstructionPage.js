@@ -9,7 +9,7 @@ const instruction = {
     "rank": "Drag and drop the candidates to rank them, with the most interested candidate on the left.", 
     "audio": "Two of the candidates that you have ranked as your first and last choice have uploaded their audio introduction. Please answer the questions by rating between 1 to 9. (1 - not very, 9 - extremely)",
     "intro": "Two of the candidates that you have ranked as your first and last choice have written self-introductions. Please answer the questions by rating between 1 to 9. (1 - not very, 9 - extremely)",
-    "chat": "Select one message that you would like to send to your first and last choice candidate"
+    "prewritten": "Select one message that you would like to send to your first and last choice candidate"
 }
 
 const InstructionPage = ( { type, link } ) => {
@@ -18,12 +18,13 @@ const InstructionPage = ( { type, link } ) => {
 
     
     return(
-        <div style={{display:"flex",  flexDirection:"column", alignItems: "center"}} >
+        <div 
+            className="backgroundImage" 
+            style={{display:"flex",  flexDirection:"column", alignItems: "center"}} 
+        >
             <script>
                 {document.title="Instruction"}
             </script>
-            <Box className="backgroundImage" />
-
             <Box className="instruction">
                 <InstructionImage width="20%" height="0%" style={{margin: "20px"}}/>
                 <Card sx={{background: "#264653", color:"#FFFFFF", mx: 30, width:"80%" }}>
