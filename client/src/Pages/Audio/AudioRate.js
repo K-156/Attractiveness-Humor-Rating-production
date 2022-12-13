@@ -9,15 +9,15 @@ import { isValid } from "../../Utils/isValid";
 import IntroMessage from "../../Components/Message/IntroMessage";
 import Instruction from "../../Components/Instruction/Instruction";
 
-const ques = {
-    "q1" : "How funny (humorous) am I?", 
-    "q2" : "Do I have a good sense of humor?", 
-    "q3" : "How emotionally express am I?", 
-    "q4" : "Would I be a warm person to others?", 
-    "q5" : "Do I seem intelligent?", 
-    "q6" : "Do I seem hardworking?", 
-    "q7" : "How interested are you in me?", 
-}
+// const ques = {
+//     "q1" : "How funny (humorous) am I?", 
+//     "q2" : "Do I have a good sense of humor?", 
+//     "q3" : "How emotionally express am I?", 
+//     "q4" : "Would I be a warm person to others?", 
+//     "q5" : "Do I seem intelligent?", 
+//     "q6" : "Do I seem hardworking?", 
+//     "q7" : "How interested are you in me?", 
+// }
 
 const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
 "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
@@ -26,6 +26,8 @@ const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem mag
 const AudioRate = ({ title, link, isWritten }) => {
 
     const [rating, setRating] = useState({});
+
+    const data = JSON.parse(localStorage.getItem("data"));
 
     return(
         <div>
@@ -48,7 +50,7 @@ const AudioRate = ({ title, link, isWritten }) => {
                 </Grid>
                 <Grid item xs={7} px={4}> 
                     <AudioForm 
-                        ques={ques}
+                        ques={data.audioRatingInstruc}
                         setRating={setRating}
                         isWritten={isWritten}
                     />
@@ -59,7 +61,7 @@ const AudioRate = ({ title, link, isWritten }) => {
                         : <Box></Box>
                     }
                     <NextButton 
-                        disabled={!(isValid(rating, Object.keys(ques).length))}
+                        disabled={!(isValid(rating, Object.keys(data.audioRatingInstruc).length))}
                         link={link}
                     />
                 </Grid>
