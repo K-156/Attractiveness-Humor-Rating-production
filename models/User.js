@@ -18,10 +18,6 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     // select:false,
   },
-  name: {
-    type: String,
-    trim: true,
-  },
   gender: {
     type: String,
     enum: ["female", "male"],
@@ -30,17 +26,14 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     trim: true,
   },
-  occupation: {
-    type: String,
-    trim: true,
-  },
-  race: {
+  ethnicity: {
     type: String,
     trim: true,
   },
 });
 
 UserSchema.pre("save", async function () {
+  if (!this.isModified('password')) return
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });

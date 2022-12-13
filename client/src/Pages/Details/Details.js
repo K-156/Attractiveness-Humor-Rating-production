@@ -18,14 +18,12 @@ const Details = () => {
   const navigate = useNavigate();
   const { updateUser, user } = useAppContext();
 
-  const detailList = ["Name", "Gender", "Age", "Occupation", "Race"];
+  const detailList = ["Gender", "Age", "Ethnicity"];
 
   const [formData, setFormData] = useState({
-    name: "",
     gender: "",
     age: "",
-    occupation: "",
-    race: "",
+    ethnicity: "",
   });
   const [toSubmit, setToSubmit] = useState(false);
   const [ageError, setAgeError] = useState(false);

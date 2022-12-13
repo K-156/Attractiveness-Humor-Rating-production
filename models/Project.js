@@ -29,6 +29,7 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
   },
   messageOptions: [],
+  audio:[],
 });
 
 export default mongoose.model("Projects", ProjectSchema);

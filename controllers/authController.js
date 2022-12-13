@@ -18,39 +18,36 @@ const login = async (req, res) => {
   if (!email || !password) {
     throw new BadRequestError("Please provide all values");
   }
-  const user = await User.findOne({ email })
-  //.select("+password");
+  const user = await User.findOne({ email }).select("+password");
   if (!user) {
-    throw new UnAuthenticatedError("Invalid Credentials");
+    throw new UnAuthenticatedError("User does not exist");
   }
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
     throw new UnAuthenticatedError("Invalid Credentials");
   }
   const token = user.createJWT();
-  user.password = undefined;
+  // user.password = undefined;
   res.status(StatusCodes.OK).json({ user, token });
 };
 
 const updateUser = async (req, res) => {
   const { id: userId } = req.params;
-
-  const { name, gender, age, occupation, race } =
+  const { gender, age, ethnicity } =
     req.body;
-  if (!name || !gender || !age || !occupation || !race ) {
+  if (!gender || !age ||  !ethnicity ) {
     throw new BadRequestError("Please provide all values");
   }
   const user = await User.findOne({ _id: userId }).select("+password");
 
-  user.name = name;
   user.gender = gender;
   user.age = age;
-  user.occupation = occupation;
-  user.race = race;
+  user.ethnicity = ethnicity;
 
   await user.save();
+  console.log(user)
   const token = user.createJWT();
-  user.password = undefined;
+  // user.password = undefined;
   res.status(StatusCodes.OK).json({ user, token });
 };
 

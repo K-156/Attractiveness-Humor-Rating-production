@@ -28,6 +28,7 @@ const AudioRate = ({ title, link, isWritten }) => {
     const [rating, setRating] = useState({});
 
     const data = JSON.parse(localStorage.getItem("data"));
+    console.log(data.audio)
 
     return(
         <div>
@@ -43,7 +44,7 @@ const AudioRate = ({ title, link, isWritten }) => {
                     { isWritten ? <IntroMessage text={text}/>
                       : <audio
                             controls
-                            // src=" ../..Assets/Audio/test.mp3" 
+                            src={data.audio}
                             preload="auto"
                         />
                     }
