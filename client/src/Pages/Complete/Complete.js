@@ -1,8 +1,15 @@
+import { useAppContext } from "../../Context/AppContext";
+import { useEffect } from "react";
+
 import { Box, Card, CardContent, Typography} from "@mui/material";
 import { ReactComponent as General } from "../../Assets/general.svg";
 
 const Complete = () => {
+    const {removeUserFromLocalStorage} = useAppContext();
 
+    useEffect(() => {
+        removeUserFromLocalStorage()
+    },[])
     sessionStorage.clear();
 
     return (

@@ -36,6 +36,7 @@ const AppProvider = ({ children }) => {
   const removeUserFromLocalStorage = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("data");
   };
 
   const setOpen = () => {
@@ -111,6 +112,7 @@ const AppProvider = ({ children }) => {
         setOpen,
         updateUser,
         getProject,
+        removeUserFromLocalStorage,
       }}
     >
       {children}
