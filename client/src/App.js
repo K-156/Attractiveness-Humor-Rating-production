@@ -62,7 +62,7 @@ function App() {
                 path="/intro/q2"
                 element={ <AudioRate key="writtenQ2" title="2" link="chat-instruction" isWritten={true} /> }
               />
-            <Route path="/chat-instruction" element={<InstructionPage key="chat" type="chat" link="chat/q1"/>} />
+            <Route path="/chat-instruction" element={<InstructionPage key="chat" type="prewritten" link="chat/q1"/>} />
               <Route path="/chat/q1" element={<Chat key="chatQ1" title="1" link="chat/q2"/> }/>
               <Route path="/chat/q2" element={<Chat key="chatQ2" title="2" link="complete" />}/>
           </Route>

@@ -11,10 +11,13 @@ const Chat = ({title, link}) => {
 
     const [selectMessage, setSelectMessage] = useState(null);
 
+    const data = JSON.parse(localStorage.getItem("data"));
+    console.log(data)
+
     return(
         <div>
             <Box ml={5} mb={2}>
-            <Instruction type="chat"/>
+            <Instruction type="prewritten"/>
             </Box>
             <ChatTemplate 
                 selectMessage={selectMessage}

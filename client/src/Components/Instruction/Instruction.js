@@ -2,12 +2,13 @@ import { Button, Tooltip } from "@mui/material";
 
 const Instruction = ({ type }) => {
 
-    const text = sessionStorage.getItem(type);
+    // const text = sessionStorage.getItem(type);
+    const data = JSON.parse(localStorage.getItem("data"));
 
     return(
         <div display="flex" justifycontent="flex-start">
             <Tooltip 
-                title={text}
+                title={data[`${type}Instruc`]}
                 placement="bottom-start"
                 slotProps= {{
                     tooltip: {
