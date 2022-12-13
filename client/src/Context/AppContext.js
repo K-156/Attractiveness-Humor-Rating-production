@@ -10,6 +10,9 @@ import {
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
   SET_OPEN_NAVBAR,
+  GET_PROJECT_BEGIN,
+  GET_PROJECT_ERROR,
+  GET_PROJECT_SUCCESS,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -81,6 +84,23 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const getProject = async (projectId) => {
+    dispatch({ type: GET_PROJECT_BEGIN });
+    try {
+      const { data } = await axios.get(`/api/v1/projects/${projectId}`);
+      dispatch({
+        type: GET_PROJECT_SUCCESS,
+        payload: data,
+      });
+      localStorage.setItem("data", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: GET_PROJECT_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -88,6 +108,7 @@ const AppProvider = ({ children }) => {
         loginUser,
         setOpen,
         updateUser,
+        getProject
       }}
     >
       {children}

@@ -30,7 +30,7 @@ const uploads = async (req, res) => {
     resource_type:'auto',
   });
   fs.unlinkSync(req.files.resource.tempFilePath);
-  return res.status(StatusCodes.OK).json({ img: { src: result.secure_url } });
+  return res.status(StatusCodes.OK).json({ resource: { src: result.secure_url } });
 };
 
 export { uploads };

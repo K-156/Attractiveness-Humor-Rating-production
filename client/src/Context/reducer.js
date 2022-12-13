@@ -5,6 +5,9 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
+  GET_PROJECT_SUCCESS,
+  GET_PROJECT_BEGIN,
+  GET_PROJECT_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -38,6 +41,20 @@ const reducer = (state, action) => {
     return {
       ...state,
       isValid:false,
+    };
+  }
+  if (action.type === GET_PROJECT_BEGIN) {
+    return { ...state };
+  }
+  if (action.type === GET_PROJECT_SUCCESS) {
+    return {
+      ...state,
+      data: action.payload.data,
+    };
+  }
+  if (action.type === GET_PROJECT_ERROR) {
+    return {
+      ...state,
     };
   }
   throw new Error(`no such action: ${action.type}`);
