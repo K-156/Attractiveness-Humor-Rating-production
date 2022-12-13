@@ -30,7 +30,7 @@ const ItemCard = ({ title, img, id, candidateCount, description}) => {
                         alt="profile" 
                     />
                 </Box>
-                <Typography variant="subtitle2" textAlign="center" my={2}>{description}</Typography>
+                <Typography variant="subtitle2" textAlign="center" my={2} height="260px">{description}</Typography>
                 <Box display="flex" justifyContent="center">
                     <Button
                         onClick={handleOnClick}
