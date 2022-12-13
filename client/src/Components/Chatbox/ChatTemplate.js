@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Box, Card, CardContent, CardHeader } from "@mui/material";
 
 import ChatHeader from "./ChatHeader";

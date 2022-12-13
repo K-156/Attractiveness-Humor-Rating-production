@@ -3,14 +3,15 @@ import _ from "lodash";
 
 import "./Chatbox.css";
 
-const msg = ["Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est", "omo", "jinjja"]
+// const msg = ["Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est", "omo", "jinjja"]
 
 const Messages = ({ setSelectMessage }) => {
-    
+
+    const data = JSON.parse(localStorage.getItem("data"));
 
     return(
         <Box id="MessageOptions" height="120px">
-            {_.map(msg, (text) => {
+            {_.map(data.messageOptions, (text) => {
                     return(
                         <Button
                             key={text}

@@ -1,10 +1,9 @@
-import { useState } from "react";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { CssBaseline } from "@mui/material";
 
 import "./index.css";
-import { AppContext } from "./Context/AppContext";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Profiles from "./Pages/Attractive/Profiles";
@@ -17,19 +16,17 @@ import SurveyLayout from "./Layout/SurveyLayout";
 import Details from "./Pages/Details/Details";
 import AttractiveRate from "./Pages/Attractive/AttractiveRate";
 import Rank from "./Pages/Attractive/Rank";
-import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
+// import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
 import Chat from "./Pages/Chat/Chat";
 import AllProjects from "./Pages/Project/AllProjects";
 import InstructionPage from "./Pages/InstructionPage/InstructionPage";
 
 
 function App() {
-  const [open, setOpen] = useState(true);
 
   return (
     <div id="app">
       <CssBaseline />
-      {/* <AppContext.Provider value={{ open, setOpen }}> */}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -80,7 +77,6 @@ function App() {
           </Route>
         </Routes>
       </Router>
-      {/* </AppContext.Provider> */}
     </div>
   );
 }
