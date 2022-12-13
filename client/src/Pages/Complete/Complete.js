@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Typography} from "@mui/material";
-import { ReactComponent as CompleteSurvey } from "../../Assets/complete-survey.svg";
+import { ReactComponent as General } from "../../Assets/general.svg";
 
 const Complete = () => {
 
@@ -10,7 +10,7 @@ const Complete = () => {
         <script>
             {document.title="Thank you"}
         </script>
-        <CompleteSurvey width="20%" height="0%" style={{margin: "50px 20px 20px 20px"}}/>
+        <General width="20%" height="0%" style={{margin: "50px 20px 20px 20px"}}/>
         <Card sx={{background: "#264653", color:"#FFFFFF" }} >
             <CardContent>
                 <Box 

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/K-156/Attractiveness-Humor-Rating#readme",
   "dependencies": {
+    "@mui/x-data-grid": "^5.17.14",
     "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.32.0",

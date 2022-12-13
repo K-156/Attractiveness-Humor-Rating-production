@@ -12,7 +12,6 @@ const Instruction = ({text}) => {
                     justifyContent="center" 
                     textAlign="center"
                     pt={1.5}
-                    // px={1}
                 >
                     <Typography variant="subtitle2">{text}</Typography>
                 </Box>

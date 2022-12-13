@@ -136,7 +136,7 @@ const Details = () => {
               width: "80%",
               mt: 2,
             }}
-            // onClick={() => navigate("/attractive")}
+            // onClick={() => navigate("/attractive-instruction")}
             onClick={handleOnSubmit}
           >
             Submit

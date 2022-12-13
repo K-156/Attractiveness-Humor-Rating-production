@@ -22,6 +22,8 @@ import Rank from "./Pages/Attractive/Rank";
 import ChatInstruction from "./Pages/Chat/ChatInstruction";
 import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
 import Chat from "./Pages/Chat/Chat";
+import AllProjects from "./Pages/Project/AllProjects";
+import InstructionPage from "./Pages/Instruction/Instruction";
 
 
 function App() {
@@ -36,89 +38,48 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/details" element={<Details />} />
+
+          {/* Survey */}
           <Route element={<SurveyLayout />}>
-            <Route path="/attractive" element={<AttractiveInstruction />} />
+            <Route path="/attractive-instruction" element={<InstructionPage key="attractive" link="attractive/profile"/>} />
             <Route path="/attractive/profile" element={<Profiles />} />
             <Route path="/attractive/profile/:id" element={<Description />} />
             <Route path="/attractive/rate" element={<AttractiveRate />} />
-            <Route path="/attractive/rank" element={<Rank />} />
-            <Route path="/audio-instruction" element={<Audio />} />
-            <Route
-              path="/audio/q1"
-              element={
-                <AudioRate
-                  key="audioQ1"
-                  title="1"
-                  link="audio/q2"
-                  isWritten={false}
-                />
-              }
-            />
-            <Route
-              path="/audio/q2"
-              element={
-                <AudioRate
-                  key="audioQ2"
-                  title="2"
-                  link="chat-instruction"
-                  isWritten={false}
-                />
-              }
-            />
-            <Route path="/intro-instruction" element={<Audio />} />
-            <Route
-              path="/intro/q1"
-              element={
-                <AudioRate
-                  key="writtenQ1"
-                  title="1"
-                  link="intro/q2"
-                  isWritten={true}
-                />
-              }
-            />
-            <Route
-              path="/intro/q2"
-              element={
-                <AudioRate
-                  key="writtenQ2"
-                  title="2"
-                  link="chat-instruction"
-                  isWritten={true}
-                />
-              }
-            />
-            <Route path="/chat-instruction" element={<ChatInstruction />} />
-            <Route path='/attractive' element={<AttractiveInstruction />} />
-            <Route path='/chat-instruction' element={<ChatInstruction />} />
-            <Route
-              path="/chat/q1"
-              element={
-                <Chat
-                  key="chatQ1"
-                  title="1"
-                  link="chat/q2"
-                />
-              }
-            />
-             <Route
-              path="/chat/q2"
-              element={
-                <Chat
-                  key="chatQ2"
-                  title="2"
-                  link="complete"
-                />
-              }
-            />
+            <Route path="/rank-instruction" element={<InstructionPage key="rank" link="rank"/>} />
+              <Route path="/attractive/rank" element={<Rank />} />
+            <Route path="/audio-instruction" element={<InstructionPage key="audio" link="audio/q1"/>} />
+              <Route
+                path="/audio/q1"
+                element={<AudioRate key="audioQ1" title="1" link="audio/q2" isWritten={false} /> }
+              />
+              <Route
+                path="/audio/q2"
+                element={ <AudioRate key="audioQ2" title="2" link="chat-instruction" isWritten={false} /> }
+              />
+            <Route path="/intro-instruction" element={<InstructionPage key="intro" link="intro/q1"/>} />
+              <Route
+                path="/intro/q1"
+                element={ <AudioRate key="writtenQ1" title="1" link="intro/q2" isWritten={true} /> }
+              />
+              <Route
+                path="/intro/q2"
+                element={ <AudioRate key="writtenQ2" title="2" link="chat-instruction" isWritten={true} /> }
+              />
+            <Route path="/chat-instruction" element={<InstructionPage key="chat" link="chat/q1"/>} />
+              <Route path="/chat/q1" element={<Chat key="chatQ1" title="1" link="chat/q2"/> }/>
+              <Route path="/chat/q2" element={<Chat key="chatQ2" title="2" link="complete" />}/>
           </Route>
           <Route path="/complete" element={<Complete />} />
 
+          {/* Admin */}
           <Route element={<DashboardLayout />}>
             <Route path="/overview" element={<Overview />} />
+            <Route path="/allprojects" element={<AllProjects />} />
 
-            {/* FOR TESTING */}
-            <Route path="/test" element={<Overview />} />
+
+
+
+
           </Route>
         </Routes>
       </Router>
