@@ -6,29 +6,27 @@ const ProjectSchema = new mongoose.Schema({
       name: String,
       description: String,
       img: {
-        // need include image and audio uploads
-        type:String
+        type: String,
       },
       attributes: [{ _id: false, field: String, value: String }],
     },
   ],
-  attractivenessInstruc: {
+  attractiveInstruc: {
     type: String,
-    // required: [true, "Please provide attractiveness instructions"],
   },
   audioInstruc: {
     type: String,
-    // required: [true, "Please provide attractiveness instructions"],
+  },
+  rankInstruc: {
+    type: String,
   },
   audioRatingInstruc: [],
-  writtenInstruc: {
+  introInstruc: {
     type: String,
-    // required: [true, "Please provide written instructions"],
   },
   writtenIntro: [],
-  messageInstruc: {
+  prewrittenInstruc: {
     type: String,
-    // required: [true, "Please provide message instructions"],
   },
   messageOptions: [],
 });

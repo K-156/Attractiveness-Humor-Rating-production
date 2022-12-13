@@ -84,6 +84,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  // should get project at landing page (login)
   const getProject = async (projectId) => {
     dispatch({ type: GET_PROJECT_BEGIN });
     try {
