@@ -10,25 +10,27 @@ import { isValid } from "../../Utils/isValid";
 import Instruction from "../../Components/Instruction/Instruction";
 
 
-const itemName = [{
-    name: "Candidate 1", 
-    img: "Female 1.jpg"
-}, {
-    name: "Candidate 2", 
-    img: "Female 2.jpg"
-}, {
-    name: "Candidate 3", 
-    img: "Female 3.jpg"
-}, {
-    name: "Candidate 4", 
-    img: "Female 4.jpg"
-}
-]
+// const itemName = [{
+//     name: "Candidate 1", 
+//     img: "Female 1.jpg"
+// }, {
+//     name: "Candidate 2", 
+//     img: "Female 2.jpg"
+// }, {
+//     name: "Candidate 3", 
+//     img: "Female 3.jpg"
+// }, {
+//     name: "Candidate 4", 
+//     img: "Female 4.jpg"
+// }
+// ]
 
 
 const AttractiveRate = () => {
 
     const [rating, setRating] = useState({});
+
+    const data = JSON.parse(localStorage.getItem("data"));
 
     return (
         <div>
@@ -37,13 +39,14 @@ const AttractiveRate = () => {
             </script>
             <Instruction type="attractive"/>
             <Grid container spacing={1} py={2}> 
-            {_.map(itemName, (item, index) => {
+            {_.map(data.proj, (item, index) => {
                 return(
                     <Grid item key={item.name} xs={3}> 
                         <RatingCard   
                             id={index}
                             title={item.name} 
                             img={item.img} 
+                            description={item.description}
                             setRating={setRating}
                         />
                     </Grid>
@@ -53,8 +56,8 @@ const AttractiveRate = () => {
         <Box display="flex" justifyContent="space-between">
             <PrevButton link="attractive/profile"/>
             <NextButton 
-                disabled={!isValid(rating, Object.keys(itemName).length)}
-                link="attractive/rank"
+                disabled={!isValid(rating, Object.keys(data.proj).length)}
+                link="rank-instruction"
             />
         </Box>   
         </div>

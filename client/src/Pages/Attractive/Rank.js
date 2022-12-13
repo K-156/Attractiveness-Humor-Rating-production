@@ -34,6 +34,9 @@ const Rank = () => {
     const [itemName, setItemName] = useState(allItems)
     const [isSelect, setIsSelect] = useState({})
 
+    const data = JSON.parse(localStorage.getItem("data"));
+    console.log(data)
+
     const handleDragEnd = (event) => {
         const {active, over} = event;
         if (active.id !== over.id) {

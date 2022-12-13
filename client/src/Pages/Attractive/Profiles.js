@@ -42,7 +42,7 @@ const Profiles = () => {
       <script>{(document.title = "Attractiveness")}</script>
       <Instruction type="attractive" />
       <Grid container spacing={1} py={2}>
-        {_.map(data.project.proj, (item, index) => {
+        {_.map(data.proj, (item, index) => {
           return (
             <Grid item key={index} xs={3}>
               <ItemCard
@@ -50,14 +50,14 @@ const Profiles = () => {
                 title={item.name}
                 img={item.img}
                 description={item.description}
-                candidateCount={Object.keys(data.project.proj).length}
+                candidateCount={Object.keys(data.proj).length}
               />
             </Grid>
           );
         })}
       </Grid>
       <Box display="flex" justifyContent="space-between">
-        <PrevButton link="attractive" />
+        <PrevButton link="attractive-instruction" />
         <NextButton link="attractive/rate" />
       </Box>
     </div>

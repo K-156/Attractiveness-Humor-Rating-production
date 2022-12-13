@@ -2,11 +2,7 @@ import { useState } from "react";
 
 import { Box, Card, CardContent, FormControl, Typography, TextField } from "@mui/material";
 
-const info = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
-"suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
-"atque culpa sit iusto quod accusantium "
-
-const ItemCard = ({ title, img, id, setRating }) => {
+const ItemCard = ({ title, img, id, setRating, description }) => {
     
     const [error, setError] = useState(false);
     const handleOnChange = (event) => {
@@ -34,11 +30,11 @@ const ItemCard = ({ title, img, id, setRating }) => {
                 <Box display="flex" justifyContent="center" height="200px" py={2}>
                     <img 
                         id={title} 
-                        src={require(`../../Assets/Candidates/${img}`)} 
+                        src={img} 
                         alt="profile" 
                     />
                 </Box>
-                <Typography variant="subtitle2" textAlign="center" my={2}>{info}</Typography>
+                <Typography variant="subtitle2" textAlign="center" my={2} height="260px">{description}</Typography>
                 <FormControl fullWidth>
                     <TextField
                         required

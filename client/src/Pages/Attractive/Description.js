@@ -44,7 +44,7 @@ const Description = () => {
   const { id, candidateCount } = location.state;
 
   const data = JSON.parse(localStorage.getItem("data"));
-  const attributes = data.project.proj[id].attributes;
+  const attributes = data.proj[id].attributes;
 
   const handleOnChange = (event) => {
     const newId = parseInt(event.target.textContent);
@@ -74,7 +74,7 @@ const Description = () => {
                   height="200px"
                   py={2}
                 >
-                  <img src={data.project.proj[id].img} alt="profile" />
+                  <img src={data.proj[id].img} alt="profile" />
                 </Box>
                 <Typography
                   variant="subtitle2"
@@ -82,7 +82,7 @@ const Description = () => {
                   fontWeight="bold"
                   height="100%"
                 >
-                  {data.project.proj[id].name}
+                  {data.proj[id].name}
                 </Typography>
               </Grid>
               <Grid item xs={6}>

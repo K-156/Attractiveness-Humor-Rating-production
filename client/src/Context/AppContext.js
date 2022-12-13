@@ -40,8 +40,8 @@ const AppProvider = ({ children }) => {
 
   const setOpen = () => {
     dispatch({
-      type: SET_OPEN_NAVBAR, 
-      payload: !state.open
+      type: SET_OPEN_NAVBAR,
+      payload: !state.open,
     });
   };
 
@@ -88,11 +88,12 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_PROJECT_BEGIN });
     try {
       const { data } = await axios.get(`/api/v1/projects/${projectId}`);
+      const { project } = data;
       dispatch({
         type: GET_PROJECT_SUCCESS,
-        payload: data,
+        payload: project,
       });
-      localStorage.setItem("data", JSON.stringify(data));
+      localStorage.setItem("data", JSON.stringify(project));
     } catch (error) {
       dispatch({
         type: GET_PROJECT_ERROR,
@@ -108,7 +109,7 @@ const AppProvider = ({ children }) => {
         loginUser,
         setOpen,
         updateUser,
-        getProject
+        getProject,
       }}
     >
       {children}
