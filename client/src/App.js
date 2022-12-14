@@ -21,6 +21,7 @@ import Chat from "./Pages/Chat/Chat";
 import Projects from "./Pages/Project/Projects";
 import InstructionPage from "./Pages/InstructionPage/InstructionPage";
 import ProjectDetails from "./Pages/Project/ProjectDetails";
+import ProjectSection from "./Pages/Project/ProjectSection";
 
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
             <Route path="/overview" element={<Overview />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/details" element={<ProjectDetails />} />
-
+            <Route path="/projects/sections" element={<ProjectSection />} />
 
 
 

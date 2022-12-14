@@ -17,6 +17,13 @@ const data = [
 const Projects = () => {
 
     const navigate = useNavigate();
+    const handleOnClick = () => {
+      navigate("/projects/details", {
+        state: {
+          type: "add"
+        }
+      });
+    }
 
     return(
         <div>
@@ -26,7 +33,7 @@ const Projects = () => {
           <Box sx={{display:"flex", justifyContent:"flex-end", mx: 6}}>
             <Button
               variant="contained"
-              onClick={()=>navigate("/projects/details")}
+              onClick={handleOnClick}
               sx={{background: "#264653", '&:hover': {backgroundColor:"#C59D5F"}}}
             >
               Add Project

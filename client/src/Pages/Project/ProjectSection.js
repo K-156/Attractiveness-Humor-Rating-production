@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-import ProjectDetailsForm from "../../Components/Form/ProjectDetailsForm";
+import AddSection from "../../Components/Form/AddSections";
 import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
@@ -15,13 +15,12 @@ const ProjectDetails = () => {
             </script>
             <ProjectLayout
                 isEdit={type === "edit"}
-                subtitle="Create new project"
-                activeStep={0}
-                prevLink="/projects"
-                nextLink="/projects/sections"
-                state={{type: type}}
+                subtitle="Add Sections"
+                activeStep={1}
+                prevLink="/projects/details"
+                nextLink="/projects/sections/1"
             >
-                <ProjectDetailsForm />
+                <AddSection />
             </ProjectLayout>    
         </div>
     )

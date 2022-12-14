@@ -6,7 +6,7 @@ import { HiArrowRight } from "react-icons/hi";
 import "./NavButton.css";
 
 const NextButton = ({ link, state, text, style, disabled, 
-                     storeItem, ratingType, setIsSubmit, isSubmit, isValid }) => {
+                     storeItem, ratingType }) => {
 
     const navigate = useNavigate();
     const handleOnClick = () => {
