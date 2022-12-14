@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
@@ -15,8 +15,15 @@ import {
 import _ from "lodash";
 
 const Details = () => {
+
+
   const navigate = useNavigate();
-  const { updateUser, user } = useAppContext();
+  const { updateUser, user, getProject } = useAppContext();
+
+  useEffect(() => {
+    // need to change project id
+    getProject("639809da432d34c654c930cd");
+  }, []);
 
   const detailList = ["Gender", "Age", "Ethnicity"];
 
