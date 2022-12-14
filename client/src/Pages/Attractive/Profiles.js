@@ -28,12 +28,7 @@ import Instruction from "../../Components/Instruction/Instruction";
 // ];
 
 const Profiles = () => {
-  const { getProject } = useAppContext();
 
-  useEffect(() => {
-    // need to change project id
-    getProject("639809da432d34c654c930cd");
-  }, []);
 
   const data = JSON.parse(localStorage.getItem("data"));
 

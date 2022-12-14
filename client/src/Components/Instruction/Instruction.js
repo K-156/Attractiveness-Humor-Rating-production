@@ -3,7 +3,7 @@ import { Button, Tooltip } from "@mui/material";
 const Instruction = ({ type }) => {
 
     // const text = sessionStorage.getItem(type);
-    // const data = JSON.parse(localStorage.getItem("data"));
+    const data = JSON.parse(localStorage.getItem("data"));
 
     return(
         <div display="flex" justifycontent="flex-start">
