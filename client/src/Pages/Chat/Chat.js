@@ -22,7 +22,7 @@ const Chat = ({title, link}) => {
             />
             <Box display="flex" justifyContent="space-between" mx={5} my={3}>
                 {parseInt(title) === 1 ?
-                    <PrevButton link="chat-instruction" />
+                    <PrevButton link="/chat-instruction" />
                     : <Box></Box>
                 }
                 <NextButton 

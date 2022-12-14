@@ -54,10 +54,10 @@ const AttractiveRate = () => {
             })}
         </Grid>
         <Box display="flex" justifyContent="space-between">
-            <PrevButton link="attractive/profile"/>
+            <PrevButton link="/attractive/profile"/>
             <NextButton 
                 disabled={!isValid(rating, Object.keys(data.proj).length)}
-                link="rank-instruction"
+                link="/rank-instruction"
             />
         </Box>   
         </div>

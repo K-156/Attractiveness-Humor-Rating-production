@@ -54,7 +54,7 @@ const AudioRate = ({ title, link, isWritten }) => {
                 </Grid>
                 <Grid item xs={12} py={2} px={9} display="flex" justifyContent="space-between">
                     {parseInt(title) === 1 ?
-                        <PrevButton link="audio-instruction" />
+                        <PrevButton link="/audio-instruction" />
                         : <Box></Box>
                     }
                     <NextButton 

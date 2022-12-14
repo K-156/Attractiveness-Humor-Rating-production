@@ -41,7 +41,7 @@ import PrevButton from "../../Components/NavButton/PrevButton";
 const Description = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { id, candidateCount } = location.state;
+  const { id, candidateCount, back } = location.state;
 
   const data = JSON.parse(localStorage.getItem("data"));
   const attributes = data.proj[id].attributes;
@@ -61,7 +61,7 @@ const Description = () => {
       <script>{(document.title = "Description")}</script>
 
       <Box>
-        <PrevButton link="attractive/profile" />
+        <PrevButton link={back} />
       </Box>
       <Box display="flex" justifyContent="center">
         <Card sx={{ mt: 2, width: "800px" }}>

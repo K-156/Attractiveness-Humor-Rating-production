@@ -57,8 +57,8 @@ const Profiles = () => {
         })}
       </Grid>
       <Box display="flex" justifyContent="space-between">
-        <PrevButton link="attractive-instruction" />
-        <NextButton link="attractive/rate" />
+        <PrevButton link="/attractive-instruction" />
+        <NextButton link="/attractive/rate" />
       </Box>
     </div>
   );

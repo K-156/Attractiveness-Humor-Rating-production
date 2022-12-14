@@ -68,9 +68,10 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div>
+    <div className="backgroundImage">
       <script>{(document.title = "Login")}</script>
-      <PrevButton text="Back" link="" />
+      <Box pt={3} pl={3}>
+      <PrevButton text="Back" link="/" />
       <Grid container className="center" gap={2}>
         <Grid item xs={5} px={2}>
           <Card sx={{ px: 1, py: 2, mt: 4 }}>
@@ -141,6 +142,7 @@ const Login = () => {
           <LoginImage width="100%" height="0%" />
         </Grid>
       </Grid>
+      </Box>
     </div>
   );
 };

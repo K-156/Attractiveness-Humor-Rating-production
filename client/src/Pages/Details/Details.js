@@ -56,9 +56,9 @@ const Details = () => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="backgroundImage" style={{ display: "flex", justifyContent: "center" }}>
       <script>{(document.title = "Personal Details")}</script>
-      <Card sx={{ px: 1, py: 2, mt: 4, width: "500px" }}>
+      <Card sx={{ position: "absolute", px: 1, py: 2, mt: 4, width: "500px" }}>
         <CardContent
           sx={{
             display: "flex",

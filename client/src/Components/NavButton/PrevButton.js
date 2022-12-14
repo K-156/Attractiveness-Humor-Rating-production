@@ -9,7 +9,7 @@ const PrevButton = ({ state, text, style, link }) => {
 
     const navigate = useNavigate();
     const handleOnClick = () => {
-        navigate(`/${link}`, {
+        navigate(`${link}`, {
             state: {state}
         })
     }

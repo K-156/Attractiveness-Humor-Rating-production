@@ -1,18 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 
 import "./ItemCard.css";
 
 
-const ItemCard = ({ title, img, id, candidateCount, description}) => {
+const ItemCard = ({ title, img, id, candidateCount, description, back }) => {
     
     const navigate = useNavigate();
+    const location = useLocation();
+
     const handleOnClick = (event) => {
         navigate(`/attractive/profile/${parseInt(event.target.id)+1}`, {
             state: {
                 id: `${event.target.id}`,
-                candidateCount: {candidateCount}
+                candidateCount: {candidateCount},
+                back: back !== undefined ? back : location.pathname 
             }
         })
     }

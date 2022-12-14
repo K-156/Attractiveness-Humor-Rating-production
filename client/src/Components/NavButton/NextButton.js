@@ -15,7 +15,7 @@ const NextButton = ({ link, state, text, style, disabled,
             sessionStorage.setItem("rank", storeItem)
         }   
 
-        navigate(`/${link}`, {
+        navigate(`${link}`, {
             state: {state}
         })
     }

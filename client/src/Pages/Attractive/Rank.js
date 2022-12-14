@@ -59,7 +59,7 @@ const Rank = () => {
     return (
         <div>
             <script>
-                {document.title="Profile Rating"}
+                {document.title="Profile Ranking"}
             </script>
             <Instruction type="rank" />
             <DndContext
@@ -82,6 +82,7 @@ const Rank = () => {
                                 title={itemName[key]["name"]} 
                                 img={itemName[key]["img"]} 
                                 isSelect={isSelect}
+                                candidateCount={Object.keys(allItems).length}
                             />
                             </Grid>
                         )
@@ -97,7 +98,7 @@ const Rank = () => {
             </Box>
             <Box display="flex" justifyContent="flex-end" mt={3}>
                 <NextButton 
-                    link="audio-instruction"
+                    link="/audio-instruction"
                     ratingType="rank"
                     storeItem={JSON.stringify({most: itemName[0], least: itemName[Object.keys(itemName).length-1]})}
                 />
