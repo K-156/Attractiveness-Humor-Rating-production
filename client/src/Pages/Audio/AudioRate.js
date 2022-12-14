@@ -8,16 +8,17 @@ import AudioForm from "../../Components/Form/AudioForm";
 import { isValid } from "../../Utils/isValid";
 import IntroMessage from "../../Components/Message/IntroMessage";
 import Instruction from "../../Components/Instruction/Instruction";
+import Audio from "../../Components/Audio/Audio";
 
-// const ques = {
-//     "q1" : "How funny (humorous) am I?", 
-//     "q2" : "Do I have a good sense of humor?", 
-//     "q3" : "How emotionally express am I?", 
-//     "q4" : "Would I be a warm person to others?", 
-//     "q5" : "Do I seem intelligent?", 
-//     "q6" : "Do I seem hardworking?", 
-//     "q7" : "How interested are you in me?", 
-// }
+const ques = {
+    "q1" : "How funny (humorous) am I?", 
+    "q2" : "Do I have a good sense of humor?", 
+    "q3" : "How emotionally express am I?", 
+    "q4" : "Would I be a warm person to others?", 
+    "q5" : "Do I seem intelligent?", 
+    "q6" : "Do I seem hardworking?", 
+    "q7" : "How interested are you in me?", 
+}
 
 const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
 "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
@@ -27,8 +28,8 @@ const AudioRate = ({ title, link, isWritten }) => {
 
     const [rating, setRating] = useState({});
 
-    const data = JSON.parse(localStorage.getItem("data"));
-    console.log(data.audio)
+    // const data = JSON.parse(localStorage.getItem("data"));
+    // console.log(data.audio)
 
     return(
         <div>
@@ -41,17 +42,12 @@ const AudioRate = ({ title, link, isWritten }) => {
                     <Box display="flex" justifyContent="center" height="200px" py={2}>
                         <img src={require("../../Assets/Logo/DBS logo.png")} alt="logo" />
                     </Box>
-                    { isWritten ? <IntroMessage text={text}/>
-                      : <audio
-                            controls
-                            src={data.audio}
-                            preload="auto"
-                        />
-                    }
+                    { isWritten ? <IntroMessage text={text}/> : <Audio /> }
+                    {/* { isWritten ? <IntroMessage text={text}/> : <Audio src={data.audio}/> } */}
                 </Grid>
                 <Grid item xs={7} px={4}> 
                     <AudioForm 
-                        ques={data.audioRatingInstruc}
+                        // ques={data.audioRatingInstruc}
                         setRating={setRating}
                         isWritten={isWritten}
                     />
@@ -62,7 +58,7 @@ const AudioRate = ({ title, link, isWritten }) => {
                         : <Box></Box>
                     }
                     <NextButton 
-                        disabled={!(isValid(rating, Object.keys(data.audioRatingInstruc).length))}
+                        // disabled={!(isValid(rating, Object.keys(data.audioRatingInstruc).length))}
                         link={link}
                     />
                 </Grid>
