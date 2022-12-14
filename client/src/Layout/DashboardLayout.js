@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-import Hamburger from "../Components/NavBar/Hamburger";
+import { Box } from "@mui/material";
+
 import NavBar from "../Components/NavBar/NavBar";
 import { useAppContext } from "../Context/AppContext";
 
@@ -10,8 +11,10 @@ const DashboardLayout = () => {
 
     return(
         <>
-        { !open ? <Hamburger /> : <NavBar/> }   
-        <Outlet />
+        <NavBar/>
+        <Box sx={{ml:"250px"}}>
+            <Outlet />
+        </Box>
         </>    
     )
 }

@@ -1,6 +1,6 @@
 #NavBar {
     background: #264653;
-    position: absolute;
+    position: fixed;
     width: 250px;
     height: 100vh;
     top: 0;

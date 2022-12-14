@@ -7,16 +7,10 @@ import { BsCardChecklist } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 
 import "./NavBar.css";
-import Hamburger from "./Hamburger";
-import { useAppContext } from "../../Context/AppContext";
 
 const NavBar = () => {
 
     const navigate = useNavigate();
-    const { open } = useAppContext();
-    console.log(open)
-    // const [open, setOpen] = useState(true);
-
     const [tab, setTab] = useState("overview");
 
     const handleOnClick = (route) => {
@@ -27,8 +21,7 @@ const NavBar = () => {
     return (
     <>
     <div id="NavBar">
-        <Hamburger /> 
-        <Box mt={13}>
+        <Box mt={12}>
             <Button 
                 className="navBarButton"
                 sx={{background: tab === "overview" ? "#1d353f" : "#264653"}}

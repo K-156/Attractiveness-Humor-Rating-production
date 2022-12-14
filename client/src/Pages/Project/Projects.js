@@ -26,7 +26,7 @@ const Projects = () => {
           <Box sx={{display:"flex", justifyContent:"flex-end", mx: 6}}>
             <Button
               variant="contained"
-              onClick={()=>navigate("/project/details")}
+              onClick={()=>navigate("/projects/details")}
               sx={{background: "#264653", '&:hover': {backgroundColor:"#C59D5F"}}}
             >
               Add Project

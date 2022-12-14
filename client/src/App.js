@@ -70,7 +70,7 @@ function App() {
           <Route element={<DashboardLayout />}>
             <Route path="/overview" element={<Overview />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/project/details" element={<ProjectDetails />} />
+            <Route path="/projects/details" element={<ProjectDetails />} />
 
 
 

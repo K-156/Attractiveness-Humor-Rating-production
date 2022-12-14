@@ -1,0 +1,19 @@
+.twoColumns {
+    display: flex;
+    margin: 10px;
+}
+
+.secondColumn {
+    width: 400px;
+    display:flex;
+    align-items: center;
+}
+
+.variable {
+    width: 300px;
+    color: #264653;
+}
+
+.btn i.fa{
+    pointer-events: 'none';
+}
