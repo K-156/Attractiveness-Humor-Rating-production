@@ -41,7 +41,7 @@ const UploadFiles = ({ items, setFormData, variable }) => {
                     component="label"
                 >
                     <MdFileUpload size={20} style={{marginRight:5}}/>
-                    Choose file(s) to upload
+                    Choose a file to upload
                     <input
                         type="file"
                         accept=".csv"
