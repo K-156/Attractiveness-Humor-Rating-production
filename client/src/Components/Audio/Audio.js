@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
 import AudioPlayer from "./AudioPlayer";
-import recording from "../../Assets/Audio/test.mp3";
+// import recording from "../../Assets/Audio/test.mp3";
 
 const Audio = ({ src }) => {
 
@@ -19,8 +19,8 @@ const Audio = ({ src }) => {
     return (
         <div>
             <audio 
-                src={recording}
-                // src={src}
+                // src={recording}
+                src={src}
                 ref={audioElem}
                 onTimeUpdate={onPlaying}
             />
@@ -28,7 +28,7 @@ const Audio = ({ src }) => {
                 isPlaying={isPlaying}
                 setIsPlaying={setIsPlaying}
                 audioElem={audioElem}
-                duration={duration}
+                duration={duration ? duration : 0}
                 currentTime={currentTime}
             />
         </div>

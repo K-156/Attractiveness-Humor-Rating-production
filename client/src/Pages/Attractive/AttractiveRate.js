@@ -24,6 +24,7 @@ const AttractiveRate = () => {
       currentUser: {
         ...user,
         userResponse: {
+          ...user.userResponse,
           attractivenessRating: [
             ...user.userResponse.attractivenessRating,
             rating,
