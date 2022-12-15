@@ -75,8 +75,6 @@ function App() {
             <Route path="/projects/details" element={<ProjectDetails />} />
             <Route path="/projects/sections" element={<ProjectSection />} />
             <Route path="/projects/sections/:id" element={<Section />} />
-
-
           </Route>
         </Routes>
       </Router>

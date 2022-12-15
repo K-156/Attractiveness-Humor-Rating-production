@@ -12,11 +12,6 @@ import IntroMessage from "../../Components/Message/IntroMessage";
 import Instruction from "../../Components/Instruction/Instruction";
 import Audio from "../../Components/Audio/Audio";
 
-const text =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
-  "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi nostrum eum facere beatae " +
-  "atque culpa sit iusto quod accusantium ";
-
 const AudioRate = ({ title, link, isWritten }) => {
   const { updateUser } = useAppContext();
   const [rating, setRating] = useState({});
@@ -28,20 +23,37 @@ const AudioRate = ({ title, link, isWritten }) => {
   const lastCandidate =
     user.userResponse.rank[user.userResponse.rank.length - 1];
 
+    console.log(isWritten)
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    updateUser({
-      currentUser: {
-        ...user,
-        userResponse: {
-          ...user.userResponse,
-          audioRating: [...user.userResponse.audioRating, rating],
-        },
-      },
-      id: user._id,
-    });
+    isWritten
+      ? updateUser({
+          currentUser: {
+            ...user,
+            userResponse: {
+              ...user.userResponse,
+              writtenIntroRating: [
+                ...user.userResponse.writtenIntroRating,
+                rating,
+              ],
+            },
+          },
+          id: user._id,
+        })
+      : updateUser({
+          currentUser: {
+            ...user,
+            userResponse: {
+              ...user.userResponse,
+              audioRating: [...user.userResponse.audioRating, rating],
+            },
+          },
+          id: user._id,
+        });
     navigate(link);
   };
+
 
   return (
     <div>
@@ -65,9 +77,8 @@ const AudioRate = ({ title, link, isWritten }) => {
               alt="logo"
             />
           </Box>
-          {/* {isWritten ? <IntroMessage text={text} /> : <Audio />} */}
           {isWritten ? (
-            <IntroMessage text={text} />
+            <IntroMessage text={data.writtenIntro} />
           ) : (
             <Audio src={data.audio} />
           )}
