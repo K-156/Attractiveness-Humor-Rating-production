@@ -6,7 +6,7 @@ import { HiArrowRight } from "react-icons/hi";
 import "./NavButton.css";
 
 const NextButton = ({ link, state, text, style, disabled, 
-                     storeItem, ratingType }) => {
+                     storeItem, ratingType, handleOnSubmit }) => {
 
     const navigate = useNavigate();
     const handleOnClick = () => {
@@ -19,12 +19,12 @@ const NextButton = ({ link, state, text, style, disabled,
             state: {state}
         })
     }
-        
+
     return (
         <Box sx={style}>
             <Button 
                 disabled={disabled}
-                onClick={handleOnClick}
+                onClick={handleOnSubmit ? handleOnSubmit : handleOnClick}
                 variant="contained" 
                 sx={{background: "#264653", '&:hover': {backgroundColor:"#C59D5F"}}}
             >

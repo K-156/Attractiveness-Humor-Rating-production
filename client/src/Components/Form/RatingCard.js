@@ -19,6 +19,7 @@ const ItemCard = ({ title, img, id, setRating, description }) => {
             [id] : event.target.value
         }))
 
+
     }
     
     return(

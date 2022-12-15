@@ -61,7 +61,7 @@ const Description = () => {
       <script>{(document.title = "Description")}</script>
 
       <Box>
-        <PrevButton link={back} />
+        <PrevButton link="/attractive/profile" />
       </Box>
       <Box display="flex" justifyContent="center">
         <Card sx={{ mt: 2, width: "800px" }}>

@@ -30,6 +30,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  userResponse:{
+    attractivenessRating:[],
+    rank:[],
+    audioRating:[],
+    writtenIntroRating:[],
+    prewrittenResponse:[],
+  }
 });
 
 UserSchema.pre("save", async function () {
