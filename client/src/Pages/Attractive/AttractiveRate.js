@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
 import _ from "lodash";
 
-import RatingCard from "../../Components/Form/RatingCard";
+import RatingCard from "../../Components/SurveyForm/RatingCard";
 import NextButton from "../../Components/NavButton/NextButton";
 import PrevButton from "../../Components/NavButton/PrevButton";
 import { isValid } from "../../Utils/isValid";

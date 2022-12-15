@@ -6,7 +6,7 @@ import { Box, Grid } from "@mui/material";
 
 import PrevButton from "../../Components/NavButton/PrevButton";
 import NextButton from "../../Components/NavButton/NextButton";
-import AudioForm from "../../Components/Form/AudioForm";
+import AudioForm from "../../Components/SurveyForm/AudioForm";
 import { isValid } from "../../Utils/isValid";
 import IntroMessage from "../../Components/Message/IntroMessage";
 import Instruction from "../../Components/Instruction/Instruction";
