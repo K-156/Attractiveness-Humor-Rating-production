@@ -4,7 +4,7 @@ import NextButton from "../Components/NavButton/NextButton";
 import PrevButton from "../Components/NavButton/PrevButton";
 import SaveButton from "../Components/SaveButton/SaveButton";
 
-const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevLink, state }) => {
+const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevLink }) => {
     return(
         <>
         <Box sx={{mx:2}}>
@@ -27,14 +27,8 @@ const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevL
         {children}
         <SaveButton />
         <Box sx={{display:"flex", justifyContent:"space-between", pt:3}}>
-            <PrevButton 
-                link={prevLink} 
-                state={state}
-            />
-            <NextButton 
-                link={nextLink} 
-                state={state}
-            />
+            <PrevButton link={prevLink} />
+            <NextButton link={nextLink} />
         </Box>
         </>
     )

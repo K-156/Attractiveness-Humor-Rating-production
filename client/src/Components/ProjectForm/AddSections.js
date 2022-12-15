@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { 
@@ -15,23 +14,11 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import _ from "lodash";
 
-const AddSection = () => {
+import { templates } from "../../Utils/TemplateList";
 
-    const templates = {
-        1: "Template 1: Profile Rating",
-        2: "Template 2: Rank",
-        3: "Template 3: Audio Rating", 
-        4: "Template 4: Introduction Rating",
-        5: "Template 5: Chatbox",
-        6: "Template 6: General"
-    }
+const AddSection = ({ formData, setFormData }) => {
     
     const navigate = useNavigate();
-    const [formData, setFormData] = useState([]);
-
-    useEffect(()=>{
-        sessionStorage.setItem("templates", formData);
-    },[formData])
 
     const onDelete = (index) => {
         if (index === 0) {

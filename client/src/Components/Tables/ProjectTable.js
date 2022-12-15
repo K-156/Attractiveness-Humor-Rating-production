@@ -20,15 +20,16 @@ const ProjectTable = ({ data }) => {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-      };
     
     const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
     };
+
+    const handleOnEdit = () => {
+      navigate("/projects/summary")
+      sessionStorage.setItem("editMode", "edit");
+    }
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;   
 
@@ -70,7 +71,7 @@ const ProjectTable = ({ data }) => {
                                 sx={{ mx: 1, backgroundColor: "#264653", color:"#FFFFFF",
                                         "&:hover": {backgroundColor: "#C59D5F", cursor:"pointer"}, width: "80px" }}
                                 label="Edit"
-                                onClick={()=>navigate("/project/summary")}
+                                onClick={handleOnEdit}
                             />
                         </TableCell>
                     </TableRow>
@@ -91,7 +92,7 @@ const ProjectTable = ({ data }) => {
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={handleChangePage}
+        onPageChange={(event, newPage) => setPage(newPage)}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
       </Box>

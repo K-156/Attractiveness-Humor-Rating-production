@@ -1,19 +1,15 @@
 import { useState } from "react";
 
 import { Box, Card, CardContent, FormControl, TextField, Typography } from "@mui/material";
-import _ from "lodash";
 
-import "./Form.css";
+import "./ProjectForm.css";
 import AddableField from "../CustomFormFields/AddableField";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 
 
-const ProjectDetailsForm = () => {
+const ProjectDetailsForm = ({formData, setFormData}) => {
 
     const [role, setRole] = useState();
-    const [formData, setFormData] = useState({
-        title: "", email: [], roles:[], duration: 0
-    });
     const [error, setError] = useState({
         title: false, email: false, roles:false, duration: false
     })

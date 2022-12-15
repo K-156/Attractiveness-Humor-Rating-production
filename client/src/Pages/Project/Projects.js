@@ -18,11 +18,8 @@ const Projects = () => {
 
     const navigate = useNavigate();
     const handleOnClick = () => {
-      navigate("/projects/details", {
-        state: {
-          type: "add"
-        }
-      });
+      navigate("/projects/details");
+      sessionStorage.setItem("editMode", "add");
     }
 
     return(

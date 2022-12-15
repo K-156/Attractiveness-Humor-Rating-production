@@ -1,12 +1,15 @@
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
-import ProjectDetailsForm from "../../Components/Form/ProjectDetailsForm";
+import ProjectDetailsForm from "../../Components/ProjectForm/ProjectDetailsForm";
 import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
 
-    const location = useLocation();
-    const { type } = location.state;
+    const type = sessionStorage.getItem("editMode")
+
+    const [formData, setFormData] = useState({
+        title: "", email: [], roles:[], duration: 0
+    });
         
     return(
         <div>
@@ -21,7 +24,10 @@ const ProjectDetails = () => {
                 nextLink="/projects/sections"
                 state={{type: type}}
             >
-                <ProjectDetailsForm />
+                <ProjectDetailsForm 
+                    formData={formData}
+                    setFormData={setFormData}                
+                />
             </ProjectLayout>    
         </div>
     )

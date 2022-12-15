@@ -1,12 +1,18 @@
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-import AddSection from "../../Components/Form/AddSections";
+import AddSection from "../../Components/ProjectForm/AddSections";
 import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
 
-    const location = useLocation();
-    const { type } = location.state;
+    const type = sessionStorage.getItem("editMode")
+
+    const [formData, setFormData] = useState([]);
+
+    useEffect(()=>{
+        sessionStorage.setItem("templates", formData);
+    },[formData])
+
         
     return(
         <div>
@@ -20,7 +26,10 @@ const ProjectDetails = () => {
                 prevLink="/projects/details"
                 nextLink="/projects/sections/1"
             >
-                <AddSection />
+                <AddSection 
+                    formData={formData}
+                    setFormData={setFormData}
+                />
             </ProjectLayout>    
         </div>
     )
