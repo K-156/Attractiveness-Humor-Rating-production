@@ -10,8 +10,7 @@ import Instruction from "../../Components/Instruction/Instruction";
 import NextButton from "../../Components/NavButton/NextButton";
 import { ReactComponent as Arrow } from "../../Assets/arrow.svg";
 
-
-const instruction = "Drag and drop the candidates to rank them, with the most interested candidate on the left."
+// const instruction = "Drag and drop the candidates to rank them, with the most interested candidate on the left."
 
 const allItems = [{
     name: "Candidate 1", 

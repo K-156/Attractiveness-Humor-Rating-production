@@ -33,7 +33,7 @@ const login = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id: userId } = req.params;
-  const { gender, age, ethnicity } =
+  const { gender, age, ethnicity, userResponse } =
     req.body;
   if (!gender || !age ||  !ethnicity ) {
     throw new BadRequestError("Please provide all values");
@@ -43,6 +43,7 @@ const updateUser = async (req, res) => {
   user.gender = gender;
   user.age = age;
   user.ethnicity = ethnicity;
+  user.userResponse = userResponse
 
   await user.save();
   console.log(user)

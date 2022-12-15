@@ -8,7 +8,7 @@ const Instruction = ({ type }) => {
     return(
         <div display="flex" justifycontent="flex-start">
             <Tooltip 
-                // title={data[`${type}Instruc`]}
+                title={data[`${type}Instruc`]}
                 placement="bottom-start"
                 slotProps= {{
                     tooltip: {

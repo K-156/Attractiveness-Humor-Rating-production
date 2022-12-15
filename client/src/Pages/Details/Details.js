@@ -58,7 +58,7 @@ const Details = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    updateUser({currentUser:formData, id:user._id});
+    updateUser({currentUser:{...user,formData}, id:user._id});
     navigate("/attractive-instruction")
   };
 
