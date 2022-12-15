@@ -10,7 +10,7 @@ const AudioPlayer = ({ isPlaying, setIsPlaying, audioElem, duration, currentTime
 
     useEffect(() => {
         isPlaying ? audioElem.current.play() : audioElem.current.pause();
-    }, [isPlaying])
+    }, [isPlaying, audioElem])
 
 
     const formatTime = (time) => {

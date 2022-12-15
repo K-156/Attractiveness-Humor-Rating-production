@@ -6,9 +6,10 @@ import Messages from "./Messages";
 import MessageSelected from "./MessageSelected";
 
 
-const receiver = "candidate 1";
 
-const ChatTemplate = ({selectMessage, setSelectMessage}) => {
+
+const ChatTemplate = ({selectMessage, setSelectMessage, link}) => {
+    const receiver = link.includes("q2") ? "candidate 1":"candidate 2";
 
     return (
         <Card sx={{mx: 5}}>

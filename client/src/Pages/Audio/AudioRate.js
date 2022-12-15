@@ -23,8 +23,6 @@ const AudioRate = ({ title, link, isWritten }) => {
   const lastCandidate =
     user.userResponse.rank[user.userResponse.rank.length - 1];
 
-    console.log(isWritten)
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
     isWritten

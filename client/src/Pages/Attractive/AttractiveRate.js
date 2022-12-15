@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import _ from "lodash";
 
 import RatingCard from "../../Components/Form/RatingCard";
