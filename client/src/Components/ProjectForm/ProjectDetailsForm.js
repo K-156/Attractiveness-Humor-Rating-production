@@ -14,9 +14,12 @@ const ProjectDetailsForm = ({formData, setFormData}) => {
         title: false, email: false, roles:false, duration: false
     })
 
+    console.log(role)
+
     const handleOnChange = (event) => {
         const id = event.target.id;
         const value = event.target.value;
+        console.log(value)
 
         if (id === "duration") {  
             setError((state) => ({
@@ -85,6 +88,7 @@ const ProjectDetailsForm = ({formData, setFormData}) => {
                         currValue={role}
                         setFormData={setFormData}
                         variable="roles"
+                        id="roles"
                     />
                     
                 </Box>

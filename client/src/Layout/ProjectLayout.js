@@ -5,6 +5,7 @@ import PrevButton from "../Components/NavButton/PrevButton";
 import SaveButton from "../Components/SaveButton/SaveButton";
 
 const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevLink }) => {
+    console.log(children)
     return(
         <>
         <Box sx={{mx:2}}>

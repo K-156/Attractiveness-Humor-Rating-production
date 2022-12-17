@@ -16,7 +16,6 @@ import {
   GET_ALL_PROJECTS_BEGIN,
   GET_ALL_PROJECTS_SUCCESS,
 } from "./actions";
-import { DayTableModel } from "fullcalendar";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -25,7 +24,7 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token,
   open: false,
-  projects:[],
+  projects: [],
 };
 
 const AppContext = createContext();
@@ -33,7 +32,33 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  axios.defaults.headers["Authorization"] = `Bearer ${state.token}`;
+  const authFetch = axios.create({
+    baseURL: `/api/v1/`,
+  });
+
+  // request
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers["Authorization"] = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  // response
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        console.log('AUTH ERROR')
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -74,10 +99,12 @@ const AppProvider = ({ children }) => {
   const updateUser = async ({ currentUser, id }) => {
     dispatch({ type: UPDATE_USER_BEGIN });
     try {
-      const { data } = await axios.patch(
-        `/api/v1/auth/updateUser/${id}`,
+      const { data } = await authFetch.patch(
+        `/auth/updateUser/${id}`,
         currentUser
       );
+
+      console.log(data)
       const { user, token } = data;
       dispatch({
         type: UPDATE_USER_SUCCESS,
@@ -95,7 +122,7 @@ const AppProvider = ({ children }) => {
   const getProject = async (projectId) => {
     dispatch({ type: GET_PROJECT_BEGIN });
     try {
-      const { data } = await axios.get(`/api/v1/projects/${projectId}`);
+      const { data } = await authFetch.get(`/projects/${projectId}`);
       const { project } = data;
       dispatch({
         type: GET_PROJECT_SUCCESS,
@@ -120,7 +147,7 @@ const AppProvider = ({ children }) => {
         payload: projects,
       });
     } catch (error) {
-      console.log(error.response)
+      console.log(error.response);
     }
   };
 

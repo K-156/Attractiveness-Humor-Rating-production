@@ -36,10 +36,12 @@ const login = async (req, res) => {
 
 const updateUser = async (req, res) => {
   // const { id: userId } = req.params;
-  const { gender, age, ethnicity, userResponse } = req.body;
+  const { gender, age, ethnicity } = req.body.formData;
+  const { userResponse } = req.body;
   if (!gender || !age || !ethnicity) {
     throw new BadRequestError("Please provide all values");
   }
+
   const user = await User.findOne({ _id: req.user.userId }).select("+password");
 
   user.gender = gender;
