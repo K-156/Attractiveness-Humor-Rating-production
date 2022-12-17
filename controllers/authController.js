@@ -1,11 +1,15 @@
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError, NotFoundError,UnAuthenticatedError } from "../errors/index.js";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnAuthenticatedError,
+} from "../errors/index.js";
 
 const register = async (req, res) => {
   const userAlreadyExists = await User.findOne({ email });
   if (userAlreadyExists) {
-    throw new BadRequestError('Email already in use');
+    throw new BadRequestError("Email already in use");
   }
   const user = await User.create(req.body);
   const token = user.createJWT();
@@ -31,22 +35,19 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  console.log(req.user)
-  const { id: userId } = req.params;
-  const { gender, age, ethnicity, userResponse } =
-    req.body;
-  if (!gender || !age ||  !ethnicity ) {
+  // const { id: userId } = req.params;
+  const { gender, age, ethnicity, userResponse } = req.body;
+  if (!gender || !age || !ethnicity) {
     throw new BadRequestError("Please provide all values");
   }
-  const user = await User.findOne({ _id: userId }).select("+password");
+  const user = await User.findOne({ _id: req.user.userId }).select("+password");
 
   user.gender = gender;
   user.age = age;
   user.ethnicity = ethnicity;
-  user.userResponse = userResponse
+  user.userResponse = userResponse;
 
   await user.save();
-  console.log(user)
   const token = user.createJWT();
   // user.password = undefined;
   res.status(StatusCodes.OK).json({ user, token });

@@ -13,7 +13,10 @@ import {
   GET_PROJECT_BEGIN,
   GET_PROJECT_ERROR,
   GET_PROJECT_SUCCESS,
+  GET_ALL_PROJECTS_BEGIN,
+  GET_ALL_PROJECTS_SUCCESS,
 } from "./actions";
+import { DayTableModel } from "fullcalendar";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -22,6 +25,7 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token,
   open: false,
+  projects:[],
 };
 
 const AppContext = createContext();
@@ -29,15 +33,17 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  axios.defaults.headers["Authorization"] = `Bearer ${state.token}`;
+
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
   };
-  
+
   const removeUserFromLocalStorage = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("data")
+    localStorage.removeItem("data");
   };
 
   const setOpen = () => {
@@ -86,7 +92,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  // should get project at landing page (login)
   const getProject = async (projectId) => {
     dispatch({ type: GET_PROJECT_BEGIN });
     try {
@@ -105,6 +110,20 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const getAllProjects = async () => {
+    dispatch({ type: GET_ALL_PROJECTS_BEGIN });
+    try {
+      const { data } = await axios.get(`/api/v1/projects`);
+      const { projects } = data;
+      dispatch({
+        type: GET_ALL_PROJECTS_SUCCESS,
+        payload: projects,
+      });
+    } catch (error) {
+      console.log(error.response)
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -114,6 +133,7 @@ const AppProvider = ({ children }) => {
         updateUser,
         getProject,
         removeUserFromLocalStorage,
+        getAllProjects,
       }}
     >
       {children}

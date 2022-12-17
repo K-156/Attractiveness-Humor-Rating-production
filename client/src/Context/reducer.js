@@ -8,6 +8,8 @@ import {
   GET_PROJECT_SUCCESS,
   GET_PROJECT_BEGIN,
   GET_PROJECT_ERROR,
+  GET_ALL_PROJECTS_BEGIN,
+  GET_ALL_PROJECTS_SUCCESS,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -55,6 +57,16 @@ const reducer = (state, action) => {
   if (action.type === GET_PROJECT_ERROR) {
     return {
       ...state,
+    };
+  }
+
+  if (action.type === GET_ALL_PROJECTS_BEGIN) {
+    return { ...state };
+  }
+  if (action.type === GET_ALL_PROJECTS_SUCCESS) {
+    return {
+      ...state,
+      projects: action.payload,
     };
   }
   throw new Error(`no such action: ${action.type}`);
