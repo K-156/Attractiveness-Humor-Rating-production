@@ -31,6 +31,7 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  console.log(req.user)
   const { id: userId } = req.params;
   const { gender, age, ethnicity, userResponse } =
     req.body;
