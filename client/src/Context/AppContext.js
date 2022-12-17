@@ -15,6 +15,7 @@ import {
   GET_PROJECT_SUCCESS,
   GET_ALL_PROJECTS_BEGIN,
   GET_ALL_PROJECTS_SUCCESS,
+  LOGOUT_USER
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -53,8 +54,10 @@ const AppProvider = ({ children }) => {
       return response;
     },
     (error) => {
+
+      console.log(error.response.status)
       if (error.response.status === 401) {
-        console.log('AUTH ERROR')
+        logoutUser();
       }
       return Promise.reject(error);
     }
@@ -103,8 +106,6 @@ const AppProvider = ({ children }) => {
         `/auth/updateUser/${id}`,
         currentUser
       );
-
-      console.log(data)
       const { user, token } = data;
       dispatch({
         type: UPDATE_USER_SUCCESS,
@@ -117,6 +118,11 @@ const AppProvider = ({ children }) => {
         payload: { msg: error.response.data.msg },
       });
     }
+  };
+
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
   };
 
   const getProject = async (projectId) => {

@@ -10,7 +10,10 @@ import {
   GET_PROJECT_ERROR,
   GET_ALL_PROJECTS_BEGIN,
   GET_ALL_PROJECTS_SUCCESS,
+  LOGOUT_USER,
 } from "./actions";
+
+import { initialState } from "./AppContext";
 
 const reducer = (state, action) => {
   if (action.type === LOGIN_USER_BEGIN) {
@@ -26,7 +29,7 @@ const reducer = (state, action) => {
   if (action.type === LOGIN_USER_ERROR) {
     return {
       ...state,
-      isValid:false,
+      isValid: false,
     };
   }
   if (action.type === UPDATE_USER_BEGIN) {
@@ -42,7 +45,7 @@ const reducer = (state, action) => {
   if (action.type === UPDATE_USER_ERROR) {
     return {
       ...state,
-      isValid:false,
+      isValid: false,
     };
   }
   if (action.type === GET_PROJECT_BEGIN) {
@@ -67,6 +70,14 @@ const reducer = (state, action) => {
     return {
       ...state,
       projects: action.payload,
+    };
+  }
+
+  if (action.type === LOGOUT_USER) {
+    return {
+      ...initialState,
+      user: null,
+      token: null,
     };
   }
   throw new Error(`no such action: ${action.type}`);
