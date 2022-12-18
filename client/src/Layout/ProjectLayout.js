@@ -4,7 +4,7 @@ import NextButton from "../Components/NavButton/NextButton";
 import PrevButton from "../Components/NavButton/PrevButton";
 import SaveButton from "../Components/SaveButton/SaveButton";
 
-const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevLink }) => {
+const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevLink, projectType, formData }) => {
     return(
         <>
         <Box sx={{mx:2}}>
@@ -25,7 +25,7 @@ const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevL
             activeStep={activeStep}
         />
         {children}
-        <SaveButton />
+        <SaveButton projectType={projectType} formData={formData}/>
         <Box sx={{display:"flex", justifyContent:"space-between", pt:3}}>
             <PrevButton link={prevLink} />
             <NextButton link={nextLink} />
