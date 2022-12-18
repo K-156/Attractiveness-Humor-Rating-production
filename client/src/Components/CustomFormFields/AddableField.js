@@ -9,7 +9,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
 const AddableField = ({items, error, setError, errorText, handleOnChange, currValue, setFormData, variable}) => {
-
+    console.log(currValue)
     const onAdd = () => {
         if (items.includes(currValue)) {
             setError((state) => ({
@@ -36,6 +36,7 @@ const AddableField = ({items, error, setError, errorText, handleOnChange, currVa
         }))  
     }
 
+
     return(
         <Box sx={{display:"flex", flexDirection:"column"}}>
             <Box className="secondColumn">
@@ -45,6 +46,7 @@ const AddableField = ({items, error, setError, errorText, handleOnChange, currVa
                     onChange={handleOnChange}
                     error={error}
                     helperText={error? errorText : ""}
+                    id={variable}
                 />
                 <Button onClick={onAdd}>
                     <CgAdd size={20} style={{color:"#264653", pointerEvents:"none"}}/>

@@ -10,6 +10,9 @@ import {
   GET_PROJECT_ERROR,
   GET_ALL_PROJECTS_BEGIN,
   GET_ALL_PROJECTS_SUCCESS,
+  CREATE_PROJECT_BEGIN,
+  CREATE_PROJECT_SUCCESS,
+  CREATE_PROJECT_ERROR,
   LOGOUT_USER,
 } from "./actions";
 
@@ -78,6 +81,22 @@ const reducer = (state, action) => {
       ...initialState,
       user: null,
       token: null,
+    };
+  }
+  if (action.type === CREATE_PROJECT_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+
+  if (action.type === CREATE_PROJECT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
+  if (action.type === CREATE_PROJECT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
     };
   }
   throw new Error(`no such action: ${action.type}`);

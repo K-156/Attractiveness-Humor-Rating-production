@@ -1,45 +1,55 @@
 import mongoose from "mongoose";
 
-const ProjectSchema = new mongoose.Schema({
-  name:{
-    type:String,
-    required:true,
-  },
-  isActive:{
-    type:Boolean,
-  },
-  isPublish:{
-    type:Boolean,
-  },
-  proj: [
-    {
-      name: String,
-      description: String,
-      img: {
-        type: String,
-      },
-      attributes: [{ _id: false, field: String, value: String }],
+const ProjectSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-  ],
-  attractiveInstruc: {
-    type: String,
+    isActive: {
+      type: Boolean,
+    },
+    isPublish: {
+      type: Boolean,
+    },
+    proj: [
+      {
+        name: String,
+        description: String,
+        img: {
+          type: String,
+        },
+        attributes: [{ _id: false, field: String, value: String }],
+      },
+    ],
+    attractiveInstruc: {
+      type: String,
+    },
+    audioInstruc: {
+      type: String,
+    },
+    rankInstruc: {
+      type: String,
+    },
+    audioRatingInstruc: [],
+    introInstruc: {
+      type: String,
+    },
+    writtenIntro: [],
+    prewrittenInstruc: {
+      type: String,
+    },
+    messageOptions: [],
+    audio: [],
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: [true, "Please provide user"],
+    },
   },
-  audioInstruc: {
-    type: String,
-  },
-  rankInstruc: {
-    type: String,
-  },
-  audioRatingInstruc: [],
-  introInstruc: {
-    type: String,
-  },
-  writtenIntro: [],
-  prewrittenInstruc: {
-    type: String,
-  },
-  messageOptions: [],
-  audio:[],
-});
+  {
+    timestamps: true,
+  }
+);
 
 export default mongoose.model("Projects", ProjectSchema);

@@ -15,7 +15,10 @@ import {
   GET_PROJECT_SUCCESS,
   GET_ALL_PROJECTS_BEGIN,
   GET_ALL_PROJECTS_SUCCESS,
-  LOGOUT_USER
+  CREATE_PROJECT_BEGIN,
+  CREATE_PROJECT_SUCCESS,
+  CREATE_PROJECT_ERROR,
+  LOGOUT_USER,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -26,6 +29,9 @@ const initialState = {
   token,
   open: false,
   projects: [],
+  isEditing: false,
+  editProjectId: "",
+  isLoading: false,
 };
 
 const AppContext = createContext();
@@ -54,8 +60,7 @@ const AppProvider = ({ children }) => {
       return response;
     },
     (error) => {
-
-      console.log(error.response.status)
+      console.log(error.response.status);
       if (error.response.status === 401) {
         logoutUser();
       }
@@ -113,10 +118,12 @@ const AppProvider = ({ children }) => {
       });
       addUserToLocalStorage({ user, token });
     } catch (error) {
-      dispatch({
-        type: UPDATE_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
     }
   };
 
@@ -146,7 +153,7 @@ const AppProvider = ({ children }) => {
   const getAllProjects = async () => {
     dispatch({ type: GET_ALL_PROJECTS_BEGIN });
     try {
-      const { data } = await axios.get(`/api/v1/projects`);
+      const { data } = await authFetch.get(`/projects`);
       const { projects } = data;
       dispatch({
         type: GET_ALL_PROJECTS_SUCCESS,
@@ -154,6 +161,51 @@ const AppProvider = ({ children }) => {
       });
     } catch (error) {
       console.log(error.response);
+    }
+  };
+
+  const createProject = async () => {
+    dispatch({ type: CREATE_PROJECT_BEGIN });
+    try {
+      const {
+        name,
+        isActive,
+        isPublish,
+        proj,
+        attractiveInstruc,
+        audioInstruc,
+        rankInstruc,
+        audioRatingInstruc,
+        introInstruc,
+        writtenIntro,
+        prewrittenInstruc,
+        messageOptions,
+        audio,
+      } = state;
+      await authFetch.post("projects", {
+        name,
+        isActive,
+        isPublish,
+        proj,
+        attractiveInstruc,
+        audioInstruc,
+        rankInstruc,
+        audioRatingInstruc,
+        introInstruc,
+        writtenIntro,
+        prewrittenInstruc,
+        messageOptions,
+        audio,
+      });
+      dispatch({
+        type: CREATE_PROJECT_SUCCESS,
+      });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_PROJECT_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
   };
 
@@ -167,6 +219,7 @@ const AppProvider = ({ children }) => {
         getProject,
         removeUserFromLocalStorage,
         getAllProjects,
+        createProject,
       }}
     >
       {children}

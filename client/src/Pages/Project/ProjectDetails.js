@@ -6,13 +6,12 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 const ProjectDetails = () => {
 
     const type = sessionStorage.getItem("editMode")
-    console.log(type)
-
+    
     const [formData, setFormData] = useState({
         title: "", email: [], roles:[], duration: 0
     });
 
-    // console.log(formData)
+    console.log(formData)
         
     return(
         <div>

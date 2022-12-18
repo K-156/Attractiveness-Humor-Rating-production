@@ -8,6 +8,8 @@ const createProject = async (req, res) => {
     throw new BadRequestError("Please provide all values");
   }
 
+  req.body.createdBy = req.user.userId
+
   const project = await Project.create(req.body);
   res.status(StatusCodes.CREATED).json({ project });
 };
