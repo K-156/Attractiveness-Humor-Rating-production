@@ -7,6 +7,7 @@ import {
 } from "../errors/index.js";
 
 const register = async (req, res) => {
+  const {email} = req.body
   const userAlreadyExists = await User.findOne({ email });
   if (userAlreadyExists) {
     throw new BadRequestError("Email already in use");
@@ -37,7 +38,7 @@ const login = async (req, res) => {
 const updateUser = async (req, res) => {
   // const { id: userId } = req.params;
   const { gender, age, ethnicity } = req.body.formData;
-  const { userResponse } = req.body;
+  const { userResponse, role } = req.body;
   if (!gender || !age || !ethnicity) {
     throw new BadRequestError("Please provide all values");
   }
@@ -48,6 +49,7 @@ const updateUser = async (req, res) => {
   user.age = age;
   user.ethnicity = ethnicity;
   user.userResponse = userResponse;
+  user.role = role
 
   await user.save();
   const token = user.createJWT();

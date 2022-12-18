@@ -18,7 +18,15 @@ import { useAppContext } from "../../Context/AppContext";
 
 const Projects = () => {
   const navigate = useNavigate();
-  const { getAllProjects, projects, isLoading, setEditProject, deleteProject } = useAppContext();
+  const {
+    getAllProjects,
+    projects,
+    isLoading,
+    setEditProject,
+    deleteProject,
+    isEditing,
+    editProject,
+  } = useAppContext();
   const handleOnClick = () => {
     navigate("/projects/details");
     sessionStorage.setItem("editMode", "add");
@@ -29,7 +37,7 @@ const Projects = () => {
   }, []);
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (

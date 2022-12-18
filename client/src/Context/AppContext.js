@@ -19,6 +19,7 @@ import {
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_ERROR,
   LOGOUT_USER,
+  SET_EDIT_PROJECT,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -210,7 +211,11 @@ const AppProvider = ({ children }) => {
   };
 
   const setEditProject = (id) => {
-    console.log(`set edit project : ${id}`)
+    dispatch({type:SET_EDIT_PROJECT, payload:{id}})
+  }
+
+  const editProject = () => {
+    console.log('edit project')
   }
 
   const deleteProject = (id) => {
@@ -231,6 +236,7 @@ const AppProvider = ({ children }) => {
         createProject,
         setEditProject,
         deleteProject,
+        editProject,
       }}
     >
       {children}

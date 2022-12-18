@@ -20,7 +20,7 @@ import _ from "lodash";
 
 const ProjectTable = ({ data }) => {
   const navigate = useNavigate();
-  const { setEditProject, deleteProject } = useAppContext();
+  const { setEditProject, deleteProject, isEditing, editProject } = useAppContext();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -33,6 +33,9 @@ const ProjectTable = ({ data }) => {
     navigate("/projects/summary");
     sessionStorage.setItem("editMode", "edit");
     setEditProject(id);
+    if (isEditing) {
+      editProject()
+    }
   };
 
   const emptyRows =

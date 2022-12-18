@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     // select:false,
   },
+  role:{
+    type:String,
+    default:'participant'
+  },
   gender: {
     type: String,
     enum: ["female", "male"],

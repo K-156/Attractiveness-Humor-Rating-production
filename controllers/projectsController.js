@@ -1,6 +1,8 @@
 import Project from "../models/Project.js";
+import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
+import checkPermissions from "../utils/checkPermissions.js";
 
 const createProject = async (req, res) => {
   const { proj } = req.body;
@@ -23,6 +25,8 @@ const getAllProjects = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
+  const {userId} = req.user
+  const user = await User.findOne({userId})
   const { id: projectId } = req.params;
 
   const { proj } = req.body;
@@ -34,6 +38,8 @@ const updateProject = async (req, res) => {
   if (!project) {
     throw new NotFoundError(`No project with id ${projectId}`);
   }
+
+  checkPermissions(user)
 
   const updatedProject = await Project.findOneAndUpdate(
     { _id: projectId },

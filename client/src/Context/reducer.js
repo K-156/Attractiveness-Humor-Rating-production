@@ -14,6 +14,7 @@ import {
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_ERROR,
   LOGOUT_USER,
+  SET_EDIT_PROJECT,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -67,12 +68,12 @@ const reducer = (state, action) => {
   }
 
   if (action.type === GET_ALL_PROJECTS_BEGIN) {
-    return { ...state, isLoading:true };
+    return { ...state, isLoading: true };
   }
   if (action.type === GET_ALL_PROJECTS_SUCCESS) {
     return {
       ...state,
-      isLoading:false,
+      isLoading: false,
       projects: action.payload,
     };
   }
@@ -98,6 +99,45 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+    };
+  }
+  if (action.type === SET_EDIT_PROJECT) {
+    const project = state.projects.find(
+      (project) => project._id === action.payload.id
+    );
+    const {
+      _id,
+      name,
+      isActive,
+      isPublish,
+      proj,
+      attractiveInstruc,
+      audioInstruc,
+      rankInstruc,
+      audioRatingInstruc,
+      introInstruc,
+      writtenIntro,
+      prewrittenInstruc,
+      messageOptions,
+      audio,
+    } = project;
+    return {
+      ...state,
+      isEditing: true,
+      editProjectId: _id,
+      name,
+      isActive,
+      isPublish,
+      proj,
+      attractiveInstruc,
+      audioInstruc,
+      rankInstruc,
+      audioRatingInstruc,
+      introInstruc,
+      writtenIntro,
+      prewrittenInstruc,
+      messageOptions,
+      audio,
     };
   }
   throw new Error(`no such action: ${action.type}`);
