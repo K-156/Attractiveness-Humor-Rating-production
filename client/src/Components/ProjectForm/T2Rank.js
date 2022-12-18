@@ -8,7 +8,7 @@ import _ from "lodash";
 import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
-const T1ProfileRating = () => {
+const T2Rank = () => {
 
     const [expanded, setExpanded] = useState({
         instruction: false, 
@@ -20,11 +20,31 @@ const T1ProfileRating = () => {
 
     const [formData, setFormData] = useState({
         instruction:"",
+        characteristics: {lowerbound: "", upperbound: ""},
         1: {optionName:"", description:"", img:null, attributes:[]},
         2: {optionName:"", description:"", img:null, attributes:[]},
         3: {optionName:"", description:"", img:null, attributes:[]},
         4: {optionName:"", description:"", img:null, attributes:[]},
     })
+
+    const handleOnChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        if (name === "instruction") {
+            setFormData((state) => ({
+                ...state, 
+                instruction: value
+            }))
+        } else {
+            setFormData((state) => ({
+                ...state, 
+                characteristics: {
+                    ...formData["characteristics"], 
+                    [name]: value
+                }
+            }))}
+    }
 
     return(
         <Box>
@@ -50,22 +70,37 @@ const T1ProfileRating = () => {
                         INSTRUCTION
                     </Typography>
                 </AccordionSummary>
-                <AccordionDetails className="twoColumns">
-                    <Typography className="variable">Instruction</Typography>
-                    <Box className="secondColumn">
-                        <TextField
-                            size="small" 
-                            fullWidth
-                            multiline
-                            minRows={3}
-                            onChange={(event) => {
-                                setFormData((state) => ({
-                                    ...state, 
-                                    instruction: event.target.value
-                                }))}
+                <AccordionDetails>
+                    <Box className="twoColumns">
+                        <Typography className="variable">Instruction</Typography>
+                        <Box className="secondColumn">
+                            <TextField
+                                size="small" 
+                                name="instruction"
+                                fullWidth
+                                multiline
+                                minRows={3}
+                                onChange={handleOnChange}
+                            />
+                        </Box>  
+                    </Box>
+                    <Box className="twoColumns">
+                        <Typography className="variable">Characteristics</Typography>
+                        <Box className="secondColumn" sx={{justifyContent:"space-between"}}>
+                            {_.map(["Lowerbound", "Upperbound"], (type) => {
+                                return(
+                                    <TextField
+                                        key={type}
+                                        size="small" 
+                                        name={type.toLowerCase()}
+                                        label={type}
+                                        onChange={handleOnChange}
+                                        sx={{width: "180px"}}
+                                    />
+                                )})
                             }
-                        />
-                    </Box>             
+                        </Box>          
+                    </Box>            
                 </AccordionDetails>
             </Accordion>
             {_.map(_.range(1, 5), (num) => {
@@ -109,4 +144,4 @@ const T1ProfileRating = () => {
     )
 }
 
-export default T1ProfileRating;
+export default T2Rank;

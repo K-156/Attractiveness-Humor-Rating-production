@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Box, Card, CardContent, FormControl, Typography, TextField } from "@mui/material";
 
-const ItemCard = ({ title, img, id, setRating, description }) => {
+const RatingCard = ({ title, img, id, setRating, description }) => {
     
     const [error, setError] = useState(false);
     const handleOnChange = (event) => {
@@ -52,4 +52,4 @@ const ItemCard = ({ title, img, id, setRating, description }) => {
     )
 }
 
-export default ItemCard;
+export default RatingCard;

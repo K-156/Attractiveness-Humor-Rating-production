@@ -46,80 +46,82 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
         [id]: value,
       }));
     }
+  }
 
-  };
-
-  return (
-    <Card>
-      <CardContent sx={{ p: 2, pl: 10 }}>
-        <FormControl>
-          <Box className="twoColumns">
-            <Typography className="variable">Project title</Typography>
-            <Box className="secondColumn">
-              <TextField
-                size="small"
-                fullWidth
-                id="title"
-                onChange={handleOnChange}
-              />
-            </Box>
-          </Box>
-          <Box className="twoColumns">
-            <Typography className="variable">
-              Upload Participant Email
-            </Typography>
-            <UploadFiles
-              items={formData["email"]}
-              setFormData={setFormData}
-              variable="email"
-            />
-          </Box>
-          <Box sx={{ display: "flex", m: "15px" }}>
-            <Typography className="variable">
-              Example of the format (.csv)
-            </Typography>
-            <Box className="secondColumn">
-              <img
-                src={require("../../Assets/emailExample.PNG")}
-                alt="example"
-                style={{ width: "300px" }}
-              />
-            </Box>
-          </Box>
-          <Box className="twoColumns">
-            <Typography className="variable">Roles</Typography>
-            <AddableField
-              items={formData["roles"]}
-              error={error["roles"]}
-              setError={setError}
-              errorText="Role added"
-              handleOnChange={handleOnChange}
-              currValue={role}
-              setFormData={setFormData}
-              variable="roles"
-            />
-          </Box>
-          <Box className="twoColumns">
-            <Typography className="variable">
-              Time Duration (in mins)
-            </Typography>
-            <Box className="secondColumn">
-              <TextField
-                size="small"
-                fullWidth
-                id="duration"
-                type="number"
-                InputProps={{ inputProps: { min: 1 } }}
-                onChange={handleOnChange}
-                error={error["duration"]}
-                helperText={error["duration"] ? "Must be at least 1" : ""}
-              />
-            </Box>
-          </Box>
-        </FormControl>
-      </CardContent>
-    </Card>
-  );
-};
+    return(
+        <Card>
+            <CardContent sx={{p:2, pl: 10}}>
+            <FormControl>
+                <Box className="twoColumns">
+                    <Typography className="variable">Project title</Typography>
+                    <Box className="secondColumn">
+                        <TextField 
+                            size="small"
+                            fullWidth
+                            id="title"
+                            onChange={handleOnChange}
+                        />
+                    </Box>
+                </Box>
+                <Box className="twoColumns">
+                    <Box>
+                        <Typography className="variable">Upload Participant Email</Typography>
+                        <Typography variant="subtitle2" className="variable"><i>(in .csv)</i></Typography>
+                    </Box>
+                    <UploadFiles 
+                        items={formData["email"]}
+                        setFormData={setFormData}
+                        variable="email"
+                        accept=".csv"
+                    />
+                </Box>
+                <Box sx={{display:"flex", m:"15px"}}>
+                    <Box>
+                        <Typography className="variable">Example of the format</Typography>
+                        <Typography variant="subtitle2" className="variable"><i>(in .csv)</i></Typography>
+                    </Box>
+                    <Box className="secondColumn">
+                        <img 
+                            src={require("../../Assets/emailExample.PNG")}
+                            alt="example"
+                            style={{width:"300px"}}
+                        />  
+                    </Box>
+                </Box>
+                <Box className="twoColumns">
+                    <Typography className="variable">Roles</Typography>
+                    <AddableField 
+                        items={formData["roles"]} 
+                        error={error["roles"]}
+                        setError={setError}
+                        errorText="Role added"
+                        handleOnChange={handleOnChange}
+                        currValue={role}
+                        setFormData={setFormData}
+                        variable="roles"
+                    />
+                    
+                </Box>
+                <Box className="twoColumns">
+                    <Typography className="variable">Time Duration (in mins)</Typography>
+                    <Box className="secondColumn">
+                        <TextField 
+                            size="small"
+                            fullWidth
+                            id="duration"
+                            type="number"
+                            InputProps={{ inputProps: { min: 1 } }}
+                            onChange={handleOnChange}
+                            error={error["duration"]}
+                            helperText={error["duration"] ? "Must be at least 1" : ""}
+                        />
+                    </Box>
+                </Box>
+                
+            </FormControl>
+            </CardContent>
+        </Card>
+    )
+}
 
 export default ProjectDetailsForm;

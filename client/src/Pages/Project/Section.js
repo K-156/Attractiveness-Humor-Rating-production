@@ -3,17 +3,21 @@ import { useLocation } from "react-router-dom";
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/TemplateList";
 import T1ProfileRating from "../../Components/ProjectForm/T1ProfileRating";
+import T2Rank from "../../Components/ProjectForm/T2Rank";
+import T3Audio from "../../Components/ProjectForm/T3Audio";
+import T4Intro from "../../Components/ProjectForm/T4Intro";
+import T5Chatbox from "../../Components/ProjectForm/T5Chatbox";
+import T6General from "../../Components/ProjectForm/T6General";
 
 
 const Section = () => {
 
     const location = useLocation()
-    const sectionNum = location.pathname.split("/").pop()
+    const sectionNum = parseInt(location.pathname.split("/").pop())
 
-    const templateList = sessionStorage.getItem("templates");
+    const templateList = sessionStorage.getItem("templates").split(",");
+    const currTemplate = parseInt(templateList[sectionNum-1]);
     const type  = sessionStorage.getItem("editMode");
-
-
 
     return(
         <div>
@@ -24,10 +28,16 @@ const Section = () => {
                 isEdit={type === "edit"}
                 subtitle={`Section ${sectionNum}: ${templates[templateList[sectionNum-1]]}`}
                 activeStep={1}
-                prevLink={sectionNum === 1 ? "/projects/sections" : `/projects/sections/${sectionNum+1}`}
-                nextLink={sectionNum === templateList.length ? `/projects/sections/${sectionNum+1}` : "/projects/summary"}
-            >
-                <T1ProfileRating />
+                prevLink={sectionNum === 1 ? "/projects/sections" : `/projects/sections/${sectionNum-1}`}
+                nextLink={sectionNum === templateList.length ? "/projects/summary" : `/projects/sections/${sectionNum+1}`}
+            >   
+                { currTemplate === 1  ? <T1ProfileRating /> 
+                    : currTemplate === 2 ? <T2Rank />
+                    : currTemplate === 3 ? <T3Audio />
+                    : currTemplate === 4 ? <T4Intro />
+                    : currTemplate === 5 ? <T5Chatbox />
+                    : <T6General />
+                }
             </ProjectLayout>    
         </div>
     )

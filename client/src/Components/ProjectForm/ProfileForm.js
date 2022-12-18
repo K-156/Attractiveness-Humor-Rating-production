@@ -1,13 +1,12 @@
 import { useState } from "react";
 
 import {Box, TextField, Typography } from "@mui/material";
-import _ from "lodash";
 
 import "./ProjectForm.css";
 import AddableTwoField from "../CustomFormFields/AddableTwoField";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
-const ProfileRatingForm = ({ id, setFormData, formData }) => {
+const ProfileForm = ({ id, setFormData, formData }) => {
 
     const [error, setError] = useState(false)
     const [textLimit, setTextLimit] = useState({
@@ -74,12 +73,16 @@ const ProfileRatingForm = ({ id, setFormData, formData }) => {
                     </Box>
                 </Box>
                 <Box className="twoColumns">
-                    <Typography className="variable">Upload Image</Typography>
+                    <Box>
+                        <Typography className="variable">Upload Image<br/></Typography>
+                        <Typography variant="subtitle2" className="variable"><i>(in .jpg, .jpeg, .png)</i></Typography>
+                    </Box>
                     <Box className="secondColumn">
                         <UploadOneFile 
                             id={id}
                             setFormData={setFormData}
                             formData={formData}
+                            accept=".png, .jpg, .jpeg"
                         />
                     </Box>
                 </Box>
@@ -106,4 +109,4 @@ const ProfileRatingForm = ({ id, setFormData, formData }) => {
     )
 }
 
-export default ProfileRatingForm;
+export default ProfileForm;

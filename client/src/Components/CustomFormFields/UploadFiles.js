@@ -4,7 +4,7 @@ import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
 
-const UploadFiles = ({ items, setFormData, variable }) => {
+const UploadFiles = ({ items, setFormData, variable, accept }) => {
 
     const uploadFile = (event) => {
         
@@ -42,7 +42,7 @@ const UploadFiles = ({ items, setFormData, variable }) => {
                     Choose a file to upload
                     <input
                         type="file"
-                        accept=".csv"
+                        accept={accept}
                         hidden
                         onChange={uploadFile}
                     />
@@ -56,7 +56,7 @@ const UploadFiles = ({ items, setFormData, variable }) => {
                             const value = file.name
                             return(
                                 <Box    
-                                    key={value}
+                                    key={index+value}
                                     sx={{display:"flex", justifyContent:"space-between", alignItems:"center"}}
                                 >
                                     <Typography

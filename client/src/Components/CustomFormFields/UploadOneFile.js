@@ -1,12 +1,11 @@
 import { useState } from "react";
 
 import { Alert, AlertTitle, Box, Button, Typography} from "@mui/material";
-import _ from "lodash";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
 
-const UploadOneFile = ({ id, setFormData, formData }) => {
+const UploadOneFile = ({ id, setFormData, formData, accept }) => {
 
     const [error, setError] = useState(false)
     const uploadFile = (event) => {
@@ -53,7 +52,7 @@ const UploadOneFile = ({ id, setFormData, formData }) => {
                     Choose a file to upload
                     <input
                         type="file"
-                        accept=".csv"
+                        accept={accept}
                         hidden
                         onChange={uploadFile}
                     />

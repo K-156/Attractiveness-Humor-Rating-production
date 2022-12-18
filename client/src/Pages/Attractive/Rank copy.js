@@ -5,7 +5,7 @@ import _ from "lodash";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { arrayMove, SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 
-import SortableCard from "../../Components/DragAndDrop/SortableCard";
+import RankCard from "../../Components/ItemCard/RankCard";
 import Instruction from "../../Components/Instruction/Instruction";
 import NextButton from "../../Components/NavButton/NextButton";
 import { ReactComponent as Arrow } from "../../Assets/arrow.svg";
@@ -14,16 +14,16 @@ import { ReactComponent as Arrow } from "../../Assets/arrow.svg";
 
 const allItems = [{
     name: "Candidate 1", 
-    img: "../../Assets/Candidates/Female 1.jpg"
+    img: "Female 1.jpg"
 }, {
     name: "Candidate 2", 
-    img: "../../Assets/Candidates/Female 2.jpg"
+    img: "Female 2.jpg"
 }, {
     name: "Candidate 3", 
-    img: "../../Assets/Candidates/Female 3.jpg"
+    img: "Female 3.jpg"
 }, {
     name: "Candidate 4", 
-    img: "../../Assets/Candidates/Female 4.jpg"
+    img: "Female 4.jpg"
 }
 ]
 
@@ -76,7 +76,7 @@ const Rank = () => {
                     {_.map(Object.keys(itemName), (key) => {
                         return(
                             <Grid item key={key} xs={3}> 
-                            <SortableCard  
+                            <RankCard  
                                 id={key}
                                 title={itemName[key]["name"]} 
                                 img={itemName[key]["img"]} 

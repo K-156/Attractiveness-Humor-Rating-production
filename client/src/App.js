@@ -23,6 +23,7 @@ import ProjectDetails from "./Pages/Project/ProjectDetails";
 import ProjectSection from "./Pages/Project/ProjectSection";
 import Section from "./Pages/Project/Section";
 
+
 function App() {
   return (
     <div id="app">

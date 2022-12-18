@@ -39,7 +39,7 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
 
     return(
         <Box sx={{display:"flex", flexDirection:"column"}}>
-            <Box className="secondColumn">
+            <Box className="secondColumn" >
                 <TextField 
                     name="name"
                     label="Name"
