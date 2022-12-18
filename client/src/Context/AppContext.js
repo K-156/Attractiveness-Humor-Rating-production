@@ -31,7 +31,7 @@ const initialState = {
   projects: [],
   isEditing: false,
   editProjectId: "",
-  isLoading: false,
+  isLoading: true,
 };
 
 const AppContext = createContext();
@@ -209,6 +209,15 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const setEditProject = (id) => {
+    console.log(`set edit project : ${id}`)
+  }
+
+  const deleteProject = (id) => {
+    console.log(`delete project : ${id}`)
+  }
+
+
   return (
     <AppContext.Provider
       value={{
@@ -220,6 +229,8 @@ const AppProvider = ({ children }) => {
         removeUserFromLocalStorage,
         getAllProjects,
         createProject,
+        setEditProject,
+        deleteProject,
       }}
     >
       {children}

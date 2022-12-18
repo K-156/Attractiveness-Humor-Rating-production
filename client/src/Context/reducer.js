@@ -67,11 +67,12 @@ const reducer = (state, action) => {
   }
 
   if (action.type === GET_ALL_PROJECTS_BEGIN) {
-    return { ...state };
+    return { ...state, isLoading:true };
   }
   if (action.type === GET_ALL_PROJECTS_SUCCESS) {
     return {
       ...state,
+      isLoading:false,
       projects: action.payload,
     };
   }

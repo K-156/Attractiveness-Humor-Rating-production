@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import ProjectTable from "../../Components/Tables/ProjectTable";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 import { useAppContext } from "../../Context/AppContext";
 
 // const data = [
@@ -17,7 +18,7 @@ import { useAppContext } from "../../Context/AppContext";
 
 const Projects = () => {
   const navigate = useNavigate();
-  const { getAllProjects, projects } = useAppContext();
+  const { getAllProjects, projects, isLoading, setEditProject, deleteProject } = useAppContext();
   const handleOnClick = () => {
     navigate("/projects/details");
     sessionStorage.setItem("editMode", "add");
@@ -26,6 +27,10 @@ const Projects = () => {
   useEffect(() => {
     getAllProjects();
   }, []);
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <div>

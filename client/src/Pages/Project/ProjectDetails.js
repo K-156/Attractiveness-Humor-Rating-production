@@ -13,8 +13,6 @@ const ProjectDetails = () => {
     duration: 0,
   });
 
-  console.log(formData);
-
   return (
     <div>
       <script>

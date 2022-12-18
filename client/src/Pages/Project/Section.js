@@ -13,6 +13,8 @@ const Section = () => {
     const templateList = sessionStorage.getItem("templates");
     const type  = sessionStorage.getItem("editMode");
 
+
+
     return(
         <div>
             <script>
