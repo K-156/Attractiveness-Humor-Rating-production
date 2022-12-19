@@ -91,7 +91,7 @@ const TemplateCard = ({ template }) => {
                             onClick={()=>setOpen(false)}
                             sx={{minWidth:"10px"}}
                         >
-                            <GrClose />
+                            <GrClose style={{pointerEvents:"none"}}/>
                         </Button>
                     </Box>
                     { open ?

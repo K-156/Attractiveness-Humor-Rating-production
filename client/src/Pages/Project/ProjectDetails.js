@@ -43,7 +43,10 @@ const ProjectDetails = () => {
         projectType="projDetails"
         formData={formData}
       >
-        <ProjectDetailsForm formData={formData} setFormData={setFormData} />
+        <ProjectDetailsForm 
+          formData={formData} 
+          setFormData={setFormData} 
+        />
       </ProjectLayout>
     </div>
   );

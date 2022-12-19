@@ -25,8 +25,27 @@ const templateSamples = {
     6: ["1_Complete survey Page"]
 }
 
+const variableMap = {
+    title: "Project Title", 
+    email: "Upload Participant Email",
+    roles: "Roles",
+    duration: "Timer duration", 
+    instruction: "Instruction",
+    optionName: "Name", 
+    description: "Description", 
+    img: "Upload Image", 
+    attributes: "Attributes", 
+    questions: "Questions",
+    audio: "Upload Audio",
+    introductions: "Introductions",
+    messageOptions: "Pre-written messages", 
+    text: "Text", 
+    nextButton: "Is there a Next button?"
+}
+
 export { 
     templates, 
     templatePurpose,
-    templateSamples
+    templateSamples, 
+    variableMap
 };

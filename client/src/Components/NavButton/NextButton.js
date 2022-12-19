@@ -26,7 +26,11 @@ const NextButton = ({ link, state, text, style, disabled,
                 disabled={disabled}
                 onClick={handleOnSubmit ? handleOnSubmit : handleOnClick}
                 variant="contained" 
-                sx={{background: "#264653", '&:hover': {backgroundColor:"#C59D5F"}}}
+                sx={{
+                    background: "#264653", 
+                    textTransform: "none",
+                    '&:hover': {backgroundColor:"#C59D5F"}
+                }}
             >
                 {text === undefined ? "Next" : text} <HiArrowRight style={{marginLeft:"10px"}} />
             </Button>

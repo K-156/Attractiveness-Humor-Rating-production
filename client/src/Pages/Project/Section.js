@@ -15,10 +15,19 @@ const Section = () => {
 
     const location = useLocation()
     const sectionNum = parseInt(location.pathname.split("/").pop())
-
     const templateList = sessionStorage.getItem("templates").split(",");
     const currTemplate = parseInt(templateList[sectionNum-1]);
+
+    let templateType = null;
+    const { template } = location.state;
+    if (template === undefined) {
+        templateType = templates[templateList[sectionNum-1]];
+    } else {
+        templateType = template;
+    }
+
     const type  = sessionStorage.getItem("editMode");
+ 
 
     const {data} = useAppContext();
 
@@ -29,7 +38,7 @@ const Section = () => {
             </script>
             <ProjectLayout
                 isEdit={type === "edit"}
-                subtitle={`Section ${sectionNum}: ${templates[templateList[sectionNum-1]]}`}
+                subtitle={`Section ${sectionNum}: ${templateType}`}
                 activeStep={1}
                 prevLink={sectionNum === 1 ? "/projects/sections" : `/projects/sections/${sectionNum-1}`}
                 nextLink={sectionNum === templateList.length ? "/projects/summary" : `/projects/sections/${sectionNum+1}`}

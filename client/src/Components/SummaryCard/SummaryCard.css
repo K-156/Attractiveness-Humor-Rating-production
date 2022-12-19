@@ -1,0 +1,18 @@
+.summaryText {
+    color:#264653;
+    font-size: 14px;
+}
+
+.summaryText.MuiTypography-root {
+    color:#264653;
+    font-size: 14px;
+}
+
+.summaryVariable {
+    color:#717171;
+    width: 200px;
+}
+
+.summaryVariable.MuiTypography-root{
+    font-size: 14px;
+}
