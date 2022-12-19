@@ -56,6 +56,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     <Typography className="variable">Project title</Typography>
                     <Box className="secondColumn">
                         <TextField 
+                            value={formData.title}
                             size="small"
                             fullWidth
                             id="title"
@@ -106,6 +107,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     <Typography className="variable">Time Duration (in mins)</Typography>
                     <Box className="secondColumn">
                         <TextField 
+                            value={formData.duration}
                             size="small"
                             fullWidth
                             id="duration"

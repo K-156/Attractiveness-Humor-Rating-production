@@ -2,9 +2,11 @@ import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
+    projDetails:{
+      title:String,
+      email:[],
+      roles:[],
+      duration:String,
     },
     isActive: {
       type: Boolean,

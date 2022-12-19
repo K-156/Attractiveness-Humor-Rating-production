@@ -8,38 +8,39 @@ import { useEffect } from "react";
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
 
-  const { getProject, isEditing, editProjectId } = useAppContext();
+  const { isEditing, editProjectId, setEditProject, projDetails } =
+    useAppContext();
 
   const [formData, setFormData] = useState({
-    title: "",
+    title:projDetails?.title,
     email: [],
-    roles: [],
-    duration: 0,
+    roles: isEditing ? projDetails.roles : [],
+    duration: projDetails?.duration,
   });
 
   useEffect(() => {
     if (isEditing) {
-      getProject(editProjectId)
+      setEditProject(editProjectId);
     }
-  },[editProjectId])
+  }, []);
 
   return (
     <div>
       <script>
         {
           (document.title = `${
-            type === "add" ? "Add " : "Edit "
+            !isEditing ? "Add " : "Edit "
           } Project | Project Details`)
         }
       </script>
       <ProjectLayout
-        isEdit={type === "edit"}
-        subtitle="Create new project"
+        isEdit={isEditing}
+        subtitle={isEditing ? "" : "Create new project"}
         activeStep={0}
         prevLink="/projects"
         nextLink="/projects/sections"
         state={{ type: type }}
-        projectType="Details"
+        projectType="projDetails"
         formData={formData}
       >
         <ProjectDetailsForm formData={formData} setFormData={setFormData} />

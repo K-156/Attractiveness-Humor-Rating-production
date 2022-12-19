@@ -34,9 +34,10 @@ const initialState = {
   token,
   open: false,
   projects: [],
-  isEditing: true, // set to false
+  isEditing: false,
   editProjectId: "6396bf3fc38fcbbab983f563", // need change to empty string
   isLoading: true,
+  projDetails:{},
 };
 
 const AppContext = createContext();

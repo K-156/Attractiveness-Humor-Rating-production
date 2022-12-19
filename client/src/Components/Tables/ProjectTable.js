@@ -30,7 +30,8 @@ const ProjectTable = ({ data }) => {
   };
 
   const handleOnEdit = (id) => {
-    navigate("/projects/summary");
+    // navigate("/projects/summary");
+    navigate('/projects/details')
     sessionStorage.setItem("editMode", "edit");
     setEditProject(id);
     if (isEditing) {

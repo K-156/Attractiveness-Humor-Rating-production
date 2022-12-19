@@ -109,62 +109,69 @@ const reducer = (state, action) => {
     const project = state.projects.find(
       (project) => project._id === action.payload.id
     );
-    const {
-      _id,
-      name,
-      isActive,
-      isPublish,
-      proj,
-      attractiveInstruc,
-      audioInstruc,
-      rankInstruc,
-      audioRatingInstruc,
-      introInstruc,
-      writtenIntro,
-      prewrittenInstruc,
-      messageOptions,
-      audio,
-    } = project;
+    const { projDetails,_id } = project;
     return {
       ...state,
-      isEditing: true,
-      editProjectId: _id,
-      name,
-      isActive,
-      isPublish,
-      proj,
-      attractiveInstruc,
-      audioInstruc,
-      rankInstruc,
-      audioRatingInstruc,
-      introInstruc,
-      writtenIntro,
-      prewrittenInstruc,
-      messageOptions,
-      audio,
+      isEditing:true,
+      editProjectId:_id,
+      projDetails
     };
+
+    // const {
+    //   name,
+    //   isActive,
+    //   isPublish,
+    //   proj,
+    //   attractiveInstruc,
+    //   audioInstruc,
+    //   rankInstruc,
+    //   audioRatingInstruc,
+    //   introInstruc,
+    //   writtenIntro,
+    //   prewrittenInstruc,
+    //   messageOptions,
+    //   audio,
+    // } = project;
+    // return {
+    //   ...state,
+    //   isEditing: true,
+    //   // editProjectId: _id,
+    //   name,
+    //   isActive,
+    //   isPublish,
+    //   proj,
+    //   attractiveInstruc,
+    //   audioInstruc,
+    //   rankInstruc,
+    //   audioRatingInstruc,
+    //   introInstruc,
+    //   writtenIntro,
+    //   prewrittenInstruc,
+    //   messageOptions,
+    //   audio,
+    // };
   }
 
   if (action.type === DELETE_PROJECT_BEGIN) {
     return { ...state, isLoading: true };
   }
-  if (action.type === EDIT_PROJECT_BEGIN){
+  if (action.type === EDIT_PROJECT_BEGIN) {
     return {
       ...state,
-      isLoading:true
-    }
+      isLoading: true,
+    };
   }
-  if (action.type === EDIT_PROJECT_SUCCESS){
+  if (action.type === EDIT_PROJECT_SUCCESS) {
     return {
       ...state,
-      isLoading:false
-    }
+      isLoading: false,
+    };
   }
-  if (action.type === EDIT_PROJECT_ERROR){
+  if (action.type === EDIT_PROJECT_ERROR) {
     return {
       ...state,
-      isLoading:false
-    }
+      isLoading: false,
+    };
   }
   throw new Error(`no such action: ${action.type}`);
 };
