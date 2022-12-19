@@ -23,7 +23,6 @@ import ProjectDetails from "./Pages/Project/ProjectDetails";
 import ProjectSection from "./Pages/Project/ProjectSection";
 import Section from "./Pages/Project/Section";
 import Templates from "./Pages/Project/Templates";
-import ProjectSummary from "./Pages/Project/ProjectSummary";
 import Summary from "./Pages/Project/Summary";
 
 

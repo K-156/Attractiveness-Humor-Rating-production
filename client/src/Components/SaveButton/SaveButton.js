@@ -6,8 +6,12 @@ const SaveButton = ({ projectType, formData, templateNum }) => {
       let data = JSON.parse(localStorage.getItem("projData"))
         ? JSON.parse(localStorage.getItem("projData"))
         : [];
-      data.push({ key: templateNum, value: formData });
+      let dict = {};
+      dict[templateNum] = formData;
+      data.push(dict);
       localStorage.setItem(projectType, JSON.stringify(data));
+    } else {
+      localStorage.setItem(projectType, JSON.stringify(formData));
     }
   };
   return (
@@ -16,7 +20,6 @@ const SaveButton = ({ projectType, formData, templateNum }) => {
         variant="contained"
         className="customButton"
         onClick={() => {
-          //   localStorage.setItem(projectType, JSON.stringify(formData));
           handleSubmit(formData);
         }}
       >

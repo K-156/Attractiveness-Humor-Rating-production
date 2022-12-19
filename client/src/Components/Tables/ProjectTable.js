@@ -14,7 +14,6 @@ import {
   TablePagination,
   TableRow,
   Button,
-  MenuItem,
 } from "@mui/material";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
@@ -31,8 +30,7 @@ const ProjectTable = ({ data }) => {
   };
 
   const handleOnEdit = (id) => {
-    // navigate("/projects/summary");
-    navigate('/projects/details')
+    navigate("/projects/summary");
     sessionStorage.setItem("editMode", "edit");
     setEditProject(id);
     if (isEditing) {
@@ -70,7 +68,7 @@ const ProjectTable = ({ data }) => {
               data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
               (item) => {
                 return (
-                  <TableRow key={item.name}>
+                  <TableRow key={item._id}>
                     <TableCell>{item._id}</TableCell>
                     <TableCell>{item.projDetails.title}</TableCell>
                     <TableCell sx={{ color: "#898989", fontWeight: "bold" }}>

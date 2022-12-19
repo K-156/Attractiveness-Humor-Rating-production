@@ -8,13 +8,14 @@ const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
 
   const [formData, setFormData] = useState([]);
-  
-  const {data} = useAppContext();
-  
+
+  const { data } = useAppContext();
 
   useEffect(() => {
     sessionStorage.setItem("templates", formData);
   }, [formData]);
+
+  console.log(formData)
 
   return (
     <div>

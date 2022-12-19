@@ -120,12 +120,14 @@ const reducer = (state, action) => {
     const project = state.projects.find(
       (project) => project._id === action.payload.id
     );
-    const { projDetails,_id } = project;
+    const { projDetails,_id, data, sections } = project;
     return {
       ...state,
       isEditing:true,
       editProjectId:_id,
-      projDetails
+      projDetails,
+      data,
+      sections
     };
 
     // const {

@@ -20,6 +20,7 @@ const Section = () => {
 
     let templateType = null;
     const { template } = location.state;
+
     if (template === undefined) {
         templateType = templates[templateList[sectionNum-1]];
     } else {

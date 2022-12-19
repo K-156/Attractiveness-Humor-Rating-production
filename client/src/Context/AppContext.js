@@ -38,12 +38,12 @@ const initialState = {
   open: false,
   projects: [],
   isEditing: false,
-  editProjectId: "6396bf3fc38fcbbab983f563", // need change to empty string
+  editProjectId: "", 
   isLoading: true,
   projDetails: {},
   data: [],
   sections: [],
-  activeProjectId: "", // need change
+  activeProjectId: "",
 };
 
 const AppContext = createContext();
