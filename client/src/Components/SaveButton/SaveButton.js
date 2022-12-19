@@ -14,11 +14,7 @@ const SaveButton = ({ projectType, formData, templateNum }) => {
     <Box sx={{ my: 2, display: "flex", justifyContent: "flex-end" }}>
       <Button
         variant="contained"
-        sx={{
-          background: "#264653",
-          "&:hover": { backgroundColor: "#C59D5F" },
-          textTransform: "none",
-        }}
+        className="customButton"
         onClick={() => {
           //   localStorage.setItem(projectType, JSON.stringify(formData));
           handleSubmit(formData);

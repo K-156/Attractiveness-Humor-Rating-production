@@ -43,9 +43,7 @@ const UploadOneFile = ({ id, setFormData, formData, accept }) => {
             <Box className="secondColumn">
                 <Button 
                     variant="contained" 
-                    sx={{background: "#264653",
-                        "&:hover": { backgroundColor: "#C59D5F" },
-                        textTransform: "none"}}
+                    className="customButton"
                     component="label"
                 >
                     <MdFileUpload size={20} style={{marginRight:5}}/>

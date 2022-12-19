@@ -125,12 +125,9 @@ const Login = () => {
                 </Alert>
               )}
               <Button
+                variant="contained"
                 type="submit"
-                sx={{
-                  background: "#264653",
-                  color: "#FFFFFF",
-                  "&:hover": { backgroundColor: "#C59D5F" },
-                }}
+                className="customButton"
                 onClick={handleOnSubmit}
               >
                 Submit

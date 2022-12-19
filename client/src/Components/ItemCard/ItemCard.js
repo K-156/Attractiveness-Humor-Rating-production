@@ -36,9 +36,10 @@ const ItemCard = ({ title, img, id, candidateCount, description, back }) => {
                 <Typography variant="subtitle2" textAlign="center" my={2} height="260px">{description}</Typography>
                 <Box display="flex" justifyContent="center">
                     <Button
+                        variant="contained"
                         onClick={handleOnClick}
                         id={id}
-                        sx={{background: "#264653", color:"#FFFFFF", '&:hover': {backgroundColor:"#C59D5F"}}}
+                        className="customButton"
                     >
                         View Profile
                     </Button>

@@ -47,10 +47,7 @@ const Projects = () => {
         <Button
           variant="contained"
           onClick={handleOnClick}
-          sx={{
-            background: "#264653",
-            "&:hover": { backgroundColor: "#C59D5F" },
-          }}
+          className="customButton"
         >
           Add Project
         </Button>

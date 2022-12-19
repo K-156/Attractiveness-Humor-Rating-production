@@ -19,11 +19,7 @@ const PrevButton = ({ state, text, style, link }) => {
             <Button 
                 onClick={handleOnClick}
                 variant="contained" 
-                sx={{
-                    background: "#264653", 
-                    textTransform: "none",
-                    '&:hover': {backgroundColor:"#C59D5F"}
-                }}
+                className="customButton"
             >
                 <HiArrowLeft style={{marginRight:"10px"}} /> {text === undefined ? "Previous" : text} 
             </Button>

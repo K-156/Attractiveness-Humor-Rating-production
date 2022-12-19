@@ -50,7 +50,7 @@ const Home = () => {
                                     id={role}
                                     onClick={handleOnClick}
                                     variant="contained" 
-                                    sx={{background: "#264653", '&:hover': {backgroundColor:"#C59D5F"}}}
+                                    className="customButton"
                                 >
                                     {role}
                                 </Button>

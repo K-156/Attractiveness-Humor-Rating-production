@@ -38,11 +38,7 @@ const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevL
                     { !isEdit ? <></>
                       : <Button
                             variant="contained"
-                            sx={{
-                                background: "#264653", 
-                                textTransform: "none",
-                                '&:hover': {backgroundColor:"#C59D5F"}
-                            }}
+                            className="customButton"
                             onClick={deleteProject}
                         >
                             Delete Project
@@ -74,11 +70,7 @@ const ProjectLayout = ({ children, isEdit, subtitle, activeStep, nextLink, prevL
             <Box sx={{display:"flex", justifyContent:"flex-end", pt:3}}>
                 <Button
                     variant="contained"
-                    sx={{
-                        background: "#264653", 
-                        textTransform: "none",
-                        '&:hover': {backgroundColor:"#C59D5F"}
-                    }}
+                    className="customButton"
                     onClick={saveProject}
                 >
                     {isEdit ? "Save Changes " : "Add Project"} 
