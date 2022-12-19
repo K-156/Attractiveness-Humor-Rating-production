@@ -8,41 +8,18 @@ const ProjectSchema = new mongoose.Schema(
       roles:[],
       duration:String,
     },
+    sections: {
+      type: [],
+      required:true,
+    },
+    data:[],
     isActive: {
       type: Boolean,
     },
     isPublish: {
       type: Boolean,
     },
-    proj: [
-      {
-        name: String,
-        description: String,
-        img: {
-          type: String,
-        },
-        attributes: [{ _id: false, field: String, value: String }],
-      },
-    ],
-    attractiveInstruc: {
-      type: String,
-    },
-    audioInstruc: {
-      type: String,
-    },
-    rankInstruc: {
-      type: String,
-    },
-    audioRatingInstruc: [],
-    introInstruc: {
-      type: String,
-    },
-    writtenIntro: [],
-    prewrittenInstruc: {
-      type: String,
-    },
-    messageOptions: [],
-    audio: [],
+    
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",

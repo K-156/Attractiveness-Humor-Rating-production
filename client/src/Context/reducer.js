@@ -19,6 +19,7 @@ import {
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
+  SUBMIT_FORM_DATA,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -103,6 +104,14 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+    };
+  }
+
+  if (action.type === SUBMIT_FORM_DATA) {
+
+    return {
+      ...state,
+      data: action.payload.formData,
     };
   }
   if (action.type === SET_EDIT_PROJECT) {

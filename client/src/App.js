@@ -23,7 +23,7 @@ import ProjectDetails from "./Pages/Project/ProjectDetails";
 import ProjectSection from "./Pages/Project/ProjectSection";
 import Section from "./Pages/Project/Section";
 import Templates from "./Pages/Project/Templates";
-
+import ProjectSummary from "./Pages/Project/ProjectSummary";
 
 function App() {
   return (
@@ -148,7 +148,11 @@ function App() {
             <Route path="/projects/details" element={<ProjectDetails />} />
             <Route path="/projects/sections" element={<ProjectSection />} />
             <Route path="/projects/sections/:id" element={<Section />} />
-            <Route path="/projects/sections/templates" element={<Templates/>} />
+            <Route
+              path="/projects/sections/templates"
+              element={<Templates />}
+            />
+            <Route path="/projects/summary" element={<ProjectSummary />} />
           </Route>
         </Routes>
       </Router>

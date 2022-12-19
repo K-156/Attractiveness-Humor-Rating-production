@@ -24,6 +24,7 @@ import {
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
+  SUBMIT_FORM_DATA,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -38,6 +39,8 @@ const initialState = {
   editProjectId: "6396bf3fc38fcbbab983f563", // need change to empty string
   isLoading: true,
   projDetails:{},
+  data:{},
+  sections:[],
 };
 
 const AppContext = createContext();
@@ -170,38 +173,26 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const submitFormData = (formData) => {
+    dispatch({ type: SUBMIT_FORM_DATA, payload: { formData } });
+  }
+
   const createProject = async () => {
     dispatch({ type: CREATE_PROJECT_BEGIN });
     try {
       const {
-        name,
+        projDetails,
+        sections,
+        data,
         isActive,
         isPublish,
-        proj,
-        attractiveInstruc,
-        audioInstruc,
-        rankInstruc,
-        audioRatingInstruc,
-        introInstruc,
-        writtenIntro,
-        prewrittenInstruc,
-        messageOptions,
-        audio,
       } = state;
       await authFetch.post("projects", {
-        name,
+        projDetails,
+        sections,
+        data,
         isActive,
         isPublish,
-        proj,
-        attractiveInstruc,
-        audioInstruc,
-        rankInstruc,
-        audioRatingInstruc,
-        introInstruc,
-        writtenIntro,
-        prewrittenInstruc,
-        messageOptions,
-        audio,
       });
       dispatch({
         type: CREATE_PROJECT_SUCCESS,
@@ -259,6 +250,7 @@ const AppProvider = ({ children }) => {
         setEditProject,
         deleteProject,
         editProject,
+        submitFormData
       }}
     >
       {children}

@@ -5,8 +5,8 @@ import { BadRequestError, NotFoundError } from "../errors/index.js";
 import checkPermissions from "../utils/checkPermissions.js";
 
 const createProject = async (req, res) => {
-  const { proj } = req.body;
-  if (!proj) {
+  const { projDetails, sections, data } = req.body;
+  if (!projDetails || !sections || !data) {
     throw new BadRequestError("Please provide all values");
   }
 

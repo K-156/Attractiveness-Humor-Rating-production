@@ -27,7 +27,7 @@ const ProjectDetails = () => {
         activeStep={1}
         prevLink="/projects/details"
         nextLink="/projects/sections/1"
-        projectType="Sections"
+        projectType="sections"
         formData={formData}
       >
         <AddSection formData={formData} setFormData={setFormData} />

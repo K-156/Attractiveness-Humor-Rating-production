@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { useAppContext } from "../../Context/AppContext";
 
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/TemplateList";
@@ -19,6 +20,8 @@ const Section = () => {
     const currTemplate = parseInt(templateList[sectionNum-1]);
     const type  = sessionStorage.getItem("editMode");
 
+    const {data} = useAppContext();
+
     return(
         <div>
             <script>
@@ -30,6 +33,8 @@ const Section = () => {
                 activeStep={1}
                 prevLink={sectionNum === 1 ? "/projects/sections" : `/projects/sections/${sectionNum-1}`}
                 nextLink={sectionNum === templateList.length ? "/projects/summary" : `/projects/sections/${sectionNum+1}`}
+                projectType={`${sectionNum}-${currTemplate}`}
+                formData={data}
             >   
                 { currTemplate === 1  ? <T1ProfileRating /> 
                     : currTemplate === 2 ? <T2Rank />
