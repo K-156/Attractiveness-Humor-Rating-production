@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppContext } from "../../Context/AppContext";
 
 import { Accordion, AccordionDetails, AccordionSummary, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -45,6 +46,12 @@ const T2Rank = () => {
                 }
             }))}
     }
+
+    const { submitFormData } = useAppContext();
+
+    useEffect(() => {
+      submitFormData(formData);
+    }, [formData]);
 
     return(
         <Box>

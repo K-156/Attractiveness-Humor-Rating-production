@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppContext } from "../../Context/AppContext";
 
 import { Box, Card, CardContent, FormControl, TextField, Typography, } from "@mui/material";
 import AddableField from "../CustomFormFields/AddableField";
@@ -32,6 +33,12 @@ const T5Chatbox = () => {
             })
         }
     }
+
+    const { submitFormData } = useAppContext();
+
+    useEffect(() => {
+      submitFormData(formData);
+    }, [formData]);
 
     return(
         <Card>

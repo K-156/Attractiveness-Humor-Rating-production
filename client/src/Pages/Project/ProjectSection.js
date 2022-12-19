@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useAppContext } from "../../Context/AppContext";
 
 import AddSection from "../../Components/ProjectForm/AddSections";
 import ProjectLayout from "../../Layout/ProjectLayout";
@@ -7,6 +8,10 @@ const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
 
   const [formData, setFormData] = useState([]);
+  
+  const {data} = useAppContext();
+  console.log(data)
+  
 
   useEffect(() => {
     sessionStorage.setItem("templates", formData);

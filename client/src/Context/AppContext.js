@@ -39,7 +39,7 @@ const initialState = {
   editProjectId: "6396bf3fc38fcbbab983f563", // need change to empty string
   isLoading: true,
   projDetails:{},
-  data:{},
+  data:[],
   sections:[],
 };
 

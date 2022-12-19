@@ -22,6 +22,8 @@ const Section = () => {
 
     const {data} = useAppContext();
 
+    console.log(data)
+
     return(
         <div>
             <script>
@@ -33,8 +35,9 @@ const Section = () => {
                 activeStep={1}
                 prevLink={sectionNum === 1 ? "/projects/sections" : `/projects/sections/${sectionNum-1}`}
                 nextLink={sectionNum === templateList.length ? "/projects/summary" : `/projects/sections/${sectionNum+1}`}
-                projectType={`${sectionNum}-${currTemplate}`}
+                projectType="projData"
                 formData={data}
+                templateNum={currTemplate}
             >   
                 { currTemplate === 1  ? <T1ProfileRating /> 
                     : currTemplate === 2 ? <T2Rank />

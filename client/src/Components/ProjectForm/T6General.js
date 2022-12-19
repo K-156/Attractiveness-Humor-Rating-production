@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppContext } from "../../Context/AppContext";
 
 import { 
     Box, 
@@ -31,6 +32,12 @@ const T6General = () => {
             [name]: value
         }))
     }
+
+    const { submitFormData } = useAppContext();
+
+    useEffect(() => {
+      submitFormData(formData);
+    }, [formData]);
     
     return(
         <Card>
