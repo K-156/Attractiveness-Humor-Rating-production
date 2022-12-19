@@ -15,6 +15,10 @@ import {
   CREATE_PROJECT_ERROR,
   LOGOUT_USER,
   SET_EDIT_PROJECT,
+  DELETE_PROJECT_BEGIN,
+  EDIT_PROJECT_BEGIN,
+  EDIT_PROJECT_SUCCESS,
+  EDIT_PROJECT_ERROR,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -139,6 +143,28 @@ const reducer = (state, action) => {
       messageOptions,
       audio,
     };
+  }
+
+  if (action.type === DELETE_PROJECT_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === EDIT_PROJECT_BEGIN){
+    return {
+      ...state,
+      isLoading:true
+    }
+  }
+  if (action.type === EDIT_PROJECT_SUCCESS){
+    return {
+      ...state,
+      isLoading:false
+    }
+  }
+  if (action.type === EDIT_PROJECT_ERROR){
+    return {
+      ...state,
+      isLoading:false
+    }
   }
   throw new Error(`no such action: ${action.type}`);
 };

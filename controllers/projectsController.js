@@ -10,7 +10,7 @@ const createProject = async (req, res) => {
     throw new BadRequestError("Please provide all values");
   }
 
-  req.body.createdBy = req.user.userId
+  req.body.createdBy = req.user.userId;
 
   const project = await Project.create(req.body);
   res.status(StatusCodes.CREATED).json({ project });
@@ -25,8 +25,8 @@ const getAllProjects = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
-  const {userId} = req.user
-  const user = await User.findOne({userId})
+  const { userId } = req.user;
+  const user = await User.findOne({ userId });
   const { id: projectId } = req.params;
 
   const { proj } = req.body;
@@ -39,7 +39,7 @@ const updateProject = async (req, res) => {
     throw new NotFoundError(`No project with id ${projectId}`);
   }
 
-  checkPermissions(user)
+  checkPermissions(user);
 
   const updatedProject = await Project.findOneAndUpdate(
     { _id: projectId },
@@ -63,4 +63,23 @@ const getProject = async (req, res) => {
   res.status(StatusCodes.OK).json({ project });
 };
 
-export { createProject, updateProject, getProject, getAllProjects };
+const deleteProject = async (req, res) => {
+  const { userId } = req.user;
+  const user = await User.findOne({ userId });
+
+  const {id:projectId} = req.params
+  const project = await Project.findOne({ _id: projectId });
+
+  if (!project) {
+    throw new NotFoundError(`No project with id ${projectId}`);
+  }
+
+  checkPermissions(user);
+
+  await project.remove()
+
+  res.status(StatusCodes.OK).json({msg:'Success! Project deleted'})
+};
+
+
+export { createProject, updateProject, getProject, getAllProjects, deleteProject };

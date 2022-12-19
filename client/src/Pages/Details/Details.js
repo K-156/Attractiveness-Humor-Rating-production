@@ -22,7 +22,7 @@ const Details = () => {
 
   useEffect(() => {
     // need to change project id
-    getProject("639809da432d34c654c930cd");
+    getProject("6396bf3fc38fcbbab983f563");
   }, []);
 
   const detailList = ["Gender", "Age", "Ethnicity"];

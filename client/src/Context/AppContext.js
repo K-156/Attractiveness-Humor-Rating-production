@@ -20,6 +20,10 @@ import {
   CREATE_PROJECT_ERROR,
   LOGOUT_USER,
   SET_EDIT_PROJECT,
+  DELETE_PROJECT_BEGIN,
+  EDIT_PROJECT_BEGIN,
+  EDIT_PROJECT_SUCCESS,
+  EDIT_PROJECT_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -30,8 +34,8 @@ const initialState = {
   token,
   open: false,
   projects: [],
-  isEditing: false,
-  editProjectId: "",
+  isEditing: true, // set to false
+  editProjectId: "6396bf3fc38fcbbab983f563", // need change to empty string
   isLoading: true,
 };
 
@@ -211,17 +215,34 @@ const AppProvider = ({ children }) => {
   };
 
   const setEditProject = (id) => {
-    dispatch({type:SET_EDIT_PROJECT, payload:{id}})
-  }
+    dispatch({ type: SET_EDIT_PROJECT, payload: { id } });
+  };
 
-  const editProject = () => {
-    console.log('edit project')
-  }
+  const editProject = async () => {
+    dispatch({ type: EDIT_PROJECT_BEGIN });
+    try {
+      const { name } = state;
+      await authFetch.patch(`/projects/${state.editProjectId}`, name);
+      dispatch({ type: EDIT_PROJECT_SUCCESS });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: EDIT_PROJECT_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+  };
 
-  const deleteProject = (id) => {
-    console.log(`delete project : ${id}`)
-  }
-
+  const deleteProject = async (id) => {
+    dispatch({ type: DELETE_PROJECT_BEGIN });
+    try {
+      await authFetch.delete(`/projects/${id}`);
+      getAllProjects();
+    } catch (error) {
+      console.log(error.response);
+      //logoutUser()
+    }
+  };
 
   return (
     <AppContext.Provider
