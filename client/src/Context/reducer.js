@@ -20,6 +20,8 @@ import {
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
   SUBMIT_FORM_DATA,
+  PUBLISH_PROJECT_BEGIN,
+  PUBLISH_PROJECT_SUCCESS,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -180,6 +182,18 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+    };
+  }
+
+  if (action.type === PUBLISH_PROJECT_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === PUBLISH_PROJECT_SUCCESS) {
+    console.log(action.payload)
+    return {
+      ...state,
+      isLoading: false,
+      activeProjectId: action.payload,
     };
   }
   throw new Error(`no such action: ${action.type}`);

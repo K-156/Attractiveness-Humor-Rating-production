@@ -22,9 +22,12 @@ const T4Intro = () => {
         introductions: ""
     });
 
+    console.log(currValue)
+
     const handleOnChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+        console.log(name)
 
         if (name === "instruction") {
             setFormData((state) => ({
@@ -70,6 +73,7 @@ const T4Intro = () => {
                     <Typography className="variable">Questions</Typography>
                     <Box className="secondColumn">
                         <AddableField
+                            name="questions"
                             items={formData["questions"]}
                             error={error["questions"]}
                             setError={setError}
@@ -77,7 +81,7 @@ const T4Intro = () => {
                             handleOnChange={handleOnChange}
                             currValue={currValue["questions"]}
                             setFormData={setFormData}
-                            variable="questions"                        
+                            variable="questions"                      
                         />
                     </Box>
                 </Box>

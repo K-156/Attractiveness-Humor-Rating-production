@@ -22,8 +22,6 @@ const Section = () => {
 
     const {data} = useAppContext();
 
-    console.log(data)
-
     return(
         <div>
             <script>

@@ -11,6 +11,9 @@ const ProjectSummary = () => {
     data:JSON.parse(items.projData)
   };
 
+  console.log(test);
+
+
   return (
     <div>
       <button

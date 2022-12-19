@@ -15,9 +15,11 @@ const ProjectSchema = new mongoose.Schema(
     data:[],
     isActive: {
       type: Boolean,
+      default:false
     },
     isPublish: {
       type: Boolean,
+      default:false,
     },
     
     createdBy: {

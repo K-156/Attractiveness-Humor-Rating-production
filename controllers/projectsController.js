@@ -5,14 +5,16 @@ import { BadRequestError, NotFoundError } from "../errors/index.js";
 import checkPermissions from "../utils/checkPermissions.js";
 
 const createProject = async (req, res) => {
-  const { projDetails, sections, data } = req.body;
+  console.log(req.body)
+  const { projDetails, sections, data } = req.body.projDetails;
   if (!projDetails || !sections || !data) {
     throw new BadRequestError("Please provide all values");
   }
 
-  req.body.createdBy = req.user.userId;
+  req.body.projDetails.createdBy = req.user.userId;
 
-  const project = await Project.create(req.body);
+  const project = await Project.create(req.body.projDetails);
+  // console.log(project)
   res.status(StatusCodes.CREATED).json({ project });
 };
 
@@ -29,10 +31,7 @@ const updateProject = async (req, res) => {
   const user = await User.findOne({ userId });
   const { id: projectId } = req.params;
 
-  const { proj } = req.body;
-  if (!proj) {
-    throw new BadRequestError("Please provide all values");
-  }
+  console.log(req.body)
 
   const project = await Project.findOne({ _id: projectId });
   if (!project) {

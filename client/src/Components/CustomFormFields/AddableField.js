@@ -14,6 +14,9 @@ const AddableField = ({
   variable,
 }) => {
   const onAdd = (e) => {
+    console.log(items)
+    console.log(variable)
+    console.log(currValue)
     if (items.includes(currValue)) {
       setError((state) => ({
         ...state,
@@ -49,6 +52,7 @@ const AddableField = ({
           error={error}
           helperText={error ? errorText : ""}
           id={variable}
+          name={variable}
         />
         <Button onClick={onAdd}>
           <CgAdd

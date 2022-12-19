@@ -25,6 +25,8 @@ import {
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
   SUBMIT_FORM_DATA,
+  PUBLISH_PROJECT_BEGIN,
+  PUBLISH_PROJECT_SUCCESS,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -38,9 +40,10 @@ const initialState = {
   isEditing: false,
   editProjectId: "6396bf3fc38fcbbab983f563", // need change to empty string
   isLoading: true,
-  projDetails:{},
-  data:[],
-  sections:[],
+  projDetails: {},
+  data: [],
+  sections: [],
+  activeProjectId: "", // need change
 };
 
 const AppContext = createContext();
@@ -175,24 +178,15 @@ const AppProvider = ({ children }) => {
 
   const submitFormData = (formData) => {
     dispatch({ type: SUBMIT_FORM_DATA, payload: { formData } });
-  }
+  };
 
-  const createProject = async () => {
+  const createProject = async (projDetails, sections, data) => {
     dispatch({ type: CREATE_PROJECT_BEGIN });
     try {
-      const {
-        projDetails,
-        sections,
-        data,
-        isActive,
-        isPublish,
-      } = state;
       await authFetch.post("projects", {
         projDetails,
         sections,
         data,
-        isActive,
-        isPublish,
       });
       dispatch({
         type: CREATE_PROJECT_SUCCESS,
@@ -203,6 +197,30 @@ const AppProvider = ({ children }) => {
         type: CREATE_PROJECT_ERROR,
         payload: { msg: error.response.data.msg },
       });
+    }
+  };
+
+  const publishProject = async (id) => {
+    dispatch({ type: PUBLISH_PROJECT_BEGIN });
+    const { data } = await authFetch.get(`/projects`);
+    const { projects } = data;
+    const { _id: activeProjId } = projects.find((proj) => proj.isActive);
+    try {
+      await authFetch.patch(`/projects/${activeProjId}`, {
+        isActive: false,
+        isPublish: false,
+      });
+      await authFetch.patch(`/projects/${id}`, {
+        isActive: true,
+        isPublish: true,
+      });
+      getAllProjects();
+      dispatch({
+        type: PUBLISH_PROJECT_SUCCESS,
+        payload: id,
+      });
+    } catch (error) {
+      console.log(error.response);
     }
   };
 
@@ -250,7 +268,8 @@ const AppProvider = ({ children }) => {
         setEditProject,
         deleteProject,
         editProject,
-        submitFormData
+        submitFormData,
+        publishProject,
       }}
     >
       {children}

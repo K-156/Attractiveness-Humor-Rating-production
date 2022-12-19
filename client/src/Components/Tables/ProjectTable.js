@@ -14,13 +14,14 @@ import {
   TablePagination,
   TableRow,
   Button,
+  MenuItem,
 } from "@mui/material";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
 const ProjectTable = ({ data }) => {
   const navigate = useNavigate();
-  const { setEditProject, deleteProject, isEditing, editProject } = useAppContext();
+  const { setEditProject, deleteProject, isEditing, editProject, publishProject } = useAppContext();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -71,7 +72,7 @@ const ProjectTable = ({ data }) => {
                 return (
                   <TableRow key={item.name}>
                     <TableCell>{item._id}</TableCell>
-                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.projDetails.title}</TableCell>
                     <TableCell sx={{ color: "#898989", fontWeight: "bold" }}>
                       {item.isActive ? "Active" : ""}
                     </TableCell>
@@ -92,6 +93,7 @@ const ProjectTable = ({ data }) => {
                           },
                         }}
                         label="Publish"
+                        onClick={()=>publishProject(item._id)}
                       />
                     </TableCell>
                     <TableCell>

@@ -26,7 +26,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
   const handleOnChange = (event) => {
     const id = event.target.id;
     const value = event.target.value;
-
+    
     if (id === "duration") {
       setError((state) => ({
         ...state,

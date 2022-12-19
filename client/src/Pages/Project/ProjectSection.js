@@ -10,7 +10,6 @@ const ProjectDetails = () => {
   const [formData, setFormData] = useState([]);
   
   const {data} = useAppContext();
-  console.log(data)
   
 
   useEffect(() => {
