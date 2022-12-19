@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { Box, Button, Typography } from "@mui/material";
@@ -11,13 +11,11 @@ import "./NavBar.css";
 const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation()
-
   const [tab, setTab] = useState(location.pathname.slice(1));
 
-  const handleOnClick = (route) => {
-    navigate(`/${route}`);
-    setTab(route)
-  };
+  useEffect(() => {
+    setTab(location.pathname.slice(1))
+  }, [location])
 
   return (
     <>
@@ -26,7 +24,7 @@ const NavBar = () => {
           <Button
             className="navBarButton"
             sx={{ background: tab === "overview" ? "#1d353f" : "#264653" }}
-            onClick={() => handleOnClick("overview")}
+            onClick={() => navigate("/overview")}
           >
             <MdSpaceDashboard size={25} style={{ margin: "15px" }} />
             <Typography variant="subtitle1" pl={1}>
@@ -36,11 +34,11 @@ const NavBar = () => {
           <Button
             className="navBarButton"
             sx={{ background: tab === "projects" ? "#1d353f" : "#264653" }}
-            onClick={() => handleOnClick("projects")}
+            onClick={() => navigate("/projects")}
           >
             <BsCardChecklist size={25} style={{ margin: "15px" }} />
             <Typography variant="subtitle1" pl={1}>
-              Project
+              Projects
             </Typography>
           </Button>
         </Box>
