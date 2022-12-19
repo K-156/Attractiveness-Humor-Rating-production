@@ -41,6 +41,7 @@ const AddSection = ({ formData, setFormData }) => {
                             Sections                         
                             <Link
                                 style={{color:"#C59D5F", fontSize:"12px"}}
+                                to="/projects/sections/templates"
                             >
                                 <i>View Templates</i>
                             </Link>
