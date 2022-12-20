@@ -1,0 +1,106 @@
+/* Background */
+.backgroundImage-green {
+    background-image: url("Assets/Theme/green/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.backgroundImage-blue {
+    background-image: url("Assets/Theme/blue/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.backgroundImage-yellow {
+    background-image: url("Assets/Theme/yellow/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.backgroundImage-pink {
+    background-image: url("Assets/Theme/pink/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.backgroundImage-brown {
+    background-image: url("Assets/Theme/brown/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+/* Button */
+.customButton-green.MuiButton-contained {
+    background: #264653;
+    text-transform: none;
+}
+
+.customButton-green.MuiButton-contained:hover {
+    background-color:#C59D5F;
+}
+
+.customButton-blue.MuiButton-contained {
+    background: #334164;
+    text-transform: none;
+}
+
+.customButton-blue.MuiButton-contained:hover {
+    background-color:#FD6584;
+}
+
+.customButton-yellow.MuiButton-contained {
+    background: #EE8A41;
+    text-transform: none;
+}
+
+.customButton-yellow.MuiButton-contained:hover {
+    background-color:#087145;
+}
+
+.customButton-pink.MuiButton-contained {
+    background: #E85D5D;
+    text-transform: none;
+}
+
+.customButton-pink.MuiButton-contained:hover {
+    background-color:#4A64BE;
+}
+
+.customButton-brown.MuiButton-contained {
+    background: #674D42;
+    text-transform: none;
+}
+
+.customButton-brown.MuiButton-contained:hover {
+    background-color:#557E87;
+}

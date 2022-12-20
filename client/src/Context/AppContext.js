@@ -3,13 +3,13 @@ import reducer from "./reducer";
 import axios from "axios";
 
 import {
+  SET_THEME,
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
-  SET_OPEN_NAVBAR,
   GET_PROJECT_BEGIN,
   GET_PROJECT_ERROR,
   GET_PROJECT_SUCCESS,
@@ -35,7 +35,7 @@ const user = localStorage.getItem("user");
 const initialState = {
   user: user ? JSON.parse(user) : null,
   token,
-  open: false,
+  theme: "yellow",
   projects: [],
   isEditing: false,
   editProjectId: "", 
@@ -91,10 +91,10 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem("data");
   };
 
-  const setOpen = () => {
+  const setTheme = (theme) => {
     dispatch({
-      type: SET_OPEN_NAVBAR,
-      payload: !state.open,
+      type: SET_THEME,
+      payload: theme
     });
   };
 
@@ -258,8 +258,8 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...state,
+        setTheme,
         loginUser,
-        setOpen,
         updateUser,
         getProject,
         removeUserFromLocalStorage,

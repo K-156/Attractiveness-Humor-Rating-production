@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../Context/AppContext';
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill } from "react-icons/bs";
 import _ from 'lodash';
 
 import { ReactComponent as LandingPage } from "../../Assets/landing-page.svg";
-import "./Home.css";
+import "../../Theme.css";
 
 const title="Job Application";
 const description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae eveniet cupiditate facere suscipit voluptatibus neque," +
@@ -14,6 +15,7 @@ const roleList=["Employer", "Job seeker"]
 
 const Home = () => {
     
+    const { theme } = useAppContext();
     const navigate = useNavigate();
     const handleOnClick = (event) => {
         sessionStorage.setItem("role", (event.target.id).toLowerCase())
@@ -31,7 +33,7 @@ const Home = () => {
                     <BsFillGearFill size="25px" color="#A3A3A3"/>
                 </Button>
             </Box>
-            <Grid container className="center" gap={2}>
+            <Grid container className="centerPadding" gap={2}>
                 <Grid item xs={5} px={4}> 
                     <Typography variant="h5" sx={{fontWeight:"bold", color:"#C59D5F"}}>
                         {title}

@@ -1,8 +1,0 @@
-.customButton.MuiButton-contained {
-    background: #264653;
-    text-transform: none;
-}
-
-.customButton.MuiButton-contained:hover {
-    background-color:#C59D5F;
-}

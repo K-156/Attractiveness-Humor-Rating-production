@@ -1,4 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { 
+  Box, 
+  Typography 
+} from "@mui/material";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
@@ -10,8 +13,8 @@ const ChatHeader = ({ receiver }) => {
     user.userResponse.rank[user.userResponse.rank.length - 1];
 
   return (
-    <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Box display="flex" alignItems="center">
+    <Box className="spaceBetween">
+      <Box className="center">
         <img
           src={
             receiver.includes("1")
@@ -21,13 +24,19 @@ const ChatHeader = ({ receiver }) => {
           alt="display"
           style={{ borderRadius: "20px", height: "30px", marginRight: "15px" }}
         />
-        <Typography variant="subtitle1" fontWeight="bold" letterSpacing={1}>
+        <Typography 
+          sx={{
+            fontSize: "14px", 
+            fontWeight: "bold", 
+            letterSpacing: 1
+          }}
+        >
           {receiver.includes("1")
               ? data.proj[firstCandidate].name.toUpperCase()
               : data.proj[lastCandidate].name.toUpperCase()}
         </Typography>
       </Box>
-      <Box display="flex" alignItems="center">
+      <Box className="center">
         <RxMagnifyingGlass style={{ marginRight: 3 }} />
         <BiDotsVerticalRounded />
       </Box>

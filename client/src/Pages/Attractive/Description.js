@@ -66,7 +66,7 @@ const Description = () => {
       <Box display="flex" justifyContent="center">
         <Card sx={{ mt: 2, width: "800px" }}>
           <CardContent>
-            <Grid container className="center" px={1} py={2} gap={1}>
+            <Grid container className="centerPadding" px={1} py={2} gap={1}>
               <Grid item xs={5}>
                 <Box
                   display="flex"

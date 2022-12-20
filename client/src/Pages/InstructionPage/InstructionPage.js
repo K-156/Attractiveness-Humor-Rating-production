@@ -1,8 +1,9 @@
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
 import NextButton from "../../Components/NavButton/NextButton";
-import { ReactComponent as InstructionImage } from "../../Assets/instruction.svg";
+// import { ReactComponent as InstructionImage } from "../../Assets/instruction.svg";
 import "./InstructionPage.css";
+import "../../Theme.css";
 
 // const instruction = {
 //     "attractive": "Based on the candidates’ profile, please rate the candidates between 1 to 9. (1 - extremely uninterested, 9 - extremely interested)", 
@@ -20,14 +21,14 @@ const InstructionPage = ( { type, link } ) => {
     
     return(
         <div 
-            className="backgroundImage" 
+            className="backgroundImage-green" 
             style={{display:"flex",  flexDirection:"column", alignItems: "center"}} 
         >
             <script>
                 {document.title="Instruction"}
             </script>
             <Box className="instruction">
-                <InstructionImage width="20%" height="0%" style={{margin: "20px"}}/>
+                {/* <InstructionImage width="20%" height="0%" style={{margin: "20px"}}/> */}
                 <Card sx={{background: "#264653", color:"#FFFFFF", mx: 30, width:"80%" }}>
                     <CardContent>
                         <Box display="flex" justifyContent="center">

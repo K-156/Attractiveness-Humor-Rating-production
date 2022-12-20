@@ -1,4 +1,5 @@
 import {
+  SET_THEME,
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
@@ -27,6 +28,9 @@ import {
 import { initialState } from "./AppContext";
 
 const reducer = (state, action) => {
+  if (action.type === SET_THEME) {
+    return action.payload
+  }
   if (action.type === LOGIN_USER_BEGIN) {
     return { ...state };
   }

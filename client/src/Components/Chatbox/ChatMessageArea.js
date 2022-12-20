@@ -1,18 +1,32 @@
-import { Box, Chip, TextField } from "@mui/material";
+import { 
+    Box,
+    Chip, 
+    TextField 
+} from "@mui/material";
 
-const ChatMessageArea = () => {
+const ChatMessageArea = ({ theme }) => {
+
     return(
         <div >
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box className="spaceBetween">
                 <TextField
                     disabled
                     label="Write a message..."
                     fullWidth
                     size="small"
-                    sx={{backgroundColor: "#ECECEC", border: "0px", textTransform: false}}
+                    sx={{
+                        backgroundColor: "#ECECEC", 
+                        border: "0px", 
+                        textTransform: false
+                    }}
                 />
                 <Chip 
-                    sx={{backgroundColor: "#264653", color:"#FFFFFF", px:2, ml:2}}
+                    sx={{
+                        backgroundColor: theme, 
+                        color:"#FFFFFF", 
+                        px:2, 
+                        ml:2
+                    }}
                     label="Send"
                 />
             </Box>           

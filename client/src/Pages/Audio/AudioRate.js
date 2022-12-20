@@ -63,7 +63,7 @@ const AudioRate = ({ title, link, isWritten }) => {
         }
       </script>
       <Instruction type={isWritten ? "intro" : "audio"} />
-      <Grid container className="center" gap={2}>
+      <Grid container className="centerPadding" gap={2}>
         <Grid item xs={4} px={4}>
           <Box display="flex" justifyContent="center" height="200px" py={2}>
             <img

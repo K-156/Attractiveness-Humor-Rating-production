@@ -3,18 +3,42 @@ import _ from "lodash";
 import { BsPersonCircle } from "react-icons/bs";
 
 
-const MessageSelected = ({ selectMessage }) => {
+const MessageSelected = ({ selectMessage, theme }) => {
 
     return(
-        <Box height="120px" display="flex" justifyContent="flex-end" alignItems="flex-end">
-            <Box display="flex" alignItems="flex-end" maxWidth="70%">  
+        <Box 
+            sx={{
+                height:"120px",
+                display:"flex",
+                justifyContent:"flex-end",
+                alignItems:"flex-end"
+            }}
+        >
+            <Box 
+                sx={{
+                    display:"flex",
+                    alignItems:"flex-end",
+                    maxWidth:"70%"
+                }}
+            >  
                 <Typography 
-                    variant="subtitle2" 
-                    sx={{backgroundColor: "#264653", color: "#FFFFFF", p:1.5, borderRadius: "10px"}}
+                    sx={{
+                        backgroundColor: theme, 
+                        color: "#FFFFFF", 
+                        fontSize: "14px",
+                        p:1.5, 
+                        borderRadius: "10px"
+                    }}
                 >
                     {selectMessage}
                 </Typography>
-                <BsPersonCircle size="30px" style={{color: "#264653", marginLeft: 10}}/>
+                <BsPersonCircle 
+                    size="30px" 
+                    style={{
+                        color: theme,
+                        marginLeft: 10
+                    }}
+                />
             </Box>
             
         </Box>     

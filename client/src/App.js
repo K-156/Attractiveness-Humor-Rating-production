@@ -1,8 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useAppContext } from "./Context/AppContext";
 
 import { CssBaseline } from "@mui/material";
 
 import "./index.css";
+import "./Theme.css";
+import "./Format.css";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Profiles from "./Pages/Attractive/Profiles";
@@ -27,8 +30,11 @@ import Summary from "./Pages/Project/Summary";
 
 
 function App() {
+
+  const { theme } = useAppContext();
+
   return (
-    <div id="app">
+    <div id={`app-${theme}`}>
       <CssBaseline />
       <Router>
         <Routes>

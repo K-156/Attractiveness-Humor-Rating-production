@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 
 import PrevButton from "../../Components/NavButton/PrevButton";
-import { ReactComponent as LoginImage } from "../../Assets/login.svg";
+// import { ReactComponent as LoginImage } from "../../Assets/login.svg";
 import "./Login.css";
 import { useEffect } from "react";
 
@@ -68,7 +68,7 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className="backgroundImage">
+    <div className="backgroundImage-green">
       <script>{(document.title = "Login")}</script>
       <Box pt={3} pl={3}>
       <PrevButton text="Back" link="/" />
@@ -127,7 +127,7 @@ const Login = () => {
               <Button
                 variant="contained"
                 type="submit"
-                className="customButton"
+                className="customButton-brown"
                 onClick={handleOnSubmit}
               >
                 Submit
@@ -136,7 +136,7 @@ const Login = () => {
           </Card>
         </Grid>
         <Grid item xs={5} px={2}>
-          <LoginImage width="100%" height="0%" />
+          {/* <LoginImage width="100%" height="0%" /> */}
         </Grid>
       </Grid>
       </Box>

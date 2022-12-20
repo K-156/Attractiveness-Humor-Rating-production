@@ -2,7 +2,7 @@ import { useAppContext } from "../../Context/AppContext";
 import { useEffect } from "react";
 
 import { Box, Card, CardContent, Typography} from "@mui/material";
-import { ReactComponent as General } from "../../Assets/general.svg";
+// import { ReactComponent as General } from "../../Assets/general.svg";
 
 const Complete = () => {
     const {removeUserFromLocalStorage} = useAppContext();
@@ -17,7 +17,7 @@ const Complete = () => {
         <script>
             {document.title="Thank you"}
         </script>
-        <General width="20%" height="0%" style={{margin: "50px 20px 20px 20px"}}/>
+        {/* <General width="20%" height="0%" style={{margin: "50px 20px 20px 20px"}}/> */}
         <Card sx={{background: "#264653", color:"#FFFFFF" }} >
             <CardContent>
                 <Box 
