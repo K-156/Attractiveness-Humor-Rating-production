@@ -1,13 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../Context/AppContext";
 
 import { Alert, AlertTitle, Box, Button, Dialog, Typography } from "@mui/material";
 import { FiClock } from "react-icons/fi";
 import { HiArrowLeft } from "react-icons/hi";
+import { colorPalette } from "../../Utils/colorPalette";
 
 const durationMin = 1; 
 
 const Timer = () => {
+
+    const { theme } = useAppContext();
 
     const Ref = useRef(null);
     const navigate = useNavigate();
@@ -80,10 +84,8 @@ const Timer = () => {
     return(
         <>
             <Typography 
-                display="flex" 
-                justifyContent="center" 
-                alignItems="center"
-                color= {isWarning ? "#F47070" : "#C59D5F"}
+                className="center"
+                color= {isWarning ? "#F47070" : colorPalette[theme]["secondary"]}
                 mb={1}
             >
                 <FiClock style={{marginRight:"15px"}}/>{timer}

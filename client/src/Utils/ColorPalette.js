@@ -15,7 +15,7 @@ const colorPalette = {
     yellow: {
         background: "#FFF8E7",
         primary: "#EE8A41",
-        secondary: "#EE8A41",
+        secondary: "#087145",
         primaryLight: "#FBE5D7",
     },
     pink: {

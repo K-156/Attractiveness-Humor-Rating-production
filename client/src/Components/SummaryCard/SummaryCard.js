@@ -16,6 +16,7 @@ import { GrClose } from "react-icons/gr";
 
 import OptionsContent from "./OptionsContent";
 import GeneralContent from "./GeneralContent";
+import { colorPalette } from "../../Utils/colorPalette";
 
 const SummaryCard = ({ header, content, editLink, template }) => {
 
@@ -44,24 +45,22 @@ const SummaryCard = ({ header, content, editLink, template }) => {
         <Card sx={{my: 1}}>
             <CardContent>
                 <Box 
-                    sx={{
-                        display:"flex",
-                        justifyContent:"space-between",
-                        alignContent:"center",
-                        mx: "10px"    
-                    }}
+                    className="spaceBetween"
+                    sx={{ mx: "10px" }}
                 >
-                    <Typography
-                        variant="subtitle1"
-                        sx={{color: "#264653", fontWeight:"bold"}}
-                    >
+                    <Typography className="summaryHeader">
                         {header}
                     </Typography>
                     <Button
                         sx={{minWidth:"10px"}}
                         onClick={handleOnEdit}
                     >
-                        <MdModeEdit style={{color:"#264653", pointerEvents:"none"}} />
+                        <MdModeEdit 
+                            style={{
+                                color:colorPalette["green"]["primary"], 
+                                pointerEvents:"none"
+                            }} 
+                        />
                     </Button>
                 </Box>
                 { header.toLowerCase().includes("template 1") || header.toLowerCase().includes("template 2")
@@ -82,17 +81,11 @@ const SummaryCard = ({ header, content, editLink, template }) => {
                 fullWidth
             >
             <DialogTitle>
-                <Box
-                    sx={{
-                        display:"flex",
-                        justifyContent:"space-between",
-                        alignContent:"center"
-                    }}
-                >
+                <Box className="spaceBetween">
                     <Typography
                         variant="h6"
                         sx={{
-                            color:"#264653", 
+                            color:colorPalette["green"]["primary"], 
                             fontWeight:"bold",
                             width:"200px"
                         }}

@@ -54,18 +54,11 @@ const OptionsContent = ({ content, handleOnClick }) => {
             const optionNum = key[key.length-1];
             return(
                 <Box key={key}>
-                    <Box 
-                    sx={{
-                        mx: "10px",
-                        mt: 2, 
-                    }}
+                    <Box sx={{ mx: "10px", mt: 2 }}
                     >
                         <Typography
-                            sx={{ 
-                                color: "#264653", 
-                                fontWeight:"bold",
-                                fontSize:"14px"
-                            }}
+                            className="summaryText"
+                            sx={{fontWeight:"bold"}}
                         >
                             Option {optionNum}
                         </Typography>
@@ -103,7 +96,7 @@ const OptionsContent = ({ content, handleOnClick }) => {
                                 {aValue}
                               </Typography>
                             }
-                            </Box>
+                        </Box>
                     )})
                     }
                 </Box>

@@ -1,0 +1,44 @@
+.tableHeader {
+    background-color: #264653;
+    height: 50px;
+}
+
+.tableHeader-cell.MuiTableCell-root {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.projectActive.MuiTableCell-root {
+    color:#898989;
+    font-weight: bold;
+}
+
+/* Publish Chip */
+.publishChip.MuiChip-root {
+    margin: 1px 2px;
+    background-color: #C59D5F;
+    color:#FFFFFF;
+    width: 80px;
+}
+
+.publishChip.MuiChip-root:hover {
+    background-color: #264653;
+    cursor: pointer;
+}
+
+.publishChip.MuiChip-root.Mui-disabled{
+    background-color: grey;
+}
+
+/* Edit Chip */
+.editChip.MuiChip-root {
+    margin: 1px 2px;
+    background-color: #264653;
+    color:#FFFFFF;
+    width: 80px;
+}
+
+.editChip.MuiChip-root:hover {
+    background-color: #C59D5F;
+    cursor: pointer;
+}

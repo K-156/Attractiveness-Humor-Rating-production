@@ -63,14 +63,8 @@ const T2Rank = () => {
                     instruction: !expanded["instruction"]
                 }))}
             >
-                <AccordionSummary 
-                    sx={{
-                        backgroundColor:"#E6E6E6", 
-                        color:"#6A6A6A", 
-                        border:"solid 1px #C8CCCF"
-                    }} 
-                >
-                    <Typography sx={{fontWeight:"bold", display:"flex", alignItems:"center"}}>
+                <AccordionSummary className="accordionSummary" >
+                    <Typography className="accordionTitle">
                         {expanded["instruction"] 
                         ? <IoIosArrowForward style={{marginRight:10}}/> 
                         : <IoIosArrowDown style={{marginRight:10}}/>}
@@ -93,7 +87,10 @@ const T2Rank = () => {
                     </Box>
                     <Box className="twoColumns">
                         <Typography className="variable">Characteristics</Typography>
-                        <Box className="secondColumn" sx={{justifyContent:"space-between"}}>
+                        <Box 
+                            lassName="secondColumn" 
+                            sx={{justifyContent:"space-between"}}
+                        >
                             {_.map(["Lowerbound", "Upperbound"], (type) => {
                                 return(
                                     <TextField
@@ -121,15 +118,8 @@ const T2Rank = () => {
                             [num]: !expanded[num]
                         }))}
                     >
-                        <AccordionSummary 
-                            sx={{
-                                backgroundColor:"#E6E6E6", 
-                                color:"#6A6A6A", 
-                                border:"solid 1px #C8CCCF",
-                                "&.Mui-expanded": {minHeight: "50px"}
-                            }} 
-                        >
-                            <Typography sx={{fontWeight:"bold", display:"flex", alignItems:"center"}}>
+                        <AccordionSummary className="accordionSummary">
+                            <Typography className="accordionTitle">
                                 {expanded[num] 
                                 ? <IoIosArrowForward style={{marginRight:10}}/> 
                                 : <IoIosArrowDown style={{marginRight:10}}/>}

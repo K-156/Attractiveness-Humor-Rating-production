@@ -6,7 +6,7 @@ import { HiArrowRight } from "react-icons/hi";
 
 import "./NavButton.css";
 
-const NextButton = ({ link, state, text, style, disabled, 
+const NextButton = ({ isSurvey, link, state, text, style, disabled, 
                      storeItem, ratingType, handleOnSubmit }) => {
 
     const { theme } = useAppContext();
@@ -29,7 +29,7 @@ const NextButton = ({ link, state, text, style, disabled,
                 disabled={disabled}
                 onClick={handleOnSubmit ? handleOnSubmit : handleOnClick}
                 variant="contained" 
-                className={`customButton-${theme}`}
+                className={isSurvey ? `customButton-${theme}`: "customButton-green"}
             >
                 {text === undefined ? "Next" : text} <HiArrowRight style={{marginLeft:"10px"}} />
             </Button>

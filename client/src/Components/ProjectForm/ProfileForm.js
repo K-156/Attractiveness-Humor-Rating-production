@@ -75,7 +75,7 @@ const ProfileForm = ({ id, setFormData, formData }) => {
                 <Box className="twoColumns">
                     <Box>
                         <Typography className="variable">Upload Image<br/></Typography>
-                        <Typography variant="subtitle2" className="variable"><i>(in .jpg, .jpeg, .png)</i></Typography>
+                        <Typography className="variable-subtitle">(in .jpg, .jpeg, .png)</Typography>
                     </Box>
                     <Box className="secondColumn">
                         <UploadOneFile 
@@ -102,7 +102,6 @@ const ProfileForm = ({ id, setFormData, formData }) => {
                         />
                     </Box>
                 </Box>
-
             </Box>
         </Box>
         

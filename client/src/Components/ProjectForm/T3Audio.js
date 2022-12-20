@@ -24,7 +24,7 @@ const T3Audio = () => {
 
     return(
         <Card>
-            <CardContent sx={{p:2, pl: 10}}>
+            <CardContent className="cardPadding">
             <FormControl>
                 <Box className="twoColumns">
                     <Typography className="variable">Instruction</Typography>
@@ -62,7 +62,7 @@ const T3Audio = () => {
             <Box className="twoColumns">
                 <Box>
                     <Typography className="variable">Upload Audio<br/></Typography>
-                    <Typography variant="subtitle2" className="variable"><i>(in .mp3)</i></Typography>
+                    <Typography className="variable-subtitle">(in .mp3)</Typography>
                 </Box>
                 <Box className="secondColumn">
                     <UploadFiles

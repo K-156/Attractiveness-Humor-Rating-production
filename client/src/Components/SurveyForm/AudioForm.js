@@ -40,13 +40,24 @@ const AudioForm = ({ ques, setRating, isWritten }) => {
     <>
       {!listen && !isWritten ? (
         <Card>
-          <CardContent>
-            <Box display="flex" justifyContent="center">
+          <CardContent sx={{p:"24px"}} >
+            <Box className="center">
               <FormControl>
-                <FormLabel sx={{ color: "#000000", fontSize: "14px" }}>
+                <FormLabel 
+                  sx={{ 
+                    color: "#000000", 
+                    fontSize: "14px",
+                    "&.Mui-focused": {
+                      color:"#000000"
+                    }
+                  }}
+                >
                   I have finished listening to the recording
                 </FormLabel>
-                <RadioGroup row sx={{ justifyContent: "center" }}>
+                <RadioGroup 
+                  row 
+                  sx={{ justifyContent: "center" }}
+                >
                   <FormControlLabel
                     value={true}
                     control={<Radio size="small" />}
@@ -67,15 +78,17 @@ const AudioForm = ({ ques, setRating, isWritten }) => {
               <Grid container gap={1}>
                 {_.map(ques, (value, key) => {
                   return (
-                    <Grid container key={key} gap={3}>
+                    <Grid 
+                      container 
+                      key={key} 
+                      gap={3}
+                    >
                       <Grid
                         item
                         xs={7}
-                        display="flex"
-                        justifyContent="flex-end"
-                        alignItems="center"
+                        className="flexEnd"
                       >
-                        <Typography variant="subtitle2">{value}</Typography>
+                        <Typography sx={{fontSize:"14px"}}>{value}</Typography>
                       </Grid>
                       <Grid item xs={3}>
                         <FormControl fullWidth>

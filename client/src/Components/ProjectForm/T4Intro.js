@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
-import { Box, Card, CardContent, FormControl, TextField, Typography, } from "@mui/material";
+import { 
+    Box,
+    Card, 
+    CardContent, 
+    FormControl,
+    TextField, 
+    Typography, 
+} from "@mui/material";
+
 import AddableField from "../CustomFormFields/AddableField";
 import "./ProjectForm.css";
 
@@ -54,7 +62,7 @@ const T4Intro = () => {
 
     return(
         <Card>
-            <CardContent sx={{p:2, pl: 10}}>
+            <CardContent className="cardPadding">
             <FormControl>
                 <Box className="twoColumns">
                     <Typography className="variable">Instruction</Typography>
@@ -87,7 +95,7 @@ const T4Intro = () => {
                 </Box>
             <Box className="twoColumns">
                 <Box>
-                    <Typography className="variable">Introductions<br/></Typography>
+                    <Typography className="variable">Introductions</Typography>
                 </Box>
                 <Box className="secondColumn">
                         <AddableField

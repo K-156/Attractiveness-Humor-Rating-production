@@ -4,7 +4,7 @@ import { CircularProgress, Box } from '@mui/material/';
 
 import { colorPalette } from '../../Utils/colorPalette';
 
-const LoadingAnimation = ({ center }) => {
+const LoadingAnimation = ({ isSurvey }) => {
 
   const { theme } = useAppContext();
 
@@ -12,7 +12,7 @@ const LoadingAnimation = ({ center }) => {
         <Box sx={{ display: 'flex' }}>
           <CircularProgress 
             sx={{
-              color: colorPalette[theme]["primary"],
+              color: colorPalette[isSurvey ? theme : "green"]["primary"],
               m:"3rem auto"
             }} 
           />

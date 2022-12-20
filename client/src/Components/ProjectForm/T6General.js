@@ -41,7 +41,7 @@ const T6General = () => {
     
     return(
         <Card>
-            <CardContent sx={{p:2, pl: 10}}>
+            <CardContent className="cardPadding">
             <FormControl>
                 <Box className="twoColumns">
                     <Typography className="variable">Text</Typography>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
 import {
@@ -14,7 +14,6 @@ import _ from "lodash";
 
 import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
-import { useEffect } from "react";
 
 const T1ProfileRating = () => {
   const [expanded, setExpanded] = useState({
@@ -51,16 +50,8 @@ const T1ProfileRating = () => {
           }))
         }
       >
-        <AccordionSummary
-          sx={{
-            backgroundColor: "#E6E6E6",
-            color: "#6A6A6A",
-            border: "solid 1px #C8CCCF",
-          }}
-        >
-          <Typography
-            sx={{ fontWeight: "bold", display: "flex", alignItems: "center" }}
-          >
+        <AccordionSummary className="accordionSummary">
+          <Typography className="accordionTitle">
             {expanded["instruction"] ? (
               <IoIosArrowForward style={{ marginRight: 10 }} />
             ) : (
@@ -100,21 +91,8 @@ const T1ProfileRating = () => {
               }))
             }
           >
-            <AccordionSummary
-              sx={{
-                backgroundColor: "#E6E6E6",
-                color: "#6A6A6A",
-                border: "solid 1px #C8CCCF",
-                "&.Mui-expanded": { minHeight: "50px" },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontWeight: "bold",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+            <AccordionSummary className="accordionSummary" >
+              <Typography className="accordionTitle">
                 {expanded[num] ? (
                   <IoIosArrowForward style={{ marginRight: 10 }} />
                 ) : (

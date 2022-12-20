@@ -9,9 +9,16 @@
     font-weight: bold;
 }
 
-.cardContent {
+.cardContent.MuiTypography-root {
     font-size: 14px;
     text-align: center;
     margin: 16px 8px;
     height: 260px;
+}
+
+.imageBox.MuiBox-root {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+    padding: 16px 8px;
 }

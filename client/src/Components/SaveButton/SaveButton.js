@@ -1,4 +1,7 @@
-import { Box, Button } from "@mui/material";
+import { 
+  Box, 
+  Button
+} from "@mui/material";
 
 const SaveButton = ({ projectType, formData, templateNum }) => {
   const handleSubmit = (formData) => {
@@ -15,10 +18,13 @@ const SaveButton = ({ projectType, formData, templateNum }) => {
     }
   };
   return (
-    <Box sx={{ my: 2, display: "flex", justifyContent: "flex-end" }}>
+    <Box 
+      className="flexEnd"
+      sx={{ my: 2 }}
+    >
       <Button
         variant="contained"
-        className="customButton"
+        className="customButton-green"
         onClick={() => {
           handleSubmit(formData);
         }}

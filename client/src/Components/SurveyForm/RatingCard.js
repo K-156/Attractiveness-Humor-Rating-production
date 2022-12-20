@@ -1,8 +1,20 @@
 import { useState } from "react";
+import { useAppContext } from "../../Context/AppContext";
 
-import { Box, Card, CardContent, FormControl, Typography, TextField } from "@mui/material";
+import { 
+    Box, 
+    Card, 
+    CardContent, 
+    FormControl,
+    Typography, 
+    TextField 
+} from "@mui/material";
+
+import { colorPalette } from "../../Utils/colorPalette";
 
 const RatingCard = ({ title, img, id, setRating, description }) => {
+
+    const { theme } = useAppContext();
     
     const [error, setError] = useState(false);
     const handleOnChange = (event) => {
@@ -24,17 +36,20 @@ const RatingCard = ({ title, img, id, setRating, description }) => {
     return(
         <Card>
             <CardContent>
-                <Typography variant="subtitle2" fontWeight="bold" className="cardHeader">
+                <Typography 
+                    className="cardHeader"
+                    sx={{color: colorPalette[theme]["primary"]}}
+                >
                     {title}
                 </Typography>
-                <Box display="flex" justifyContent="center" height="200px" py={2}>
+                <Box className="imageBox">
                     <img 
                         id={title} 
                         src={img} 
                         alt="profile" 
                     />
                 </Box>
-                <Typography variant="subtitle2" textAlign="center" my={2} height="260px">{description}</Typography>
+                <Typography className="cardContent">{description}</Typography>
                 <FormControl fullWidth>
                     <TextField
                         required

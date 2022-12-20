@@ -18,6 +18,8 @@ import {
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
+import "./Tables.css";
+
 const ProjectTable = ({ data }) => {
   const navigate = useNavigate();
   const { setEditProject, deleteProject, isEditing, editProject, publishProject } = useAppContext();
@@ -45,22 +47,24 @@ const ProjectTable = ({ data }) => {
     <Box sx={{ px: 6, py: 2 }}>
       <TableContainer component={Paper}>
         <Table size="small">
-          <TableHead sx={{ backgroundColor: "#264653", height: "50px" }}>
+          <TableHead className="tableHeader">
             <TableRow>
-              <TableCell
-                sx={{ color: "#FFFFFF", fontWeight: "bold", width: "5%" }}
+              <TableCell 
+                className="tableHeader-cell" 
+                sx={{ width: "5%" }}
               >
                 ID
               </TableCell>
-              <TableCell
-                sx={{ color: "#FFFFFF", fontWeight: "bold", width: "75%" }}
+              <TableCell 
+                className="tableHeader-cell"
+                sx={{ width: "75%" }}
               >
                 Project Name
               </TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
-              <TableCell></TableCell>
+              <TableCell sx={{ width: "3%" }}></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,41 +75,20 @@ const ProjectTable = ({ data }) => {
                   <TableRow key={item._id}>
                     <TableCell>{item._id}</TableCell>
                     <TableCell>{item.projDetails.title}</TableCell>
-                    <TableCell sx={{ color: "#898989", fontWeight: "bold" }}>
+                    <TableCell className="projectActive">
                       {item.isActive ? "Active" : ""}
                     </TableCell>
                     <TableCell>
                       <Chip
                         disabled={item.isPublish}
-                        sx={{
-                          mx: 1,
-                          backgroundColor: "#C59D5F",
-                          color: "#FFFFFF",
-                          "&:hover": {
-                            backgroundColor: "#264653",
-                            cursor: "pointer",
-                          },
-                          width: "80px",
-                          "&.MuiChip-root.Mui-disabled": {
-                            backgroundColor: "grey",
-                          },
-                        }}
+                        className="publishChip"
                         label="Publish"
                         onClick={()=>publishProject(item._id)}
                       />
                     </TableCell>
                     <TableCell>
                       <Chip
-                        sx={{
-                          mx: 1,
-                          backgroundColor: "#264653",
-                          color: "#FFFFFF",
-                          "&:hover": {
-                            backgroundColor: "#C59D5F",
-                            cursor: "pointer",
-                          },
-                          width: "80px",
-                        }}
+                        className="editChip"
                         label="Edit"
                         onClick={() => handleOnEdit(item._id)}
                       />
@@ -113,11 +96,15 @@ const ProjectTable = ({ data }) => {
                     <TableCell>
                       <Button
                         id={item.name}
+                        sx={{minWidth:"10px"}}
                         onClick={() => deleteProject(item._id)}
                       >
                         <RiDeleteBin6Fill
                           size={15}
-                          style={{ color: "#264653", pointerEvents: "none" }}
+                          style={{ 
+                            color: "#264653",
+                            pointerEvents: "none" 
+                          }}
                         />
                       </Button>
                     </TableCell>

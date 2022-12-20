@@ -3,15 +3,13 @@ import {
     Typography
 } from "@mui/material";
 
+import "./SummaryCard.css";
+import { colorPalette } from "../../Utils/colorPalette";
+
 const MoreText = ({ handleOnClick, id, value}) => {
     return(
         <>
-            <Typography
-                sx={{
-                    color:"#264653", 
-                    fontSize: "14px",
-                }}
-            >
+            <Typography className="summaryText">
                 {value.substring(0,100)}...
             </Typography>
             <Link
@@ -19,14 +17,14 @@ const MoreText = ({ handleOnClick, id, value}) => {
                 value={value}
                 id={id}
                 sx={{
-                    color:"#C59D5F", 
+                    color:colorPalette["green"]["secondary"], 
                     fontSize: "14px",
                     cursor:"pointer",
-                    textDecorationColor: "#C59D5F", 
+                    textDecorationColor: colorPalette["green"]["secondary"], 
                     ml: "2px",
                     "&:hover": {
-                        color:"#264653", 
-                        textDecorationColor: "#264653", 
+                        color:colorPalette["green"]["primary"], 
+                        textDecorationColor: colorPalette["green"]["primary"], 
                     }
                 }}
             >

@@ -67,7 +67,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                 <Box className="twoColumns">
                     <Box>
                         <Typography className="variable">Upload Participant Email</Typography>
-                        <Typography variant="subtitle2" className="variable"><i>(in .csv)</i></Typography>
+                        <Typography className="variable-subtitle">(in .csv)</Typography>
                     </Box>
                     <UploadFiles 
                         items={formData["email"]}
@@ -76,10 +76,10 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                         accept=".csv"
                     />
                 </Box>
-                <Box sx={{display:"flex", m:"15px"}}>
+                <Box className="twoColumns">
                     <Box>
                         <Typography className="variable">Example of the format</Typography>
-                        <Typography variant="subtitle2" className="variable"><i>(in .csv)</i></Typography>
+                        <Typography className="variable-subtitle">(in .csv)</Typography>
                     </Box>
                     <Box className="secondColumn">
                         <img 
@@ -104,7 +104,10 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     
                 </Box>
                 <Box className="twoColumns">
-                    <Typography className="variable">Time Duration (in mins)</Typography>
+                    <Box>
+                      <Typography className="variable">Time Duration</Typography>
+                      <Typography className="variable-subtitle">(in mins)</Typography>
+                    </Box>
                     <Box className="secondColumn">
                         <TextField 
                             value={formData.duration}

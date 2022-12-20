@@ -38,14 +38,7 @@ const ItemCard = ({ title, img, id, candidateCount, description, back }) => {
                 >
                     {title}
                 </Typography>
-                <Box 
-                    sx={{
-                        display:"flex",
-                        justifyContent:"center",
-                        height:"200px",
-                        py:2
-                    }}
-                >
+                <Box className="imageBox">
                     <img 
                         id={title} 
                         src={img} 

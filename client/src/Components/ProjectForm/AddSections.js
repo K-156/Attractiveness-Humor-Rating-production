@@ -15,6 +15,8 @@ import { MdEdit } from "react-icons/md";
 import _ from "lodash";
 
 import { templates } from "../../Utils/templateList";
+import "./ProjectForm.css";
+import { colorPalette } from "../../Utils/colorPalette";
 
 const AddSection = ({ formData, setFormData }) => {
   const navigate = useNavigate();
@@ -33,20 +35,21 @@ const AddSection = ({ formData, setFormData }) => {
       <CardContent sx={{ p: 2, pl: 10 }}>
         <FormControl>
           <Box className="twoColumns">
-            <Typography
-              className="variable"
-              sx={{ display: "flex", flexDirection: "column" }}
-            >
+            <Typography className="variable flexColumn">
               Sections
               <Link
-                style={{ color: "#C59D5F", fontSize: "12px" }}
+                className="projectLink"
                 to="/projects/sections/templates"
               >
                 <i>View Templates</i>
               </Link>
             </Typography>
             <Box
-              sx={{ display: "flex", flexDirection: "column", width: "400px" }}
+              sx={{ 
+                display: "flex", 
+                flexDirection: "column", 
+                width: "400px" 
+              }}
             >
               <TextField
                 size="small"
@@ -61,7 +64,11 @@ const AddSection = ({ formData, setFormData }) => {
               >
                 {_.map(templates, (value, key) => {
                   return (
-                    <MenuItem key={key} id={key} value={key}>
+                    <MenuItem 
+                      key={key} 
+                      id={key} 
+                      value={key}
+                    >
                       {value}
                     </MenuItem>
                   );
@@ -75,15 +82,11 @@ const AddSection = ({ formData, setFormData }) => {
                     return (
                       <Box
                         key={value}
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
+                        className="spaceBetween"
                       >
                         <Typography
                           variant="subtitle2"
-                          sx={{ color: "#264653" }}
+                          sx={{ color: colorPalette["green"]["primary"] }}
                         >
                           {index + 1}. {templates[value]}
                         </Typography>
@@ -96,7 +99,7 @@ const AddSection = ({ formData, setFormData }) => {
                             <MdEdit
                               size={15}
                               style={{
-                                color: "#264653",
+                                color: colorPalette["green"]["primary"],
                                 pointerEvents: "none",
                               }}
                             />
@@ -109,7 +112,7 @@ const AddSection = ({ formData, setFormData }) => {
                             <RiDeleteBin6Fill
                               size={15}
                               style={{
-                                color: "#264653",
+                                color: colorPalette["green"]["primary"],
                                 pointerEvents: "none",
                               }}
                             />
