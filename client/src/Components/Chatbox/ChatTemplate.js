@@ -11,7 +11,7 @@ import ChatHeader from "./ChatHeader";
 import ChatMessageArea from "./ChatMessageArea";
 import Messages from "./Messages";
 import MessageSelected from "./MessageSelected";
-import { ColorPalette } from "../../Utils/ColorPalette";
+import { colorPalette } from "../../Utils/colorPalette";
 
 
 const ChatTemplate = ({ selectMessage, setSelectMessage, link}) => {
@@ -24,7 +24,7 @@ const ChatTemplate = ({ selectMessage, setSelectMessage, link}) => {
         <Card sx={{mx: 5}}>
             <CardHeader
                 sx={{
-                    backgroundColor: ColorPalette[theme]["primary"], 
+                    backgroundColor: colorPalette[theme]["primary"], 
                     color:"#FFFFFF"
                 }}
                 title={ <ChatHeader receiver={receiver} /> }
@@ -34,18 +34,18 @@ const ChatTemplate = ({ selectMessage, setSelectMessage, link}) => {
                 { selectMessage === null 
                     ? <Messages 
                         setSelectMessage={setSelectMessage}
-                        theme={ColorPalette[theme]["primary"]}
-                        themeHover={ColorPalette[theme]["primaryLight"]}
+                        theme={colorPalette[theme]["primary"]}
+                        themeHover={colorPalette[theme]["primaryLight"]}
                         /> 
                     : <MessageSelected 
                         selectMessage={selectMessage}
-                        theme={ColorPalette[theme]["primary"]}
+                        theme={colorPalette[theme]["primary"]}
                         />
                 }
             </CardContent>
             <CardContent sx={{borderTop: "1.5px solid #D9D9D9"}}>
                 <ChatMessageArea 
-                    theme={ColorPalette[theme]["primary"]}
+                    theme={colorPalette[theme]["primary"]}
                 />
             </CardContent>
         </Card>

@@ -1,7 +1,12 @@
-import { useState } from "react";
-
-import { Box, Stepper, Step, StepLabel } from "@mui/material";
+import { 
+    Box, 
+    Stepper, 
+    Step, 
+    StepLabel
+} from "@mui/material";
 import _ from "lodash";
+
+import { colorPalette } from "../../Utils/colorPalette";
 
 const CustomStepper = ({ activeStep }) => {
 
@@ -22,9 +27,13 @@ const CustomStepper = ({ activeStep }) => {
             >
                 <StepLabel 
                     StepIconProps={{
-                        sx: {"&.MuiStepIcon-root.Mui-active": {color: "#264653"}}
+                        sx: {"&.MuiStepIcon-root.Mui-active": {
+                            color: colorPalette["green"]["primary"]
+                        }}
                     }}
-                    sx={{".MuiStepLabel-label.Mui-active": {color:"#264653"}}}
+                    sx={{".MuiStepLabel-label.Mui-active": {
+                            color: colorPalette["green"]["primary"]
+                        }}}
                 >
                     {label}
                 </StepLabel>

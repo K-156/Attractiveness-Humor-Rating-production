@@ -1,7 +1,14 @@
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { 
+  Box, 
+  Typography, 
+  TextField, 
+  Button 
+} from "@mui/material";
 import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
+
+import { colorPalette } from "../../Utils/colorPalette";
 
 const AddableField = ({
   items,
@@ -13,6 +20,7 @@ const AddableField = ({
   setFormData,
   variable,
 }) => {
+
   const onAdd = (e) => {
     console.log(items)
     console.log(variable)
@@ -43,7 +51,7 @@ const AddableField = ({
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box className="flexColumn">
       <Box className="secondColumn">
         <TextField
           size="small"
@@ -57,7 +65,10 @@ const AddableField = ({
         <Button onClick={onAdd}>
           <CgAdd
             size={20}
-            style={{ color: "#264653", pointerEvents: "none" }}
+            style={{ 
+              color: colorPalette["green"]["primary"], 
+              pointerEvents: "none" 
+            }}
           />
         </Button>
       </Box>
@@ -69,19 +80,26 @@ const AddableField = ({
             return (
               <Box
                 key={value}
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
+                className="spaceBetween"
               >
-                <Typography variant="subtitle2" sx={{ color: "#264653" }}>
+                <Typography 
+                  sx={{
+                    fontSize:"14px",
+                    color: colorPalette["green"]["primary"]
+                  }}
+                >
                   {index + 1}. {value}
                 </Typography>
-                <Button id={index} onClick={() => onDelete(index)}>
+                <Button 
+                  id={index} 
+                  onClick={() => onDelete(index)}
+                >
                   <RiDeleteBin6Fill
                     size={15}
-                    style={{ color: "#264653", pointerEvents: "none" }}
+                    style={{ 
+                      color: colorPalette["green"]["primary"], 
+                      pointerEvents: "none" 
+                    }}
                   />
                 </Button>
               </Box>

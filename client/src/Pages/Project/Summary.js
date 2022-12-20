@@ -4,7 +4,7 @@ import { useAppContext } from "../../Context/AppContext";
 import SummaryCard from "../../Components/SummaryCard/SummaryCard";
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { mockData } from "./mockData";
-import { templates } from "../../Utils/TemplateList";
+import { templates } from "../../Utils/templateList";
 
 const Summary = () => {
   const { projDetails, data, sections, createProject, isEditing } =

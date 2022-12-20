@@ -17,7 +17,7 @@ import {
     BiFastForward, 
     BiRewind 
 } from "react-icons/bi";
-import { ColorPalette } from "../../Utils/ColorPalette";
+import { colorPalette } from "../../Utils/colorPalette";
 
 const AudioPlayer = ({ isPlaying, setIsPlaying, audioElem, duration, currentTime}) => {
 
@@ -53,7 +53,7 @@ const AudioPlayer = ({ isPlaying, setIsPlaying, audioElem, duration, currentTime
                     min={0}
                     max={duration}
                     onChange={(event) => audioElem.current.currentTime = event.target.value}
-                    sx={{color: ColorPalette[theme]["primary"] }}
+                    sx={{color: colorPalette[theme]["primary"] }}
                 />
                 <Typography 
                     sx={{
@@ -75,7 +75,7 @@ const AudioPlayer = ({ isPlaying, setIsPlaying, audioElem, duration, currentTime
                 >
                     <BiRewind 
                         size={30}  
-                        color={ColorPalette[theme]["primary"]}
+                        color={colorPalette[theme]["primary"]}
                     />
                 </Button>
             </Tooltip>
@@ -85,11 +85,11 @@ const AudioPlayer = ({ isPlaying, setIsPlaying, audioElem, duration, currentTime
                 { isPlaying 
                     ? <AiFillPauseCircle 
                             size={30} 
-                            color={ColorPalette[theme]["primary"]}
+                            color={colorPalette[theme]["primary"]}
                         /> 
                     : <AiFillPlayCircle 
                             size={30} 
-                            color={ColorPalette[theme]["primary"]}
+                            color={colorPalette[theme]["primary"]}
                         /> 
                 }  
             </Button>
@@ -103,7 +103,7 @@ const AudioPlayer = ({ isPlaying, setIsPlaying, audioElem, duration, currentTime
                 >
                     <BiFastForward 
                         size={30} 
-                        color={ColorPalette[theme]["primary"]}
+                        color={colorPalette[theme]["primary"]}
                     />                
                 </Button>
             </Tooltip>

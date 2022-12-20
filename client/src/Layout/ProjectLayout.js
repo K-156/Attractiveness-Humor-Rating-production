@@ -6,6 +6,7 @@ import CustomStepper from "../Components/CustomStepper/CustomStepper";
 import NextButton from "../Components/NavButton/NextButton";
 import PrevButton from "../Components/NavButton/PrevButton";
 import SaveButton from "../Components/SaveButton/SaveButton";
+import "../Theme.css";
 
 const ProjectLayout = ({
   children,
@@ -35,7 +36,7 @@ const ProjectLayout = ({
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "flex-start",
             }}
           >
             <Typography
@@ -48,17 +49,6 @@ const ProjectLayout = ({
             >
               REVIEW
             </Typography>
-            {!isEdit ? (
-              <></>
-            ) : (
-              <Button
-                variant="contained"
-                className="customButton"
-                onClick={deleteProject}
-              >
-                Delete Project
-              </Button>
-            )}
           </Box>
         ) : (
           <>
@@ -91,7 +81,7 @@ const ProjectLayout = ({
         <Box sx={{ display: "flex", justifyContent: "flex-end", pt: 3 }}>
           <Button
             variant="contained"
-            className="customButton"
+            className="customButton-green"
             onClick={isEdit ? saveProject : () => createProject(data)}
           >
             {isEdit ? "Save Changes " : "Add Project"}

@@ -8,6 +8,8 @@ import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
+import { colorPalette } from "../../Utils/colorPalette";
+
 const AddableTwoField = ({ id, items, formData, handleOnChange, 
                             setFormData, variable, currValue, setError, error}) => {
 
@@ -38,7 +40,7 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
     }
 
     return(
-        <Box sx={{display:"flex", flexDirection:"column"}}>
+        <Box className="flexColumn">
             <Box className="secondColumn" >
                 <TextField 
                     name="name"
@@ -59,7 +61,13 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
                     sx={{width: "180px"}}
                 />
                 <Button onClick={onAdd}>
-                    <CgAdd size={20} style={{color:"#264653", pointerEvents:"none"}}/>
+                    <CgAdd 
+                        size={20} 
+                        style={{ 
+                            color: colorPalette["green"]["primary"], 
+                            pointerEvents: "none" 
+                        }}
+                    />
                 </Button>
             </Box>
             { items.length < 1 ? <></> :
@@ -68,11 +76,13 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
                         return(
                             <Box    
                                 key={aItem.name+aItem.value}
-                                sx={{display:"flex", justifyContent:"space-between", alignItems:"center"}}
+                                className="spaceBetween"
                             >
                             <Typography
-                                variant="subtitle2"
-                                sx={{color:"#264653"}}
+                                sx={{
+                                    fontSize:"14px",
+                                    color: colorPalette["green"]["primary"]
+                                }}
                             >
                                 {index + 1}. {aItem.name}: {aItem.value}
                             </Typography>
@@ -80,7 +90,13 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
                                 id={index}
                                 onClick={()=>onDelete(index)}
                             >
-                                <RiDeleteBin6Fill size={15} style={{color:"#264653", pointerEvents:"none"}}/>   
+                                <RiDeleteBin6Fill 
+                                    size={15} 
+                                    style={{ 
+                                        color: colorPalette["green"]["primary"], 
+                                        pointerEvents: "none" 
+                                    }}
+                                />   
                             </Button>
                             </Box>
                         )

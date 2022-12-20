@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
 import ProjectLayout from "../../Layout/ProjectLayout";
-import { templates } from "../../Utils/TemplateList";
+import { templates } from "../../Utils/templateList";
 import T1ProfileRating from "../../Components/ProjectForm/T1ProfileRating";
 import T2Rank from "../../Components/ProjectForm/T2Rank";
 import T3Audio from "../../Components/ProjectForm/T3Audio";

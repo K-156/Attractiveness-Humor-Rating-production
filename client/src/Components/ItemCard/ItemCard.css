@@ -1,9 +1,17 @@
-.cardHeader {
+.cardHeader.MuiTypography-root {
     text-transform: uppercase;
-    color:#264653;
     text-align:center; 
     display: flex ;
     padding-top: 10px;
     justify-content: center;
     align-items: flex-end;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cardContent {
+    font-size: 14px;
+    text-align: center;
+    margin: 16px 8px;
+    height: 260px;
 }

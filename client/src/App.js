@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useAppContext } from "./Context/AppContext";
 
 import { CssBaseline } from "@mui/material";
 
 import "./index.css";
 import "./Theme.css";
 import "./Format.css";
+import DashboardLayout from "./Layout/DashboardLayout";
+import SurveyLayout from "./Layout/SurveyLayout";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Profiles from "./Pages/Attractive/Profiles";
@@ -13,8 +14,6 @@ import AudioRate from "./Pages/Audio/AudioRate";
 import Description from "./Pages/Attractive/Description";
 import Complete from "./Pages/Complete/Complete";
 import Overview from "./Pages/Overview/Overview";
-import DashboardLayout from "./Layout/DashboardLayout";
-import SurveyLayout from "./Layout/SurveyLayout";
 import Details from "./Pages/Details/Details";
 import AttractiveRate from "./Pages/Attractive/AttractiveRate";
 import Rank from "./Pages/Attractive/Rank";
@@ -27,27 +26,28 @@ import ProjectSection from "./Pages/Project/ProjectSection";
 import Section from "./Pages/Project/Section";
 import Templates from "./Pages/Project/Templates";
 import Summary from "./Pages/Project/Summary";
+import GeneralLayout from "./Layout/GeneralLayout";
 
 
 function App() {
 
-  const { theme } = useAppContext();
-
   return (
-    <div id={`app-${theme}`}>
+    <div id="app">
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/details"
-            element={
-              <ProtectedRoute>
-                <Details />
-              </ProtectedRoute>
-            }
-          />
+          <Route element={<GeneralLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/details"
+              element={
+                <ProtectedRoute>
+                  <Details />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
 
           {/* Survey */}
           <Route

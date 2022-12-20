@@ -1,8 +1,13 @@
-import { Box, Button, Typography} from "@mui/material";
+import { 
+    Box, 
+    Button, 
+    Typography
+} from "@mui/material";
 import _ from "lodash";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
+import { colorPalette } from "../../Utils/colorPalette";
 
 const UploadFiles = ({ items, setFormData, variable, accept }) => {
 
@@ -29,15 +34,18 @@ const UploadFiles = ({ items, setFormData, variable, accept }) => {
     }
 
     return(
-        <Box sx={{display:"flex", flexDirection:"column"}}>
+        <Box className="flexColumn" >
             <Box className="secondColumn">
                 <Button 
                     variant="contained" 
-                    className="customButton"
+                    className="customButton-green"
                     component="label"
                 >
-                    <MdFileUpload size={20} style={{marginRight:5}}/>
-                    Choose a file to upload
+                    <MdFileUpload 
+                        size={20} 
+                        style={{marginRight:5}}
+                    />
+                    Choose file(s) to upload
                     <input
                         type="file"
                         accept={accept}
@@ -48,18 +56,26 @@ const UploadFiles = ({ items, setFormData, variable, accept }) => {
             </Box>
 
             { items.length < 1 ? <></> :
-                <Box sx={{pt: 1, pl: 2, pr: 8}}>
+                <Box 
+                    sx={{
+                        pt: 1, 
+                        pl: 2, 
+                        pr: 8
+                    }}
+                >
                     {_.map(items, (file, index) => {
                         if (file !== undefined) {
                             const value = file.name
                             return(
                                 <Box    
                                     key={index+value}
-                                    sx={{display:"flex", justifyContent:"space-between", alignItems:"center"}}
+                                    className="spaceBetween"
                                 >
                                     <Typography
-                                        variant="subtitle2"
-                                        sx={{color:"#264653"}}
+                                        sx={{
+                                            fontSize:"14px",
+                                            color: colorPalette["green"]["primary"]
+                                        }}
                                     >
                                         {index + 1}. {value}
                                     </Typography>
@@ -67,7 +83,13 @@ const UploadFiles = ({ items, setFormData, variable, accept }) => {
                                         id={index}
                                         onClick={()=>onDelete(index)}
                                     >   
-                                        <RiDeleteBin6Fill size={15} style={{color:"#264653", pointerEvents:"none"}}/>  
+                                        <RiDeleteBin6Fill 
+                                            size={15} 
+                                            style={{ 
+                                                color: colorPalette["green"]["primary"], 
+                                                pointerEvents: "none" 
+                                            }}
+                                        />  
                                     </Button>
                                 </Box>
                             )

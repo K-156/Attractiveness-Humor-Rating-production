@@ -14,7 +14,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import _ from "lodash";
 
-import { templates } from "../../Utils/TemplateList";
+import { templates } from "../../Utils/templateList";
 
 const AddSection = ({ formData, setFormData }) => {
   const navigate = useNavigate();

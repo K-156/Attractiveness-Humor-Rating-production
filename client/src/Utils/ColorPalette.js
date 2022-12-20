@@ -1,9 +1,10 @@
-const ColorPalette = {
+const colorPalette = {
     green: {
         background: "#F0F4F8",
         primary: "#264653",
         secondary: "#C59D5F",
         primaryLight: "#D7E5EB",
+        primaryDark: "#1d353f"
     }, 
     blue: {
         background: "#E4EFF5",
@@ -31,4 +32,4 @@ const ColorPalette = {
     }
 }
 
-export { ColorPalette };
+export { colorPalette };

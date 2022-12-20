@@ -3,13 +3,12 @@ import { useAppContext } from "../Context/AppContext";
 
 import { Box } from "@mui/material";
 
-import Timer from "../Components/Timer/Timer";
 import { colorPalette } from "../Utils/colorPalette";
 
-const SurveyLayout = () => {
+const GeneralLayout = () => {
 
     const { theme } = useAppContext();
-
+    
     return(
         <Box
             sx={{
@@ -18,10 +17,9 @@ const SurveyLayout = () => {
                 minHeight:"100vh"
             }}
         >
-            <Timer />
             <Outlet />
         </Box>
     )
 }
 
-export default SurveyLayout;
+export default GeneralLayout;

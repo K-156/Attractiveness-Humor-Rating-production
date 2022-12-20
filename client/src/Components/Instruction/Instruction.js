@@ -1,23 +1,32 @@
-import { Button, Tooltip } from "@mui/material";
+import { useAppContext } from "../../Context/AppContext";
+
+import { 
+    Button, 
+    Tooltip 
+} from "@mui/material";
+
+import { colorPalette } from "../../Utils/colorPalette";
 
 const Instruction = ({ type }) => {
+
+    const { theme } = useAppContext();
 
     // const text = sessionStorage.getItem(type);
     const data = JSON.parse(localStorage.getItem("data"));
 
     return(
-        <div display="flex" justifycontent="flex-start">
+        <div className="flexStart">
             <Tooltip 
                 title={data[`${type}Instruc`]}
                 placement="bottom-start"
                 slotProps= {{
                     tooltip: {
                         sx: {
-                            backgroundColor: "#D7E5EB", 
-                            color: "#264653", 
+                            backgroundColor: colorPalette[theme]["primaryLight"], 
+                            color: colorPalette[theme]["primary"], 
                             p: 2, 
-                            border: "solid 1px #264653", 
-                            fontSize: "12px", 
+                            border: `solid 1px ${colorPalette[theme]["primary"]}`, 
+                            fontSize: "14px", 
                             textAlign: "center", 
                             maxWidth: 800, 
                             whiteSpace: "pre-line"
@@ -27,7 +36,10 @@ const Instruction = ({ type }) => {
             >
                 <Button
                     variant="contained"
-                    sx={{background: "#264653", textTransform: "none", '&:hover': {backgroundColor:"#264653"}}}            
+                    className={`customButton-${theme}`} 
+                    sx={{"&.MuiButton-contained:hover": {
+                        background: colorPalette[theme]["primary"]
+                    }}}
                 >
                     Instruction
                 </Button>

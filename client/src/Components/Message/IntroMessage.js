@@ -5,19 +5,23 @@ import { IoMdQuote } from "react-icons/io";
 const IntroMessage = ({ text }) => {
     return(
     <Box> 
-        <Box display="flex" justifyContent="flex-start">
+        <Box className="flexStart">
             <IoMdQuote style={{transform: "scale(-1,-1)"}} />
         </Box>
         
-        <Typography variant="subtitle2" textAlign="center" p={2}>
+        <Typography 
+            sx={{
+                fontSize:"14px", 
+                textAlign:"center",
+                p:2
+            }}
+        >
             {text}
         </Typography>
 
-        <Box display="flex" justifyContent="flex-end">
+        <Box className="flexEnd">
             <IoMdQuote />
         </Box>
-
-
     </Box>
     )
 }

@@ -12,43 +12,8 @@ code {
     monospace;
 }
 
-/* app-theme */
-#app-green {
+#app {
   min-height: 100vh;
   max-width: 100%;
   margin: 0;
-  background-color: #F0F4F8;
-  padding: 25px 25px 50px 25px;
-}
-
-#app-blue {
-  min-height: 100vh;
-  max-width: 100%;
-  margin: 0;
-  background-color: #E4EFF5;
-  padding: 25px 25px 50px 25px;
-}
-
-#app-yellow {
-  min-height: 100vh;
-  max-width: 100%;
-  margin: 0;
-  background-color: #FFF8E7;
-  padding: 25px 25px 50px 25px;
-}
-
-#app-pink {
-  min-height: 100vh;
-  max-width: 100%;
-  margin: 0;
-  background-color: #FFECEC;
-  padding: 25px 25px 50px 25px;
-}
-
-#app-brown {
-  min-height: 100vh;
-  max-width: 100%;
-  margin: 0;
-  background-color: #EDDCD4;
-  padding: 25px 25px 50px 25px;
 }

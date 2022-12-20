@@ -1,9 +1,21 @@
+import { useAppContext } from '../../Context/AppContext';
+
 import { CircularProgress, Box } from '@mui/material/';
 
-const LoadingAnimation = ({center}) => {
+import { colorPalette } from '../../Utils/colorPalette';
+
+const LoadingAnimation = ({ center }) => {
+
+  const { theme } = useAppContext();
+
     return (
         <Box sx={{ display: 'flex' }}>
-          <CircularProgress sx={{color: "#264653",margin:"3rem auto"}} />
+          <CircularProgress 
+            sx={{
+              color: colorPalette[theme]["primary"],
+              m:"3rem auto"
+            }} 
+          />
         </Box>
       );
 }

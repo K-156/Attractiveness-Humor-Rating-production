@@ -1,12 +1,21 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAppContext } from "../../Context/AppContext";
 
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { 
+    Box, 
+    Button, 
+    Card,
+    CardContent,
+    Typography 
+} from "@mui/material";
 
 import "./ItemCard.css";
+import { colorPalette } from "../../Utils/colorPalette";
 
 
 const ItemCard = ({ title, img, id, candidateCount, description, back }) => {
-    
+
+    const { theme } = useAppContext();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -23,23 +32,33 @@ const ItemCard = ({ title, img, id, candidateCount, description, back }) => {
     return(
         <Card>
             <CardContent>
-                <Typography variant="subtitle2" fontWeight="bold" className="cardHeader">
+                <Typography 
+                    className="cardHeader"
+                    sx={{color:colorPalette[theme]["primary"]}}
+                >
                     {title}
                 </Typography>
-                <Box display="flex" justifyContent="center" height="200px" py={2}>
+                <Box 
+                    sx={{
+                        display:"flex",
+                        justifyContent:"center",
+                        height:"200px",
+                        py:2
+                    }}
+                >
                     <img 
                         id={title} 
                         src={img} 
                         alt="profile" 
                     />
                 </Box>
-                <Typography variant="subtitle2" textAlign="center" my={2} height="260px">{description}</Typography>
-                <Box display="flex" justifyContent="center">
+                <Typography className="cardContent">{description}</Typography>
+                <Box className="center">
                     <Button
                         variant="contained"
                         onClick={handleOnClick}
                         id={id}
-                        className="customButton"
+                        className={`customButton-${theme}`}
                     >
                         View Profile
                     </Button>

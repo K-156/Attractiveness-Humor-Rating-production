@@ -13,7 +13,7 @@ import {
 import _ from "lodash";
 import { GrClose } from "react-icons/gr";
 
-import { templates, templatePurpose, templateSamples} from "../../Utils/TemplateList";
+import { templates, templatePurpose, templateSamples} from "../../Utils/templateList";
 import "./TemplateCard.css";
 
 const TemplateCard = ({ template }) => {

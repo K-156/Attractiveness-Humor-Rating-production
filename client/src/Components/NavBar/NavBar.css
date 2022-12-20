@@ -30,12 +30,16 @@ div > .logoutButton {
     text-transform: none;
     display: flex;
     color: #264653;
+    background-color: #FFFFFF;
     width: 100%;
     justify-content: flex-start;
+    margin: 8px 56px;
+    padding: 8px 24px;
 }
 
 div > .logoutButton:hover {
     color: #FFFFFF;
+    background-color: #C59D5F ;
 }
 
 #hamburger {
