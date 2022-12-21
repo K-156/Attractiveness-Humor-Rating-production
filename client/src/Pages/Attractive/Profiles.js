@@ -1,7 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import { useEffect } from "react";
 import _ from "lodash";
-import { useAppContext } from "../../Context/AppContext";
 
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import NextButton from "../../Components/NavButton/NextButton";
@@ -29,7 +27,6 @@ import Instruction from "../../Components/Instruction/Instruction";
 
 const Profiles = () => {
 
-
   const data = JSON.parse(localStorage.getItem("data"));
 
   return (
@@ -51,9 +48,15 @@ const Profiles = () => {
           );
         })}
       </Grid>
-      <Box display="flex" justifyContent="space-between">
-        <PrevButton link="/attractive-instruction" />
-        <NextButton link="/attractive/rate" />
+      <Box className="spaceBetween">
+        <PrevButton 
+          isSurvey={true}
+          link="/attractive-instruction"
+        />
+        <NextButton 
+          isSurvey={true}
+          link="/attractive/rate" 
+        />
       </Box>
     </div>
   );

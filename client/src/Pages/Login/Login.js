@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
@@ -16,13 +16,11 @@ import {
 } from "@mui/material";
 
 import PrevButton from "../../Components/NavButton/PrevButton";
-// import { ReactComponent as LoginImage } from "../../Assets/login.svg";
-import "./Login.css";
-import { useEffect } from "react";
+import { colorPalette } from "../../Utils/colorPalette";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { loginUser, user } = useAppContext();
+  const { loginUser, user, theme} = useAppContext();
 
   const [isValid, setIsValid] = useState(true);
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -68,29 +66,22 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className="backgroundImage-green">
+    <div className={`backgroundImage-${theme}`}>
       <script>{(document.title = "Login")}</script>
       <Box pt={3} pl={3}>
-      <PrevButton text="Back" link="/" />
-      <Grid container className="center" gap={2}>
+      <PrevButton 
+        isSurvey={true}
+        text="Back" 
+        link="/" 
+      />
+      <Grid container className="centerPadding" gap={2}>
         <Grid item xs={5} px={2}>
           <Card sx={{ px: 1, py: 2, mt: 4 }}>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
+            <CardContent className="flexColumn center">
               <Typography
                 variant="h5"
-                sx={{
-                  letterSpacing: "5px",
-                  fontWeight: "bolder",
-                  color: "#264653",
-                  mb: 3,
-                  mt: 1,
-                }}
+                className="formCardHeader"
+                sx={{color: colorPalette[theme]["primary"]}}
               >
                 LOGIN
               </Typography>
@@ -127,7 +118,7 @@ const Login = () => {
               <Button
                 variant="contained"
                 type="submit"
-                className="customButton-brown"
+                className={`customButton-${theme}`}
                 onClick={handleOnSubmit}
               >
                 Submit
@@ -136,7 +127,12 @@ const Login = () => {
           </Card>
         </Grid>
         <Grid item xs={5} px={2}>
-          {/* <LoginImage width="100%" height="0%" /> */}
+                <Box className="center">
+                    <img
+                        src={require(`../../Assets/Theme/${theme}/login.svg`)}
+                        style={{width: "100%"}}
+                    />
+                </Box>     
         </Grid>
       </Grid>
       </Box>

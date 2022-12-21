@@ -4,7 +4,6 @@ import {
 } from "@mui/material";
 
 import "./SummaryCard.css";
-import { colorPalette } from "../../Utils/colorPalette";
 
 const MoreText = ({ handleOnClick, id, value}) => {
     return(
@@ -17,14 +16,14 @@ const MoreText = ({ handleOnClick, id, value}) => {
                 value={value}
                 id={id}
                 sx={{
-                    color:colorPalette["green"]["secondary"], 
+                    color:"#C59D5F", 
                     fontSize: "14px",
                     cursor:"pointer",
-                    textDecorationColor: colorPalette["green"]["secondary"], 
+                    textDecorationColor: "#C59D5F", 
                     ml: "2px",
                     "&:hover": {
-                        color:colorPalette["green"]["primary"], 
-                        textDecorationColor: colorPalette["green"]["primary"], 
+                        color:"#264653", 
+                        textDecorationColor: "#264653", 
                     }
                 }}
             >

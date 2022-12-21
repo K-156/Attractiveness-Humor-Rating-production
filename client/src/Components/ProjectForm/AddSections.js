@@ -16,7 +16,6 @@ import _ from "lodash";
 
 import { templates } from "../../Utils/templateList";
 import "./ProjectForm.css";
-import { colorPalette } from "../../Utils/colorPalette";
 
 const AddSection = ({ formData, setFormData }) => {
   const navigate = useNavigate();
@@ -86,7 +85,7 @@ const AddSection = ({ formData, setFormData }) => {
                       >
                         <Typography
                           variant="subtitle2"
-                          sx={{ color: colorPalette["green"]["primary"] }}
+                          sx={{ color: "#264653" }}
                         >
                           {index + 1}. {templates[value]}
                         </Typography>
@@ -99,7 +98,7 @@ const AddSection = ({ formData, setFormData }) => {
                             <MdEdit
                               size={15}
                               style={{
-                                color: colorPalette["green"]["primary"],
+                                color: "#264653",
                                 pointerEvents: "none",
                               }}
                             />
@@ -112,7 +111,7 @@ const AddSection = ({ formData, setFormData }) => {
                             <RiDeleteBin6Fill
                               size={15}
                               style={{
-                                color: colorPalette["green"]["primary"],
+                                color: "#264653",
                                 pointerEvents: "none",
                               }}
                             />

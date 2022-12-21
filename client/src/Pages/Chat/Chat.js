@@ -38,7 +38,7 @@ const Chat = ({ title, link }) => {
 
   return (
     <div>
-      <Box ml={5} mb={2}>
+      <Box sx={{ml: 5, mb: 2}}>
         <Instruction type="prewritten" />
       </Box>
       <ChatTemplate
@@ -46,13 +46,21 @@ const Chat = ({ title, link }) => {
         selectMessage={selectMessage}
         setSelectMessage={setSelectMessage}
       />
-      <Box display="flex" justifyContent="space-between" mx={5} my={3}>
+      <Box 
+        className="spaceBetween" 
+        sx={{mx: 5, my: 3}}
+      >
         {parseInt(title) === 1 ? (
-          <PrevButton link="/chat-instruction" />
+          <PrevButton 
+            isSurvey={true}
+            link="/chat-instruction" />
         ) : (
           <Box></Box>
         )}
-        <NextButton disabled={selectMessage === null} handleOnSubmit={handleOnSubmit} />
+        <NextButton 
+          isSurvey={true}
+          disabled={selectMessage === null} handleOnSubmit={handleOnSubmit} 
+        />
       </Box>
     </div>
   );

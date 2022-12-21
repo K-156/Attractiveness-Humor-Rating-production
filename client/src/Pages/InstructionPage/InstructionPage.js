@@ -1,9 +1,15 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { useAppContext } from "../../Context/AppContext";
+
+import { 
+    Box, 
+    Card, 
+    CardContent, 
+    Typography
+} from "@mui/material";
 
 import NextButton from "../../Components/NavButton/NextButton";
-// import { ReactComponent as InstructionImage } from "../../Assets/instruction.svg";
+import { colorPalette } from "../../Utils/colorPalette";
 import "./InstructionPage.css";
-import "../../Theme.css";
 
 // const instruction = {
 //     "attractive": "Based on the candidates’ profile, please rate the candidates between 1 to 9. (1 - extremely uninterested, 9 - extremely interested)", 
@@ -15,37 +21,59 @@ import "../../Theme.css";
 
 const InstructionPage = ( { type, link } ) => {
 
+    const { theme } = useAppContext();
     // sessionStorage.setItem(type, instruction[type])
     const data = JSON.parse(localStorage.getItem("data"));
 
     
     return(
-        <div 
-            className="backgroundImage-green" 
-            style={{display:"flex",  flexDirection:"column", alignItems: "center"}} 
-        >
-            <script>
-                {document.title="Instruction"}
-            </script>
+        <div className={`backgroundImage-${theme} center`} >
+            <script>{document.title="Instruction"}</script>
             <Box className="instruction">
-                {/* <InstructionImage width="20%" height="0%" style={{margin: "20px"}}/> */}
-                <Card sx={{background: "#264653", color:"#FFFFFF", mx: 30, width:"80%" }}>
+                <Box 
+                    className="center"
+                    sx={{width:"30%", p:"30px"}}
+                >
+                    <img
+                        src={require(`../../Assets/Theme/${theme}/instruction.svg`)}
+                        style={{width: "100%"}}
+                    />
+                </Box>    
+                <Card 
+                    sx={{
+                        background: colorPalette[theme]["primary"], 
+                        color:"#FFFFFF", 
+                        mx: 30, 
+                        width:"80%" 
+                    }}
+                >
                     <CardContent>
-                        <Box display="flex" justifyContent="center">
-                            <Typography variant="subtitle1" fontWeight="bold">Instruction</Typography>
+                        <Box className="center">
+                            <Typography 
+                                sx={{
+                                    fontWeight:"bold",
+                                    fontSize:"14px"
+                                }}
+                            >Instruction</Typography>
                         </Box>
                         <Box 
-                            display="flex" 
-                            justifyContent="center" 
-                            textAlign="center"
+                            className="center"
                             pt={1.5}
                         >
-                            <Typography variant="subtitle2" sx={{whiteSpace:"pre-line"}}>{data[`${type}Instruc`]}</Typography>
+                            <Typography className="textCenter">
+                                {data[`${type}Instruc`]}
+                            </Typography>
                         </Box>
                     </CardContent>
                 </Card>
-                <Box py={2} display="flex" justifyContent="flex-end" width="80%">
-                    <NextButton link={link}/>
+                <Box 
+                    className="flexEnd" 
+                    sx={{py: 3, width: "80%"}}
+                >
+                    <NextButton 
+                        isSurvey={true}
+                        link={link}
+                    />
                 </Box>
             </Box>
             

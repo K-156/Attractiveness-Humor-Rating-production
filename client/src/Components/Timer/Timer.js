@@ -85,8 +85,11 @@ const Timer = () => {
         <>
             <Typography 
                 className="center"
-                color= {isWarning ? "#F47070" : colorPalette[theme]["secondary"]}
-                mb={1}
+                sx={{
+                    color: isWarning ? "#F47070" : colorPalette[theme]["secondary"],
+                    mb:1,
+                    fontSize:"14px"
+                }}
             >
                 <FiClock style={{marginRight:"15px"}}/>{timer}
             </Typography>  
@@ -100,13 +103,21 @@ const Timer = () => {
                     <br/>Your responses have been saved.<br/>                    
                 </Alert>
                 <Box 
-                    sx={{display:"flex", justifyContent: "center", 
-                            backgroundColor: "rgb(253, 237, 237)", 
-                            pt: 1, pb: 2}}>
+                    sx={{
+                        display:"flex", 
+                        justifyContent: "center", 
+                        backgroundColor: "rgb(253, 237, 237)", 
+                        pt: 1, 
+                        pb: 2
+                    }}
+                >
                         <Button
                             variant="contained"
-                            sx={{textTransform:"none", backgroundColor: "#ef5350", 
-                                "&:hover": {backgroundColor: "#915b5a"}}}
+                            sx={{
+                                textTransform:"none", 
+                                backgroundColor: "#ef5350", 
+                                "&:hover": {backgroundColor: "#915b5a"}
+                            }}
                             onClick={() => navigate("/")}
                         >
                             <HiArrowLeft  style={{marginRight:"10px"}} />Return to homepage

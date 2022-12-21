@@ -12,7 +12,7 @@ import Login from "./Pages/Login/Login";
 import Profiles from "./Pages/Attractive/Profiles";
 import AudioRate from "./Pages/Audio/AudioRate";
 import Description from "./Pages/Attractive/Description";
-import Complete from "./Pages/Complete/Complete";
+import General from "./Pages/General/General";
 import Overview from "./Pages/Overview/Overview";
 import Details from "./Pages/Details/Details";
 import AttractiveRate from "./Pages/Attractive/AttractiveRate";
@@ -146,7 +146,7 @@ function App() {
               element={<Chat key="chatQ2" title="2" link="/complete" />}
             />
           </Route>
-          <Route path="/complete" element={<Complete />} />
+          <Route path="/complete" element={<General />} />
 
           {/* Admin */}
           <Route element={<DashboardLayout />}>

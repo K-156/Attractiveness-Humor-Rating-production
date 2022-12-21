@@ -8,8 +8,6 @@ import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-import { colorPalette } from "../../Utils/colorPalette";
-
 const AddableTwoField = ({ id, items, formData, handleOnChange, 
                             setFormData, variable, currValue, setError, error}) => {
 
@@ -64,7 +62,7 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
                     <CgAdd 
                         size={20} 
                         style={{ 
-                            color: colorPalette["green"]["primary"], 
+                            color: "#264653", 
                             pointerEvents: "none" 
                         }}
                     />
@@ -81,7 +79,7 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
                             <Typography
                                 sx={{
                                     fontSize:"14px",
-                                    color: colorPalette["green"]["primary"]
+                                    color: "#264653"
                                 }}
                             >
                                 {index + 1}. {aItem.name}: {aItem.value}
@@ -93,7 +91,7 @@ const AddableTwoField = ({ id, items, formData, handleOnChange,
                                 <RiDeleteBin6Fill 
                                     size={15} 
                                     style={{ 
-                                        color: colorPalette["green"]["primary"], 
+                                        color: "#264653", 
                                         pointerEvents: "none" 
                                     }}
                                 />   

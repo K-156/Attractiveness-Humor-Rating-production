@@ -51,8 +51,8 @@ const ProfileForm = ({ id, setFormData, formData }) => {
                             name="optionName"
                             size="small"
                             fullWidth
-                            inputProps={{maxLength: 20}}
-                            helperText={`${textLimit["optionName"]} / 20`}    
+                            inputProps={{maxLength: 40}}
+                            helperText={`${textLimit["optionName"]} / 40`}    
                             onChange={handleOnChange}                                                
                         />
                     </Box>
@@ -66,8 +66,8 @@ const ProfileForm = ({ id, setFormData, formData }) => {
                             fullWidth
                             multiline
                             minRows={3}
-                            inputProps={{maxLength: 140}}
-                            helperText={`${textLimit["description"]} / 140`}     
+                            inputProps={{maxLength: 200}}
+                            helperText={`${textLimit["description"]} / 200`}     
                             onChange={handleOnChange}                                                
                         />
                     </Box>

@@ -16,7 +16,6 @@ import { GrClose } from "react-icons/gr";
 
 import OptionsContent from "./OptionsContent";
 import GeneralContent from "./GeneralContent";
-import { colorPalette } from "../../Utils/colorPalette";
 
 const SummaryCard = ({ header, content, editLink, template }) => {
 
@@ -57,7 +56,7 @@ const SummaryCard = ({ header, content, editLink, template }) => {
                     >
                         <MdModeEdit 
                             style={{
-                                color:colorPalette["green"]["primary"], 
+                                color:"#264653", 
                                 pointerEvents:"none"
                             }} 
                         />
@@ -85,7 +84,7 @@ const SummaryCard = ({ header, content, editLink, template }) => {
                     <Typography
                         variant="h6"
                         sx={{
-                            color:colorPalette["green"]["primary"], 
+                            color:"#264653", 
                             fontWeight:"bold",
                             width:"200px"
                         }}

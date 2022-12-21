@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../Context/AppContext";
 
 import {
   Box,
@@ -11,6 +12,7 @@ import {
 import _ from "lodash";
 
 import PrevButton from "../../Components/NavButton/PrevButton";
+import { colorPalette } from "../../Utils/colorPalette";
 
 // const itemName = [
 //   {
@@ -39,6 +41,9 @@ import PrevButton from "../../Components/NavButton/PrevButton";
 // };
 
 const Description = () => {
+
+  const { theme } = useAppContext();
+
   const location = useLocation();
   const navigate = useNavigate();
   const { id, candidateCount, back } = location.state;
@@ -61,26 +66,25 @@ const Description = () => {
       <script>{(document.title = "Description")}</script>
 
       <Box>
-        <PrevButton link="/attractive/profile" />
+        <PrevButton 
+          isSurvey={true}
+          link="/attractive/profile" 
+        />
       </Box>
-      <Box display="flex" justifyContent="center">
+      <Box className="center">
         <Card sx={{ mt: 2, width: "800px" }}>
           <CardContent>
             <Grid container className="centerPadding" px={1} py={2} gap={1}>
               <Grid item xs={5}>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  height="200px"
-                  py={2}
-                >
-                  <img src={data.proj[id].img} alt="profile" />
+                <Box className="imageBox">
+                  <img 
+                    src={data.proj[id].img} 
+                    alt="profile" 
+                  />
                 </Box>
                 <Typography
-                  variant="subtitle2"
                   className="cardHeader"
-                  fontWeight="bold"
-                  height="100%"
+                  sx={{color: colorPalette[theme]["primary"]}}
                 >
                   {data.proj[id].name}
                 </Typography>
@@ -93,19 +97,20 @@ const Description = () => {
                       <Grid
                         item
                         xs={3}
-                        display="flex"
-                        justifyContent="flex-end"
+                        className="flexEnd"
                       >
                         <Typography
-                          variant="subtitle2"
-                          fontWeight="bold"
-                          color="#C59D5F"
+                          sx={{
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            color: colorPalette[theme]["secondary"]
+                          }}
                         >
                           {field}
                         </Typography>
                       </Grid>
                       <Grid item xs={8}>
-                        <Typography variant="subtitle2">{value}</Typography>
+                        <Typography sx={{fontSize:"14px"}}>{value}</Typography>
                       </Grid>
                     </Grid>
                   );
@@ -115,12 +120,16 @@ const Description = () => {
           </CardContent>
         </Card>
       </Box>
-      <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
+      <Box 
+        className="flexColumn"
+        sx={{
+          alignItems:"center",
+          mt: 5
+        }}
+      >
         <Typography
-          variant="subtitle2"
-          fontWeight="bold"
-          my={2}
-          color="#264653"
+          className="cardHeader"
+          sx={{color: colorPalette[theme]["primary"]}}
         >
           CANDIDATES
         </Typography>
@@ -132,12 +141,14 @@ const Description = () => {
           page={parseInt(id) + 1}
           onChange={handleOnChange}
           sx={{
-            color: "#264653",
-            ".css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root": { mx: 2 },
-            ".css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
-              {
+            mt: 2,
+            ".MuiPaginationItem-root": { 
+              mx: 2,
+              color: colorPalette[theme]["primary"],
+            },
+            ".MuiPaginationItem-root.Mui-selected": {
                 color: "#FFFFFF",
-                backgroundColor: "#264653",
+                backgroundColor: colorPalette[theme]["primary"],
               },
           }}
         />

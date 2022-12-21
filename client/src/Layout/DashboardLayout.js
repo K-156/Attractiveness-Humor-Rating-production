@@ -4,7 +4,6 @@ import { useAppContext } from "../Context/AppContext";
 import { Box } from "@mui/material";
 
 import NavBar from "../Components/NavBar/NavBar";
-import { colorPalette } from "../Utils/colorPalette";
 
 const DashboardLayout = () => {
 
@@ -13,7 +12,7 @@ const DashboardLayout = () => {
     return(
         <Box
             sx={{
-                backgroundColor: colorPalette["green"]["background"],
+                backgroundColor: "#F0F4F8",
                 p: "25px 25px 50px 25px",
                 minHeight:"100vh"
             }}

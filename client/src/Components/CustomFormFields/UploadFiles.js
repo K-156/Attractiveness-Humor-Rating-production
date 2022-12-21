@@ -7,8 +7,6 @@ import _ from "lodash";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-import { colorPalette } from "../../Utils/colorPalette";
-
 const UploadFiles = ({ items, setFormData, variable, accept }) => {
 
     const uploadFile = (event) => {
@@ -74,7 +72,7 @@ const UploadFiles = ({ items, setFormData, variable, accept }) => {
                                     <Typography
                                         sx={{
                                             fontSize:"14px",
-                                            color: colorPalette["green"]["primary"]
+                                            color: "#264653"
                                         }}
                                     >
                                         {index + 1}. {value}
@@ -86,7 +84,7 @@ const UploadFiles = ({ items, setFormData, variable, accept }) => {
                                         <RiDeleteBin6Fill 
                                             size={15} 
                                             style={{ 
-                                                color: colorPalette["green"]["primary"], 
+                                                color: "#264653", 
                                                 pointerEvents: "none" 
                                             }}
                                         />  

@@ -13,12 +13,13 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
+import { colorPalette } from "../../Utils/colorPalette";
 
 const Details = () => {
 
 
   const navigate = useNavigate();
-  const { updateUser, user, getProject } = useAppContext();
+  const { updateUser, user, getProject, theme } = useAppContext();
 
   useEffect(() => {
     // need to change project id
@@ -63,25 +64,21 @@ const Details = () => {
   };
 
   return (
-    <div className="backgroundImage" style={{ display: "flex", justifyContent: "center" }}>
+    <div className={`backgroundImage-${theme} center`}>
       <script>{(document.title = "Personal Details")}</script>
-      <Card sx={{ position: "absolute", px: 1, py: 2, mt: 4, width: "500px" }}>
-        <CardContent
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+      <Card 
+        className="absoluteCenter"
+        sx={{ 
+          px: 1, 
+          py: 2, 
+          width: "500px" 
+        }}
+      >
+        <CardContent className="flexColumn center">
           <Typography
             variant="h5"
-            sx={{
-              letterSpacing: "2px",
-              fontWeight: "bolder",
-              color: "#264653",
-              mb: 3,
-              mt: 1,
-            }}
+            className="formCardHeader"
+            sx={{color: colorPalette[theme]["primary"]}}
           >
             Fill in your details
           </Typography>
@@ -135,13 +132,11 @@ const Details = () => {
             disabled={!toSubmit}
             type="submit"
             variant="contained"
+            className={`customButton-${theme}`}
             sx={{
-              background: "#264653",
-              "&:hover": { backgroundColor: "#C59D5F" },
               width: "80%",
               mt: 2,
             }}
-            // onClick={() => navigate("/attractive-instruction")}
             onClick={handleOnSubmit}
           >
             Submit

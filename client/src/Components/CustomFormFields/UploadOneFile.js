@@ -10,8 +10,6 @@ import {
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-import { colorPalette } from "../../Utils/colorPalette";
-
 const UploadOneFile = ({ id, setFormData, formData, accept }) => {
 
     const [error, setError] = useState(false)
@@ -87,7 +85,7 @@ const UploadOneFile = ({ id, setFormData, formData, accept }) => {
                         <Typography
                             sx={{
                                 fontSize:"14px",
-                                color: colorPalette["green"]["primary"]
+                                color: "#264653"
                             }}
                         >
                             {formData[id]["img"]["name"]}
@@ -96,7 +94,7 @@ const UploadOneFile = ({ id, setFormData, formData, accept }) => {
                             <RiDeleteBin6Fill 
                                 size={15} 
                                 style={{ 
-                                    color: colorPalette["green"]["primary"], 
+                                    color: "#264653", 
                                     pointerEvents: "none" 
                                 }}
                             />  

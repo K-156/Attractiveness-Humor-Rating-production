@@ -47,7 +47,7 @@ const Projects = () => {
         <Button
           variant="contained"
           onClick={handleOnClick}
-          className="customButton"
+          className="customButton-green"
         >
           Add Project
         </Button>

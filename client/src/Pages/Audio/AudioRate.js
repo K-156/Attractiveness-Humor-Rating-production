@@ -65,14 +65,14 @@ const AudioRate = ({ title, link, isWritten }) => {
       <Instruction type={isWritten ? "intro" : "audio"} />
       <Grid container className="centerPadding" gap={2}>
         <Grid item xs={4} px={4}>
-          <Box display="flex" justifyContent="center" height="200px" py={2}>
+          <Box className="imageBox">
             <img
               src={
                 link.includes("q2")
                   ? data.proj[firstCandidate].img
                   : data.proj[lastCandidate].img
               }
-              alt="logo"
+              alt="candidate"
             />
           </Box>
           {isWritten ? (
@@ -91,20 +91,20 @@ const AudioRate = ({ title, link, isWritten }) => {
         <Grid
           item
           xs={12}
-          py={2}
-          px={9}
-          display="flex"
-          justifyContent="space-between"
+          className="spaceBetween"
+          sx={{py: 3, px: 9}}
         >
           {parseInt(title) === 1 ? (
-            <PrevButton link="/audio-instruction" />
+            <PrevButton 
+              isSurvey={true}
+              link="/audio-instruction" 
+            />
           ) : (
             <Box></Box>
           )}
           <NextButton
-            disabled={
-              !isValid(rating, Object.keys(data.audioRatingInstruc).length)
-            }
+            isSurvey={true}
+            disabled={!isValid(rating, Object.keys(data.audioRatingInstruc).length)}
             handleOnSubmit={handleOnSubmit}
           />
         </Grid>

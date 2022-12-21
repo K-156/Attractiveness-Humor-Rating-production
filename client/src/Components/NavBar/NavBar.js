@@ -9,7 +9,6 @@ import {
 import { MdSpaceDashboard } from "react-icons/md";
 import { BsCardChecklist } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
-import { colorPalette } from "../../Utils/colorPalette";
 
 import "./NavBar.css";
 
@@ -29,8 +28,8 @@ const NavBar = () => {
           <Button
             className="navBarButton"
             sx={{ background: tab === "overview" 
-                  ? colorPalette["green"]["primaryDark"] 
-                  : colorPalette["green"]["primary"] 
+                  ? "#1d353f" 
+                  : "#264653" 
                }}
             onClick={() => navigate("/overview")}
           >
@@ -45,8 +44,8 @@ const NavBar = () => {
           <Button
             className="navBarButton"
             sx={{ background: tab === "projects" 
-                  ? colorPalette["green"]["primaryDark"] 
-                  : colorPalette["green"]["primary"]  
+                  ? "#1d353f" 
+                  : "#264653"  
                 }}
             onClick={() => navigate("/projects")}
           >

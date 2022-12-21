@@ -2,7 +2,10 @@ import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 
-import { Box, Grid } from "@mui/material";
+import {
+  Box, 
+  Grid 
+} from "@mui/material";
 import _ from "lodash";
 
 import RatingCard from "../../Components/SurveyForm/RatingCard";
@@ -57,8 +60,12 @@ const AttractiveRate = () => {
         })}
       </Grid>
       <Box display="flex" justifyContent="space-between">
-        <PrevButton link="/attractive/profile" />
+        <PrevButton 
+          isSurvey={true}
+          link="/attractive/profile" 
+        />
         <NextButton
+          isSurvey={true}
           disabled={!isValid(rating, Object.keys(data.proj).length)}
           handleOnSubmit={handleOnSubmit}
         />
