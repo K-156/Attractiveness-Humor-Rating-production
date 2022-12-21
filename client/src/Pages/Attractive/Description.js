@@ -14,42 +14,17 @@ import _ from "lodash";
 import PrevButton from "../../Components/NavButton/PrevButton";
 import { colorPalette } from "../../Utils/colorPalette";
 
-// const itemName = [
-//   {
-//     name: "Candidate 1",
-//     img: "Female 1.jpg",
-//   },
-//   {
-//     name: "Candidate 2",
-//     img: "Female 2.jpg",
-//   },
-//   {
-//     name: "Candidate 3",
-//     img: "Female 3.jpg",
-//   },
-//   {
-//     name: "Candidate 4",
-//     img: "Female 4.jpg",
-//   },
-// ];
-
-// const details = {
-//   School: "Singapore Management University",
-//   Major: "Information Systems",
-//   GPA: "3.8",
-//   Skills: "Python, Java, Figma",
-// };
-
 const Description = () => {
 
-  const { theme } = useAppContext();
+  const { theme, sectionNum } = useAppContext();
 
   const location = useLocation();
   const navigate = useNavigate();
   const { id, candidateCount, back } = location.state;
 
-  const data = JSON.parse(localStorage.getItem("data"));
-  const attributes = data.proj[id].attributes;
+  const {data} = JSON.parse(localStorage.getItem("data"));
+  const attributes = data[sectionNum][[Object.keys(data[sectionNum])[0]]][Number(id)+1].attributes
+
 
   const handleOnChange = (event) => {
     const newId = parseInt(event.target.textContent);
@@ -77,21 +52,21 @@ const Description = () => {
             <Grid container className="centerPadding" px={1} py={2} gap={1}>
               <Grid item xs={5}>
                 <Box className="imageBox">
-                  <img 
+                  {/* <img 
                     src={data.proj[id].img} 
                     alt="profile" 
-                  />
+                  /> */}
                 </Box>
                 <Typography
                   className="cardHeader"
                   sx={{color: colorPalette[theme]["primary"]}}
                 >
-                  {data.proj[id].name}
+                  {data[sectionNum][[Object.keys(data[sectionNum])[0]]][Number(id)+1].optionName}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
                 {_.map(attributes, (attribute, key) => {
-                  const { field, value } = attribute;
+                  const { name, value } = attribute;
                   return (
                     <Grid container gap={2} key={key} mt={1}>
                       <Grid
@@ -106,7 +81,7 @@ const Description = () => {
                             color: colorPalette[theme]["secondary"]
                           }}
                         >
-                          {field}
+                          {name}
                         </Typography>
                       </Grid>
                       <Grid item xs={8}>

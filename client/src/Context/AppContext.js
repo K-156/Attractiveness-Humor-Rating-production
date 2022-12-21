@@ -27,6 +27,7 @@ import {
   SUBMIT_FORM_DATA,
   PUBLISH_PROJECT_BEGIN,
   PUBLISH_PROJECT_SUCCESS,
+  NEXT_SECTION,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -44,6 +45,7 @@ const initialState = {
   data: [],
   sections: [],
   activeProjectId: "",
+  sectionNum:0,
 };
 
 const AppContext = createContext();
@@ -254,6 +256,10 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const nextSection = () => {
+    dispatch({ type: NEXT_SECTION });
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -270,6 +276,7 @@ const AppProvider = ({ children }) => {
         editProject,
         submitFormData,
         publishProject,
+        nextSection,
       }}
     >
       {children}

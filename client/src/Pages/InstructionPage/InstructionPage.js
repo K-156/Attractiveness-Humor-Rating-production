@@ -1,84 +1,59 @@
 import { useAppContext } from "../../Context/AppContext";
 
-import { 
-    Box, 
-    Card, 
-    CardContent, 
-    Typography
-} from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 import NextButton from "../../Components/NavButton/NextButton";
 import { colorPalette } from "../../Utils/colorPalette";
 import "./InstructionPage.css";
 
-// const instruction = {
-//     "attractive": "Based on the candidates’ profile, please rate the candidates between 1 to 9. (1 - extremely uninterested, 9 - extremely interested)", 
-//     "rank": "Drag and drop the candidates to rank them, with the most interested candidate on the left.", 
-//     "audio": "Two of the candidates that you have ranked as your first and last choice have uploaded their audio introduction. Please answer the questions by rating between 1 to 9. (1 - not very, 9 - extremely)",
-//     "intro": "Two of the candidates that you have ranked as your first and last choice have written self-introductions. Please answer the questions by rating between 1 to 9. (1 - not very, 9 - extremely)",
-//     "prewritten": "Select one message that you would like to send to your first and last choice candidate"
-// }
+const InstructionPage = ({ type, link }) => {
+  const { theme, sectionNum } = useAppContext();
+  // sessionStorage.setItem(type, instruction[type])
+  const {data} = JSON.parse(localStorage.getItem("data"));
 
-const InstructionPage = ( { type, link } ) => {
-
-    const { theme } = useAppContext();
-    // sessionStorage.setItem(type, instruction[type])
-    const data = JSON.parse(localStorage.getItem("data"));
-
-    
-    return(
-        <div className={`backgroundImage-${theme} center`} >
-            <script>{document.title="Instruction"}</script>
-            <Box className="instruction">
-                <Box 
-                    className="center"
-                    sx={{width:"30%", p:"30px"}}
-                >
-                    <img
-                        src={require(`../../Assets/Theme/${theme}/instruction.svg`)}
-                        style={{width: "100%"}}
-                    />
-                </Box>    
-                <Card 
-                    sx={{
-                        background: colorPalette[theme]["primary"], 
-                        color:"#FFFFFF", 
-                        mx: 30, 
-                        width:"80%" 
-                    }}
-                >
-                    <CardContent>
-                        <Box className="center">
-                            <Typography 
-                                sx={{
-                                    fontWeight:"bold",
-                                    fontSize:"14px"
-                                }}
-                            >Instruction</Typography>
-                        </Box>
-                        <Box 
-                            className="center"
-                            pt={1.5}
-                        >
-                            <Typography className="textCenter">
-                                {data[`${type}Instruc`]}
-                            </Typography>
-                        </Box>
-                    </CardContent>
-                </Card>
-                <Box 
-                    className="flexEnd" 
-                    sx={{py: 3, width: "80%"}}
-                >
-                    <NextButton 
-                        isSurvey={true}
-                        link={link}
-                    />
-                </Box>
+  return (
+    <div className={`backgroundImage-${theme} center`}>
+      <script>{(document.title = "Instruction")}</script>
+      <Box className="instruction">
+        <Box className="center" sx={{ width: "30%", p: "30px" }}>
+          <img
+            src={require(`../../Assets/Theme/${theme}/instruction.svg`)}
+            style={{ width: "100%" }}
+            alt="instruction"
+          />
+        </Box>
+        <Card
+          sx={{
+            background: colorPalette[theme]["primary"],
+            color: "#FFFFFF",
+            mx: 30,
+            width: "80%",
+          }}
+        >
+          <CardContent>
+            <Box className="center">
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              >
+                Instruction
+              </Typography>
             </Box>
-            
-        </div>
-    )
-}
+            <Box className="center" pt={1.5}>
+              <Typography className="textCenter">
+                {data[sectionNum][Object.keys(data[sectionNum])[0]].instruction}
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
+        <Box className="flexEnd" sx={{ py: 3, width: "80%" }}>
+          <NextButton isSurvey={true} link={link} />
+        </Box>
+      </Box>
+    </div>
+  );
+};
 
 export default InstructionPage;

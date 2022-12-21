@@ -15,8 +15,6 @@ const ProjectDetails = () => {
     sessionStorage.setItem("templates", formData);
   }, [formData]);
 
-  console.log(formData)
-
   return (
     <div>
       <script>

@@ -23,13 +23,14 @@ import {
   SUBMIT_FORM_DATA,
   PUBLISH_PROJECT_BEGIN,
   PUBLISH_PROJECT_SUCCESS,
+  NEXT_SECTION,
 } from "./actions";
 
 import { initialState } from "./AppContext";
 
 const reducer = (state, action) => {
   if (action.type === SET_THEME) {
-    return action.payload
+    return action.payload;
   }
   if (action.type === LOGIN_USER_BEGIN) {
     return { ...state };
@@ -64,17 +65,19 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === GET_PROJECT_BEGIN) {
-    return { ...state };
+    return { ...state, isLoading: true };
   }
   if (action.type === GET_PROJECT_SUCCESS) {
     return {
       ...state,
+      isLoading: false,
       data: action.payload.data,
     };
   }
   if (action.type === GET_PROJECT_ERROR) {
     return {
       ...state,
+      isLoading: false,
     };
   }
 
@@ -114,7 +117,6 @@ const reducer = (state, action) => {
   }
 
   if (action.type === SUBMIT_FORM_DATA) {
-
     return {
       ...state,
       data: action.payload.formData,
@@ -124,14 +126,14 @@ const reducer = (state, action) => {
     const project = state.projects.find(
       (project) => project._id === action.payload.id
     );
-    const { projDetails,_id, data, sections } = project;
+    const { projDetails, _id, data, sections } = project;
     return {
       ...state,
-      isEditing:true,
-      editProjectId:_id,
+      isEditing: true,
+      editProjectId: _id,
       projDetails,
       data,
-      sections
+      sections,
     };
 
     // const {
@@ -195,11 +197,16 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === PUBLISH_PROJECT_SUCCESS) {
-    console.log(action.payload)
     return {
       ...state,
       isLoading: false,
       activeProjectId: action.payload,
+    };
+  }
+  if (action.type === NEXT_SECTION) {
+    return {
+      ...state,
+      sectionNum: state.sectionNum + 1,
     };
   }
   throw new Error(`no such action: ${action.type}`);

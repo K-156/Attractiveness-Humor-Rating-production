@@ -20,9 +20,6 @@ const Summary = () => {
     data: JSON.parse(items.projData),
   };
 
-  console.log(data);
-  console.log(test.data);
-
   return (
     <div>
       <script>

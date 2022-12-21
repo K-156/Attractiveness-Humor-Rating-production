@@ -14,6 +14,7 @@ import T6General from "../../Components/ProjectForm/T6General";
 const Section = () => {
 
     const location = useLocation()
+    console.log(location)
     const sectionNum = parseInt(location.pathname.split("/").pop())
     const templateList = sessionStorage.getItem("templates").split(",");
     const currTemplate = parseInt(templateList[sectionNum-1]);

@@ -14,22 +14,27 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 import { colorPalette } from "../../Utils/colorPalette";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
+import links from "../../Utils/links";
 
 const Details = () => {
-
-
   const navigate = useNavigate();
-  const { updateUser, user, getProject, theme } = useAppContext();
+  const { updateUser, user, getProject, theme, activeProjectId, isLoading, nextSection, sectionNum } =
+    useAppContext();
 
   useEffect(() => {
     // need to change project id
-    getProject("6396bf3fc38fcbbab983f563");
+    getProject("63a0b520a0a3f06619f7440d");
   }, []);
 
-  const detailList = ["Gender", "Age", "Ethnicity"];
+  const detailList = ["Sex", "Age", "Ethnicity"];
+  
+  const { data } = JSON.parse(localStorage.getItem("data"));
+
+  const { path } = links.find((link) => link.id == Object.keys(data[sectionNum])[0]);
 
   const [formData, setFormData] = useState({
-    gender: "",
+    sex: "",
     age: "",
     ethnicity: "",
   });
@@ -59,41 +64,45 @@ const Details = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    updateUser({currentUser:{...user,formData}, id:user._id});
-    navigate("/attractive-instruction")
+    updateUser({ currentUser: { ...user, formData }, id: user._id });
+    navigate(path);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className={`backgroundImage-${theme} center`}>
       <script>{(document.title = "Personal Details")}</script>
-      <Card 
+      <Card
         className="absoluteCenter"
-        sx={{ 
-          px: 1, 
-          py: 2, 
-          width: "500px" 
+        sx={{
+          px: 1,
+          py: 2,
+          width: "500px",
         }}
       >
         <CardContent className="flexColumn center">
           <Typography
             variant="h5"
             className="formCardHeader"
-            sx={{color: colorPalette[theme]["primary"]}}
+            sx={{ color: colorPalette[theme]["primary"] }}
           >
             Fill in your details
           </Typography>
           <FormControl sx={{ width: "80%", my: 2 }}>
             <FormGroup>
               {_.map(detailList, (detail) => {
-                if (detail === "Gender") {
+                if (detail === "sex") {
                   return (
                     <TextField
                       select
                       required
                       key={detail}
-                      name="gender"
-                      label="Gender"
-                      value={formData.gender}
+                      name="sex"
+                      label="Sex"
+                      value={formData.sex}
                       onChange={handleOnChange}
                       sx={{ my: 1 }}
                     >
