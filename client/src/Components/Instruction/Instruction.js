@@ -9,15 +9,15 @@ import { colorPalette } from "../../Utils/colorPalette";
 
 const Instruction = ({ type }) => {
 
-    const { theme } = useAppContext();
+    const { theme, sectionNum } = useAppContext();
 
     // const text = sessionStorage.getItem(type);
-    const data = JSON.parse(localStorage.getItem("data"));
+    const {data, sections} = JSON.parse(localStorage.getItem("data"));
 
     return(
         <div className="flexStart">
             <Tooltip 
-                title={data[`${type}Instruc`]}
+                title={data[sectionNum][sections[sectionNum]].instruction}
                 placement="bottom-start"
                 slotProps= {{
                     tooltip: {

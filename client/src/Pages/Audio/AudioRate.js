@@ -79,7 +79,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             /> */}
           </Box>
           {isWritten ? (
-            <IntroMessage text={data.writtenIntro} />
+            <IntroMessage text={data[sectionNum][sections[sectionNum]].introductions} />
           ) : (
             <Audio src={data.audio} />
           )}
