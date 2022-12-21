@@ -22,10 +22,7 @@ const Details = () => {
   const { updateUser, user, getProject, theme, activeProjectId, isLoading, nextSection, sectionNum } =
     useAppContext();
 
-  useEffect(() => {
-    // need to change project id
-    getProject("63a0b520a0a3f06619f7440d");
-  }, []);
+
 
   const detailList = ["Sex", "Age", "Ethnicity"];
   

@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
   res.send("Welcome");
 });
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/projects", authenticateUser, projectsRouter);
+app.use("/api/v1/projects", projectsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

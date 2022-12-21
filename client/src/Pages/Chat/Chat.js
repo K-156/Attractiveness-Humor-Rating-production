@@ -8,13 +8,17 @@ import ChatTemplate from "../../Components/Chatbox/ChatTemplate";
 import NextButton from "../../Components/NavButton/NextButton";
 import PrevButton from "../../Components/NavButton/PrevButton";
 import Instruction from "../../Components/Instruction/Instruction";
+import links from "../../Utils/links";
 
 const Chat = ({ title, link }) => {
-  const { updateUser } = useAppContext();
+  const { updateUser, nextSection, sectionNum } = useAppContext();
   const navigate = useNavigate();
 
   const [selectMessage, setSelectMessage] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const { sections } = JSON.parse(localStorage.getItem("data"));
+  const { path } = links.find((link) => link.id === sections[sectionNum + 1]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -31,14 +35,17 @@ const Chat = ({ title, link }) => {
       },
       id: user._id,
     });
-    navigate(link);
+    if (title === "1") {
+      navigate(link);
+    } else {
+      nextSection();
+      navigate(path);
+    }
   };
-
-  console.log(selectMessage)
 
   return (
     <div>
-      <Box sx={{ml: 5, mb: 2}}>
+      <Box sx={{ ml: 5, mb: 2 }}>
         <Instruction type="prewritten" />
       </Box>
       <ChatTemplate
@@ -46,20 +53,16 @@ const Chat = ({ title, link }) => {
         selectMessage={selectMessage}
         setSelectMessage={setSelectMessage}
       />
-      <Box 
-        className="spaceBetween" 
-        sx={{mx: 5, my: 3}}
-      >
+      <Box className="spaceBetween" sx={{ mx: 5, my: 3 }}>
         {parseInt(title) === 1 ? (
-          <PrevButton 
-            isSurvey={true}
-            link="/chat-instruction" />
+          <PrevButton isSurvey={true} link="/chat-instruction" />
         ) : (
           <Box></Box>
         )}
-        <NextButton 
+        <NextButton
           isSurvey={true}
-          disabled={selectMessage === null} handleOnSubmit={handleOnSubmit} 
+          disabled={selectMessage === null}
+          handleOnSubmit={handleOnSubmit}
         />
       </Box>
     </div>

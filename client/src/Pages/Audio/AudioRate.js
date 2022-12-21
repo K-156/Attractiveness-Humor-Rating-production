@@ -52,8 +52,12 @@ const AudioRate = ({ title, link, isWritten }) => {
           },
           id: user._id,
         });
-    nextSection();
-    navigate(path);
+        if (title === "1"){
+          navigate(link)
+        } else{
+          nextSection();
+          navigate(path);
+        }
   };
 
   return (

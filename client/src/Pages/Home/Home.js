@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../Context/AppContext';
+import { useEffect } from 'react';
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill } from "react-icons/bs";
@@ -15,12 +16,17 @@ const roleList=["Employer", "Job seeker"]
 
 const Home = () => {
     
-    const { theme } = useAppContext();
+    const { theme, getProject } = useAppContext();
     const navigate = useNavigate();
     const handleOnClick = (event) => {
         sessionStorage.setItem("role", (event.target.id).toLowerCase())
         navigate(`/login`)
     }
+
+    useEffect(() => {
+        // need to change project id
+        getProject("63a0b520a0a3f06619f7440d");
+      }, []);
 
     return(
         <div className={`backgroundImage-${theme}`}>
