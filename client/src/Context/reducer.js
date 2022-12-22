@@ -24,6 +24,9 @@ import {
   PUBLISH_PROJECT_BEGIN,
   PUBLISH_PROJECT_SUCCESS,
   NEXT_SECTION,
+  UPLOAD_FILES_BEGIN,
+  UPLOAD_FILES_SUCCESS,
+  UPLOAD_FILES_ERROR,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -207,6 +210,24 @@ const reducer = (state, action) => {
     return {
       ...state,
       sectionNum: state.sectionNum + 1,
+    };
+  }
+
+  if (action.type === UPLOAD_FILES_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+
+  if (action.type === UPLOAD_FILES_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      fileLink:action.payload
+    };
+  }
+  if (action.type === UPLOAD_FILES_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
     };
   }
   throw new Error(`no such action: ${action.type}`);

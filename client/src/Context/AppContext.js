@@ -28,6 +28,9 @@ import {
   PUBLISH_PROJECT_BEGIN,
   PUBLISH_PROJECT_SUCCESS,
   NEXT_SECTION,
+  UPLOAD_FILES_BEGIN,
+  UPLOAD_FILES_SUCCESS,
+  UPLOAD_FILES_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -39,13 +42,14 @@ const initialState = {
   theme: "yellow",
   projects: [],
   isEditing: false,
-  editProjectId: "", 
+  editProjectId: "",
   isLoading: true,
   projDetails: {},
   data: [],
   sections: [],
   activeProjectId: "",
-  sectionNum:0,
+  sectionNum: 0,
+  fileLink:"",
 };
 
 const AppContext = createContext();
@@ -96,7 +100,7 @@ const AppProvider = ({ children }) => {
   const setTheme = (theme) => {
     dispatch({
       type: SET_THEME,
-      payload: theme
+      payload: theme,
     });
   };
 
@@ -226,6 +230,38 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const uploadFiles = async (filename, resource) => {
+    dispatch({ type: UPLOAD_FILES_BEGIN });
+    try {
+      const {
+        data: {
+          resource: { src },
+        },
+      } = await authFetch.post(
+        `/projects/uploads/${filename}`,
+        {
+          resource,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      let imageValue = src;
+      console.log(imageValue);
+      dispatch({
+        type: UPLOAD_FILES_SUCCESS,
+        payload: imageValue,
+      });
+    } catch (error) {
+      dispatch({
+        type: UPLOAD_FILES_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+  };
+
   const setEditProject = (id) => {
     dispatch({ type: SET_EDIT_PROJECT, payload: { id } });
   };
@@ -258,7 +294,7 @@ const AppProvider = ({ children }) => {
 
   const nextSection = () => {
     dispatch({ type: NEXT_SECTION });
-  }
+  };
 
   return (
     <AppContext.Provider
@@ -277,6 +313,7 @@ const AppProvider = ({ children }) => {
         submitFormData,
         publishProject,
         nextSection,
+        uploadFiles,
       }}
     >
       {children}

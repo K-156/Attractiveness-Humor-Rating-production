@@ -6,12 +6,13 @@ import checkPermissions from "../utils/checkPermissions.js";
 
 const createProject = async (req, res) => {
   console.log(req.body)
-  const { projDetails, sections, data } = req.body.projDetails;
-  if (!projDetails || !sections || !data) {
-    throw new BadRequestError("Please provide all values");
-  }
+  // const { projDetails, sections, data } = req.body.projDetails;
+  // if (!projDetails || !sections || !data) {
+  //   throw new BadRequestError("Please provide all values");
+  // }
+  // console.log(req.user)
 
-  req.body.projDetails.createdBy = req.user.userId;
+  // req.body.projDetails.createdBy = req.user.userId;
 
   const project = await Project.create(req.body.projDetails);
   // console.log(project)

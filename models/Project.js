@@ -1,36 +1,43 @@
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 
 const ProjectSchema = new mongoose.Schema(
   {
-    projDetails:{
-      title:String,
-      email:[],
-      roles:[],
-      duration:String,
+    _id: {
+      type: String,
+      default: () => nanoid(10),
+    },
+    projDetails: {
+      title: String,
+      email: [],
+      roles: [],
+      duration: String,
     },
     sections: {
       type: [],
-      required:true,
+      required: true,
     },
-    data:[],
+    data: [],
     isActive: {
       type: Boolean,
-      default:false
+      default: false,
     },
     isPublish: {
       type: Boolean,
-      default:false,
+      default: false,
     },
-    
-    createdBy: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-      required: [true, "Please provide user"],
-    },
+
+    // createdBy: {
+    //   type: mongoose.Types.ObjectId,
+    //   ref: "User",
+    //   required: [true, "Please provide user"],
+    // },
   },
   {
     timestamps: true,
   }
 );
+
+ProjectSchema.id = nanoid(10);
 
 export default mongoose.model("Projects", ProjectSchema);
