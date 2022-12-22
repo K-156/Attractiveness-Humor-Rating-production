@@ -5,7 +5,7 @@ import { BadRequestError, NotFoundError } from "../errors/index.js";
 import checkPermissions from "../utils/checkPermissions.js";
 
 const createProject = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   // const { projDetails, sections, data } = req.body.projDetails;
   // if (!projDetails || !sections || !data) {
   //   throw new BadRequestError("Please provide all values");
@@ -31,15 +31,14 @@ const updateProject = async (req, res) => {
   const { userId } = req.user;
   const user = await User.findOne({ userId });
   const { id: projectId } = req.params;
-
-  console.log(req.body)
+  console.log(req.params)
 
   const project = await Project.findOne({ _id: projectId });
   if (!project) {
     throw new NotFoundError(`No project with id ${projectId}`);
   }
 
-  checkPermissions(user);
+  // checkPermissions(user);
 
   const updatedProject = await Project.findOneAndUpdate(
     { _id: projectId },
@@ -67,7 +66,7 @@ const deleteProject = async (req, res) => {
   const { userId } = req.user;
   const user = await User.findOne({ userId });
 
-  const {id:projectId} = req.params
+  const { id: projectId } = req.params;
   const project = await Project.findOne({ _id: projectId });
 
   if (!project) {
@@ -76,10 +75,15 @@ const deleteProject = async (req, res) => {
 
   checkPermissions(user);
 
-  await project.remove()
+  await project.remove();
 
-  res.status(StatusCodes.OK).json({msg:'Success! Project deleted'})
+  res.status(StatusCodes.OK).json({ msg: "Success! Project deleted" });
 };
 
-
-export { createProject, updateProject, getProject, getAllProjects, deleteProject };
+export {
+  createProject,
+  updateProject,
+  getProject,
+  getAllProjects,
+  deleteProject,
+};

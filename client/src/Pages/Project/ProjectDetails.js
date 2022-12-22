@@ -24,6 +24,8 @@ const ProjectDetails = () => {
     }
   }, []);
 
+  console.log(formData)
+
   return (
     <div>
       <script>

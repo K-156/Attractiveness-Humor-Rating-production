@@ -18,8 +18,7 @@ const ProjectLayout = ({
   projectType,
   formData,
   templateNum,
-  createProject,
-  data,
+  sectionNum
 }) => {
   const navigate = useNavigate();
 
@@ -32,25 +31,16 @@ const ProjectLayout = ({
       <Box sx={{ mx: 2 }}>
         {activeStep === 2 ? (
           <Box className="flexStart">
-            <Typography
-              variant="h5"
-              className="projectHeader"
-            >
+            <Typography variant="h5" className="projectHeader">
               REVIEW
             </Typography>
           </Box>
         ) : (
           <>
-            <Typography
-              variant="h5"
-              className="projectHeader"
-            >
+            <Typography variant="h5" className="projectHeader">
               {isEdit ? "Edit " : "Add "} Project
             </Typography>
-            <Typography
-              variant="subtitle2"
-              className="projectHeader"
-            >
+            <Typography variant="subtitle2" className="projectHeader">
               {subtitle}
             </Typography>
           </>
@@ -59,33 +49,33 @@ const ProjectLayout = ({
       <CustomStepper activeStep={activeStep} />
       {children}
       {activeStep === 2 ? (
-      <Box 
-        className="flexEnd"
-        sx={{pt:3}}
-      >
-        <Button
-          variant="contained"
-          className="customButton-green"
-          onClick={isEdit ? saveProject : () => createProject(data)}
-        >
-          {isEdit ? "Save Changes " : "Add Project"}
-        </Button>
-      </Box>
-      ) : ( 
+        <Box className="flexEnd" sx={{ pt: 3 }}>
+          <Button
+            variant="contained"
+            className="customButton-green"
+            onClick={isEdit && saveProject}
+          >
+            {isEdit ? "Save Changes " : "Add Project"}
+          </Button>
+        </Box>
+      ) : (
         <>
-          { isEdit &&
+          {isEdit && (
             <SaveButton
               projectType={projectType}
               formData={formData}
               templateNum={templateNum}
             />
-          }
-          <Box
-            className="spaceBetween"
-            sx={{pt: 3}} 
-          >
+          )}
+          <Box className="spaceBetween" sx={{ pt: 3 }}>
             <PrevButton link={prevLink} />
-            <NextButton link={nextLink} />
+            <NextButton
+              link={nextLink}
+              projectType={projectType}
+              data={formData}
+              templateNum={templateNum}
+              sectionNum={sectionNum}
+            />
           </Box>
         </>
       )}

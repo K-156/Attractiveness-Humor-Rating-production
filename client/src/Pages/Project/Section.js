@@ -45,6 +45,7 @@ const Section = () => {
                 nextLink={sectionNum === templateList.length ? "/projects/summary" : `/projects/sections/${sectionNum+1}`}
                 projectType="projData"
                 formData={data}
+                sectionNum={sectionNum}
                 templateNum={currTemplate}
             >   
                 { currTemplate === 1  ? <T1ProfileRating /> 

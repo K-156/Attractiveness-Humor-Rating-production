@@ -38,6 +38,4 @@ const ProjectSchema = new mongoose.Schema(
   }
 );
 
-ProjectSchema.id = nanoid(10);
-
 export default mongoose.model("Projects", ProjectSchema);

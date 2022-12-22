@@ -31,6 +31,9 @@ import {
   UPLOAD_FILES_BEGIN,
   UPLOAD_FILES_SUCCESS,
   UPLOAD_FILES_ERROR,
+  UPDATE_PROJECT_BEGIN,
+  UPDATE_PROJECT_SUCCESS,
+  UPDATE_PROJECT_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -49,7 +52,8 @@ const initialState = {
   sections: [],
   activeProjectId: "",
   sectionNum: 0,
-  fileLink:"",
+  fileLink: "",
+  createdProjectId: "",
 };
 
 const AppContext = createContext();
@@ -186,23 +190,64 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SUBMIT_FORM_DATA, payload: { formData } });
   };
 
-  const createProject = async (projDetails, sections, data) => {
+  const createProject = async (projDetails) => {
     dispatch({ type: CREATE_PROJECT_BEGIN });
     try {
-      await authFetch.post("projects", {
+      const { data } = await authFetch.post("projects", {
         projDetails,
-        sections,
-        data,
       });
       dispatch({
         type: CREATE_PROJECT_SUCCESS,
+        payload: data.project._id,
       });
+      localStorage.setItem("createdProjectId", data.project._id);
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({
         type: CREATE_PROJECT_ERROR,
         payload: { msg: error.response.data.msg },
       });
+    }
+  };
+
+  const updateProject = async (projectId, projData) => {
+    dispatch({ type: UPDATE_PROJECT_BEGIN });
+    console.log(projData);
+    try {
+      const { data } = await authFetch.patch(`/projects/${projectId}`, {
+        data: projData,
+      });
+      dispatch({
+        type: UPDATE_PROJECT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_PROJECT_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
+    }
+  };
+
+  const updateSection = async (projectId, sections) => {
+    dispatch({ type: UPDATE_PROJECT_BEGIN });
+    try {
+      const { data } = await authFetch.patch(`/projects/${projectId}`, {
+        sections
+      });
+      dispatch({
+        type: UPDATE_PROJECT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_PROJECT_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
     }
   };
 
@@ -314,6 +359,8 @@ const AppProvider = ({ children }) => {
         publishProject,
         nextSection,
         uploadFiles,
+        updateProject,
+        updateSection
       }}
     >
       {children}

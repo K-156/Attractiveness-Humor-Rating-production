@@ -27,6 +27,9 @@ import {
   UPLOAD_FILES_BEGIN,
   UPLOAD_FILES_SUCCESS,
   UPLOAD_FILES_ERROR,
+  UPDATE_PROJECT_BEGIN,
+  UPDATE_PROJECT_SUCCESS,
+  UPDATE_PROJECT_ERROR,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -110,6 +113,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      createdProjectId: action.payload,
     };
   }
   if (action.type === CREATE_PROJECT_ERROR) {
@@ -129,6 +133,7 @@ const reducer = (state, action) => {
     const project = state.projects.find(
       (project) => project._id === action.payload.id
     );
+
     const { projDetails, _id, data, sections } = project;
     return {
       ...state,
@@ -138,40 +143,6 @@ const reducer = (state, action) => {
       data,
       sections,
     };
-
-    // const {
-    //   name,
-    //   isActive,
-    //   isPublish,
-    //   proj,
-    //   attractiveInstruc,
-    //   audioInstruc,
-    //   rankInstruc,
-    //   audioRatingInstruc,
-    //   introInstruc,
-    //   writtenIntro,
-    //   prewrittenInstruc,
-    //   messageOptions,
-    //   audio,
-    // } = project;
-    // return {
-    //   ...state,
-    //   isEditing: true,
-    //   // editProjectId: _id,
-    //   name,
-    //   isActive,
-    //   isPublish,
-    //   proj,
-    //   attractiveInstruc,
-    //   audioInstruc,
-    //   rankInstruc,
-    //   audioRatingInstruc,
-    //   introInstruc,
-    //   writtenIntro,
-    //   prewrittenInstruc,
-    //   messageOptions,
-    //   audio,
-    // };
   }
 
   if (action.type === DELETE_PROJECT_BEGIN) {
@@ -221,10 +192,27 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      fileLink:action.payload
+      fileLink: action.payload,
     };
   }
   if (action.type === UPLOAD_FILES_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
+
+  if (action.type === UPDATE_PROJECT_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === UPDATE_PROJECT_SUCCESS) {
+    console.log(action.payload)
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
+  if (action.type === UPDATE_PROJECT_ERROR) {
     return {
       ...state,
       isLoading: false,
