@@ -15,6 +15,7 @@ import _ from "lodash";
 import "./ProjectForm.css";
 import AddableField from "../CustomFormFields/AddableField";
 import UploadFiles from "../CustomFormFields/UploadFiles";
+import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
 const ProjectDetailsForm = ({ formData, setFormData }) => {
 
@@ -68,6 +69,64 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     </Box>
                 </Box>
                 <Box className="twoColumns">
+                    <Box>
+                        <Typography className="variable">Upload Participant Email</Typography>
+                        <Typography className="variable-subtitle">(in .csv)</Typography>
+                    </Box>
+                    <UploadFiles 
+                        items={formData["email"]}
+                        setFormData={setFormData}
+                        variable="email"
+                        accept=".csv"
+                    />
+                </Box>
+                <Box className="twoColumns">
+                    <Box>
+                        <Typography className="variable">Example of the format</Typography>
+                        <Typography className="variable-subtitle">(in .csv)</Typography>
+                    </Box>
+                    <Box className="secondColumn">
+                        <img 
+                            src={require("../../Assets/emailExample.PNG")}
+                            alt="example"
+                            style={{width:"300px"}}
+                        />  
+                    </Box>
+                </Box>
+                <Box className="twoColumns">
+                    <Typography className="variable">Roles</Typography>
+                    <AddableField 
+                        items={formData["roles"]} 
+                        error={error["roles"]}
+                        setError={setError}
+                        errorText="Role added"
+                        handleOnChange={handleOnChange}
+                        currValue={role}
+                        setFormData={setFormData}
+                        variable="roles"
+                    />
+                    
+                </Box>
+                <Box className="twoColumns">
+                    <Box>
+                      <Typography className="variable">Time Duration</Typography>
+                      <Typography className="variable-subtitle">(in mins)</Typography>
+                    </Box>
+                    <Box className="secondColumn">
+                        <TextField 
+                            value={formData.duration}
+                            size="small"
+                            fullWidth
+                            name="duration"
+                            type="number"
+                            InputProps={{ inputProps: { min: 1 } }}
+                            onChange={handleOnChange}
+                            error={error["duration"]}
+                            helperText={error["duration"] ? "Must be at least 1" : ""}
+                        />
+                    </Box>
+                </Box>
+                <Box className="twoColumns">
                   <Box>
                     <Typography className="variable flexColumn">
                         Theme
@@ -104,63 +163,17 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                   </Box>
               </Box>
               <Box className="twoColumns">
-                  <Box>
-                      <Typography className="variable">Upload Participant Email</Typography>
-                      <Typography className="variable-subtitle">(in .csv)</Typography>
-                  </Box>
-                  <UploadFiles 
-                      items={formData["email"]}
+                    <Box>
+                        <Typography className="variable">Upload Landing Page Graphic</Typography>
+                        <Typography className="variable-subtitle">(in .svg)</Typography>
+                    </Box>
+                    {/* <UploadOneFile
+                      id={0}
                       setFormData={setFormData}
-                      variable="email"
-                      accept=".csv"
-                  />
-              </Box>
-              <Box className="twoColumns">
-                  <Box>
-                      <Typography className="variable">Example of the format</Typography>
-                      <Typography className="variable-subtitle">(in .csv)</Typography>
-                  </Box>
-                  <Box className="secondColumn">
-                      <img 
-                          src={require("../../Assets/emailExample.PNG")}
-                          alt="example"
-                          style={{width:"300px"}}
-                      />  
-                  </Box>
-              </Box>
-              <Box className="twoColumns">
-                  <Typography className="variable">Roles</Typography>
-                  <AddableField 
-                      items={formData["roles"]} 
-                      error={error["roles"]}
-                      setError={setError}
-                      errorText="Role added"
-                      handleOnChange={handleOnChange}
-                      currValue={role}
-                      setFormData={setFormData}
-                      variable="roles"
-                  />
-                  
-              </Box>
-              <Box className="twoColumns">
-                  <Box>
-                    <Typography className="variable">Time Duration</Typography>
-                    <Typography className="variable-subtitle">(in mins)</Typography>
-                  </Box>
-                  <Box className="secondColumn">
-                      <TextField 
-                          value={formData.duration}
-                          size="small"
-                          fullWidth
-                          name="duration"
-                          type="number"
-                          InputProps={{ inputProps: { min: 1 } }}
-                          onChange={handleOnChange}
-                          error={error["duration"]}
-                          helperText={error["duration"] ? "Must be at least 1" : ""}
-                      />
-                  </Box>
-              </Box>
+                      formData={formData}
+                      accept=".svg"
+                    /> */}
+                </Box>
             </FormControl>
             </CardContent>
         </Card>
