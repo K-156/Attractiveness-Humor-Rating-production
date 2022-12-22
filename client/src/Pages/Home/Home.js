@@ -34,7 +34,7 @@ const Home = () => {
             
             <Box 
                 className="flexEnd" 
-                sx={{mb: 5}}
+                sx={{mb: 5, m: 1}}
             >
                 <Button onClick={()=>navigate("/login")}>
                     <BsFillGearFill 

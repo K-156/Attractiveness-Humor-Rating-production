@@ -60,14 +60,16 @@ const ProjectLayout = ({
         </Box>
       ) : (
         <>
-          {isEdit && (
+          { isEdit ?
             <SaveButton
               projectType={projectType}
               formData={formData}
               templateNum={templateNum}
             />
-          )}
-          <Box className="spaceBetween" sx={{ pt: 3 }}>
+          : <Box
+            className="spaceBetween"
+            sx={{pt: 3}} 
+            >
             <PrevButton link={prevLink} />
             <NextButton
               link={nextLink}
@@ -77,6 +79,7 @@ const ProjectLayout = ({
               sectionNum={sectionNum}
             />
           </Box>
+          }
         </>
       )}
     </>

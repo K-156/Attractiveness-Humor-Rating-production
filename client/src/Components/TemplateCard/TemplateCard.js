@@ -1,36 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { 
+    Button,
     Card, 
     CardActionArea, 
     CardContent, 
     CardHeader,
-    Dialog,
-    DialogContent,
+    Grid,
 } from "@mui/material";
-import _ from "lodash";
-import { CgClose } from "react-icons/cg";
+import _, { set } from "lodash";
+import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 
-import { templates, templatePurpose, templateSamples} from "../../Utils/templateList";
+import "./TemplateCard.css";
 
-const TemplateCard = ({ template }) => {
+const TemplateCard = ({ title, subheader, imageList, imagePath, handleExpandImage }) => {
+    
+    let pos = 0;
+    const handleScroll = (event) => {
+        const direction = event.target.id;
+        const element = document.getElementById(`${title}-scrollable`);
+        const maxWidth = element.scrollWidth - element.clientWidth;
 
-    const [open, setOpen] = useState(false);
-    const [expandImage, setExpandImage] = useState("");
-
-    const handleOnClick = (event) => {
-        const imageName = event.target.alt;
-        if (imageName) {
-            setExpandImage(imageName);
+        // get current scroll position (in case touchpad scroll is used)
+        pos = element.scrollLeft;
+        if (direction === "scroll-right") {
+            pos = pos + 150 >= maxWidth ? maxWidth : pos + 150;       
+        } else {
+            pos = pos - 150 <= 0 ? 0 : pos - 150; 
         }
-        setOpen(true)
+        element.scrollTo(pos, 0)      
     }
+
     
     return(
         <Card sx={{my: 2}}>
             <CardHeader
-                title={templates[template]}
-                subheader={templatePurpose[template]}
+                title={title}
+                subheader={subheader}
                 sx={{pb:0}}
                 titleTypographyProps={{ className: "summaryHeader" }}
                 subheaderTypographyProps={{
@@ -40,54 +46,51 @@ const TemplateCard = ({ template }) => {
                     }
                 }}
             />
-            <CardContent sx={{display:"flex"}} >
-                {_.map(templateSamples[template], (image) => {
-                    return(
-                        <CardActionArea
-                            sx={{width:"300px", mr: "10px"}}
-                            onClick={handleOnClick}
+            <CardContent sx={{"&.MuiCardContent-root:last-child": {pb: "16px"}}}>
+                <Grid container>
+                    <Grid item xs={0.5}>
+                        <Button
+                            id="scroll-left"
+                            sx={{minWidth:"40px", height:"200px", color:"#264653"}}
+                            onClick={handleScroll}
                         >
-                            <img
-                                key={image}
-                                src={require(`../../Assets/TemplateSamples/${template}/${image}.png`)}
-                                alt={image}
-                                style={{width: "300px"}}
-                            />
-                        </CardActionArea>   
-                    )
-                })     
-                }
+                            <HiArrowLeft style={{pointerEvents:"none"}} />                    
+                        </Button>
+                    </Grid>
+                    <Grid 
+                        item 
+                        xs={11} 
+                        className="scrollableBox"
+                        id={`${title}-scrollable`}
+                    >
+                        {_.map(imageList, (image, index) => {
+                            return(
+                                <CardActionArea
+                                    key={image}
+                                    sx={{width:"fit-content", mr: "10px"}}
+                                    onClick={handleExpandImage}
+                                >
+                                    <img
+                                        src={require(`../../Assets/${imagePath}/${image}.png`)}
+                                        name={title}
+                                        style={{height: "200px"}}
+                                        alt={index}
+                                    />
+                                </CardActionArea>   
+                            )})     
+                        }
+                    </Grid>
+                    <Grid item xs={0.5}>
+                        <Button
+                            id="scroll-right"
+                            sx={{minWidth:"40px", height:"200px", color:"#264653"}}
+                            onClick={handleScroll}
+                        >
+                            <HiArrowRight style={{pointerEvents:"none"}} />   
+                        </Button>
+                    </Grid>
+                </Grid>
             </CardContent>
-            <Dialog
-                open={open}
-                fullScreen
-                PaperProps={{
-                    sx:{backgroundColor:"transparent"}
-                }}
-            >   
-                <DialogContent className="center">
-                    { open ?
-                        <img 
-                            src={require(`../../Assets/TemplateSamples/${template}/${expandImage}.png`)}
-                            alt={expandImage}
-                            style={{height:"100%"}}
-                        />
-                        : <></>
-                    }
-                        <CgClose 
-                            onClick={()=>setOpen(false)}
-                            size={20}
-                            style={{
-                                color:"#FFFFFF",
-                                position:"absolute",
-                                top:"10px",
-                                right:"10px",
-                                cursor: "pointer",
-                            }}
-                        />
-                </DialogContent>
-                
-            </Dialog>
         </Card>
     )
 }

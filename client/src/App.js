@@ -27,6 +27,7 @@ import Section from "./Pages/Project/Section";
 import Templates from "./Pages/Project/Templates";
 import Summary from "./Pages/Project/Summary";
 import GeneralLayout from "./Layout/GeneralLayout";
+import Themes from "./Pages/Project/ThemeSamples";
 
 
 function App() {
@@ -155,10 +156,8 @@ function App() {
             <Route path="/projects/details" element={<ProjectDetails />} />
             <Route path="/projects/sections" element={<ProjectSection />} />
             <Route path="/projects/sections/:id" element={<Section />} />
-            <Route
-              path="/projects/sections/templates"
-              element={<Templates />}
-            />
+            <Route path="/projects/samples/templates" element={<Templates />} />
+            <Route path="/projects/samples/themes" element={<Themes />} />
             <Route path="/projects/summary" element={<Summary />} />
           </Route>
         </Routes>

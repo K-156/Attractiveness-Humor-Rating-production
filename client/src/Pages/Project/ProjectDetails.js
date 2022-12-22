@@ -12,10 +12,11 @@ const ProjectDetails = () => {
     useAppContext();
 
   const [formData, setFormData] = useState({
-    title:projDetails?.title,
+    title: projDetails?.title,
     email: [],
     roles: isEditing ? projDetails.roles : [],
     duration: projDetails?.duration,
+    theme: "green"
   });
 
   useEffect(() => {

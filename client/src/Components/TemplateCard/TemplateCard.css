@@ -1,0 +1,10 @@
+.scrollableBox {
+    display: flex;
+    overflow: scroll;
+}
+
+.scrollableBox::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0px;
+}
+

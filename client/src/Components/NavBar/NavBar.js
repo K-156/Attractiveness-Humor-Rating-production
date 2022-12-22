@@ -15,10 +15,10 @@ import "./NavBar.css";
 const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation()
-  const [tab, setTab] = useState(location.pathname.slice(1));
+  const [tab, setTab] = useState(location.pathname);
 
   useEffect(() => {
-    setTab(location.pathname.slice(1))
+    setTab(location.pathname)
   }, [location])
 
   return (
@@ -27,7 +27,7 @@ const NavBar = () => {
         <Box mt={12}>
           <Button
             className="navBarButton"
-            sx={{ background: tab === "overview" 
+            sx={{ background: tab.includes("overview") 
                   ? "#1d353f" 
                   : "#264653" 
                }}
@@ -43,7 +43,7 @@ const NavBar = () => {
           </Button>
           <Button
             className="navBarButton"
-            sx={{ background: tab === "projects" 
+            sx={{ background: tab.includes("projects")
                   ? "#1d353f" 
                   : "#264653"  
                 }}

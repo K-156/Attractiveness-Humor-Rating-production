@@ -38,7 +38,7 @@ const AddSection = ({ formData, setFormData }) => {
               Sections
               <Link
                 className="projectLink"
-                to="/projects/sections/templates"
+                to="/projects/samples/templates"
               >
                 <i>View Templates</i>
               </Link>
