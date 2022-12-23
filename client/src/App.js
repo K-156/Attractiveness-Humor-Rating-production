@@ -28,6 +28,7 @@ import Templates from "./Pages/Project/Templates";
 import Summary from "./Pages/Project/Summary";
 import GeneralLayout from "./Layout/GeneralLayout";
 import Themes from "./Pages/Project/ThemeSamples";
+import AdminLogin from "./Pages/Login/AdminLogin";
 
 
 function App() {
@@ -39,7 +40,9 @@ function App() {
         <Routes>
           <Route element={<GeneralLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            {/* <Route path="/login" element={<Login />} /> */}
+            <Route path="/login" element={<AdminLogin />} /> {/*to change to above code*/}
+            <Route path="/alogin" element={<AdminLogin />} />
             <Route
               path="/details"
               element={

@@ -36,7 +36,7 @@ const Home = () => {
                 className="flexEnd" 
                 sx={{mb: 5, m: 1}}
             >
-                <Button onClick={()=>navigate("/login")}>
+                <Button onClick={()=>navigate("/alogin")}>
                     <BsFillGearFill 
                         size="25px" 
                         style={{color:"#A3A3A3"}}
