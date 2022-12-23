@@ -15,10 +15,11 @@ import _ from "lodash";
 import "./ProjectForm.css";
 import AddableField from "../CustomFormFields/AddableField";
 import UploadFiles from "../CustomFormFields/UploadFiles";
-import UploadOneFile from "../CustomFormFields/UploadOneFile";
+import UploadPreview from "../CustomFormFields/UploadPreview";
 
 const ProjectDetailsForm = ({ formData, setFormData }) => {
 
+  const [textLimit, setTextLimit] = useState(0)
   const [role, setRole] = useState();
   const [error, setError] = useState({
     title: false,
@@ -69,8 +70,23 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     </Box>
                 </Box>
                 <Box className="twoColumns">
+                    <Typography className="variable">Project description</Typography>
+                    <Box className="secondColumn">
+                      <TextField
+                          name="description"
+                          size="small"
+                          fullWidth
+                          multiline
+                          minRows={3}
+                          inputProps={{ maxLength: 200 }}
+                          helperText={`${textLimit} / 200`}
+                          onChange={handleOnChange}
+                      />
+                    </Box>
+                </Box>
+                <Box className="twoColumns">
                     <Box>
-                        <Typography className="variable">Upload Participant Email</Typography>
+                        <Typography className="variable">Upload participant email</Typography>
                         <Typography className="variable-subtitle">(in .csv)</Typography>
                     </Box>
                     <UploadFiles 
@@ -109,7 +125,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                 </Box>
                 <Box className="twoColumns">
                     <Box>
-                      <Typography className="variable">Time Duration</Typography>
+                      <Typography className="variable">Time duration</Typography>
                       <Typography className="variable-subtitle">(in mins)</Typography>
                     </Box>
                     <Box className="secondColumn">
@@ -164,15 +180,13 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
               </Box>
               <Box className="twoColumns">
                     <Box>
-                        <Typography className="variable">Upload Landing Page Graphic</Typography>
-                        <Typography className="variable-subtitle">(in .svg)</Typography>
+                        <Typography className="variable">Upload landing page graphic</Typography>
+                        <Typography className="variable-subtitle">(in .svg, .png)</Typography>
                     </Box>
-                    {/* <UploadOneFile
-                      id={0}
+                    <UploadPreview
                       setFormData={setFormData}
                       formData={formData}
-                      accept=".svg"
-                    /> */}
+                    />
                 </Box>
             </FormControl>
             </CardContent>

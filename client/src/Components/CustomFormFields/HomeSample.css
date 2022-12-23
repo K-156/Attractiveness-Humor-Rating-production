@@ -1,0 +1,59 @@
+.sampleBackground-green {
+    background-color: #F0F4F8;
+    background-image: url("../../Assets/Theme/green/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 480px;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.sampleBackground-blue {
+    background-color: #E4EFF5;
+    background-image: url("../../Assets/Theme/blue/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 480px;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.sampleBackground-brown {
+    background-color: #EDDCD4;
+    background-image: url("../../Assets/Theme/brown/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 480px;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.sampleBackground-pink {
+    background-color: #FFECEC;
+    background-image: url("../../Assets/Theme/pink/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 480px;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.sampleBackground-yellow {
+    background-color: #FFF8E7;
+    background-image: url("../../Assets/Theme/yellow/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 480px;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
