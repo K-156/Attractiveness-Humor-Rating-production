@@ -8,21 +8,23 @@ import { templates } from "../../Utils/templateList";
 import SampleDialog from "../../Components/SampleDialog/SampleDialog";
 
 const templatePurpose = {
-    1: "View and rate the profiles",
-    2: "Drag and drop to rank the profiles",
-    3: "Listen to audio and answer the questions", 
-    4: "Read the introduction and answer the questions",
-    5: "Select one pre-written message to the candidate",
-    6: "Customise text"
+    1: "Add profiles",
+    2: "Rate the profiles",
+    3: "Drag and drop to rank the profiles",
+    4: "Listen to audio and answer the questions", 
+    5: "Read the introduction and answer the questions",
+    6: "Select one pre-written message to the candidate",
+    7: "Customise text"
 }
 
 const templateSamples = {
-    1: ["1_Profile Summary Page", "2_Profile Description Page", "3_Profile Rating Page"],
-    2: ["1_Rank Page", "2_Rank Page (dragged)"],
-    3: ["1_Audio Page", "2_Audio Rating Page"], 
-    4: ["1_Written Intro Page"],
-    5: ["1_Pre-written message Page", "2_Pre-written message Page (Selected)"],
-    6: ["1_Complete survey Page"]
+    1: ["1_Profile Summary Page", "2_Profile Description Page"],
+    2: ["1_Profile Rating Page"],
+    3: ["1_Rank Page", "2_Rank Page (dragged)"],
+    4: ["1_Audio Page", "2_Audio Rating Page"], 
+    5: ["1_Written Intro Page"],
+    6: ["1_Pre-written message Page", "2_Pre-written message Page (Selected)"],
+    7: ["1_Complete survey Page"]
 }
 
 const Templates = () => {
@@ -46,7 +48,7 @@ const Templates = () => {
             text="Back"
             link="/projects/sections"
         />
-        {_.map(_.range(1,7), (num)=> {
+        {_.map(_.range(1,8), (num)=> {
             return(
                 <TemplateCard 
                     key={num}

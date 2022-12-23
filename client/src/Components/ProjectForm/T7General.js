@@ -16,7 +16,7 @@ import _ from "lodash";
 
 import "./ProjectForm.css";
 
-const T6General = () => {
+const T7General = () => {
 
     const [formData, setFormData] = useState({
         text: "",
@@ -90,4 +90,4 @@ const T6General = () => {
     )
 }
 
-export default T6General;
+export default T7General;

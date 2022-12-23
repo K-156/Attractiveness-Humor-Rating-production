@@ -13,7 +13,7 @@ import {
 import AddableField from "../CustomFormFields/AddableField";
 import "./ProjectForm.css";
 
-const T4Intro = () => {
+const T5Intro = () => {
 
     const [formData, setFormData] = useState({
         instruction: "",
@@ -25,33 +25,42 @@ const T4Intro = () => {
         introductions: false
     });
 
-    const [currValue, setCurrValue] = useState({
-        questions:"", 
-        introductions: ""
-    });
+    const [qn, setQn] = useState({});
+    const [intro, setIntro] = useState({});
 
-    console.log(currValue)
+    const [currValue, setCurrValue] = useState({
+        questions: {}, 
+        introductions: {}
+    });
 
     const handleOnChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        console.log(name)
+        const id = event.target.id;
 
         if (name === "instruction") {
             setFormData((state) => ({
                 ...state, 
                 instruction: value
             }))
-        } else {
-            setCurrValue((state) => ({
+        } else if (id === "questions") {
+            setQn((state) => ({
                 ...state, 
                 [name]: value
             }))
+        } else {
+            setIntro((state) => ({
+                ...state, 
+                [name]: value
+            }))
+        }
+
+        if ( name === "questions" || name === "introductions") {
             setError((state) => ({
                 ...state, 
                 [name]: false
             }))
-        }
+        }       
     }
 
     const { submitFormData } = useAppContext();
@@ -87,33 +96,33 @@ const T4Intro = () => {
                             setError={setError}
                             errorText="Question added"
                             handleOnChange={handleOnChange}
-                            currValue={currValue["questions"]}
+                            currValue={qn}
                             setFormData={setFormData}
                             variable="questions"                      
                         />
                     </Box>
                 </Box>
-            <Box className="twoColumns">
-                <Box>
-                    <Typography className="variable">Introductions</Typography>
-                </Box>
-                <Box className="secondColumn">
+                <Box className="twoColumns">
+                    <Box>
+                        <Typography className="variable">Introductions</Typography>
+                    </Box>
+                    <Box className="secondColumn">
                         <AddableField
                             items={formData["introductions"]}
                             error={error["introductions"]}
                             setError={setError}
                             errorText="Introduction added"
                             handleOnChange={handleOnChange}
-                            currValue={currValue["introductions"]}
+                            currValue={intro}
                             setFormData={setFormData}
                             variable="introductions"                        
                         />
+                    </Box>
                 </Box>
-            </Box>
         </FormControl>
         </CardContent>
     </Card>
     )
 }
 
-export default T4Intro;
+export default T5Intro;

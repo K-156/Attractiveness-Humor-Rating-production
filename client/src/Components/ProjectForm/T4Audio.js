@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
-import { Box, Card, CardContent, FormControl, TextField, Typography, } from "@mui/material";
+import { 
+    Box, 
+    Card, 
+    CardContent, 
+    FormControl,
+    TextField, 
+    Typography, 
+} from "@mui/material";
 import AddableField from "../CustomFormFields/AddableField";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
-const T3Audio = () => {
+const T4Audio = () => {
 
     const [formData, setFormData] = useState({
         instruction: "",
@@ -14,7 +21,16 @@ const T3Audio = () => {
         audio: []
     });
     const [error, setError] = useState({questions: false});
-    const [qn, setQn] = useState();
+    const [qn, setQn] = useState({});
+    const handleOnChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        setQn((state) => ({
+            ...state, 
+            [name]: value
+        }))
+    }
 
     const { submitFormData } = useAppContext();
 
@@ -52,7 +68,7 @@ const T3Audio = () => {
                             error={error["questions"]}
                             setError={setError}
                             errorText="Question added"
-                            handleOnChange={(event) => {setQn(event.target.value)}}
+                            handleOnChange={handleOnChange}
                             currValue={qn}
                             setFormData={setFormData}
                             variable="questions"                        
@@ -79,4 +95,4 @@ const T3Audio = () => {
     )
 }
 
-export default T3Audio;
+export default T4Audio;

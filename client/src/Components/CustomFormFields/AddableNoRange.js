@@ -9,7 +9,7 @@ import { BsDash } from "react-icons/bs";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableField = ({
+const AddableNoRange = ({
   items,
   error,
   setError,
@@ -21,11 +21,7 @@ const AddableField = ({
 }) => {
 
   const onAdd = () => {
-    const variableList = [_.map((items), (aItem) => { 
-                            return (aItem[variable]) 
-                          })]
-
-    if (variableList.includes(currValue[variable])) {
+    if (items.includes(currValue)) {
       setError((state) => ({
         ...state,
         [variable]: true,
@@ -72,36 +68,6 @@ const AddableField = ({
           />
         </Button>
       </Box>
-      <Box> 
-        {_.map(["Lower", "Upper"], (type) => {
-          return (
-            <Box key={type} className="secondColumn" sx={{mt: 1}}>
-              <TextField
-                  size="small" 
-                  name={`${type.toLowerCase()}Num`}
-                  label={`${type}bound`}
-                  width="30px"
-                  InputProps={{ inputProps: { min: 1}}}
-                  type="number"
-                  onChange={handleOnChange}
-                  id={variable}
-              />
-              <BsDash 
-                size="40px" 
-                style={{marginLeft:"10px", marginRight:"10px"}}
-              />
-              <TextField
-                  size="small" 
-                  name={`${type.toLowerCase()}Text`}
-                  label="Characteristics"
-                  fullWidth
-                  onChange={handleOnChange}
-                  id={variable}
-              />
-          </Box>
-          )})
-        }              
-      </Box>
       {items.length < 1 ? (
         <></>
       ) : (
@@ -118,8 +84,7 @@ const AddableField = ({
                     color: "#264653"
                   }}
                 >
-                  {index + 1}. {value["questions"]} 
-                  ({value["lowerNum"]}-{value["lowerText"]}, {value["upperNum"]}-{value["upperText"]}) 
+                  {index + 1}. {value} 
                 </Typography>
                 <Button 
                   id={index} 
@@ -142,4 +107,4 @@ const AddableField = ({
   );
 };
 
-export default AddableField;
+export default AddableNoRange;

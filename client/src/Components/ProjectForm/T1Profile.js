@@ -15,7 +15,7 @@ import _ from "lodash";
 import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
-const T1ProfileRating = () => {
+const T1Profile = () => {
   const [expanded, setExpanded] = useState({
     instruction: false,
     1: false,
@@ -115,4 +115,4 @@ const T1ProfileRating = () => {
   );
 };
 
-export default T1ProfileRating;
+export default T1Profile;

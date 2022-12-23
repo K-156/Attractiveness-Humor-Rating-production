@@ -1,14 +1,16 @@
 import { useLocation } from "react-router-dom";
+import T1Profile from "../../Components/ProjectForm/T1Profile";
+import T2ProfileRating from "../../Components/ProjectForm/T2ProfileRating";
+import T3Rank from "../../Components/ProjectForm/T3Rank";
+import T4Audio from "../../Components/ProjectForm/T4Audio";
+import T5Intro from "../../Components/ProjectForm/T5Intro";
+import T6Chatbox from "../../Components/ProjectForm/T6Chatbox";
+import T7General from "../../Components/ProjectForm/T7General";
 import { useAppContext } from "../../Context/AppContext";
 
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
-import T1ProfileRating from "../../Components/ProjectForm/T1ProfileRating";
-import T2Rank from "../../Components/ProjectForm/T2Rank";
-import T3Audio from "../../Components/ProjectForm/T3Audio";
-import T4Intro from "../../Components/ProjectForm/T4Intro";
-import T5Chatbox from "../../Components/ProjectForm/T5Chatbox";
-import T6General from "../../Components/ProjectForm/T6General";
+
 
 
 const Section = () => {
@@ -48,12 +50,13 @@ const Section = () => {
                 sectionNum={sectionNum}
                 templateNum={currTemplate}
             >   
-                { currTemplate === 1  ? <T1ProfileRating /> 
-                    : currTemplate === 2 ? <T2Rank />
-                    : currTemplate === 3 ? <T3Audio />
-                    : currTemplate === 4 ? <T4Intro />
-                    : currTemplate === 5 ? <T5Chatbox />
-                    : <T6General />
+                { currTemplate === 1  ? <T1Profile /> 
+                    : currTemplate === 2 ? <T2ProfileRating />
+                    : currTemplate === 3 ? <T3Rank />
+                    : currTemplate === 4 ? <T4Audio />
+                    : currTemplate === 5 ? <T5Intro />
+                    : currTemplate === 6 ? <T6Chatbox />
+                    : <T7General />
                 }
             </ProjectLayout>    
         </div>

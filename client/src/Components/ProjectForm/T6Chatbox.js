@@ -10,10 +10,10 @@ import {
     Typography,
 } from "@mui/material";
 
-import AddableField from "../CustomFormFields/AddableField";
 import "./ProjectForm.css";
+import AddableNoRange from "../CustomFormFields/AddableNoRange";
 
-const T5Chatbox = () => {
+const T6Chatbox = () => {
 
     const [formData, setFormData] = useState({
         instruction: "",
@@ -23,7 +23,7 @@ const T5Chatbox = () => {
         messages: false, 
     });
 
-    const [messages, setMessages] = useState();
+    const [messages, setMessages] = useState({});
 
     const handleOnChange = (event) => {
         const name = event.target.name;
@@ -33,12 +33,12 @@ const T5Chatbox = () => {
             setFormData((state) => ({
                 ...state, 
                 instruction: value
-            }))
+            }));
         } else {
-            setMessages(value)
+            setMessages(value);
             setError({
                 messages: false
-            })
+            });
         }
     }
 
@@ -68,7 +68,7 @@ const T5Chatbox = () => {
                 <Box className="twoColumns">
                     <Typography className="variable">Questions</Typography>
                     <Box className="secondColumn">
-                        <AddableField
+                        <AddableNoRange
                             items={formData["messages"]}
                             error={error["messages"]}
                             setError={setError}
@@ -86,4 +86,4 @@ const T5Chatbox = () => {
     )
 }
 
-export default T5Chatbox;
+export default T6Chatbox;
