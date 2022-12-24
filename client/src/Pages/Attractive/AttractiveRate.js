@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import _ from "lodash";
 
 import RatingCard from "../../Components/SurveyForm/RatingCard";
@@ -13,9 +13,10 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const AttractiveRate = () => {
-  const { updateUser, user, sectionNum, nextSection } = useAppContext();
+  const { updateUser, user, sectionNum, nextSection, theme } = useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
   let arr = [];
 
   const { data } = JSON.parse(localStorage.getItem("data"));
@@ -53,7 +54,22 @@ const AttractiveRate = () => {
   return (
     <div>
       <script>{(document.title = "Profile Rating")}</script>
-      <Instruction type="attractive" />
+      <Box className="spaceBetween" sx={{width: "250px"}}>
+        <Instruction type="attractive" />
+        <Button
+          variant="contained"
+          className={`customButton-${theme}`}
+          onClick={() => {
+            navigate("/profiles", {
+              state: {
+                link: location.pathname,
+                type: "Rate"
+              }})
+            }}
+          >
+          View Profiles
+        </Button>
+      </Box>
       <Grid container spacing={1} py={2}>
         {_.map(arr, (item, index) => {
           return (
@@ -69,8 +85,7 @@ const AttractiveRate = () => {
           );
         })}
       </Grid>
-      <Box display="flex" justifyContent="space-between">
-        <PrevButton isSurvey={true} link="/attractive/profile" />
+      <Box className="flexEnd">
         <NextButton
           isSurvey={true}
           disabled={!isValid(rating, arr.length)}

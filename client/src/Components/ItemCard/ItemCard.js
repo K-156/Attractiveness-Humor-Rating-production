@@ -13,18 +13,18 @@ import "./ItemCard.css";
 import { colorPalette } from "../../Utils/colorPalette";
 
 
-const ItemCard = ({ title, img, id, candidateCount, description, back }) => {
+const ItemCard = ({ title, img, id, candidateCount, description, link }) => {
 
     const { theme } = useAppContext();
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleOnClick = (event) => {
-        navigate(`/attractive/profile/${parseInt(event.target.id)+1}`, {
+        navigate(`/profiles/${parseInt(event.target.id)+1}`, {
             state: {
                 id: `${event.target.id}`,
                 candidateCount: {candidateCount},
-                back: back !== undefined ? back : location.pathname 
+                link: link
             }
         })
     }

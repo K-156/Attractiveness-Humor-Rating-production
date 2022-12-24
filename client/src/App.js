@@ -9,14 +9,14 @@ import DashboardLayout from "./Layout/DashboardLayout";
 import SurveyLayout from "./Layout/SurveyLayout";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
-import Profiles from "./Pages/Attractive/Profiles";
+import Profiles from "./Pages/Profiles/Profiles";
 import AudioRate from "./Pages/Audio/AudioRate";
-import Description from "./Pages/Attractive/Description";
+import Description from "./Pages/Profiles/Description";
 import General from "./Pages/General/General";
 import Overview from "./Pages/Overview/Overview";
 import Details from "./Pages/Details/Details";
 import AttractiveRate from "./Pages/Attractive/AttractiveRate";
-import Rank from "./Pages/Attractive/Rank";
+import Rank from "./Pages/Rank/Rank";
 import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
 import Chat from "./Pages/Chat/Chat";
 import Projects from "./Pages/Project/Projects";
@@ -67,12 +67,12 @@ function App() {
                 <InstructionPage
                   key="attractive"
                   type="attractive"
-                  link="/attractive/profile"
+                  link="/profiles"
                 />
               }
             />
-            <Route path="/attractive/profile" element={<Profiles />} />
-            <Route path="/attractive/profile/:id" element={<Description />} />
+            <Route path="/profiles" element={<Profiles />} />
+            <Route path="/profiles/:id" element={<Description />} />
             <Route path="/attractive/rate" element={<AttractiveRate />} />
             <Route
               path="/rank-instruction"

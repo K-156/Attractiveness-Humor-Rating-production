@@ -20,7 +20,7 @@ const Description = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { id, candidateCount, back } = location.state;
+  const { id, candidateCount, link } = location.state;
 
   const {data} = JSON.parse(localStorage.getItem("data"));
   const attributes = data[sectionNum][[Object.keys(data[sectionNum])[0]]][Number(id)+1].attributes
@@ -28,10 +28,11 @@ const Description = () => {
 
   const handleOnChange = (event) => {
     const newId = parseInt(event.target.textContent);
-    navigate(`/attractive/profile/${newId}`, {
+    navigate(`/profiles/${newId}`, {
       state: {
         id: parseInt(newId) - 1,
         candidateCount: candidateCount,
+        link: link
       },
     });
   };
@@ -43,7 +44,8 @@ const Description = () => {
       <Box>
         <PrevButton 
           isSurvey={true}
-          link="/attractive/profile" 
+          text="Profiles"
+          link="/profiles" 
         />
       </Box>
       <Box className="center">

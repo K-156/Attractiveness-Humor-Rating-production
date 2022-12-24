@@ -1,14 +1,21 @@
+import { useAppContext } from "../../Context/AppContext";
+import { useLocation } from "react-router-dom";
+
 import { Box, Grid } from "@mui/material";
 import _ from "lodash";
-import { useAppContext } from "../../Context/AppContext";
 
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import NextButton from "../../Components/NavButton/NextButton";
-import PrevButton from "../../Components/NavButton/PrevButton";
 import Instruction from "../../Components/Instruction/Instruction";
 
 const Profiles = () => {
   const { sectionNum } = useAppContext();
+  const location = useLocation();
+  const state = location.state;
+
+  console.log(location)
+  console.log(state.state)
+
   let arr = [];
 
   const { data } = JSON.parse(localStorage.getItem("data"));
@@ -33,15 +40,20 @@ const Profiles = () => {
                 // img={item.img}
                 description={item.description}
                 candidateCount={arr.length}
+                link = {state["link"]}
               />
             </Grid>
           );
         })}
       </Grid>
-      <Box className="spaceBetween">
-        <PrevButton isSurvey={true} link="/attractive-instruction" />
-        <NextButton isSurvey={true} link="/attractive/rate" />
+      <Box className="flexEnd">
+        <NextButton 
+          isSurvey={true} 
+          text={state ? state["type"] : "Next"} 
+          link={state["link"] ? state["link"] : "/attractive/rate"} 
+        />
       </Box>
+      
     </div>
   );
 };

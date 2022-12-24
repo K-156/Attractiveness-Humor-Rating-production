@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { useAppContext } from "../../Context/AppContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { Box, Grid, Typography } from "@mui/material";
+import { 
+    Box, 
+    Button, 
+    Grid, 
+    Typography 
+} from "@mui/material";
 import _ from "lodash";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { arrayMove, SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
@@ -30,9 +37,13 @@ const allItems = [{
 
 const Rank = () => {
 
+    const { theme } = useAppContext();
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const [itemName, setItemName] = useState(allItems)
     const [isSelect, setIsSelect] = useState({})
-
+ 
     const data = JSON.parse(localStorage.getItem("data"));
     console.log(data)
 
@@ -60,7 +71,22 @@ const Rank = () => {
             <script>
                 {document.title="Profile Ranking"}
             </script>
-            <Instruction type="rank" />
+            <Box className="spaceBetween" sx={{width: "250px"}}>
+                <Instruction type="rank" />
+                <Button
+                variant="contained"
+                className={`customButton-${theme}`}
+                onClick={() => {
+                    navigate("/profiles", {
+                    state: {
+                        link: location.pathname,
+                        type: "Rank"
+                    }})
+                    }}
+                >
+                View Profiles
+                </Button>
+            </Box>
             <DndContext
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
@@ -95,10 +121,11 @@ const Rank = () => {
                 <Typography variant="subtitle2" fontWeight="bold" color="#717171">Most Interested</Typography>
                 <Typography variant="subtitle2" fontWeight="bold" color="#717171">Least Interested</Typography>
             </Box>
-            <Box display="flex" justifyContent="flex-end" mt={3}>
+            <Box className="flexEnd" sx={{mt: 3}}>
                 <NextButton 
                     link="/audio-instruction"
                     ratingType="rank"
+                    isSurvey={true}
                     storeItem={JSON.stringify({most: itemName[0], least: itemName[Object.keys(itemName).length-1]})}
                 />
             </Box>

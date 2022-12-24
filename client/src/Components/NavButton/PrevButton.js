@@ -4,8 +4,6 @@ import { useAppContext } from '../../Context/AppContext';
 import { Box, Button } from "@mui/material";
 import { HiArrowLeft } from "react-icons/hi";
 
-import "./NavButton.css";
-
 const PrevButton = ({ isSurvey, state, text, style, link }) => {
 
     const { theme } = useAppContext();
