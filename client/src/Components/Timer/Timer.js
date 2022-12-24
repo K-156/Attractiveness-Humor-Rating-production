@@ -7,7 +7,7 @@ import { FiClock } from "react-icons/fi";
 import { HiArrowLeft } from "react-icons/hi";
 import { colorPalette } from "../../Utils/colorPalette";
 
-const durationMin = 1; 
+const durationMin = 45; 
 
 const Timer = () => {
 

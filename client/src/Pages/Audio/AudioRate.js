@@ -13,6 +13,24 @@ import Instruction from "../../Components/Instruction/Instruction";
 import Audio from "../../Components/Audio/Audio";
 import links from "../../Utils/links";
 
+const mockdata = [
+  { id_: 0, 
+    question: "Am I humorous?",
+    lower: {number: 1, text: "not humurous"}, 
+    upper: {number: 9, text: "extremely humurous"}, 
+  },
+  { id_: 1, 
+    question: "Am I interesting?",
+    lower: {number: 1, text: "not at all"}, 
+    upper: {number: 9, text: "very interesting"}, 
+  }, 
+  { id_: 3, 
+    question: "How likely will you hire me?",
+    lower: {number: 1, text: "not at all"}, 
+    upper: {number: 9, text: "very likely"}, 
+  }
+]
+
 const AudioRate = ({ title, link, isWritten }) => {
   const { updateUser, sectionNum, nextSection } = useAppContext();
   const [rating, setRating] = useState({});
@@ -90,7 +108,8 @@ const AudioRate = ({ title, link, isWritten }) => {
         </Grid>
         <Grid item xs={7} px={4}>
           <AudioForm
-            ques={data[sectionNum][sections[sectionNum]].questions}
+            // data={data[sectionNum][sections[sectionNum]].questions}
+            data={mockdata}
             setRating={setRating}
             isWritten={isWritten}
           />

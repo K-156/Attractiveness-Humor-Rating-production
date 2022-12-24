@@ -6,26 +6,24 @@ import {
     Card, 
     CardContent, 
     FormControl,
+    MenuItem,
     Typography, 
     TextField 
 } from "@mui/material";
+import _ from "lodash";
 
 import { colorPalette } from "../../Utils/colorPalette";
+
+const range = {
+    lower: {number: 1, text: "not interested"}, 
+    upper: {number: 9, text: "extremely interested"}, 
+}
 
 const RatingCard = ({ title, img, id, setRating, description }) => {
 
     const { theme } = useAppContext();
-    
-    const [error, setError] = useState(false);
-    const handleOnChange = (event) => {
-        const value = event.target.value;
-        if (value < 1 || value >  9) {
-            setError(true) 
-            return
-        } else {
-            setError(false)
-        }
 
+    const handleOnChange = (event) => {
         setRating((state) => ({
             ...state, 
             [id] : event.target.value
@@ -53,14 +51,27 @@ const RatingCard = ({ title, img, id, setRating, description }) => {
                 <FormControl fullWidth>
                     <TextField
                         required
-                        id={id.toString()}
+                        fullWidth
+                        select
+                        id="rate"
                         label="Rate"
-                        type="number"
-                        InputProps={{ inputProps: { min: 1, max: 9} }}
+                        defaultValue=""
                         onChange={handleOnChange}
-                        error={error}
-                        helperText={error ? "Rating out of range" : " "}
-                    />
+                    >
+                        {_.map(_.range(range["lower"]["number"], range["upper"]["number"] + 1), (num) => {
+                        return (
+                            <MenuItem 
+                                key={num} 
+                                id={num} 
+                                value={num}
+                            >
+                                {num} 
+                                {num === range["lower"]["number"] ? ` (${range["lower"]["text"]})` :
+                                  num === range["upper"]["number"] ? ` (${range["upper"]["text"]})` : "" }
+                            </MenuItem>
+                        );
+                        })}
+                    </TextField>
                 </FormControl>
             </CardContent>        
         </Card>

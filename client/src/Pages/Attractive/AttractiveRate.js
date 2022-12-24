@@ -57,7 +57,7 @@ const AttractiveRate = () => {
       <Grid container spacing={1} py={2}>
         {_.map(arr, (item, index) => {
           return (
-            <Grid item key={item.name} xs={3}>
+            <Grid item key={index} xs={3}>
               <RatingCard
                 id={index}
                 title={item.optionName}

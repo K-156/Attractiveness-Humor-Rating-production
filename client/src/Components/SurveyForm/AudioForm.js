@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   FormLabel,
   Grid,
+  MenuItem,
   Radio,
   RadioGroup,
   TextField,
@@ -15,24 +16,16 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 
-const AudioForm = ({ ques, setRating, isWritten }) => {
-  const [error, setError] = useState({});
+const AudioForm = ({ data, setRating, isWritten }) => {
   const [listen, setListen] = useState(false);
 
   const handleOnChange = (event) => {
-    const id = event.target.id;
+    const name = event.target.name;
     const value = event.target.value;
-
-    if (value < 1 || value > 9) {
-      setError((state) => ({ ...state, [id]: true }));
-      return;
-    } else {
-      setError((state) => ({ ...state, [id]: false }));
-    }
 
     setRating((state) => ({
       ...state,
-      [id]: event.target.value,
+      [name]: value
     }));
   };
 
@@ -76,11 +69,11 @@ const AudioForm = ({ ques, setRating, isWritten }) => {
           <Card>
             <CardContent>
               <Grid container gap={1}>
-                {_.map(ques, (value, key) => {
+                {_.map(data, (value) => {
                   return (
                     <Grid 
                       container 
-                      key={key} 
+                      key={value["id_"]} 
                       gap={3}
                     >
                       <Grid
@@ -88,26 +81,33 @@ const AudioForm = ({ ques, setRating, isWritten }) => {
                         xs={7}
                         className="flexEnd"
                       >
-                        <Typography sx={{fontSize:"14px"}}>{value}</Typography>
+                        <Typography sx={{fontSize:"14px"}}>{value["question"]}</Typography>
                       </Grid>
                       <Grid item xs={3}>
                         <FormControl fullWidth>
                           <TextField
-                            required
-                            id={String(key)}
-                            label="Rate"
-                            type="number"
-                            InputProps={{ inputProps: { min: 1, max: 9 } }}
-                            onChange={handleOnChange}
-                            error={
-                              error[key] !== undefined ? error[key] : false
-                            }
-                            helperText={
-                              error[key] !== undefined && error[key]
-                                ? "Rating out of range"
-                                : ""
-                            }
-                          />
+                              required
+                              fullWidth
+                              select
+                              name={String(value["id_"])}
+                              label="Rate"
+                              defaultValue=""
+                              onChange={handleOnChange}
+                          >
+                              {_.map(_.range(value["lower"]["number"], value["upper"]["number"] + 1), (num) => {
+                              return (
+                                  <MenuItem 
+                                      key={num} 
+                                      id={num} 
+                                      value={num}
+                                  >
+                                      {num} 
+                                      {num === value["lower"]["number"] ? ` (${value["lower"]["text"]})` :
+                                        num === value["upper"]["number"] ? ` (${value["upper"]["text"]})` : "" }
+                                  </MenuItem>
+                              );
+                              })}
+                          </TextField>
                         </FormControl>
                       </Grid>
                     </Grid>
