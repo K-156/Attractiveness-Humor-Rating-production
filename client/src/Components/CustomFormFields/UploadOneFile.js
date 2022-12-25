@@ -19,10 +19,11 @@ const UploadOneFile = ({
     createdProjectId,
     editProjectId,
     sectionNum,
-    fileLink,
   } = useAppContext();
 
   const [error, setError] = useState(false);
+  let fileLink = "";
+
   const uploadFile = async (event) => {
     if (event.target.files !== undefined) {
       if (formData[id]["img"] !== null) {
@@ -30,7 +31,7 @@ const UploadOneFile = ({
         return;
       }
 
-      uploadFiles(
+      fileLink = await uploadFiles(
         isEditing
           ? `${editProjectId}_${sectionNum}_${templateNum}_${id}`
           : `${createdProjectId}_${sectionNum}_${templateNum}_${id}`,
@@ -41,7 +42,7 @@ const UploadOneFile = ({
         ...state,
         [id]: {
           ...formData[id],
-          img: event.target.files[0],
+          img: event.target.files[0].name,
           link: fileLink,
         },
       }));
@@ -82,14 +83,14 @@ const UploadOneFile = ({
       )}
       <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
         {formData[id]["img"] && (
-          <Box key={formData[id]["img"]["name"]} className="spaceBetween">
+          <Box key={formData[id]["img"]} className="spaceBetween">
             <Typography
               sx={{
                 fontSize: "14px",
                 color: "#264653",
               }}
             >
-              {formData[id]["img"]["name"]}
+              {formData[id]["img"]}
             </Typography>
             <Button onClick={onDelete}>
               <RiDeleteBin6Fill

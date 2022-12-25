@@ -235,7 +235,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: UPDATE_PROJECT_BEGIN });
     try {
       const { data } = await authFetch.patch(`/projects/${projectId}`, {
-        sections
+        sections,
       });
       dispatch({
         type: UPDATE_PROJECT_SUCCESS,
@@ -294,11 +294,11 @@ const AppProvider = ({ children }) => {
         }
       );
       let imageValue = src;
-      console.log(imageValue);
       dispatch({
         type: UPLOAD_FILES_SUCCESS,
         payload: imageValue,
       });
+      return imageValue;
     } catch (error) {
       dispatch({
         type: UPLOAD_FILES_ERROR,
@@ -360,7 +360,7 @@ const AppProvider = ({ children }) => {
         nextSection,
         uploadFiles,
         updateProject,
-        updateSection
+        updateSection,
       }}
     >
       {children}

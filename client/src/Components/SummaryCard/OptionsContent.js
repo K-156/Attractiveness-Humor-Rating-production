@@ -11,7 +11,6 @@ const OptionsContent = ({ content, handleOnClick }) => {
 
   const optionContent = Object.fromEntries(
     ["option1", "option2", "option3", "option4"].map((key, index) => {
-        console.log(index)
       return [key, content[index+1]];
     })
   );
@@ -69,7 +68,7 @@ const OptionsContent = ({ content, handleOnClick }) => {
                       {_.map(aValue, (attribute, index) => {
                         return (
                           <Typography key={index} className="summaryText">
-                            {index + 1}. {attribute["field"]}:{" "}
+                            {index + 1}. {attribute["name"]}:{" "}
                             {attribute["value"]}
                           </Typography>
                         );

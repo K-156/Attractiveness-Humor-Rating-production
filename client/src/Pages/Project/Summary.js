@@ -17,6 +17,8 @@ const Summary = () => {
     isEditing,
     getProject,
     isLoading,
+    createdProjectId,
+    editProjectId,
   } = useAppContext();
 
   const type = sessionStorage.getItem("editMode");
@@ -28,12 +30,13 @@ const Summary = () => {
     sections: JSON.parse(items.sections),
     data: JSON.parse(items.projData),
   };
-
-  console.log(data)
-
+  
   useEffect(() => {
-    // need to change project id
-    getProject("dkyiw0NI6A");
+    if (isEditing) {
+      getProject(editProjectId);
+    } else {
+      getProject(createdProjectId);
+    }
   }, []);
 
   if (isLoading) {
@@ -65,7 +68,6 @@ const Summary = () => {
           editLink="/projects/details"
         />
         {_.map(data, (section, index) => {
-          console.log(section[1])
           const templateNum = templateOrder[index];
           return (
             <SummaryCard
