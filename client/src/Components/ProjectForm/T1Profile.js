@@ -26,10 +26,10 @@ const T1Profile = () => {
 
   const [formData, setFormData] = useState({
     instruction: "",
-    1: { optionName: "", description: "", img: null, attributes: [] },
-    2: { optionName: "", description: "", img: null, attributes: [] },
-    3: { optionName: "", description: "", img: null, attributes: [] },
-    4: { optionName: "", description: "", img: null, attributes: [] },
+    1: { optionName: "", description: "", img: null, link:null, attributes: [] },
+    2: { optionName: "", description: "", img: null, link:null, attributes: [] },
+    3: { optionName: "", description: "", img: null, link:null, attributes: [] },
+    4: { optionName: "", description: "", img: null, link:null, attributes: [] },
   });
 
   const { submitFormData } = useAppContext();
@@ -37,6 +37,8 @@ const T1Profile = () => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
+
+  console.log(formData)
 
   return (
     <Box>
@@ -106,6 +108,7 @@ const T1Profile = () => {
                 id={num}
                 setFormData={setFormData}
                 formData={formData}
+                templateNum={1}
               />
             </AccordionDetails>
           </Accordion>

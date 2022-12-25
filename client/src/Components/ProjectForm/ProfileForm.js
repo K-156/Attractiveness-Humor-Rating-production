@@ -6,7 +6,7 @@ import "./ProjectForm.css";
 import AddableTwoField from "../CustomFormFields/AddableTwoField";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
-const ProfileForm = ({ id, setFormData, formData }) => {
+const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
 
   const [error, setError] = useState(false);
   const [textLimit, setTextLimit] = useState({
@@ -88,6 +88,7 @@ const ProfileForm = ({ id, setFormData, formData }) => {
               setFormData={setFormData}
               formData={formData}
               accept=".png, .jpg, .jpeg"
+              templateNum={templateNum}
             />
           </Box>
         </Box>

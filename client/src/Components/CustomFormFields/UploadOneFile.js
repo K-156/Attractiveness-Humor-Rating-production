@@ -1,21 +1,26 @@
 import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
-import axios from "axios";
-import img from "../../Assets/Candidates/Female 1.jpg";
 
-import { 
-  Alert, 
-  AlertTitle, 
-  Box, 
-  Button, 
-  Typography 
-} from "@mui/material";
+import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-const UploadOneFile = ({ id, setFormData, formData, accept, filename }) => {
-
-  const { uploadFiles } = useAppContext();
+const UploadOneFile = ({
+  id,
+  setFormData,
+  formData,
+  accept,
+  filename,
+  templateNum,
+}) => {
+  const {
+    uploadFiles,
+    isEditing,
+    createdProjectId,
+    editProjectId,
+    sectionNum,
+    fileLink,
+  } = useAppContext();
 
   const [error, setError] = useState(false);
   const uploadFile = async (event) => {
@@ -25,13 +30,19 @@ const UploadOneFile = ({ id, setFormData, formData, accept, filename }) => {
         return;
       }
 
-      uploadFiles(filename, event.target.files[0])
+      uploadFiles(
+        isEditing
+          ? `${editProjectId}_${sectionNum}_${templateNum}_${id}`
+          : `${createdProjectId}_${sectionNum}_${templateNum}_${id}`,
+        event.target.files[0]
+      );
 
       setFormData((state) => ({
         ...state,
         [id]: {
           ...formData[id],
           img: event.target.files[0],
+          link: fileLink,
         },
       }));
     }
@@ -44,6 +55,7 @@ const UploadOneFile = ({ id, setFormData, formData, accept, filename }) => {
       [id]: {
         ...formData[id],
         img: null,
+        link: null,
       },
     }));
   };
@@ -61,35 +73,35 @@ const UploadOneFile = ({ id, setFormData, formData, accept, filename }) => {
           <input type="file" accept={accept} hidden onChange={uploadFile} />
         </Button>
       </Box>
-      {error &&
+      {error && (
         <Alert severity="error">
           <AlertTitle sx={{ fontWeight: "bold" }}>Upload Failed</AlertTitle>
           Only <b>ONE</b> image allowed. Delete the current image to add new
           image.
         </Alert>
-      }
-      <Box sx={{ pt: 1, pl: 2, pr: 8}} >
-      {formData[id]["img"] &&
+      )}
+      <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
+        {formData[id]["img"] && (
           <Box key={formData[id]["img"]["name"]} className="spaceBetween">
-              <Typography
+            <Typography
               sx={{
-                  fontSize: "14px",
-                  color: "#264653",
+                fontSize: "14px",
+                color: "#264653",
               }}
-              >
+            >
               {formData[id]["img"]["name"]}
-              </Typography>
-              <Button onClick={onDelete}>
+            </Typography>
+            <Button onClick={onDelete}>
               <RiDeleteBin6Fill
-                  size={15}
-                  style={{
+                size={15}
+                style={{
                   color: "#264653",
                   pointerEvents: "none",
-                  }}
+                }}
               />
-              </Button>
+            </Button>
           </Box>
-      }
+        )}
       </Box>
     </Box>
   );
