@@ -1,11 +1,20 @@
+import { useAppContext } from "../../Context/AppContext";
+
 import { 
   Box, 
-  Typography 
+  Typography, 
+  CardHeader
 } from "@mui/material";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { RxCross2 } from "react-icons/rx";
+import { colorPalette } from "../../Utils/colorPalette";
+
 
 const ChatHeader = ({ receiver }) => {
+
+  const { theme } = useAppContext();
+
   const {data} = JSON.parse(localStorage.getItem("data"));
   const user = JSON.parse(localStorage.getItem("user"));
   const firstCandidate = user.userResponse.rank[0];
@@ -13,33 +22,37 @@ const ChatHeader = ({ receiver }) => {
     user.userResponse.rank[user.userResponse.rank.length - 1];
 
   return (
-    <Box className="spaceBetween">
-      <Box className="center">
-        {/* <img
-          src={
-            receiver.includes("1")
-              ? data.proj[firstCandidate].img
-              : data.proj[lastCandidate].img
-          }
-          alt="display"
-          style={{ borderRadius: "20px", height: "30px", marginRight: "15px" }}
-        /> */}
-        <Typography 
+    <Box sx={{display:"flex"}}>
+      <CardHeader
           sx={{
-            fontSize: "14px", 
-            fontWeight: "bold", 
-            letterSpacing: 1
+              backgroundColor: colorPalette[theme]["primary"], 
+              color:"#FFFFFF",
+              width:"100%",
+              py: "12px"
           }}
-        >
-          {/* {receiver.includes("1")
-              ? data.proj[firstCandidate].name.toUpperCase()
-              : data.proj[lastCandidate].name.toUpperCase()} */}
-        </Typography>
-      </Box>
-      <Box className="center">
-        <RxMagnifyingGlass style={{ marginRight: 3 }} />
-        <BiDotsVerticalRounded />
-      </Box>
+          title={ 
+            <Box className="spaceBetween">
+              <Box className="center">
+                <Typography 
+                  sx={{
+                    fontSize: "14px", 
+                    fontWeight: "bold", 
+                    letterSpacing: 1
+                  }}
+                > 
+                  CANDIDATE 1
+                  {/* {receiver.includes("1")
+                      ? data.proj[firstCandidate].name.toUpperCase()
+                      : data.proj[lastCandidate].name.toUpperCase()} */}
+                </Typography>
+              </Box>
+              <Box className="center">
+                <RxMagnifyingGlass style={{ marginRight: 3 }} />
+                <BiDotsVerticalRounded />
+              </Box>
+            </Box>
+          }
+        />    
     </Box>
   );
 };

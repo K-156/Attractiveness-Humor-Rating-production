@@ -8,16 +8,21 @@ const ChatMessageArea = ({ theme }) => {
 
     return(
         <div >
+            <Box>
+
+            </Box>
             <Box className="spaceBetween">
                 <TextField
                     disabled
                     label="Write a message..."
                     fullWidth
                     size="small"
+                    InputLabelProps={{
+                        sx: {fontSize:"14px"}
+                    }}
                     sx={{
                         backgroundColor: "#ECECEC", 
                         border: "0px", 
-                        textTransform: false
                     }}
                 />
                 <Chip 
