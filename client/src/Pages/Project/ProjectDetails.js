@@ -5,6 +5,7 @@ import ProjectDetailsForm from "../../Components/ProjectForm/ProjectDetailsForm"
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { useEffect } from "react";
 
+
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
 
@@ -26,8 +27,6 @@ const ProjectDetails = () => {
       setEditProject(editProjectId);
     }
   }, []);
-
-  console.log(formData)
 
   return (
     <div>

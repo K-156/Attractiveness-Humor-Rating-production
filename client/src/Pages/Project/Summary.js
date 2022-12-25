@@ -5,10 +5,19 @@ import SummaryCard from "../../Components/SummaryCard/SummaryCard";
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { mockData } from "./mockData";
 import { templates } from "../../Utils/templateList";
+import { useEffect } from "react";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Summary = () => {
-  const { projDetails, data, sections, createProject, isEditing } =
-    useAppContext();
+  const {
+    projDetails,
+    data,
+    sections,
+    createProject,
+    isEditing,
+    getProject,
+    isLoading,
+  } = useAppContext();
 
   const type = sessionStorage.getItem("editMode");
   const items = { ...localStorage };
@@ -19,6 +28,17 @@ const Summary = () => {
     sections: JSON.parse(items.sections),
     data: JSON.parse(items.projData),
   };
+
+  console.log(data)
+
+  useEffect(() => {
+    // need to change project id
+    getProject("dkyiw0NI6A");
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -44,7 +64,8 @@ const Summary = () => {
           content={isEditing ? projDetails : test.projDetails}
           editLink="/projects/details"
         />
-        {_.map(isEditing ? data : test.data, (section, index) => {
+        {_.map(data, (section, index) => {
+          console.log(section[1])
           const templateNum = templateOrder[index];
           return (
             <SummaryCard
