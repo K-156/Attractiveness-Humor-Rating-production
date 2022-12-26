@@ -2,14 +2,23 @@ import { useState } from "react";
 
 import { 
     Autocomplete, 
-    Box, Button, TextField } from "@mui/material";
+    Box, 
+    Button,
+    TextField
+} from "@mui/material";
+import _ from "lodash";
+
 import OverviewTable from "../../Components/Tables/OverviewTable";
 
 const options = ["123","345","567","891"]
 
 const Overview = () => {
 
-    const [project, setProject] = useState();
+    const [project, setProject] = useState(options[0]);
+
+    const handleOnClick = () => {
+        // filter according to project id
+    }
 
     return(
     <div>
@@ -22,6 +31,7 @@ const Overview = () => {
             <Autocomplete
                 options={options}
                 sx={{width: 250, mr: 3}}
+                value={project}
                 renderInput={(params) =>
                     <TextField
                         {...params}
@@ -29,17 +39,25 @@ const Overview = () => {
                         size="small"
                     />
                 }
-                onChange={(event)=>console.log(event.target.innerText)}        
+                onChange={(event, value)=>{
+                    if (value) {
+                        setProject(value)
+                    }
+                }}
             />
             <Button
                 variant="contained"
-                className="customButton"
+                className="customButton-green"
                 sx={{px: 3}}
+                onClick={handleOnClick}
             >
                 Filter
             </Button>
         </Box>
-        <OverviewTable data={data}/>
+        <OverviewTable 
+            data={data}
+            projectId={project}
+        />
         
     
     </div>
