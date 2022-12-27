@@ -27,14 +27,25 @@ const GeneralContent = ({ content, handleOnClick }) => {
                 "introductions",
                 "messageOptions",
                 "email",
+                "range",
               ].includes(key) ? (
               <Box>
                 {_.map(value, (aValue, index) => {
-                  return (
-                    <Typography key={key} className="summaryText">
-                      {index + 1}. {aValue}
-                    </Typography>
-                  );
+                  console.log(aValue);
+                  console.log(index);
+                  if (key === "range") {
+                    return (
+                      <Typography key={key} className="rangeText">
+                        {`${index} bound: ${aValue.number} represents ${aValue.text}`}
+                      </Typography>
+                    );
+                  } else {
+                    return (
+                      <Typography key={key} className="summaryText">
+                        {index + 1}. {aValue}
+                      </Typography>
+                    );
+                  }
                 })}
               </Box>
             ) : (

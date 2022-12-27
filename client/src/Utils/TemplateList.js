@@ -26,6 +26,7 @@ const variableMap = {
     nextButton: "Is there a Next button?", 
     theme:"Selected Theme",
     graphic:"Landing Page Image",
+    range:"Range",
 }
 
 export { 

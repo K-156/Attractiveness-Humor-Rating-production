@@ -1,19 +1,24 @@
 .summaryText.MuiTypography-root {
-    color:#264653;
-    font-size: 14px;
+  color: #264653;
+  font-size: 14px;
 }
 
+.rangeText.MuiTypography-root {
+  color: #264653;
+  font-size: 14px;
+  text-transform: capitalize;
+}
 .summaryVariable {
-    color:#717171;
-    width: 200px;
+  color: #717171;
+  width: 200px;
 }
 
-.summaryVariable.MuiTypography-root{
-    font-size: 14px;
+.summaryVariable.MuiTypography-root {
+  font-size: 14px;
 }
 
 .summaryHeader.MuiTypography-root {
-    color:#264653;
-    font-size: 16px;
-    font-weight: bold;
+  color: #264653;
+  font-size: 16px;
+  font-weight: bold;
 }

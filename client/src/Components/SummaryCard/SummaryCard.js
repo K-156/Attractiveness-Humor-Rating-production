@@ -62,7 +62,7 @@ const SummaryCard = ({ header, content, editLink, template }) => {
                         />
                     </Button>
                 </Box>
-                { header.toLowerCase().includes("template 1") || header.toLowerCase().includes("template 2")
+                { header.toLowerCase().includes("template 1") || header.toLowerCase().includes("template 3")
                     ? <OptionsContent 
                         content={content}
                         handleOnClick={handleOnClick}
