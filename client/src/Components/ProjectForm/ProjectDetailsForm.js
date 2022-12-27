@@ -31,7 +31,6 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name)
     
     if (name === "duration") {
       setError((state) => ({
@@ -57,6 +56,8 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
         [name]: value,
       }));
     }
+
+    console.log(formData)
     
   }
 
@@ -81,6 +82,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     <Box className="secondColumn">
                       <TextField
                           name="description"
+                          value={formData?.description}
                           size="small"
                           fullWidth
                           multiline

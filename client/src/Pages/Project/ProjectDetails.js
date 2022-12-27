@@ -14,12 +14,14 @@ const ProjectDetails = () => {
 
   const [formData, setFormData] = useState({
     title: projDetails?.title,
-    description: "",
-    email: [],
+    description: projDetails?.description,
+    email: isEditing ? projDetails.email : [],
+    emailLink:[],
     roles: isEditing ? projDetails.roles : [],
     duration: projDetails?.duration,
     theme: "green",
-    graphic: null,
+    graphic: isEditing ? projDetails.graphic : null,
+    graphicLink:null,
   });
 
   useEffect(() => {

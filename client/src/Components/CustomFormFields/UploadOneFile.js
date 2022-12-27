@@ -10,7 +10,6 @@ const UploadOneFile = ({
   setFormData,
   formData,
   accept,
-  filename,
   templateNum,
 }) => {
   const {
