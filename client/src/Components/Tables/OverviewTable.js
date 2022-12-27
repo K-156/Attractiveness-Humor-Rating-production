@@ -82,13 +82,14 @@ const OverviewTable = ({ data, projectId }) => {
           ".MuiDataGrid-cellContent": {
             overflowWrap: "normal",
             whiteSpace: "normal",
-            justifyContent:"center"
+            justifyContent:"center",
           },
           ".MuiDataGrid-menuIcon":{
             color:"#FFFFFF"
           },
           ".MuiDataGrid-row": {
             border: "solid 1px #E8E8E8",
+            backgroundColor:"#FFFFFF"
           },
           border: "transparent",
           mt: 2,
