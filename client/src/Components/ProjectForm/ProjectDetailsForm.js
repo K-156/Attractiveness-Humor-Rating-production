@@ -56,8 +56,6 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
         [name]: value,
       }));
     }
-
-    console.log(formData)
     
   }
 

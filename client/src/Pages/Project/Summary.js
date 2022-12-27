@@ -22,7 +22,7 @@ const Summary = () => {
 
   const type = sessionStorage.getItem("editMode");
   const items = { ...localStorage };
-  const templateOrder = isEditing ? sections : JSON.parse(items.sections);
+  // const templateOrder = isEditing ? sections : JSON.parse(items.sections);
   
   useEffect(() => {
     if (isEditing) {

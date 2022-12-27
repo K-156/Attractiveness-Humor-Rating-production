@@ -19,8 +19,13 @@ const NextButton = ({
   templateNum,
   sectionNum,
 }) => {
-  const { theme, createProject, updateProject, createdProjectId,updateSection } =
-    useAppContext();
+  const {
+    theme,
+    createProject,
+    updateProject,
+    createdProjectId,
+    updateSection,
+  } = useAppContext();
 
   const navigate = useNavigate();
   const handleOnClick = () => {
@@ -31,7 +36,8 @@ const NextButton = ({
     if (projectType === "projDetails") {
       let dict = {};
       dict[projectType] = data;
-      createProject(dict);
+      console.log(dict);
+      updateProject(createdProjectId, projectType, dict);
     }
 
     if (projectType === "projData") {
@@ -40,15 +46,15 @@ const NextButton = ({
         : [];
       let dict = {};
       dict[templateNum] = data;
-      if (sectionNum == arr.length+1) {
+      if (sectionNum == arr.length + 1) {
         arr.push(dict);
       } else {
         arr[sectionNum] = dict;
       }
-      updateProject(createdProjectId, arr);
+      updateProject(createdProjectId, projectType, arr);
       localStorage.setItem(projectType, JSON.stringify(arr));
     } else {
-      updateSection(createdProjectId, data);
+      updateProject(createdProjectId, projectType, data);
       localStorage.setItem(projectType, JSON.stringify(data));
     }
 

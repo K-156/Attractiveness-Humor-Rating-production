@@ -6,6 +6,7 @@ import "./SummaryCard.css";
 import { variableMap } from "../../Utils/templateList";
 
 const GeneralContent = ({ content, handleOnClick }) => {
+  console.log(content)
   return (
     <>
       {_.map(content, (value, key) => {

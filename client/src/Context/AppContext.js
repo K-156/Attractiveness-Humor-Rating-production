@@ -20,7 +20,6 @@ import {
   CREATE_PROJECT_ERROR,
   LOGOUT_USER,
   SET_EDIT_PROJECT,
-  SET_CREATE_PROJECT,
   DELETE_PROJECT_BEGIN,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
@@ -191,12 +190,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SUBMIT_FORM_DATA, payload: { formData } });
   };
 
-  const createProject = async (projDetails) => {
+  const createProject = async () => {
     dispatch({ type: CREATE_PROJECT_BEGIN });
     try {
-      const { data } = await authFetch.post("projects", {
-        projDetails,
-      });
+      const { data } = await authFetch.post("projects");
       dispatch({
         type: CREATE_PROJECT_SUCCESS,
         payload: data.project._id,
@@ -211,17 +208,34 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const updateProject = async (projectId, projData) => {
+  const updateProject = async (projectId, projType, projData) => {
     dispatch({ type: UPDATE_PROJECT_BEGIN });
-    console.log(projData);
     try {
-      const { data } = await authFetch.patch(`/projects/${projectId}`, {
-        data: projData,
-      });
-      dispatch({
-        type: UPDATE_PROJECT_SUCCESS,
-        payload: data,
-      });
+      if (projType === "projDetails") {
+        const { data } = await authFetch.patch(`/projects/${projectId}`, {
+          projDetails: projData,
+        });
+        dispatch({
+          type: UPDATE_PROJECT_SUCCESS,
+          payload: data,
+        });
+      } else if (projType === "projData") {
+        const { data } = await authFetch.patch(`/projects/${projectId}`, {
+          data: projData,
+        });
+        dispatch({
+          type: UPDATE_PROJECT_SUCCESS,
+          payload: data,
+        });
+      } else if (projType === "sections") {
+        const { data } = await authFetch.patch(`/projects/${projectId}`, {
+          sections: projData,
+        });
+        dispatch({
+          type: UPDATE_PROJECT_SUCCESS,
+          payload: data,
+        });
+      }
     } catch (error) {
       if (error.response.status !== 401) {
         dispatch({
@@ -312,10 +326,6 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_PROJECT, payload: { id } });
   };
 
-  const setCreateProject = () => {
-    dispatch({ type: SET_CREATE_PROJECT });
-  };
-
   const editProject = async () => {
     dispatch({ type: EDIT_PROJECT_BEGIN });
     try {
@@ -366,7 +376,6 @@ const AppProvider = ({ children }) => {
         uploadFiles,
         updateProject,
         updateSection,
-        setCreateProject,
       }}
     >
       {children}
