@@ -25,7 +25,7 @@ const UploadPreview = ({ setFormData, formData }) => {
 
         setFormData((state) => ({
             ...state, 
-            graphic: event.target.files[0]
+            graphic: event.target.files[0].name
         }))
 
         setGraphic(URL.createObjectURL(event.target.files[0]))
@@ -68,7 +68,7 @@ const UploadPreview = ({ setFormData, formData }) => {
                             color: "#264653",
                         }}
                         >
-                        {formData["graphic"]["name"]}
+                        {formData["graphic"]}
                         </Typography>
                         <Button onClick={onDelete}>
                         <RiDeleteBin6Fill

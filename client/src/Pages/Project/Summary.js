@@ -3,7 +3,6 @@ import { useAppContext } from "../../Context/AppContext";
 
 import SummaryCard from "../../Components/SummaryCard/SummaryCard";
 import ProjectLayout from "../../Layout/ProjectLayout";
-import { mockData } from "./mockData";
 import { templates } from "../../Utils/templateList";
 import { useEffect } from "react";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
@@ -24,12 +23,6 @@ const Summary = () => {
   const type = sessionStorage.getItem("editMode");
   const items = { ...localStorage };
   const templateOrder = isEditing ? sections : JSON.parse(items.sections);
-
-  const test = {
-    projDetails: JSON.parse(items.projDetails),
-    sections: JSON.parse(items.sections),
-    data: JSON.parse(items.projData),
-  };
   
   useEffect(() => {
     if (isEditing) {
@@ -60,14 +53,13 @@ const Summary = () => {
         state={{ type: type }}
         projectType="Details"
         createProject={createProject}
-        data={test}
       >
         <SummaryCard
           header="Project Details"
-          content={isEditing ? projDetails : test.projDetails}
+          content={projDetails}
           editLink="/projects/details"
         />
-        {_.map(data, (section, index) => {
+        {/* {_.map(data, (section, index) => {
           const templateNum = templateOrder[index];
           return (
             <SummaryCard
@@ -78,7 +70,7 @@ const Summary = () => {
               key={index}
             />
           );
-        })}
+        })} */}
       </ProjectLayout>
     </div>
   );

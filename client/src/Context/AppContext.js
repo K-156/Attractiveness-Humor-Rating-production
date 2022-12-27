@@ -20,6 +20,7 @@ import {
   CREATE_PROJECT_ERROR,
   LOGOUT_USER,
   SET_EDIT_PROJECT,
+  SET_CREATE_PROJECT,
   DELETE_PROJECT_BEGIN,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
@@ -311,6 +312,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_PROJECT, payload: { id } });
   };
 
+  const setCreateProject = () => {
+    dispatch({ type: SET_CREATE_PROJECT });
+  };
+
   const editProject = async () => {
     dispatch({ type: EDIT_PROJECT_BEGIN });
     try {
@@ -361,6 +366,7 @@ const AppProvider = ({ children }) => {
         uploadFiles,
         updateProject,
         updateSection,
+        setCreateProject,
       }}
     >
       {children}

@@ -14,7 +14,7 @@ const UploadFiles = ({ items, setFormData, variable, accept }) => {
         if (event.target.files !== undefined) {
             setFormData((state) => ({
                 ...state, 
-                [variable]: items.concat(event.target.files[0])
+                [variable]: items.concat(event.target.files[0].name)
             }))
         } 
     }
@@ -63,7 +63,7 @@ const UploadFiles = ({ items, setFormData, variable, accept }) => {
                 >
                     {_.map(items, (file, index) => {
                         if (file !== undefined) {
-                            const value = file.name
+                            const value = file
                             return(
                                 <Box    
                                     key={index+value}

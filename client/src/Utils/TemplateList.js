@@ -23,7 +23,9 @@ const variableMap = {
     introductions: "Introductions",
     messageOptions: "Pre-written messages", 
     text: "Text", 
-    nextButton: "Is there a Next button?"
+    nextButton: "Is there a Next button?", 
+    theme:"Selected Theme",
+    graphic:"Landing Page Image",
 }
 
 export { 

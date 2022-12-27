@@ -31,6 +31,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    console.log(name)
     
     if (name === "duration") {
       setError((state) => ({
@@ -45,7 +46,8 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
         ...state,
         roles: false,
       }));
-    } else {
+    } 
+    else {
       setFormData((state) => ({
         ...state,
         [name]: value,

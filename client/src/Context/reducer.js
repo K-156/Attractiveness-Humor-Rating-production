@@ -16,6 +16,7 @@ import {
   CREATE_PROJECT_ERROR,
   LOGOUT_USER,
   SET_EDIT_PROJECT,
+  SET_CREATE_PROJECT,
   DELETE_PROJECT_BEGIN,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
@@ -106,7 +107,7 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === CREATE_PROJECT_BEGIN) {
-    return { ...state, isLoading: true };
+    return { ...state, isLoading: true, isEditing: false };
   }
 
   if (action.type === CREATE_PROJECT_SUCCESS) {
@@ -184,6 +185,13 @@ const reducer = (state, action) => {
     };
   }
 
+  if (action.type === SET_CREATE_PROJECT) {
+    return {
+      ...state,
+      isEditing:false,
+    };
+  }
+
   if (action.type === UPLOAD_FILES_BEGIN) {
     return { ...state, isLoading: true };
   }
@@ -206,7 +214,7 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === UPDATE_PROJECT_SUCCESS) {
-    console.log(action.payload)
+    console.log(action.payload);
     return {
       ...state,
       isLoading: false,

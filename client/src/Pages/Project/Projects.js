@@ -8,16 +8,10 @@ import { useAppContext } from "../../Context/AppContext";
 
 const Projects = () => {
   const navigate = useNavigate();
-  const {
-    getAllProjects,
-    projects,
-    isLoading,
-    setEditProject,
-    deleteProject,
-    isEditing,
-    editProject,
-  } = useAppContext();
+  const { getAllProjects, projects, isLoading, setCreateProject } =
+    useAppContext();
   const handleOnClick = () => {
+    setCreateProject();
     navigate("/projects/details");
     sessionStorage.setItem("editMode", "add");
   };
