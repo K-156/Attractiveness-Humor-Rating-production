@@ -66,6 +66,7 @@ const SummaryCard = ({ header, content, editLink, template }) => {
                     ? <OptionsContent 
                         content={content}
                         handleOnClick={handleOnClick}
+                        header={header}
                        />
                     : <GeneralContent 
                         content={content}
