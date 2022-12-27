@@ -198,7 +198,6 @@ const AppProvider = ({ children }) => {
         type: CREATE_PROJECT_SUCCESS,
         payload: data.project._id,
       });
-      localStorage.setItem("createdProjectId", data.project._id);
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({

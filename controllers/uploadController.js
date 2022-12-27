@@ -29,8 +29,26 @@ const uploads = async (req, res) => {
     folder: "file-upload",
     resource_type:'auto',
   });
+  console.log(result)
   fs.unlinkSync(req.files.resource.tempFilePath);
   return res.status(StatusCodes.OK).json({ resource: { src: result.secure_url } });
 };
 
-export { uploads };
+const deleteUploads = async (req,res) => {
+  let result = null;
+  const { id: uploadId } = req.params;
+  if (uploadId.includes('csv')) {
+    result = await cloudinary.uploader.destroy(`file-upload/${uploadId}`,{
+      resource_type:'raw',
+    })
+  } else if (uploadId.includes('audio')) {
+    result = await cloudinary.uploader.destroy(`file-upload/${uploadId}`,{
+      resource_type:'video',
+    })
+  } else {
+    result = await cloudinary.uploader.destroy(`file-upload/${uploadId}`)
+  }
+  return res.status(StatusCodes.OK).json(result)
+}
+
+export { uploads, deleteUploads };

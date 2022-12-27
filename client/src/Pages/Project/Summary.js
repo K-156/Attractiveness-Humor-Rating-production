@@ -21,9 +21,11 @@ const Summary = () => {
   } = useAppContext();
 
   const type = sessionStorage.getItem("editMode");
-  const items = { ...localStorage };
-  // const templateOrder = isEditing ? sections : JSON.parse(items.sections);
-  
+  const templateOrder = sections
+
+  // remove old data 
+  localStorage.removeItem("projData")
+
   useEffect(() => {
     if (isEditing) {
       getProject(editProjectId);
@@ -59,7 +61,7 @@ const Summary = () => {
           content={projDetails}
           editLink="/projects/details"
         />
-        {/* {_.map(data, (section, index) => {
+        {_.map(data, (section, index) => {
           const templateNum = templateOrder[index];
           return (
             <SummaryCard
@@ -70,7 +72,7 @@ const Summary = () => {
               key={index}
             />
           );
-        })} */}
+        })}
       </ProjectLayout>
     </div>
   );

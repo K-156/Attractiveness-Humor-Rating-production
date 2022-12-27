@@ -11,7 +11,7 @@ const OptionsContent = ({ content, handleOnClick }) => {
 
   const optionContent = Object.fromEntries(
     ["option1", "option2", "option3", "option4"].map((key, index) => {
-      return [key, content[index+1]];
+      return [key, content[index + 1]];
     })
   );
 
@@ -54,9 +54,11 @@ const OptionsContent = ({ content, handleOnClick }) => {
             {_.map(value, (aValue, aKey) => {
               return (
                 <Box key={aKey} className="twoColumns">
-                  <Typography className="summaryVariable">
-                    {variableMap[aKey]}
-                  </Typography>
+                  {aKey !== "link" && (
+                    <Typography className="summaryVariable">
+                      {variableMap[aKey]}
+                    </Typography>
+                  )}
                   {typeof aValue === "string" && aValue.length > 100 ? (
                     <MoreText
                       handleOnClick={handleOnClick}
@@ -75,7 +77,9 @@ const OptionsContent = ({ content, handleOnClick }) => {
                       })}
                     </Box>
                   ) : (
-                    <Typography className="summaryText">{aValue}</Typography>
+                    aKey !== "link" && (
+                      <Typography className="summaryText">{aValue}</Typography>
+                    )
                   )}
                 </Box>
               );

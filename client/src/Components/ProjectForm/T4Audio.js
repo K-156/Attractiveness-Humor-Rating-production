@@ -18,7 +18,8 @@ const T4Audio = () => {
     const [formData, setFormData] = useState({
         instruction: "",
         questions: [], 
-        audio: []
+        audio: [],
+        audioLink:[],
     });
     const [error, setError] = useState({questions: false});
     const [qn, setQn] = useState({});
@@ -86,6 +87,8 @@ const T4Audio = () => {
                         setFormData={setFormData}
                         variable="audio"
                         accept=".mp3"
+                        audio={true}
+                        templateNum={4}
                     />
                 </Box>
             </Box>

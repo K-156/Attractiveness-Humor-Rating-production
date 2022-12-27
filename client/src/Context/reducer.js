@@ -74,7 +74,6 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === GET_PROJECT_SUCCESS) {
-    console.log(action.payload)
     return {
       ...state,
       isLoading: false,

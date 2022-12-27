@@ -4,28 +4,50 @@ import _ from "lodash";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-const UploadFiles = ({ items, setFormData, variable, accept }) => {
+const UploadFiles = ({
+  items,
+  setFormData,
+  variable,
+  accept,
+  audio,
+  templateNum,
+}) => {
   const {
     uploadFiles,
     isEditing,
     editProjectId,
     createdProjectId,
+    sectionNum,
   } = useAppContext();
   let fileLink = "";
 
   const uploadFile = async (event) => {
     if (event.target.files !== undefined) {
-      fileLink = await uploadFiles(
-        isEditing
-          ? `${editProjectId}_projDetails_email_${items.length}`
-          : `${createdProjectId}_projDetails_email_${items.length}`,
-        event.target.files[0]
-      );
-      setFormData((state) => ({
-        ...state,
-        [variable]: items.concat(event.target.files[0].name),
-        emailLink: [...state.emailLink, fileLink],
-      }));
+      if (audio) {
+        fileLink = await uploadFiles(
+          isEditing
+            ? `${editProjectId}_${sectionNum}_${templateNum}`
+            : `${createdProjectId}_${sectionNum}_${templateNum}`,
+          event.target.files[0]
+        );
+        setFormData((state) => ({
+          ...state,
+          [variable]: items.concat(event.target.files[0].name),
+          audioLink: [...state.audioLink, fileLink],
+        }));
+      } else {
+        fileLink = await uploadFiles(
+          isEditing
+            ? `${editProjectId}_projDetails_email_${items.length}`
+            : `${createdProjectId}_projDetails_email_${items.length}`,
+          event.target.files[0]
+        );
+        setFormData((state) => ({
+          ...state,
+          [variable]: items.concat(event.target.files[0].name),
+          emailLink: [...state.emailLink, fileLink],
+        }));
+      }
     }
   };
 
