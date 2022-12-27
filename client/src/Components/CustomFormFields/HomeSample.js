@@ -65,7 +65,7 @@ const HomeSample = ({ theme, title, description, roleList, graphic }) => {
                                     id={role}
                                     variant="contained" 
                                     className={`customButton-${theme}`}
-                                    sx={{fontSize:"7px"}}
+                                    sx={{ fontSize:"7px" }}
                                 >
                                     {role}
                                 </Button>

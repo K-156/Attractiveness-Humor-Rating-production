@@ -13,7 +13,7 @@ import {
 import _ from "lodash";
 
 import "./ProjectForm.css";
-import AddableField from "../CustomFormFields/AddableField";
+import AddableNoRange from "../CustomFormFields/AddableNoRange";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import UploadPreview from "../CustomFormFields/UploadPreview";
 
@@ -40,6 +40,10 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
       }));
     }
 
+    if (name === "description") {
+      setTextLimit(value.length)
+    }
+
     if (name === "roles") {
       setRole(value);
       setError((state) => ({
@@ -53,6 +57,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
         [name]: value,
       }));
     }
+    
   }
 
     return(
@@ -113,7 +118,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                 </Box>
                 <Box className="twoColumns">
                     <Typography className="variable">Roles</Typography>
-                    <AddableField 
+                    <AddableNoRange 
                         items={formData["roles"]} 
                         error={error["roles"]}
                         setError={setError}

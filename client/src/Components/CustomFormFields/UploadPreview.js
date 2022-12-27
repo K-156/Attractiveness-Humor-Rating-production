@@ -5,7 +5,7 @@ import {
     Button, 
     Typography 
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import HomeSample from "./HomeSample";
@@ -37,7 +37,8 @@ const UploadPreview = ({ setFormData, formData }) => {
             ...state, 
             graphic: null
         }))
-      };
+    };
+    
 
     return(
         <Box className="flexColumn">
@@ -93,6 +94,7 @@ const UploadPreview = ({ setFormData, formData }) => {
                 />
             </Box>
         }
+        
         </Box>
     )
 }
