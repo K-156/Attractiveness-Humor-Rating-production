@@ -39,6 +39,8 @@ const T4Audio = () => {
       submitFormData(formData);
     }, [formData]);
 
+    console.log(formData)
+
     return(
         <Card>
             <CardContent className="cardPadding">

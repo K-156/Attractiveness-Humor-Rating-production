@@ -8,7 +8,7 @@ import { variableMap } from "../../Utils/templateList";
 const OptionsContent = ({ content, handleOnClick, header }) => {
   const instructionText = content["instruction"];
   const characteristicsText = content["characteristics"];
-  
+
   const optionContent = Object.fromEntries(
     ["option1", "option2", "option3", "option4"].map((key, index) => {
       return [key, content[index + 1]];
@@ -55,11 +55,9 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
               {_.map(value, (aValue, aKey) => {
                 return (
                   <Box key={aKey} className="twoColumns">
-                    {aKey !== "link" && (
-                      <Typography className="summaryVariable">
-                        {variableMap[aKey]}
-                      </Typography>
-                    )}
+                    <Typography className="summaryVariable">
+                      {variableMap[aKey]}
+                    </Typography>
                     {typeof aValue === "string" && aValue.length > 100 ? (
                       <MoreText
                         handleOnClick={handleOnClick}

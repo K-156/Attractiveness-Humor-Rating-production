@@ -28,22 +28,37 @@ const GeneralContent = ({ content, handleOnClick }) => {
                 "messageOptions",
                 "email",
                 "range",
+                "audioLink",
               ].includes(key) ? (
               <Box>
                 {_.map(value, (aValue, index) => {
                   console.log(aValue);
-                  console.log(index);
                   if (key === "range") {
                     return (
                       <Typography key={key} className="rangeText">
                         {`${index} bound: ${aValue.number} represents ${aValue.text}`}
                       </Typography>
                     );
+                  } else if (key === "questions") {
+                    return (
+                      <Typography
+                        sx={{
+                          fontSize: "14px",
+                          color: "#264653",
+                        }}
+                      >
+                        {index + 1}. {aValue["questions"]} ({aValue["lowerNum"]}{" "}
+                        -{aValue["lowerText"]}, {aValue["upperNum"]} -
+                        {aValue["upperText"]})
+                      </Typography>
+                    );
                   } else {
                     return (
-                      <Typography key={key} className="summaryText">
-                        {index + 1}. {aValue}
-                      </Typography>
+                      key !== "audioLink" && (
+                        <Typography key={key} className="summaryText">
+                          {index + 1}. {aValue}
+                        </Typography>
+                      )
                     );
                   }
                 })}
