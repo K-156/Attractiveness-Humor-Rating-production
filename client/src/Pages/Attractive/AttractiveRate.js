@@ -7,7 +7,6 @@ import _ from "lodash";
 
 import RatingCard from "../../Components/SurveyForm/RatingCard";
 import NextButton from "../../Components/NavButton/NextButton";
-import PrevButton from "../../Components/NavButton/PrevButton";
 import { isValid } from "../../Utils/isValid";
 import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";

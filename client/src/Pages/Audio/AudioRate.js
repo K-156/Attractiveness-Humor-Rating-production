@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import { Box, Grid } from "@mui/material";
 
-import PrevButton from "../../Components/NavButton/PrevButton";
 import NextButton from "../../Components/NavButton/NextButton";
 import AudioForm from "../../Components/SurveyForm/AudioForm";
 import { isValid } from "../../Utils/isValid";
@@ -115,11 +114,6 @@ const AudioRate = ({ title, link, isWritten }) => {
           />
         </Grid>
         <Grid item xs={12} className="spaceBetween" sx={{ py: 3, px: 9 }}>
-          {parseInt(title) === 1 ? (
-            <PrevButton isSurvey={true} link="/audio-instruction" />
-          ) : (
-            <Box></Box>
-          )}
           <NextButton
             isSurvey={true}
             disabled={
