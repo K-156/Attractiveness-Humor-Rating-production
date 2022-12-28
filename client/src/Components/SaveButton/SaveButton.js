@@ -1,21 +1,43 @@
+import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../Context/AppContext";
+
 import { 
   Box, 
   Button
 } from "@mui/material";
 
-const SaveButton = ({ projectType, formData, templateNum }) => {
-  const handleSubmit = (formData) => {
+const SaveButton = ({ projectType, data, templateNum, sectionNum }) => {
+  console.log(sectionNum)
+  const navigate = useNavigate();
+  const {updateProject, editProjectId} = useAppContext()
+  const handleSubmit = (data) => {
+    if (projectType === "projDetails") {
+      let dict = {};
+      dict[projectType] = data;
+      console.log(dict);
+      updateProject(editProjectId, projectType, dict);
+    }
+
     if (projectType === "projData") {
-      let data = JSON.parse(localStorage.getItem("projData"))
+      let arr = JSON.parse(localStorage.getItem("projData"))
         ? JSON.parse(localStorage.getItem("projData"))
         : [];
       let dict = {};
-      dict[templateNum] = formData;
-      data.push(dict);
-      localStorage.setItem(projectType, JSON.stringify(data));
+      dict[templateNum] = data;
+      if (sectionNum == arr.length + 1) {
+        arr.push(dict);
+      } else {
+        arr[sectionNum] = dict;
+      }
+      updateProject(editProjectId, projectType, arr);
+      localStorage.setItem(projectType, JSON.stringify(arr));
     } else {
-      localStorage.setItem(projectType, JSON.stringify(formData));
+      updateProject(editProjectId, projectType, data);
+      localStorage.setItem(projectType, JSON.stringify(data));
     }
+
+    navigate("/projects/summary")
+
   };
   return (
     <Box 
@@ -26,7 +48,7 @@ const SaveButton = ({ projectType, formData, templateNum }) => {
         variant="contained"
         className="customButton-green"
         onClick={() => {
-          handleSubmit(formData);
+          handleSubmit(data);
         }}
       >
         Save Changes

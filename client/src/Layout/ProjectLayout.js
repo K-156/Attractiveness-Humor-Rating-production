@@ -63,8 +63,9 @@ const ProjectLayout = ({
           { isEdit ?
             <SaveButton
               projectType={projectType}
-              formData={formData}
+              data={formData}
               templateNum={templateNum}
+              sectionNum={sectionNum}
             />
           : <Box
             className="spaceBetween"
