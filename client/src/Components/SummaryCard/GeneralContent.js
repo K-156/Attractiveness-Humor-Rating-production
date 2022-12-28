@@ -67,7 +67,7 @@ const GeneralContent = ({ content, handleOnClick }) => {
               <Typography className="summaryText">
                 {key === "duration"
                   ? `${value} mins`
-                  : key === "nextButton"
+                  : key === "isNext"
                   ? `${value ? "Yes" : "No"}`
                   : value}
               </Typography>

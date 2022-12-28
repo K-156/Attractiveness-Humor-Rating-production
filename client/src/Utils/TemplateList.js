@@ -23,7 +23,7 @@ const variableMap = {
     introductions: "Introductions",
     messages: "Pre-written messages", 
     text: "Text", 
-    nextButton: "Is there a Next button?", 
+    isNext: "Is there a Next button?", 
     theme:"Selected Theme",
     graphic:"Landing Page Image",
     range:"Range",
