@@ -5,7 +5,6 @@ import ProjectDetailsForm from "../../Components/ProjectForm/ProjectDetailsForm"
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { useEffect } from "react";
 
-
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
 
@@ -13,15 +12,15 @@ const ProjectDetails = () => {
     useAppContext();
 
   const [formData, setFormData] = useState({
-    title: projDetails?.title,
-    description: projDetails?.description,
+    title: isEditing ? projDetails.title : "",
+    description: isEditing ? projDetails.description : "",
     email: isEditing ? projDetails.email : [],
-    emailLink:[],
+    emailLink: [],
     roles: isEditing ? projDetails.roles : [],
-    duration: projDetails?.duration,
+    duration: isEditing ? projDetails.duration : null,
     theme: "green",
     graphic: isEditing ? projDetails.graphic : null,
-    graphicLink:null,
+    graphicLink: isEditing ? projDetails.graphicLink : null,
   });
 
   useEffect(() => {
@@ -49,10 +48,7 @@ const ProjectDetails = () => {
         projectType="projDetails"
         formData={formData}
       >
-        <ProjectDetailsForm 
-          formData={formData} 
-          setFormData={setFormData} 
-        />
+        <ProjectDetailsForm formData={formData} setFormData={setFormData} />
       </ProjectLayout>
     </div>
   );

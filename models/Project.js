@@ -15,6 +15,7 @@ const ProjectSchema = new mongoose.Schema(
       duration: String,
       theme:String,
       graphic:[],
+      graphicLink:String,
     },
     sections: {
       type: [],

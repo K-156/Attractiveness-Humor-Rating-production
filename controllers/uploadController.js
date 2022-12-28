@@ -38,16 +38,22 @@ const deleteFolder = async (req, res) => {
 };
 
 const uploads = async (req, res) => {
+  let result = null;
   const { id: uploadId } = req.params;
   const folder = uploadId.slice(0, 10);
-  const result = await cloudinary.uploader.upload(
-    req.files.resource.tempFilePath,
-    {
+  if (uploadId.includes("graphic")) {
+    result = await cloudinary.uploader.upload(req.files.resource.tempFilePath, {
+      public_id: uploadId,
+      folder,
+    });
+  } else {
+    result = await cloudinary.uploader.upload(req.files.resource.tempFilePath, {
       public_id: uploadId,
       folder,
       resource_type: "auto",
-    }
-  );
+    });
+  }
+
   fs.unlinkSync(req.files.resource.tempFilePath);
   return res
     .status(StatusCodes.OK)

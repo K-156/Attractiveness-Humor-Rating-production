@@ -1,21 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
-import { 
-  Box, 
-  Button
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const SaveButton = ({ projectType, data, templateNum, sectionNum }) => {
-  console.log(sectionNum)
   const navigate = useNavigate();
-  const {updateProject, editProjectId} = useAppContext()
+  const { updateProject, editProjectId } = useAppContext();
   const handleSubmit = (data) => {
     if (projectType === "projDetails") {
-      let dict = {};
-      dict[projectType] = data;
-      console.log(dict);
-      updateProject(editProjectId, projectType, dict);
+      updateProject(editProjectId, projectType, data);
     }
 
     if (projectType === "projData") {
@@ -36,14 +29,10 @@ const SaveButton = ({ projectType, data, templateNum, sectionNum }) => {
       localStorage.setItem(projectType, JSON.stringify(data));
     }
 
-    navigate("/projects/summary")
-
+    navigate("/projects/summary");
   };
   return (
-    <Box 
-      className="flexEnd"
-      sx={{ my: 2 }}
-    >
+    <Box className="flexEnd" sx={{ my: 2 }}>
       <Button
         variant="contained"
         className="customButton-green"

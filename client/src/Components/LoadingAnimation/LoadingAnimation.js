@@ -5,7 +5,6 @@ import { CircularProgress, Box } from "@mui/material/";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const LoadingAnimation = ({ isSurvey, size, marginLeft }) => {
-  console.log(size)
   const { theme } = useAppContext();
 
   return (

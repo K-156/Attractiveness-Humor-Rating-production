@@ -6,18 +6,10 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill } from "react-icons/bs";
 import _ from "lodash";
 
-import LandingPage from "../../Assets/landing-page_v2.svg";
 import { colorPalette } from "../../Utils/colorPalette";
 
-const title = "Job Application";
-const description =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae eveniet cupiditate facere suscipit voluptatibus neque," +
-  "exercitationem similique quasi velit in itaque voluptatum distinctio inventore, ut nisi odit dolorem aliquam laborum.";
-const roleList = ["Employer", "Job seeker"];
-
 const Home = () => {
-  const { theme, getProject, setActiveProject, activeProjectId } =
-    useAppContext();
+  const { getProject, setActiveProject, activeProjectId } = useAppContext();
   const navigate = useNavigate();
   const handleOnClick = (event) => {
     sessionStorage.setItem("role", event.target.id.toLowerCase());
@@ -32,8 +24,12 @@ const Home = () => {
     }
   }, [activeProjectId]);
 
+  const { projDetails } = JSON.parse(localStorage.getItem("data"));
+
+  console.log(projDetails);
+
   return (
-    <div className={`backgroundImage-${theme}`}>
+    <div className={`backgroundImage-${projDetails.theme}`}>
       <script>{(document.title = "Welcome")}</script>
 
       <Box className="flexEnd" sx={{ mb: 5, m: 1 }}>
@@ -47,10 +43,10 @@ const Home = () => {
             variant="h5"
             sx={{
               fontWeight: "bold",
-              color: colorPalette[theme]["secondary"],
+              color: colorPalette[projDetails.theme]["secondary"],
             }}
           >
-            {title}
+            {projDetails.title}
           </Typography>
           <Typography
             sx={{
@@ -58,27 +54,27 @@ const Home = () => {
               my: 3,
             }}
           >
-            {description}
+            {projDetails.description}
           </Typography>
           <Grid container gap={1}>
             <Grid item xs={12} className="center" sx={{ my: 1 }}>
               <Typography
                 sx={{
                   fontWeight: "bold",
-                  color: colorPalette[theme]["secondary"],
+                  color: colorPalette[projDetails.theme]["secondary"],
                 }}
               >
                 I am an/a...
               </Typography>
             </Grid>
-            {_.map(roleList, (role) => {
+            {_.map(projDetails.roles, (role) => {
               return (
                 <Grid item xs={5.5} className="center" key={role}>
                   <Button
                     id={role}
                     onClick={handleOnClick}
                     variant="contained"
-                    className={`customButton-${theme}`}
+                    className={`customButton-${projDetails.theme}`}
                   >
                     {role}
                   </Button>
@@ -89,7 +85,8 @@ const Home = () => {
         </Grid>
         <Grid item xs={5.5}>
           <img
-            src={LandingPage}
+            src={projDetails.graphicLink}
+            alt="landing page"
             style={{
               width: "100%",
             }}

@@ -71,7 +71,6 @@ const ProjectTable = ({ data }) => {
             {_.map(
               data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
               (item) => {
-                console.log(item._id)
                 return (
                   <TableRow key={item._id}>
                     <TableCell>{item._id}</TableCell>

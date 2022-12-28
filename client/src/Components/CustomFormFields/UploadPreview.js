@@ -96,7 +96,7 @@ const UploadPreview = ({ setFormData, formData }) => {
             title={formData["title"]}
             description={formData["description"]}
             roleList={formData["roles"]}
-            graphic={graphic}
+            graphic={formData.graphicLink}
           />
         </Box>
       )}

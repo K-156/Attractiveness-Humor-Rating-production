@@ -14,7 +14,9 @@ const GeneralContent = ({ content, handleOnClick }) => {
             <Typography className="summaryVariable">
               {variableMap[key]}
             </Typography>
-            {typeof value === "string" && value.length > 100 ? (
+            {typeof value === "string" &&
+            value.length > 100 &&
+            key !== "graphicLink" ? (
               <MoreText
                 handleOnClick={handleOnClick}
                 id={variableMap[key]}
@@ -32,7 +34,6 @@ const GeneralContent = ({ content, handleOnClick }) => {
               ].includes(key) ? (
               <Box>
                 {_.map(value, (aValue, index) => {
-                  console.log(aValue);
                   if (key === "range") {
                     return (
                       <Typography key={key} className="rangeText">
@@ -64,13 +65,15 @@ const GeneralContent = ({ content, handleOnClick }) => {
                 })}
               </Box>
             ) : (
-              <Typography className="summaryText">
-                {key === "duration"
-                  ? `${value} mins`
-                  : key === "isNext"
-                  ? `${value ? "Yes" : "No"}`
-                  : value}
-              </Typography>
+              key !== "graphicLink" && (
+                <Typography className="summaryText">
+                  {key === "duration"
+                    ? `${value} mins`
+                    : key === "isNext"
+                    ? `${value ? "Yes" : "No"}`
+                    : value}
+                </Typography>
+              )
             )}
           </Box>
         );
