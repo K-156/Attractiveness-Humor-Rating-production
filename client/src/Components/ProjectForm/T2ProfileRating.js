@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
-import { 
-  Box, 
-  Card, 
-  CardContent, 
+import {
+  Box,
+  Card,
+  CardContent,
   FormControl,
-  TextField, 
-  Typography, 
+  TextField,
+  Typography,
 } from "@mui/material";
 import { BsDash } from "react-icons/bs";
 import _ from "lodash";
@@ -15,15 +15,21 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T2ProfileRating = () => {
-
-  const { submitFormData } = useAppContext();
+  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+  console.log(data[0][2]);
 
   const [formData, setFormData] = useState({
-    instruction: "",
+    instruction: isEditing ? data[sectionNum][2].instruction : "",
     range: {
-      lower: {number: 1, text:""},
-      upper: {number: 1, text:""},
-    }
+      lower: {
+        number: isEditing ? data[sectionNum][2].range.lower.number : 1,
+        text: isEditing ? data[sectionNum][2].range.lower.text : "",
+      },
+      upper: {
+        number: isEditing ? data[sectionNum][2].range.upper.number : 1,
+        text: isEditing ? data[sectionNum][2].range.upper.text : "",
+      },
+    },
   });
 
   const handleOnChange = (event) => {
@@ -33,10 +39,10 @@ const T2ProfileRating = () => {
     if (name === "instruction") {
       setFormData((state) => ({
         ...state,
-        instruction: value
-      }))
-      return
-    } 
+        instruction: value,
+      }));
+      return;
+    }
 
     const type = name.includes("lower") ? "lower" : "upper";
     setFormData((state) => ({
@@ -45,11 +51,11 @@ const T2ProfileRating = () => {
         ...formData["range"],
         [type]: {
           ...formData["range"][type],
-          [name.includes("Num") ? "number" : "text"]: value
-        }
-      }
-    }))
-  }
+          [name.includes("Num") ? "number" : "text"]: value,
+        },
+      },
+    }));
+  };
 
   useEffect(() => {
     submitFormData(formData);
@@ -58,53 +64,64 @@ const T2ProfileRating = () => {
   return (
     <Card>
       <CardContent className="cardPadding">
-      <FormControl>
+        <FormControl>
           <Box className="twoColumns">
-              <Typography className="variable">Instruction</Typography>
-              <Box className="secondColumn">
-                  <TextField
-                      size="small" 
-                      name="instruction"
-                      fullWidth
-                      multiline
-                      minRows={3}
-                      onChange={handleOnChange}
-                  />
-              </Box>
+            <Typography className="variable">Instruction</Typography>
+            <Box className="secondColumn">
+              <TextField
+                size="small"
+                name="instruction"
+                fullWidth
+                multiline
+                minRows={3}
+                onChange={handleOnChange}
+                value={formData.instruction}
+              />
+            </Box>
           </Box>
           <Box className="twoColumns">
-              <Typography className="variable">Range</Typography>
-              <Box> 
-                {_.map(["Lower", "Upper"], (type) => {
-                  return (
-                    <Box className="secondColumn" sx={{mb: 1}}>
-                      <TextField
-                          size="small" 
-                          name={`${type.toLowerCase()}Num`}
-                          label={`${type}bound`}
-                          width="30px"
-                          InputProps={{ inputProps: { min: 1}}}
-                          type="number"
-                          onChange={handleOnChange}
-                      />
-                      <BsDash 
-                        size="40px" 
-                        style={{marginLeft:"10px", marginRight:"10px"}}
-                      />
-                      <TextField
-                          size="small" 
-                          name={`${type.toLowerCase()}Text`}
-                          label="Characteristics"
-                          fullWidth
-                          onChange={handleOnChange}
-                      />
+            <Typography className="variable">Range</Typography>
+            <Box>
+              {_.map(["Lower", "Upper"], (type) => {
+                return (
+                  <Box className="secondColumn" sx={{ mb: 1 }}>
+                    <TextField
+                      size="small"
+                      name={`${type.toLowerCase()}Num`}
+                      label={`${type}bound`}
+                      width="30px"
+                      InputProps={{ inputProps: { min: 1 } }}
+                      type="number"
+                      onChange={handleOnChange}
+                      value={
+                        isEditing &&
+                        formData["range"][type.toLowerCase()]["number"]
+                      }
+                      InputLabelProps={{ shrink: isEditing && true }}
+                    />
+                    <BsDash
+                      size="40px"
+                      style={{ marginLeft: "10px", marginRight: "10px" }}
+                    />
+                    <TextField
+                      size="small"
+                      name={`${type.toLowerCase()}Text`}
+                      label="Characteristics"
+                      fullWidth
+                      onChange={handleOnChange}
+                      value={
+                        isEditing &&
+                        formData["range"][type.toLowerCase()]["text"]
+                      }
+                      InputLabelProps={{ shrink: isEditing && true }}
+                    />
                   </Box>
-                  )})
-                }              
-              </Box>
+                );
+              })}
+            </Box>
           </Box>
         </FormControl>
-        </CardContent>
+      </CardContent>
     </Card>
   );
 };

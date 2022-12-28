@@ -12,10 +12,11 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
 
 const Section = () => {
+    const {formData, sections} = useAppContext();
 
     const location = useLocation()
     const sectionNum = parseInt(location.pathname.split("/").pop())
-    const templateList = sessionStorage.getItem("templates").split(",");
+    const templateList = sections
     const currTemplate = parseInt(templateList[sectionNum-1]);
 
     let templateType = null;
@@ -30,7 +31,7 @@ const Section = () => {
     const type  = sessionStorage.getItem("editMode");
  
 
-    const {formData} = useAppContext();
+    
 
     return(
         <div>

@@ -30,7 +30,6 @@ const SummaryCard = ({ header, content, editLink, template }) => {
             content: value
         })        
     }
-
     const handleOnEdit = () => {
         navigate(editLink, {
             state: {
