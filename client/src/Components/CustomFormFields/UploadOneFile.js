@@ -4,6 +4,8 @@ import { useAppContext } from "../../Context/AppContext";
 import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+
 
 const UploadOneFile = ({
   id,
@@ -18,10 +20,13 @@ const UploadOneFile = ({
     createdProjectId,
     editProjectId,
     sectionNum,
+    isLoading
   } = useAppContext();
 
   const [error, setError] = useState(false);
   let fileLink = "";
+
+  console.log(isLoading)
 
   const uploadFile = async (event) => {
     if (event.target.files !== undefined) {
@@ -72,6 +77,7 @@ const UploadOneFile = ({
           Choose a file to upload
           <input type="file" accept={accept} hidden onChange={uploadFile} />
         </Button>
+        {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"}/>}
       </Box>
       {error && (
         <Alert severity="error">

@@ -37,9 +37,7 @@ const T1Profile = () => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-
-  console.log(formData)
-
+  
   return (
     <Box>
       <Accordion

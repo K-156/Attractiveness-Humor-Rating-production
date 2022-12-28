@@ -46,7 +46,7 @@ const initialState = {
   projects: [],
   isEditing: false,
   editProjectId: "",
-  isLoading: true,
+  isLoading: false,
   projDetails: {},
   data: [],
   sections: [],

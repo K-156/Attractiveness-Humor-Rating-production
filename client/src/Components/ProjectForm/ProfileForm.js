@@ -7,7 +7,6 @@ import AddableTwoField from "../CustomFormFields/AddableTwoField";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
 const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
-
   const [error, setError] = useState(false);
   const [textLimit, setTextLimit] = useState({
     optionName: 0,
@@ -90,6 +89,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
               accept=".png, .jpg, .jpeg"
               templateNum={templateNum}
             />
+            
           </Box>
         </Box>
         <Box className="twoColumns">

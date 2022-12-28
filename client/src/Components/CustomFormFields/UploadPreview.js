@@ -4,9 +4,10 @@ import { useState } from "react";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import HomeSample from "./HomeSample";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 const UploadPreview = ({ setFormData, formData }) => {
-  const { uploadFiles, isEditing, editProjectId, createdProjectId } =
+  const { uploadFiles, isEditing, editProjectId, createdProjectId, isLoading } =
     useAppContext();
   let fileLink = "";
 
@@ -21,16 +22,16 @@ const UploadPreview = ({ setFormData, formData }) => {
       }
     }
     fileLink = await uploadFiles(
-        isEditing
-          ? `${editProjectId}_projDetails_graphic`
-          : `${createdProjectId}_projDetails_graphic`,
-        event.target.files[0]
-      );
+      isEditing
+        ? `${editProjectId}_projDetails_graphic`
+        : `${createdProjectId}_projDetails_graphic`,
+      event.target.files[0]
+    );
 
     setFormData((state) => ({
       ...state,
       graphic: event.target.files[0].name,
-      graphicLink:fileLink
+      graphicLink: fileLink,
     }));
 
     setGraphic(URL.createObjectURL(event.target.files[0]));
@@ -56,6 +57,7 @@ const UploadPreview = ({ setFormData, formData }) => {
           Choose a file to upload
           <input type="file" accept=".svg, .png" hidden onChange={uploadFile} />
         </Button>
+        {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"} />}
       </Box>
       {error && (
         <Alert severity="error" sx={{ width: "480px" }}>
