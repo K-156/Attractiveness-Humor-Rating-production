@@ -62,6 +62,7 @@ const Summary = () => {
           editLink="/projects/details"
         />
         {_.map(data, (section, index) => {
+          // set section number
           const templateNum = templateOrder[index];
           return (
             <SummaryCard

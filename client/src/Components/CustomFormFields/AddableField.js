@@ -1,9 +1,4 @@
-import { 
-  Box, 
-  Typography, 
-  TextField, 
-  Button 
-} from "@mui/material";
+import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
 import { BsDash } from "react-icons/bs";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -19,11 +14,12 @@ const AddableField = ({
   setFormData,
   variable,
 }) => {
-
   const onAdd = () => {
-    const variableList = [_.map((items), (aItem) => { 
-                            return (aItem[variable]) 
-                          })]
+    const variableList = [
+      _.map(items, (aItem) => {
+        return aItem[variable];
+      }),
+    ];
 
     if (variableList.includes(currValue[variable])) {
       setError((state) => ({
@@ -65,71 +61,66 @@ const AddableField = ({
         <Button onClick={onAdd}>
           <CgAdd
             size={20}
-            style={{ 
-              color: "#264653", 
-              pointerEvents: "none" 
+            style={{
+              color: "#264653",
+              pointerEvents: "none",
             }}
           />
         </Button>
       </Box>
-      <Box> 
+      <Box>
         {_.map(["Lower", "Upper"], (type) => {
           return (
-            <Box key={type} className="secondColumn" sx={{mt: 1}}>
+            <Box key={type} className="secondColumn" sx={{ mt: 1 }}>
               <TextField
-                  size="small" 
-                  name={`${type.toLowerCase()}Num`}
-                  label={`${type}bound`}
-                  width="30px"
-                  InputProps={{ inputProps: { min: 1}}}
-                  type="number"
-                  onChange={handleOnChange}
-                  id={variable}
+                size="small"
+                name={`${type.toLowerCase()}Num`}
+                label={`${type}bound`}
+                width="30px"
+                InputProps={{ inputProps: { min: 1 } }}
+                type="number"
+                onChange={handleOnChange}
+                id={variable}
               />
-              <BsDash 
-                size="40px" 
-                style={{marginLeft:"10px", marginRight:"10px"}}
+              <BsDash
+                size="40px"
+                style={{ marginLeft: "10px", marginRight: "10px" }}
               />
               <TextField
-                  size="small" 
-                  name={`${type.toLowerCase()}Text`}
-                  label="Characteristics"
-                  fullWidth
-                  onChange={handleOnChange}
-                  id={variable}
+                size="small"
+                name={`${type.toLowerCase()}Text`}
+                label="Characteristics"
+                fullWidth
+                onChange={handleOnChange}
+                id={variable}
               />
-          </Box>
-          )})
-        }              
+            </Box>
+          );
+        })}
       </Box>
       {items.length < 1 ? (
         <></>
       ) : (
-        <Box sx={{ pt: 1, pl: 2}}>
+        <Box sx={{ pt: 1, pl: 2 }}>
           {_.map(items, (value, index) => {
             return (
-              <Box
-                key={value}
-                className="spaceBetween"
-              >
-                <Typography 
+              <Box key={value} className="spaceBetween">
+                <Typography
                   sx={{
-                    fontSize:"14px",
-                    color: "#264653"
+                    fontSize: "14px",
+                    color: "#264653",
                   }}
                 >
-                  {index + 1}. {value["questions"]} 
-                  ({value["lowerNum"]}-{value["lowerText"]}, {value["upperNum"]}-{value["upperText"]}) 
+                  {index + 1}. {value["questions"]}{" "}({value["lowerNum"]} -{" "}
+                  {value["lowerText"]}, {value["upperNum"]} -{" "}
+                  {value["upperText"]})
                 </Typography>
-                <Button 
-                  id={index} 
-                  onClick={() => onDelete(index)}
-                >
+                <Button id={index} onClick={() => onDelete(index)}>
                   <RiDeleteBin6Fill
                     size={15}
-                    style={{ 
-                      color: "#264653", 
-                      pointerEvents: "none" 
+                    style={{
+                      color: "#264653",
+                      pointerEvents: "none",
                     }}
                   />
                 </Button>

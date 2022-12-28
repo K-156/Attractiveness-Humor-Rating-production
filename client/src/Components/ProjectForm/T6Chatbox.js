@@ -14,10 +14,11 @@ import "./ProjectForm.css";
 import AddableNoRange from "../CustomFormFields/AddableNoRange";
 
 const T6Chatbox = () => {
+    const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
     const [formData, setFormData] = useState({
-        instruction: "",
-        messages: [], 
+        instruction: isEditing ? data[sectionNum][6].instruction :"",
+        messages: isEditing ? data[sectionNum][6].messages:[], 
     });
     const [error, setError] = useState({
         messages: false, 
@@ -42,7 +43,6 @@ const T6Chatbox = () => {
         }
     }
 
-    const { submitFormData } = useAppContext();
 
     useEffect(() => {
       submitFormData(formData);
@@ -62,6 +62,7 @@ const T6Chatbox = () => {
                             multiline
                             minRows={3}
                             onChange={handleOnChange}
+                            value={formData.instruction}
                         />
                     </Box>
                 </Box>

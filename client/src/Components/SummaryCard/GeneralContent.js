@@ -71,7 +71,7 @@ const GeneralContent = ({ content, handleOnClick }) => {
                   {key === "duration"
                     ? `${value} mins`
                     : key === "isNext"
-                    ? `${value ? "Yes" : "No"}`
+                    ? `${value === 'true' ? "Yes" : "No"}`
                     : value}
                 </Typography>
               )

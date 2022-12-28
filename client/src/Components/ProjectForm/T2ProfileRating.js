@@ -16,7 +16,6 @@ import "./ProjectForm.css";
 
 const T2ProfileRating = () => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
-  console.log(data[0][2]);
 
   const [formData, setFormData] = useState({
     instruction: isEditing ? data[sectionNum][2].instruction : "",

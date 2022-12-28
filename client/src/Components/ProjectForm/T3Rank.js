@@ -14,6 +14,8 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T3Rank = () => {
+  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+
   const [expanded, setExpanded] = useState({
     instruction: false,
     1: false,
@@ -32,8 +34,15 @@ const T3Rank = () => {
   // })
 
   const [formData, setFormData] = useState({
-    instruction: "",
-    characteristics: { lowerbound: "", upperbound: "" },
+    instruction: isEditing ? data[sectionNum][3].instruction : "",
+    characteristics: {
+      lowerbound: isEditing
+        ? data[sectionNum][3].characteristics.lowerbound
+        : "",
+      upperbound: isEditing
+        ? data[sectionNum][3].characteristics.upperbound
+        : "",
+    },
   });
 
   const handleOnChange = (event) => {
@@ -56,8 +65,6 @@ const T3Rank = () => {
     }
   };
 
-  const { submitFormData } = useAppContext();
-
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
@@ -76,6 +83,7 @@ const T3Rank = () => {
                 multiline
                 minRows={3}
                 onChange={handleOnChange}
+                value={formData.instruction}
               />
             </Box>
           </Box>
@@ -94,6 +102,11 @@ const T3Rank = () => {
                     label={type}
                     onChange={handleOnChange}
                     sx={{ width: "180px" }}
+                    value={
+                      isEditing &&
+                      formData["characteristics"][type.toLowerCase()]
+                    }
+                    InputLabelProps={{ shrink: isEditing && true }}
                   />
                 );
               })}
