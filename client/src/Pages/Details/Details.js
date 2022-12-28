@@ -7,8 +7,11 @@ import {
   Card,
   CardContent,
   FormControl,
+  FormControlLabel,
   FormGroup,
   MenuItem,
+  Radio,
+  RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
@@ -91,7 +94,7 @@ const Details = () => {
           <FormControl sx={{ width: "80%", my: 2 }}>
             <FormGroup>
               {_.map(detailList, (detail) => {
-                if (detail === "sex") {
+                if (detail === "Sex") {
                   return (
                     <TextField
                       select
@@ -99,7 +102,7 @@ const Details = () => {
                       key={detail}
                       name="sex"
                       label="Sex"
-                      value={formData.sex}
+                      // value={formData.sex}
                       onChange={handleOnChange}
                       sx={{ my: 1 }}
                     >
@@ -112,7 +115,6 @@ const Details = () => {
                     </TextField>
                   );
                 }
-
                 return (
                   <TextField
                     required
