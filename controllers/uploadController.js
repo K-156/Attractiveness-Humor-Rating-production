@@ -21,6 +21,22 @@ const uploadImageLocal = async (req, res) => {
     .json({ img: { src: `/uploads/${image.name}` } });
 };
 
+const createFolder = async (req,res) => {
+  const { id: folderId } = req.params;
+
+  const result = await cloudinary.api.create_folder(folderId);
+
+  return res.status(StatusCodes.OK).json(result)
+}
+
+const deleteFolder = async (req,res) => {
+  const { id: folderId } = req.params;
+
+  const result = await cloudinary.api.delete_folder(folderId);
+
+  return res.status(StatusCodes.OK).json(result)
+}
+
 const uploads = async (req, res) => {
   const { id: uploadId } = req.params;
 
@@ -51,4 +67,4 @@ const deleteUploads = async (req,res) => {
   return res.status(StatusCodes.OK).json(result)
 }
 
-export { uploads, deleteUploads };
+export { uploads, deleteUploads, createFolder, deleteFolder };

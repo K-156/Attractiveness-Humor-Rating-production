@@ -194,6 +194,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_PROJECT_BEGIN });
     try {
       const { data } = await authFetch.post("projects");
+      await authFetch.post(`/projects/folder/${data.project._id}`);
       dispatch({
         type: CREATE_PROJECT_SUCCESS,
         payload: data.project._id,
@@ -270,7 +271,7 @@ const AppProvider = ({ children }) => {
     const { data } = await authFetch.get(`/projects`);
     const { projects } = data;
     const { _id: activeProjId } = projects.find((proj) => proj.isActive);
-    console.log(activeProjId)
+    console.log(activeProjId);
     try {
       await authFetch.patch(`/projects/${activeProjId}`, {
         isActive: false,
@@ -345,6 +346,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: DELETE_PROJECT_BEGIN });
     try {
       await authFetch.delete(`/projects/${id}`);
+      await authFetch.delete(`/projects/folder/${id}`);
       getAllProjects();
     } catch (error) {
       console.log(error.response);
