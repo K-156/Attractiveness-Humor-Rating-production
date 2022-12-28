@@ -129,7 +129,7 @@ const reducer = (state, action) => {
   if (action.type === SUBMIT_FORM_DATA) {
     return {
       ...state,
-      data: action.payload.formData,
+      formData: action.payload.formData,
     };
   }
   if (action.type === SET_EDIT_PROJECT) {

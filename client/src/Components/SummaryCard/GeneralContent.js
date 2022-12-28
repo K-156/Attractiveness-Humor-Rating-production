@@ -43,6 +43,7 @@ const GeneralContent = ({ content, handleOnClick }) => {
                   } else if (key === "questions") {
                     return (
                       <Typography
+                        key={key}
                         sx={{
                           fontSize: "14px",
                           color: "#264653",

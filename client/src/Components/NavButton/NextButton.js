@@ -21,10 +21,8 @@ const NextButton = ({
 }) => {
   const {
     theme,
-    createProject,
     updateProject,
     createdProjectId,
-    updateSection,
   } = useAppContext();
 
   const navigate = useNavigate();
@@ -36,7 +34,6 @@ const NextButton = ({
     if (projectType === "projDetails") {
       let dict = {};
       dict[projectType] = data;
-      console.log(dict);
       updateProject(createdProjectId, projectType, dict);
     }
 

@@ -26,8 +26,6 @@ const UploadOneFile = ({
   const [error, setError] = useState(false);
   let fileLink = "";
 
-  console.log(isLoading)
-
   const uploadFile = async (event) => {
     if (event.target.files !== undefined) {
       if (formData[id]["img"] !== null) {

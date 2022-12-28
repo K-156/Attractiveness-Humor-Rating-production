@@ -11,8 +11,6 @@ import { useAppContext } from "../../Context/AppContext";
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
 
-
-
 const Section = () => {
 
     const location = useLocation()
@@ -32,7 +30,7 @@ const Section = () => {
     const type  = sessionStorage.getItem("editMode");
  
 
-    const {data} = useAppContext();
+    const {formData} = useAppContext();
 
     return(
         <div>
@@ -46,7 +44,7 @@ const Section = () => {
                 prevLink={sectionNum === 1 ? "/projects/sections" : `/projects/sections/${sectionNum-1}`}
                 nextLink={sectionNum === templateList.length ? "/projects/summary" : `/projects/sections/${sectionNum+1}`}
                 projectType="projData"
-                formData={data}
+                formData={formData}
                 sectionNum={sectionNum}
                 templateNum={currTemplate}
             >   

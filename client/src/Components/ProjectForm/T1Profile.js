@@ -16,6 +16,8 @@ import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
 const T1Profile = () => {
+  const { submitFormData, isEditing, data, sectionNum } = useAppContext();
+
   const [expanded, setExpanded] = useState({
     instruction: false,
     1: false,
@@ -25,19 +27,41 @@ const T1Profile = () => {
   });
 
   const [formData, setFormData] = useState({
-    instruction: "",
-    1: { optionName: "", description: "", img: null, link:null, attributes: [] },
-    2: { optionName: "", description: "", img: null, link:null, attributes: [] },
-    3: { optionName: "", description: "", img: null, link:null, attributes: [] },
-    4: { optionName: "", description: "", img: null, link:null, attributes: [] },
+    instruction: isEditing ? data[sectionNum][1].instruction : "",
+    1: {
+      optionName: isEditing ? data[sectionNum][1][1].optionName : "",
+      description: isEditing ? data[sectionNum][1][1].description : "",
+      img: isEditing ? data[sectionNum][1][1].img : null,
+      link: null,
+      attributes: isEditing ? data[sectionNum][1][1].attributes : [],
+    },
+    2: {
+      optionName: isEditing ? data[sectionNum][1][2].optionName : "",
+      description: isEditing ? data[sectionNum][1][2].description : "",
+      img: isEditing ? data[sectionNum][1][2].img : null,
+      link: null,
+      attributes: isEditing ? data[sectionNum][1][2].attributes : [],
+    },
+    3: {
+      optionName: isEditing ? data[sectionNum][1][3].optionName : "",
+      description: isEditing ? data[sectionNum][1][3].description : "",
+      img: isEditing ? data[sectionNum][1][3].img : null,
+      link: null,
+      attributes: isEditing ? data[sectionNum][1][3].attributes : [],
+    },
+    4: {
+      optionName: isEditing ? data[0][1][4].optionName : "",
+      description: isEditing ? data[0][1][4].description : "",
+      img: isEditing ? data[sectionNum][1][4].img : null,
+      link: null,
+      attributes: isEditing ? data[sectionNum][1][4].attributes : [],
+    },
   });
-
-  const { submitFormData } = useAppContext();
 
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-  
+
   return (
     <Box>
       <Accordion
@@ -68,6 +92,7 @@ const T1Profile = () => {
               fullWidth
               multiline
               minRows={3}
+              value={formData.instruction}
               onChange={(event) => {
                 setFormData((state) => ({
                   ...state,
@@ -91,7 +116,7 @@ const T1Profile = () => {
               }))
             }
           >
-            <AccordionSummary className="accordionSummary" >
+            <AccordionSummary className="accordionSummary">
               <Typography className="accordionTitle">
                 {expanded[num] ? (
                   <IoIosArrowForward style={{ marginRight: 10 }} />
