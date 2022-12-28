@@ -21,7 +21,7 @@ const variableMap = {
     questions: "Questions",
     audio: "Upload Audio",
     introductions: "Introductions",
-    messageOptions: "Pre-written messages", 
+    messages: "Pre-written messages", 
     text: "Text", 
     nextButton: "Is there a Next button?", 
     theme:"Selected Theme",

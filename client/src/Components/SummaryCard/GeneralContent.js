@@ -25,7 +25,7 @@ const GeneralContent = ({ content, handleOnClick }) => {
                 "questions",
                 "audio",
                 "introductions",
-                "messageOptions",
+                "messages",
                 "email",
                 "range",
                 "audioLink",
