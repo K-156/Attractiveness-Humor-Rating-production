@@ -34,6 +34,7 @@ import {
   UPDATE_PROJECT_BEGIN,
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_ERROR,
+  SET_ACTIVE_PROJECT,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -327,6 +328,13 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_PROJECT, payload: { id } });
   };
 
+  const setActiveProject = async () => {
+    const { data } = await authFetch.get(`/projects`);
+    const { projects } = data;
+    const { _id: activeProjId } = projects.find((proj) => proj.isActive);
+    dispatch({ type: SET_ACTIVE_PROJECT, payload: { activeProjId } });
+  };
+
   const editProject = async () => {
     dispatch({ type: EDIT_PROJECT_BEGIN });
     try {
@@ -346,6 +354,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: DELETE_PROJECT_BEGIN });
     try {
       await authFetch.delete(`/projects/${id}`);
+      await authFetch.delete(`/projects/uploads/${id}`);
       await authFetch.delete(`/projects/folder/${id}`);
       getAllProjects();
     } catch (error) {
@@ -378,6 +387,7 @@ const AppProvider = ({ children }) => {
         uploadFiles,
         updateProject,
         updateSection,
+        setActiveProject,
       }}
     >
       {children}

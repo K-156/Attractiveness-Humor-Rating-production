@@ -30,6 +30,7 @@ import {
   UPDATE_PROJECT_BEGIN,
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_ERROR,
+  SET_ACTIVE_PROJECT,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -78,8 +79,8 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       data: action.payload.data,
-      projDetails:action.payload.projDetails,
-      sections:action.payload.sections,
+      projDetails: action.payload.projDetails,
+      sections: action.payload.sections,
     };
   }
   if (action.type === GET_PROJECT_ERROR) {
@@ -147,6 +148,13 @@ const reducer = (state, action) => {
     };
   }
 
+  if (action.type === SET_ACTIVE_PROJECT) {
+    return {
+      ...state,
+      activeProjectId: action.payload.activeProjId,
+    };
+  }
+
   if (action.type === DELETE_PROJECT_BEGIN) {
     return { ...state, isLoading: true };
   }
@@ -185,7 +193,6 @@ const reducer = (state, action) => {
       sectionNum: state.sectionNum + 1,
     };
   }
-
 
   if (action.type === UPLOAD_FILES_BEGIN) {
     return { ...state, isLoading: true };
