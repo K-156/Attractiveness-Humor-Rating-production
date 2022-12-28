@@ -53,7 +53,7 @@ const ProjectLayout = ({
           <Button
             variant="contained"
             className="customButton-green"
-            onClick={isEdit && saveProject}
+            onClick={saveProject}
           >
             {isEdit ? "Save Changes " : "Add Project"}
           </Button>

@@ -270,6 +270,7 @@ const AppProvider = ({ children }) => {
     const { data } = await authFetch.get(`/projects`);
     const { projects } = data;
     const { _id: activeProjId } = projects.find((proj) => proj.isActive);
+    console.log(activeProjId)
     try {
       await authFetch.patch(`/projects/${activeProjId}`, {
         isActive: false,
