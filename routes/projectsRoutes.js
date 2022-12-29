@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+import authenticateUser from "../middleware/auth.js";
 
 import {
   createProject,
@@ -11,10 +12,10 @@ import {
 
 import { createFolder, deleteFolder, deleteUploads, uploads } from "../controllers/uploadController.js";
 
-router.route("/").post(createProject).get(getAllProjects);
-router.route("/:id").patch(updateProject).get(getProject).delete(deleteProject);
-router.route("/uploads/:id").post(uploads).delete(deleteUploads)
-router.route("/folder/:id").post(createFolder).delete(deleteFolder)
+router.route("/").post(authenticateUser,createProject).get(getAllProjects);
+router.route("/:id").patch(authenticateUser,updateProject).get(getProject).delete(authenticateUser,deleteProject);
+router.route("/uploads/:id").post(authenticateUser,uploads).delete(authenticateUser,deleteUploads)
+router.route("/folder/:id").post(authenticateUser,createFolder).delete(authenticateUser,deleteFolder)
 
 
 export default router;

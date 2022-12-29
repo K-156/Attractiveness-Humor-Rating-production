@@ -162,7 +162,7 @@ const AppProvider = ({ children }) => {
   const getProject = async (projectId) => {
     dispatch({ type: GET_PROJECT_BEGIN });
     try {
-      const { data } = await authFetch.get(`/projects/${projectId}`);
+      const { data } = await axios.get(`/api/v1/projects/${projectId}`);
       const { project } = data;
       dispatch({
         type: GET_PROJECT_SUCCESS,
@@ -273,7 +273,7 @@ const AppProvider = ({ children }) => {
 
   const publishProject = async (id) => {
     dispatch({ type: PUBLISH_PROJECT_BEGIN });
-    const { data } = await authFetch.get(`/projects`);
+    const { data } = await axios.get(`/api/v1/projects`);
     const { projects } = data;
     const { _id: activeProjId } = projects.find((proj) => proj.isActive);
     console.log(activeProjId);
@@ -337,7 +337,7 @@ const AppProvider = ({ children }) => {
   };
 
   const setActiveProject = async () => {
-    const { data } = await authFetch.get(`/projects`);
+    const { data } = await axios.get(`/api/v1/projects`);
     const { projects } = data;
     const { _id: activeProjId } = projects.find((proj) => proj.isActive);
     dispatch({ type: SET_ACTIVE_PROJECT, payload: { activeProjId } });

@@ -9,7 +9,7 @@ import _ from "lodash";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Home = () => {
-  const { getProject, setActiveProject, activeProjectId, theme, setTheme } =
+  const { getProject, setActiveProject, activeProjectId, theme } =
     useAppContext();
   const navigate = useNavigate();
   const handleOnClick = (event) => {
@@ -23,11 +23,8 @@ const Home = () => {
     setActiveProject();
     if (activeProjectId !== "") {
       getProject(activeProjectId);
-      setTheme(data?.projDetails.theme)
     }
-    
   }, [activeProjectId]);
-
 
   return (
     <div className={`backgroundImage-${theme} center`}>
@@ -44,7 +41,7 @@ const Home = () => {
             variant="h5"
             sx={{
               fontWeight: "bold",
-              color: colorPalette[theme]["secondary"],
+              color: colorPalette[theme]?.secondary,
             }}
           >
             {data?.projDetails.title}
@@ -72,7 +69,7 @@ const Home = () => {
                 <Typography
                   sx={{
                     fontWeight: "bold",
-                    color: colorPalette[theme]["secondary"],
+                    color: colorPalette[theme]?.secondary,
                   }}
                 >
                   I am an/a...

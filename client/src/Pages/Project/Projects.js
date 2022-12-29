@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import ProjectTable from "../../Components/Tables/ProjectTable";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 import { useAppContext } from "../../Context/AppContext";
-import ErrorAlert from "../../Components/SnackBar/ErrorAlert";
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -37,7 +36,6 @@ const Projects = () => {
           Add Project
         </Button>
       </Box>
-      <ErrorAlert isError={true} text="hihi cannot delete active project"/>
       <ProjectTable data={projects} />
     </div>
   );

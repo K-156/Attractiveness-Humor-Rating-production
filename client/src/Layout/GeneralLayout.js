@@ -8,11 +8,12 @@ import { colorPalette } from "../Utils/colorPalette";
 const GeneralLayout = () => {
 
     const { theme } = useAppContext();
+    console.log(theme)
     
     return(
         <Box
             sx={{
-                backgroundColor: colorPalette[theme]["background"],
+                backgroundColor: colorPalette[theme]?.background,
                 p: "25px 25px 50px 25px",
                 minHeight:"100vh"
             }}
