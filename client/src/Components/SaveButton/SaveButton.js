@@ -3,30 +3,30 @@ import { useAppContext } from "../../Context/AppContext";
 
 import { Box, Button } from "@mui/material";
 
-const SaveButton = ({ projectType, data, templateNum, sectionNum }) => {
+const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
+  const { updateProject, editProjectId, data } = useAppContext();
+
+  console.log(templateNum, sectionNum);
+  console.log(data);
   const navigate = useNavigate();
-  const { updateProject, editProjectId } = useAppContext();
-  const handleSubmit = (data) => {
+  const handleSubmit = (formData) => {
     if (projectType === "projDetails") {
-      updateProject(editProjectId, projectType, data);
+      updateProject(editProjectId, projectType, formData);
     }
 
     if (projectType === "projData") {
-      let arr = JSON.parse(localStorage.getItem("projData"))
-        ? JSON.parse(localStorage.getItem("projData"))
-        : [];
+      let arr = data;
       let dict = {};
-      dict[templateNum] = data;
+      dict[templateNum] = formData;
       if (sectionNum == arr.length + 1) {
         arr.push(dict);
       } else {
-        arr[sectionNum] = dict;
+        arr[sectionNum - 1] = dict;
       }
+
       updateProject(editProjectId, projectType, arr);
-      localStorage.setItem(projectType, JSON.stringify(arr));
     } else {
-      updateProject(editProjectId, projectType, data);
-      localStorage.setItem(projectType, JSON.stringify(data));
+      updateProject(editProjectId, projectType, formData);
     }
 
     navigate("/projects/summary");
@@ -37,7 +37,7 @@ const SaveButton = ({ projectType, data, templateNum, sectionNum }) => {
         variant="contained"
         className="customButton-green"
         onClick={() => {
-          handleSubmit(data);
+          handleSubmit(formData);
         }}
       >
         Save Changes

@@ -153,7 +153,6 @@ const reducer = (state, action) => {
   }
 
   if (action.type === SET_SECTION_NO) {
-    console.log(action.payload.sectionNum);
     return {
       ...state,
       isLoading: true,

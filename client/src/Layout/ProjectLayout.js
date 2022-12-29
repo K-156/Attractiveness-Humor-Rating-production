@@ -63,7 +63,7 @@ const ProjectLayout = ({
           { isEdit ?
             <SaveButton
               projectType={projectType}
-              data={formData}
+              formData={formData}
               templateNum={templateNum}
               sectionNum={sectionNum}
             />
