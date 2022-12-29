@@ -31,7 +31,6 @@ const updateProject = async (req, res) => {
   const { userId } = req.user;
   const user = await User.findOne({ userId });
   const { id: projectId } = req.params;
-  console.log(req.params)
 
   const project = await Project.findOne({ _id: projectId });
   if (!project) {
@@ -71,6 +70,10 @@ const deleteProject = async (req, res) => {
 
   if (!project) {
     throw new NotFoundError(`No project with id ${projectId}`);
+  }
+
+  if (project && project.isActive) {
+    throw new BadRequestError("Cannot delete active project")
   }
 
   checkPermissions(user);

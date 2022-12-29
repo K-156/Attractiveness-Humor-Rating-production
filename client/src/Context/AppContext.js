@@ -21,6 +21,7 @@ import {
   LOGOUT_USER,
   SET_EDIT_PROJECT,
   DELETE_PROJECT_BEGIN,
+  DELETE_PROJECT_ERROR,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
@@ -44,7 +45,7 @@ const user = localStorage.getItem("user");
 const initialState = {
   user: user ? JSON.parse(user) : null,
   token,
-  theme: "green",
+  theme: "yellow",
   projects: [],
   isEditing: false,
   editProjectId: "",
@@ -57,6 +58,7 @@ const initialState = {
   sectionNum: 0,
   fileLink: "",
   createdProjectId: "",
+  errorMsg:"",
 };
 
 const AppContext = createContext();
@@ -365,7 +367,10 @@ const AppProvider = ({ children }) => {
       getAllProjects();
     } catch (error) {
       console.log(error.response);
-      //logoutUser()
+      dispatch({
+        type: DELETE_PROJECT_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
   };
 

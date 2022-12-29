@@ -17,6 +17,7 @@ import {
   LOGOUT_USER,
   SET_EDIT_PROJECT,
   DELETE_PROJECT_BEGIN,
+  DELETE_PROJECT_ERROR,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
@@ -38,7 +39,7 @@ import { initialState } from "./AppContext";
 
 const reducer = (state, action) => {
   if (action.type === SET_THEME) {
-    return action.payload;
+    return {...state, theme:action.payload};
   }
   if (action.type === LOGIN_USER_BEGIN) {
     return { ...state };
@@ -168,6 +169,13 @@ const reducer = (state, action) => {
 
   if (action.type === DELETE_PROJECT_BEGIN) {
     return { ...state, isLoading: true };
+  }
+  if (action.type === DELETE_PROJECT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      errorMsg:action.payload.msg
+    };
   }
   if (action.type === EDIT_PROJECT_BEGIN) {
     return {

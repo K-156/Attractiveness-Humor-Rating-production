@@ -9,7 +9,7 @@ import _ from "lodash";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Home = () => {
-  const { getProject, setActiveProject, activeProjectId, theme } =
+  const { getProject, setActiveProject, activeProjectId, theme, setTheme } =
     useAppContext();
   const navigate = useNavigate();
   const handleOnClick = (event) => {
@@ -23,6 +23,7 @@ const Home = () => {
     setActiveProject();
     if (activeProjectId !== "") {
       getProject(activeProjectId);
+      setTheme(data?.projDetails.theme)
     }
     
   }, [activeProjectId]);
