@@ -222,7 +222,7 @@ const AppProvider = ({ children }) => {
         });
         dispatch({
           type: UPDATE_PROJECT_SUCCESS,
-          payload: data,
+          payload: {data,projType},
         });
       } else if (projType === "projData") {
         const { data } = await authFetch.patch(`/projects/${projectId}`, {
@@ -230,7 +230,7 @@ const AppProvider = ({ children }) => {
         });
         dispatch({
           type: UPDATE_PROJECT_SUCCESS,
-          payload: data,
+          payload: {data,projType},
         });
       } else if (projType === "sections") {
         const { data } = await authFetch.patch(`/projects/${projectId}`, {
@@ -238,7 +238,7 @@ const AppProvider = ({ children }) => {
         });
         dispatch({
           type: UPDATE_PROJECT_SUCCESS,
-          payload: data,
+          payload: {data,projType},
         });
       }
     } catch (error) {

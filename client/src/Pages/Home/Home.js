@@ -93,15 +93,15 @@ const Home = () => {
               })}
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item xs={5.5}>
-        <img
-          src={data?.projDetails.graphicLink}
-          alt="landing page"
-          style={{
-            width: "100%",
-          }}
-        />
+        <Grid item xs={5.5}>
+          <img
+            src={data?.projDetails.graphicLink}
+            alt="landing page"
+            style={{
+              width: "100%",
+            }}
+          />
+        </Grid>
       </Grid>
     </div>
   );

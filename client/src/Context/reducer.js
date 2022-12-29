@@ -39,7 +39,7 @@ import { initialState } from "./AppContext";
 
 const reducer = (state, action) => {
   if (action.type === SET_THEME) {
-    return {...state, theme:action.payload};
+    return { ...state, theme: action.payload };
   }
   if (action.type === LOGIN_USER_BEGIN) {
     return { ...state };
@@ -77,13 +77,13 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === GET_PROJECT_SUCCESS) {
-    console.log(action.payload)
+    console.log(action.payload);
     return {
       ...state,
       isLoading: false,
       data: action.payload.data,
       projDetails: action.payload.projDetails,
-      theme:action.payload.projDetails.theme,
+      theme: action.payload.projDetails.theme,
       sections: action.payload.sections,
     };
   }
@@ -153,14 +153,13 @@ const reducer = (state, action) => {
   }
 
   if (action.type === SET_SECTION_NO) {
-    console.log(action.payload.sectionNum)
+    console.log(action.payload.sectionNum);
     return {
       ...state,
-      isLoading:true,
+      isLoading: true,
       sectionNum: action.payload.sectionNum,
     };
   }
-
 
   if (action.type === SET_ACTIVE_PROJECT) {
     return {
@@ -176,7 +175,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      errorMsg:action.payload.msg
+      errorMsg: action.payload.msg,
     };
   }
   if (action.type === EDIT_PROJECT_BEGIN) {
@@ -237,7 +236,14 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === UPDATE_PROJECT_SUCCESS) {
-    console.log(action.payload);
+    const { projType, data } = action.payload;
+    if (projType === "projData") {
+      return {
+        ...state,
+        isLoading: false,
+        data: data.updatedProject.data,
+      };
+    }
     return {
       ...state,
       isLoading: false,

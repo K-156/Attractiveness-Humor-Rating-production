@@ -20,11 +20,11 @@ const T2ProfileRating = () => {
     instruction: isEditing ? data[sectionNum][2].instruction : "",
     range: {
       lower: {
-        number: isEditing ? data[sectionNum][2].range.lower.number : 1,
+        number: isEditing ? data[sectionNum][2].range.lower.number : "",
         text: isEditing ? data[sectionNum][2].range.lower.text : "",
       },
       upper: {
-        number: isEditing ? data[sectionNum][2].range.upper.number : 1,
+        number: isEditing ? data[sectionNum][2].range.upper.number : "",
         text: isEditing ? data[sectionNum][2].range.upper.text : "",
       },
     },
@@ -84,6 +84,7 @@ const T2ProfileRating = () => {
                 return (
                   <Box className="secondColumn" sx={{ mb: 1 }}>
                     <TextField
+                      key={`T2-${type}`}
                       size="small"
                       name={`${type.toLowerCase()}Num`}
                       label={`${type}bound`}
@@ -91,27 +92,33 @@ const T2ProfileRating = () => {
                       InputProps={{ inputProps: { min: 1 } }}
                       type="number"
                       onChange={handleOnChange}
-                      value={
-                        isEditing &&
-                        formData["range"][type.toLowerCase()]["number"]
-                      }
-                      InputLabelProps={{ shrink: isEditing && true }}
+                      value={formData["range"][type.toLowerCase()]["number"]}
+                      InputLabelProps={{
+                        shrink:
+                          (isEditing ||
+                            formData["range"][type.toLowerCase()]["number"]) &&
+                          true,
+                      }}
                     />
                     <BsDash
                       size="40px"
                       style={{ marginLeft: "10px", marginRight: "10px" }}
                     />
                     <TextField
+                      key={type}
                       size="small"
                       name={`${type.toLowerCase()}Text`}
                       label="Characteristics"
                       fullWidth
                       onChange={handleOnChange}
-                      value={
-                        isEditing &&
-                        formData["range"][type.toLowerCase()]["text"]
-                      }
-                      InputLabelProps={{ shrink: isEditing && true }}
+                      value={formData["range"][type.toLowerCase()]["text"]}
+                      InputLabelProps={{
+                        shrink:
+                          (isEditing ||
+                            formData["range"][type.toLowerCase()]["text"] !==
+                              "") &&
+                          true,
+                      }}
                     />
                   </Box>
                 );

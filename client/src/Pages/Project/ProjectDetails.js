@@ -17,10 +17,10 @@ const ProjectDetails = () => {
     email: isEditing ? projDetails.email : [],
     emailLink: [],
     roles: isEditing ? projDetails.roles : [],
-    duration: isEditing ? projDetails.duration : null,
+    duration: isEditing ? projDetails.duration : "",
     theme: "green",
     graphic: isEditing ? projDetails.graphic : null,
-    graphicLink: isEditing ? projDetails.graphicLink : null,
+    graphicLink: isEditing ? projDetails.graphicLink : "",
   });
 
   useEffect(() => {

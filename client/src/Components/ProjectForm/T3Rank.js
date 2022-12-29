@@ -102,11 +102,14 @@ const T3Rank = () => {
                     label={type}
                     onChange={handleOnChange}
                     sx={{ width: "180px" }}
-                    value={
-                      isEditing &&
-                      formData["characteristics"][type.toLowerCase()]
-                    }
-                    InputLabelProps={{ shrink: isEditing && true }}
+                    value={formData["characteristics"][type.toLowerCase()]}
+                    InputLabelProps={{
+                      shrink:
+                        (isEditing ||
+                          formData["characteristics"][type.toLowerCase()] !==
+                            "") &&
+                        true,
+                    }}
                   />
                 );
               })}
