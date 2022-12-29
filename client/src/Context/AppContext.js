@@ -44,7 +44,7 @@ const user = localStorage.getItem("user");
 const initialState = {
   user: user ? JSON.parse(user) : null,
   token,
-  theme: "yellow",
+  theme: "green",
   projects: [],
   isEditing: false,
   editProjectId: "",

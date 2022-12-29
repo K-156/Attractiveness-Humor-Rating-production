@@ -17,7 +17,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // need to change project id
     setActiveProject();
     if (activeProjectId !== "") {
       getProject(activeProjectId);

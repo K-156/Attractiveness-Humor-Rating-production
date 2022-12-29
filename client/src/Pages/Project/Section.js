@@ -49,12 +49,12 @@ const Section = () => {
                 sectionNum={sectionNum}
                 templateNum={currTemplate}
             >   
-                { currTemplate === 1  ? <T1Profile sectionNo={sectionNum}/> 
-                    : currTemplate === 2 ? <T2ProfileRating sectionNo={sectionNum}/>
-                    : currTemplate === 3 ? <T3Rank sectionNo={sectionNum}/>
-                    : currTemplate === 4 ? <T4Audio sectionNo={sectionNum}/>
-                    : currTemplate === 5 ? <T5Intro sectionNo={sectionNum}/>
-                    : currTemplate === 6 ? <T6Chatbox sectionNo={sectionNum}/>
+                { currTemplate === 1  ? <T1Profile/> 
+                    : currTemplate === 2 ? <T2ProfileRating/>
+                    : currTemplate === 3 ? <T3Rank/>
+                    : currTemplate === 4 ? <T4Audio/>
+                    : currTemplate === 5 ? <T5Intro/>
+                    : currTemplate === 6 ? <T6Chatbox/>
                     : <T7General />
                 }
             </ProjectLayout>    
