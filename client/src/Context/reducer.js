@@ -31,6 +31,7 @@ import {
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_ERROR,
   SET_ACTIVE_PROJECT,
+  SET_SECTION_NO,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -147,6 +148,16 @@ const reducer = (state, action) => {
       sections,
     };
   }
+
+  if (action.type === SET_SECTION_NO) {
+    console.log(action.payload.sectionNum)
+    return {
+      ...state,
+      isLoading:true,
+      sectionNum: action.payload.sectionNum,
+    };
+  }
+
 
   if (action.type === SET_ACTIVE_PROJECT) {
     return {

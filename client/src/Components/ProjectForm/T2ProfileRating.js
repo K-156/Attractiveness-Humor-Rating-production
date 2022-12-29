@@ -11,11 +11,10 @@ import {
 } from "@mui/material";
 import { BsDash } from "react-icons/bs";
 import _ from "lodash";
-
 import "./ProjectForm.css";
 
-const T2ProfileRating = () => {
-  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+const T2ProfileRating = ({sectionNo}) => {
+  const { submitFormData, data, sectionNum, isEditing, setSectionNum, isLoading } = useAppContext();
 
   const [formData, setFormData] = useState({
     instruction: isEditing ? data[sectionNum][2].instruction : "",
@@ -57,8 +56,10 @@ const T2ProfileRating = () => {
   };
 
   useEffect(() => {
+    // setSectionNum(sectionNo-1);
     submitFormData(formData);
   }, [formData]);
+
 
   return (
     <Card>
@@ -108,10 +109,7 @@ const T2ProfileRating = () => {
                       label="Characteristics"
                       fullWidth
                       onChange={handleOnChange}
-                      value={
-                        isEditing &&
-                        formData["range"][type.toLowerCase()]["text"]
-                      }
+                      value={isEditing && formData["range"][type.toLowerCase()]["text"]}
                       InputLabelProps={{ shrink: isEditing && true }}
                     />
                   </Box>

@@ -35,6 +35,7 @@ import {
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_ERROR,
   SET_ACTIVE_PROJECT,
+  SET_SECTION_NO,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -50,7 +51,7 @@ const initialState = {
   isLoading: false,
   projDetails: {},
   formData: [],
-  data:[],
+  data: [],
   sections: [],
   activeProjectId: "",
   sectionNum: 0,
@@ -329,6 +330,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_PROJECT, payload: { id } });
   };
 
+  const setSectionNum = (sectionNum) => {
+    dispatch({ type: SET_SECTION_NO, payload: { sectionNum } });
+  };
+
   const setActiveProject = async () => {
     const { data } = await authFetch.get(`/projects`);
     const { projects } = data;
@@ -389,6 +394,7 @@ const AppProvider = ({ children }) => {
         updateProject,
         updateSection,
         setActiveProject,
+        setSectionNum,
       }}
     >
       {children}

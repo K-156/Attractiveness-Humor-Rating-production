@@ -7,7 +7,7 @@ import AddableTwoField from "../CustomFormFields/AddableTwoField";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
 const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
-  console.log(formData)
+
   const [error, setError] = useState(false);
   const [textLimit, setTextLimit] = useState({
     optionName: 0,

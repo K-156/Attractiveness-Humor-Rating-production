@@ -15,8 +15,10 @@ import _ from "lodash";
 import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
-const T1Profile = () => {
-  const { submitFormData, isEditing, data, sectionNum } = useAppContext();
+const T1Profile = ({sectionNo}) => {
+
+  const { submitFormData, isEditing, data, setSectionNum, sectionNum } =
+    useAppContext();
 
   const [expanded, setExpanded] = useState({
     instruction: false,
@@ -59,6 +61,7 @@ const T1Profile = () => {
   });
 
   useEffect(() => {
+    // setSectionNum(sectionNo-1);
     submitFormData(formData);
   }, [formData]);
 

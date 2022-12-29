@@ -12,11 +12,11 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
 
 const Section = () => {
-    const {formData, sections} = useAppContext();
+    const {formData, sections, isEditing} = useAppContext();
 
     const location = useLocation()
     const sectionNum = parseInt(location.pathname.split("/").pop())
-    const templateList = sections
+    const templateList = isEditing ? sections : sessionStorage.getItem('templates').split(',')
     const currTemplate = parseInt(templateList[sectionNum-1]);
 
     let templateType = null;
@@ -49,12 +49,12 @@ const Section = () => {
                 sectionNum={sectionNum}
                 templateNum={currTemplate}
             >   
-                { currTemplate === 1  ? <T1Profile /> 
-                    : currTemplate === 2 ? <T2ProfileRating />
-                    : currTemplate === 3 ? <T3Rank />
-                    : currTemplate === 4 ? <T4Audio />
-                    : currTemplate === 5 ? <T5Intro />
-                    : currTemplate === 6 ? <T6Chatbox />
+                { currTemplate === 1  ? <T1Profile sectionNo={sectionNum}/> 
+                    : currTemplate === 2 ? <T2ProfileRating sectionNo={sectionNum}/>
+                    : currTemplate === 3 ? <T3Rank sectionNo={sectionNum}/>
+                    : currTemplate === 4 ? <T4Audio sectionNo={sectionNum}/>
+                    : currTemplate === 5 ? <T5Intro sectionNo={sectionNum}/>
+                    : currTemplate === 6 ? <T6Chatbox sectionNo={sectionNum}/>
                     : <T7General />
                 }
             </ProjectLayout>    
