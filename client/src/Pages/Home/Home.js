@@ -6,7 +6,6 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill, BsArrowRight } from "react-icons/bs";
 import _ from "lodash";
 
-import LandingPage from "../../Assets/landing-page_v2.svg";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Home = () => {
@@ -18,16 +17,16 @@ const Home = () => {
     navigate(`/login`);
   };
 
+  const data = JSON.parse(localStorage.getItem("data"));
+
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
       getProject(activeProjectId);
     }
+    
   }, [activeProjectId]);
 
-  const { projDetails } = JSON.parse(localStorage.getItem("data"))
-    ? JSON.parse(localStorage.getItem("data"))
-    : null;
 
   return (
     <div className={`backgroundImage-${theme} center`}>
@@ -47,7 +46,7 @@ const Home = () => {
               color: colorPalette[theme]["secondary"],
             }}
           >
-            {projDetails?.title}
+            {data?.projDetails.title}
           </Typography>
           <Typography
             sx={{
@@ -55,11 +54,11 @@ const Home = () => {
               my: 3,
             }}
           >
-            {projDetails?.description}
+            {data?.projDetails.description}
           </Typography>
           <Grid container gap={1}>
             <Grid item xs={12} className="center" sx={{ my: 1 }}>
-              {projDetails?.roles.length === 0 ? (
+              {data?.projDetails.roles.length === 0 ? (
                 <Button
                   id="start"
                   onClick={handleOnClick}
@@ -79,8 +78,8 @@ const Home = () => {
                 </Typography>
               )}
             </Grid>
-            {projDetails?.roles.length > 0 &&
-              _.map(projDetails?.roles, (role) => {
+            {data?.projDetails.roles.length > 0 &&
+              _.map(data?.projDetails.roles, (role) => {
                 return (
                   <Grid item xs={5.5} className="center" key={role}>
                     <Button
@@ -99,7 +98,7 @@ const Home = () => {
       </Grid>
       <Grid item xs={5.5}>
         <img
-          src={projDetails?.graphicLink}
+          src={data?.projDetails.graphicLink}
           alt="landing page"
           style={{
             width: "100%",
