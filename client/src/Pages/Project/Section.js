@@ -1,4 +1,8 @@
 import { useLocation } from "react-router-dom";
+import { useAppContext } from "../../Context/AppContext";
+
+import _ from "lodash";
+
 import T1Profile from "../../Components/ProjectForm/T1Profile";
 import T2ProfileRating from "../../Components/ProjectForm/T2ProfileRating";
 import T3Rank from "../../Components/ProjectForm/T3Rank";
@@ -6,8 +10,6 @@ import T4Audio from "../../Components/ProjectForm/T4Audio";
 import T5Intro from "../../Components/ProjectForm/T5Intro";
 import T6Chatbox from "../../Components/ProjectForm/T6Chatbox";
 import T7General from "../../Components/ProjectForm/T7General";
-import { useAppContext } from "../../Context/AppContext";
-
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
 
@@ -18,6 +20,7 @@ const Section = () => {
     const sectionNum = parseInt(location.pathname.split("/").pop())
     const templateList = isEditing ? sections : sessionStorage.getItem('templates').split(',')
     const currTemplate = parseInt(templateList[sectionNum-1]);
+    const roles = JSON.parse(localStorage.getItem("projDetails")).roles;
 
     let templateType = null;
     const { template } = location.state;
@@ -30,9 +33,6 @@ const Section = () => {
 
     const type  = sessionStorage.getItem("editMode");
  
-
-    
-
     return(
         <div>
             <script>
@@ -49,14 +49,16 @@ const Section = () => {
                 sectionNum={sectionNum}
                 templateNum={currTemplate}
             >   
-                { currTemplate === 1  ? <T1Profile/> 
+                { currTemplate === 1 && roles.length > 0
+                    ? _.map(roles, (aRole) => { return(<T1Profile role={aRole}/>) }) 
+                    : currTemplate === 1 && roles.length === 0 ? <T1Profile />
                     : currTemplate === 2 ? <T2ProfileRating/>
                     : currTemplate === 3 ? <T3Rank/>
                     : currTemplate === 4 ? <T4Audio/>
                     : currTemplate === 5 ? <T5Intro/>
                     : currTemplate === 6 ? <T6Chatbox/>
                     : <T7General />
-                }
+                } 
             </ProjectLayout>    
         </div>
     )

@@ -15,7 +15,7 @@ import _ from "lodash";
 import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
-const T1Profile = () => {
+const T1Profile = ({ role }) => {
 
   const { submitFormData, isEditing, data, sectionNum } =
     useAppContext();
@@ -65,7 +65,10 @@ const T1Profile = () => {
   }, [formData]);
 
   return (
-    <Box>
+    <Box sx={{mb:3}}>
+      <Typography sx={{color: "#264653"}} >
+        Role: <b>{role}</b>
+      </Typography>
       <Accordion
         disableGutters
         expanded={expanded["instruction"]}
