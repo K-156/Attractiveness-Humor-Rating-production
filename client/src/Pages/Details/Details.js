@@ -102,7 +102,7 @@ const Details = () => {
                       key={detail}
                       name="sex"
                       label="Sex"
-                      // value={formData.sex}
+                      value={formData.sex}
                       onChange={handleOnChange}
                       sx={{ my: 1 }}
                     >

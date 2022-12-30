@@ -19,12 +19,18 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
 import "./Tables.css";
+import DeleteDialog from "../DeleteDialog/DeleteDialog";
 
 const ProjectTable = ({ data }) => {
   const navigate = useNavigate();
   const { setEditProject, deleteProject, isEditing, editProject, publishProject } = useAppContext();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [open, setOpen] = useState(false);
+  const [toDelete, setToDelete] = useState({
+    id: "", isActive: null
+  });
+
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
@@ -39,6 +45,14 @@ const ProjectTable = ({ data }) => {
       editProject()
     }
   };
+
+  const handleOnDelete = (item) => {
+    setOpen(true);
+    setToDelete({
+      id: item._id,
+      isActive: item.isActive
+    });
+  }
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
@@ -97,7 +111,7 @@ const ProjectTable = ({ data }) => {
                       <Button
                         id={item.name}
                         sx={{minWidth:"10px"}}
-                        onClick={() => deleteProject(item._id)}
+                        onClick={()=>handleOnDelete(item)}
                       >
                         <RiDeleteBin6Fill
                           size={15}
@@ -128,6 +142,13 @@ const ProjectTable = ({ data }) => {
         page={page}
         onPageChange={(event, newPage) => setPage(newPage)}
         onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <DeleteDialog 
+        open={open}
+        setOpen={setOpen}
+        isActive={toDelete.isActive}
+        handleDelete={(event)=> deleteProject(event.target.name)}
+        id={toDelete.id}
       />
     </Box>
   );
