@@ -8,7 +8,6 @@ import { colorPalette } from "../Utils/colorPalette";
 const GeneralLayout = () => {
 
     const { theme } = useAppContext();
-    console.log(theme)
     
     return(
         <Box

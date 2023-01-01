@@ -31,6 +31,7 @@ import Themes from "./Pages/Project/ThemeSamples";
 import AdminLogin from "./Pages/Login/AdminLogin";
 import Test from "./Pages/Rank/Test";
 import Error404 from "./Pages/Error404/Error404";
+import ParticipantSections from "./Pages/ParticipantSections/ParticipantSections";
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
               </ProtectedRoute>
             }
           >
+            <Route path="/sections/:id" element={<ParticipantSections />} />
             <Route
               path="/attractive-instruction"
               element={

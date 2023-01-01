@@ -15,16 +15,16 @@ import PrevButton from "../../Components/NavButton/PrevButton";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Description = () => {
-
   const { theme, sectionNum } = useAppContext();
 
   const location = useLocation();
   const navigate = useNavigate();
   const { id, candidateCount, link } = location.state;
 
-  const {data} = JSON.parse(localStorage.getItem("data"));
-  const attributes = data[sectionNum][[Object.keys(data[sectionNum])[0]]][Number(id)+1].attributes
-
+  const { data } = JSON.parse(localStorage.getItem("data"));
+  const attributes =
+    data[sectionNum][[Object.keys(data[sectionNum])[0]]][Number(id) + 1]
+      .attributes;
 
   const handleOnChange = (event) => {
     const newId = parseInt(event.target.textContent);
@@ -32,7 +32,7 @@ const Description = () => {
       state: {
         id: parseInt(newId) - 1,
         candidateCount: candidateCount,
-        link: link
+        link: link,
       },
     });
   };
@@ -42,11 +42,7 @@ const Description = () => {
       <script>{(document.title = "Description")}</script>
 
       <Box>
-        <PrevButton 
-          isSurvey={true}
-          text="Profiles"
-          link="/profiles" 
-        />
+        <PrevButton isSurvey={true} text="Profiles" link="/profiles" />
       </Box>
       <Box className="center">
         <Card sx={{ mt: 2, width: "800px" }}>
@@ -54,16 +50,24 @@ const Description = () => {
             <Grid container className="centerPadding" px={1} py={2} gap={1}>
               <Grid item xs={5}>
                 <Box className="imageBox">
-                  {/* <img 
-                    src={data.proj[id].img} 
-                    alt="profile" 
-                  /> */}
+                  <img
+                    src={
+                      data[sectionNum][[Object.keys(data[sectionNum])[0]]][
+                        Number(id) + 1
+                      ].link
+                    }
+                    alt="profile"
+                  />
                 </Box>
                 <Typography
                   className="cardHeader"
-                  sx={{color: colorPalette[theme]["primary"]}}
+                  sx={{ color: colorPalette[theme]["primary"] }}
                 >
-                  {data[sectionNum][[Object.keys(data[sectionNum])[0]]][Number(id)+1].optionName}
+                  {
+                    data[sectionNum][[Object.keys(data[sectionNum])[0]]][
+                      Number(id) + 1
+                    ].optionName
+                  }
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -71,23 +75,21 @@ const Description = () => {
                   const { name, value } = attribute;
                   return (
                     <Grid container gap={2} key={key} mt={1}>
-                      <Grid
-                        item
-                        xs={3}
-                        className="flexEnd"
-                      >
+                      <Grid item xs={3} className="flexEnd">
                         <Typography
                           sx={{
                             fontSize: "14px",
                             fontWeight: "bold",
-                            color: colorPalette[theme]["secondary"]
+                            color: colorPalette[theme]["secondary"],
                           }}
                         >
                           {name}
                         </Typography>
                       </Grid>
                       <Grid item xs={8}>
-                        <Typography sx={{fontSize:"14px"}}>{value}</Typography>
+                        <Typography sx={{ fontSize: "14px" }}>
+                          {value}
+                        </Typography>
                       </Grid>
                     </Grid>
                   );
@@ -97,16 +99,16 @@ const Description = () => {
           </CardContent>
         </Card>
       </Box>
-      <Box 
+      <Box
         className="flexColumn"
         sx={{
-          alignItems:"center",
-          mt: 5
+          alignItems: "center",
+          mt: 5,
         }}
       >
         <Typography
           className="cardHeader"
-          sx={{color: colorPalette[theme]["primary"]}}
+          sx={{ color: colorPalette[theme]["primary"] }}
         >
           CANDIDATES
         </Typography>
@@ -119,14 +121,14 @@ const Description = () => {
           onChange={handleOnChange}
           sx={{
             mt: 2,
-            ".MuiPaginationItem-root": { 
+            ".MuiPaginationItem-root": {
               mx: 2,
               color: colorPalette[theme]["primary"],
             },
             ".MuiPaginationItem-root.Mui-selected": {
-                color: "#FFFFFF",
-                backgroundColor: colorPalette[theme]["primary"],
-              },
+              color: "#FFFFFF",
+              backgroundColor: colorPalette[theme]["primary"],
+            },
           }}
         />
       </Box>

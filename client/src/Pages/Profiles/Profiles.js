@@ -1,5 +1,5 @@
 import { useAppContext } from "../../Context/AppContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Box, Grid } from "@mui/material";
 import _ from "lodash";
@@ -7,24 +7,38 @@ import _ from "lodash";
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import NextButton from "../../Components/NavButton/NextButton";
 import Instruction from "../../Components/Instruction/Instruction";
+import links from "../../Utils/links";
+
 
 const Profiles = () => {
-  const { sectionNum } = useAppContext();
+  const { sectionNum, nextSection } = useAppContext();
   const location = useLocation();
   const state = location.state;
+  const navigate = useNavigate();
 
-  console.log(location)
-  console.log(state.state)
+  const { data } = JSON.parse(localStorage.getItem("data"));
+  const { path } = links.find(
+    (link) => link.id == Object.keys(data[sectionNum + 1])[0]
+  );
 
   let arr = [];
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  console.log(path)
 
-  for (const [key, value] of Object.entries(data[sectionNum][[Object.keys(data[sectionNum])[0]]])) {
-    if (key !== "instruction") {
+
+  for (const [key, value] of Object.entries(
+    data[sectionNum][[Object.keys(data[sectionNum])[0]]]
+  )) {
+    if (key == 1 || key == 2 || key == 3 || key == 4) {
       arr.push(value);
     }
   }
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    nextSection()
+    navigate(path);
+  };
 
   return (
     <div>
@@ -37,23 +51,22 @@ const Profiles = () => {
               <ItemCard
                 id={index}
                 title={item.optionName}
-                // img={item.img}
+                img={item.link}
                 description={item.description}
                 candidateCount={arr.length}
-                link = {state["link"]}
+                link={state["link"]}
               />
             </Grid>
           );
         })}
       </Grid>
       <Box className="flexEnd">
-        <NextButton 
-          isSurvey={true} 
-          text={state ? state["type"] : "Next"} 
-          link={state["link"] ? state["link"] : "/attractive/rate"} 
+        <NextButton
+          isSurvey={true}
+          text={state ? state["type"] : "Next"}
+          handleOnSubmit={handleOnSubmit}
         />
       </Box>
-      
     </div>
   );
 };

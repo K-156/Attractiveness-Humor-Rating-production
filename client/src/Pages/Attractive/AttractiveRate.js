@@ -16,17 +16,39 @@ const AttractiveRate = () => {
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
-  let arr = [];
 
   const { data } = JSON.parse(localStorage.getItem("data"));
-  const { path } = links.find(
-    (link) => link.id == Object.keys(data[sectionNum + 1])[0]
-  );
 
-  for (const [key, value] of Object.entries(
-    data[sectionNum][[Object.keys(data[sectionNum])[0]]]
-  )) {
-    if (key !== "instruction") {
+  const { path } =
+    data[sectionNum + 1] !== undefined
+      ? links.find((link) => link.id == Object.keys(data[sectionNum + 1])[0])
+      : links.find((link) => link.id === 8);
+
+  let arr = [];
+  let noOfProfile = 0;
+  let arrOfProfile = [];
+  let dataToDisplay = {}
+
+  // find how many profile
+  for (const [sectionNum, dict] of Object.entries(data)) {
+    for (const [templateNo, data] of Object.entries(dict)) {
+      if (templateNo == 1) {
+        noOfProfile += 1;
+        arrOfProfile.push(sectionNum);
+      }
+    }
+  }
+  // find which profile to display
+  for (let i = 0; i < arrOfProfile.length; i++) {
+    const element = arrOfProfile[i];
+    console.log(element, sectionNum);
+    if (element < sectionNum) {
+      dataToDisplay = data[element][1];
+    }
+  }
+
+  for (const [key, value] of Object.entries(dataToDisplay)) {
+    if (key == 1 || key == 2 || key == 3 || key == 4) {
       arr.push(value);
     }
   }
@@ -53,7 +75,7 @@ const AttractiveRate = () => {
   return (
     <div>
       <script>{(document.title = "Profile Rating")}</script>
-      <Box className="spaceBetween" sx={{width: "250px"}}>
+      <Box className="spaceBetween" sx={{ width: "250px" }}>
         <Instruction type="attractive" />
         <Button
           variant="contained"
@@ -62,10 +84,11 @@ const AttractiveRate = () => {
             navigate("/profiles", {
               state: {
                 link: location.pathname,
-                type: "Rate"
-              }})
-            }}
-          >
+                type: "Rate",
+              },
+            });
+          }}
+        >
           View Profiles
         </Button>
       </Box>
@@ -76,7 +99,7 @@ const AttractiveRate = () => {
               <RatingCard
                 id={index}
                 title={item.optionName}
-                // img={item.img}
+                img={item.link}
                 description={item.description}
                 setRating={setRating}
               />
