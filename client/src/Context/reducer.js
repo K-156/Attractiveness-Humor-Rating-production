@@ -25,6 +25,7 @@ import {
   PUBLISH_PROJECT_BEGIN,
   PUBLISH_PROJECT_SUCCESS,
   NEXT_SECTION,
+  PREV_SECTION,
   UPLOAD_FILES_BEGIN,
   UPLOAD_FILES_SUCCESS,
   UPLOAD_FILES_ERROR,
@@ -210,6 +211,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       sectionNum: state.sectionNum + 1,
+    };
+  }
+
+  if (action.type === PREV_SECTION) {
+    return {
+      ...state,
+      sectionNum: state.sectionNum - 1,
     };
   }
 

@@ -12,7 +12,8 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const AttractiveRate = () => {
-  const { updateUser, user, sectionNum, nextSection, theme } = useAppContext();
+  const { updateUser, user, sectionNum, nextSection, theme, prevSection } =
+    useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,7 +28,7 @@ const AttractiveRate = () => {
   let arr = [];
   let noOfProfile = 0;
   let arrOfProfile = [];
-  let dataToDisplay = {}
+  let dataToDisplay = {};
 
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
@@ -52,6 +53,17 @@ const AttractiveRate = () => {
       arr.push(value);
     }
   }
+
+  const handleViewProfile = (e) => {
+    e.preventDefault();
+    prevSection();
+    navigate("/profiles", {
+      state: {
+        link: location.pathname,
+        type: "Rate",
+      },
+    });
+  };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -80,14 +92,7 @@ const AttractiveRate = () => {
         <Button
           variant="contained"
           className={`customButton-${theme}`}
-          onClick={() => {
-            navigate("/profiles", {
-              state: {
-                link: location.pathname,
-                type: "Rate",
-              },
-            });
-          }}
+          onClick={handleViewProfile}
         >
           View Profiles
         </Button>

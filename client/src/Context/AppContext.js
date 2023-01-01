@@ -29,6 +29,7 @@ import {
   PUBLISH_PROJECT_BEGIN,
   PUBLISH_PROJECT_SUCCESS,
   NEXT_SECTION,
+  PREV_SECTION,
   UPLOAD_FILES_BEGIN,
   UPLOAD_FILES_SUCCESS,
   UPLOAD_FILES_ERROR,
@@ -378,6 +379,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: NEXT_SECTION });
   };
 
+  const prevSection = () => {
+    dispatch({ type: PREV_SECTION });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -400,6 +405,7 @@ const AppProvider = ({ children }) => {
         updateSection,
         setActiveProject,
         setSectionNum,
+        prevSection,
       }}
     >
       {children}

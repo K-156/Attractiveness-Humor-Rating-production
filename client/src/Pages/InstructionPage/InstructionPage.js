@@ -7,10 +7,7 @@ import { colorPalette } from "../../Utils/colorPalette";
 import "./InstructionPage.css";
 
 const InstructionPage = ({ type, link }) => {
-
-  console.log(link)
   const { theme, sectionNum } = useAppContext();
-  // sessionStorage.setItem(type, instruction[type])
   const {data} = JSON.parse(localStorage.getItem("data"));
 
   return (
