@@ -4,25 +4,22 @@ import { useLocation } from "react-router-dom";
 import InstructionPage from "../InstructionPage/InstructionPage";
 import AttractiveRate from "../Attractive/AttractiveRate";
 import General from "../General/General";
+import NextButton from "../../Components/NavButton/NextButton";
+
+import { Box } from "@mui/material";
 
 const ParticipantSections = () => {
-  const { formData, sections, isEditing } = useAppContext();
+  const { sections } = useAppContext();
+
+  const { data } = JSON.parse(localStorage.getItem("data"));
 
   const location = useLocation();
   const sectionNum = parseInt(location.pathname.split("/").pop());
-
-  const currTemplate = 0;
+  const currTemplate = sections[sectionNum - 1];
 
   return (
     <div>
-      <script>
-        {
-          (document.title = `${
-            type === "add" ? "Add " : "Edit "
-          } Project | Section ${sectionNum}`)
-        }
-      </script>
-
+      <script></script>
       {currTemplate === 1 ? (
         <InstructionPage key="attractive" type="attractive" link="/profiles" />
       ) : currTemplate === 2 ? (
@@ -38,6 +35,9 @@ const ParticipantSections = () => {
       ) : (
         <General />
       )}
+      <Box className="flexEnd" sx={{ py: 3, width: "80%"}}>
+        <NextButton isSurvey={true} link={`/sections/${sectionNum + 1}`} />
+      </Box>
     </div>
   );
 };

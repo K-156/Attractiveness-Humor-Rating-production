@@ -66,16 +66,6 @@ function App() {
             }
           >
             <Route path="/sections/:id" element={<ParticipantSections />} />
-            <Route
-              path="/attractive-instruction"
-              element={
-                <InstructionPage
-                  key="attractive"
-                  type="attractive"
-                  link="/profiles"
-                />
-              }
-            />
             <Route path="/profiles" element={<Profiles />} />
             <Route path="/profiles/:id" element={<Description />} />
             <Route path="/attractive/rate" element={<AttractiveRate />} />
