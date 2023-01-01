@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
@@ -7,20 +7,31 @@ import {
   Card,
   CardContent,
   FormControl,
+  FormControlLabel,
   FormGroup,
   MenuItem,
+  Radio,
+  RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
 import _ from "lodash";
 import { colorPalette } from "../../Utils/colorPalette";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
+import links from "../../Utils/links";
 
 const Details = () => {
   const navigate = useNavigate();
-  const { updateUser, user, theme, isLoading } = useAppContext();
+  const { updateUser, user, getProject, theme, activeProjectId, isLoading, nextSection, sectionNum } =
+    useAppContext();
+
+
 
   const detailList = ["Sex", "Age", "Ethnicity"];
+  
+  const { data } = JSON.parse(localStorage.getItem("data"));
+
+  const { path } = links.find((link) => link.id == Object.keys(data[sectionNum])[0]);
 
   const [formData, setFormData] = useState({
     sex: "",
@@ -54,7 +65,7 @@ const Details = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({ currentUser: { ...user, formData }, id: user._id });
-    navigate("/sections/1");
+    navigate(path);
   };
 
   if (isLoading) {

@@ -7,9 +7,11 @@ import { colorPalette } from "../../Utils/colorPalette";
 import "./InstructionPage.css";
 
 const InstructionPage = ({ type, link }) => {
+
+  console.log(link)
   const { theme, sectionNum } = useAppContext();
   // sessionStorage.setItem(type, instruction[type])
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  const {data} = JSON.parse(localStorage.getItem("data"));
 
   return (
     <div className={`backgroundImage-${theme} center`}>
@@ -48,7 +50,7 @@ const InstructionPage = ({ type, link }) => {
             </Box>
           </CardContent>
         </Card>
-        <Box className="flexEnd" sx={{ py: 3, width: "80%"}}>
+        <Box className="flexEnd" sx={{ py: 3, width: "80%" }}>
           <NextButton isSurvey={true} link={link} />
         </Box>
       </Box>
