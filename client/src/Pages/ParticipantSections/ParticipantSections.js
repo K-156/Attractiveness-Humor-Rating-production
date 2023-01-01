@@ -35,7 +35,7 @@ const ParticipantSections = () => {
       ) : (
         <General />
       )}
-      <Box className="flexEnd" sx={{ py: 3, width: "80%"}}>
+      <Box sx={{ position:"absolute", top: 25, right: 25, zIndex: 5 }}>
         <NextButton isSurvey={true} link={`/sections/${sectionNum + 1}`} />
       </Box>
     </div>
