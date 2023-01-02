@@ -29,7 +29,6 @@ import Summary from "./Pages/Project/Summary";
 import GeneralLayout from "./Layout/GeneralLayout";
 import Themes from "./Pages/Project/ThemeSamples";
 import AdminLogin from "./Pages/Login/AdminLogin";
-import Test from "./Pages/Rank/Test";
 import Error404 from "./Pages/Error404/Error404";
 
 
