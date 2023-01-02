@@ -16,8 +16,60 @@ const Chat = ({ title, link }) => {
   const [selectMessage, setSelectMessage] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const { sections } = JSON.parse(localStorage.getItem("data"));
+  const { data, sections } = JSON.parse(localStorage.getItem("data"));
   const { path } = links.find((link) => link.id === sections[sectionNum + 1]);
+
+  let arrOfRank = [];
+  let rankToDisplay = 0;
+
+  // find how many rank
+  for (const [sectionNum, dict] of Object.entries(data)) {
+    for (const [templateNo, data] of Object.entries(dict)) {
+      if (templateNo == 3) {
+        arrOfRank.push(sectionNum);
+      }
+    }
+  }
+
+  // find which rank to display
+  for (let i = 0; i < arrOfRank.length; i++) {
+    const element = arrOfRank[i];
+    if (element < sectionNum) {
+      rankToDisplay = i;
+    }
+  }
+
+  let arr = [];
+  let arrOfProfile = [];
+  let dataToDisplay = {};
+
+  // find how many profile
+  for (const [sectionNum, dict] of Object.entries(data)) {
+    for (const [templateNo, data] of Object.entries(dict)) {
+      if (templateNo == 1) {
+        arrOfProfile.push(sectionNum);
+      }
+    }
+  }
+  // find which profile to display
+  for (let i = 0; i < arrOfProfile.length; i++) {
+    const element = arrOfProfile[i];
+    if (element <= sectionNum) {
+      dataToDisplay = data[element][1];
+    }
+  }
+
+  for (const [key, value] of Object.entries(dataToDisplay)) {
+    if (key == 1 || key == 2 || key == 3 || key == 4) {
+      arr.push(value);
+    }
+  }
+
+  const firstCandidate = user.userResponse.rank[rankToDisplay][0];
+  const lastCandidate =
+    user.userResponse.rank[rankToDisplay][
+      user.userResponse.rank[rankToDisplay].length - 1
+    ];
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +103,8 @@ const Chat = ({ title, link }) => {
         link={link}
         selectMessage={selectMessage}
         setSelectMessage={setSelectMessage}
+        firstCandidate={arr[firstCandidate]}
+        lastCandidate={arr[lastCandidate]}
       />
       <Box className="spaceBetween" sx={{ mx: 5, my: 3 }}>
         <NextButton
