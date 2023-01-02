@@ -21,7 +21,8 @@ import _ from "lodash";
 import "./Tables.css";
 import DeleteDialog from "../DeleteDialog/DeleteDialog";
 
-const ProjectTable = ({ data }) => {
+
+const ProjectTable = ({ data, setDeleteSuccess }) => {
   const navigate = useNavigate();
   const { setEditProject, deleteProject, isEditing, editProject, publishProject } = useAppContext();
   const [page, setPage] = useState(0);
@@ -147,9 +148,13 @@ const ProjectTable = ({ data }) => {
         open={open}
         setOpen={setOpen}
         isActive={toDelete.isActive}
-        handleDelete={(event)=> deleteProject(event.target.name)}
+        handleDelete={(event)=> {
+          deleteProject(event.target.name)
+          setDeleteSuccess(true)
+        }}
         id={toDelete.id}
       />
+      
     </Box>
   );
 };

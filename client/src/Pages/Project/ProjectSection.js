@@ -32,6 +32,7 @@ const ProjectDetails = () => {
         nextLink="/projects/sections/1"
         projectType="sections"
         formData={formData}
+        nextDisabled={formData.length === 0}
       >
         <AddSection formData={formData} setFormData={setFormData} />
       </ProjectLayout>

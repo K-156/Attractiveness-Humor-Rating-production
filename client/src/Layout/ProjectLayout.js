@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Box, Button, Typography } from "@mui/material";
 
@@ -18,9 +18,11 @@ const ProjectLayout = ({
   projectType,
   formData,
   templateNum,
-  sectionNum
+  sectionNum, 
+  nextDisabled
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const saveProject = () => {
     navigate("/projects");
@@ -71,8 +73,10 @@ const ProjectLayout = ({
             className="spaceBetween"
             sx={{pt: 3}} 
             >
-            <PrevButton link={prevLink} />
+            {location.pathname.includes("projects/details") 
+              ? <Box /> : <PrevButton link={prevLink} />}
             <NextButton
+              disabled={nextDisabled}
               link={nextLink}
               projectType={projectType}
               data={formData}
