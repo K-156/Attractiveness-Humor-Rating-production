@@ -69,7 +69,6 @@ const Rank = () => {
   // find which profile to display
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
-    console.log(element, sectionNum);
     if (element < sectionNum) {
       dataToDisplay = data[element][1];
     }

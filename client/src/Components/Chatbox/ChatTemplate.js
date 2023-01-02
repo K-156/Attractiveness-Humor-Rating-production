@@ -33,7 +33,7 @@ const ChatTemplate = ({
           firstCandidate={firstCandidate}
           lastCandidate={lastCandidate}
         />
-        <Box sx={{ display: "flex", height: "350px" }}>
+        <Box sx={{ height: "350px" }}>
           <CardContent>
             {selectMessage === null ? (
               <Messages

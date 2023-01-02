@@ -69,8 +69,6 @@ const T5Intro = () => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData)
-
   return (
     <Card>
       <CardContent className="cardPadding">
@@ -119,16 +117,6 @@ const T5Intro = () => {
                 setFormData={setFormData}
                 variable="introductions"
               />
-              {/* <AddableField
-                items={formData["introductions"]}
-                error={error["introductions"]}
-                setError={setError}
-                errorText="Introduction added"
-                handleOnChange={handleOnChange}
-                currValue={intro}
-                setFormData={setFormData}
-                variable="introductions"
-              /> */}
             </Box>
           </Box>
         </FormControl>

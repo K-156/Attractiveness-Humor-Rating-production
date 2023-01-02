@@ -97,7 +97,7 @@ const AudioForm = ({ data, setRating, isWritten }) => {
                               required
                               fullWidth
                               select
-                              name={index}
+                              name={String(index)}
                               label="Rate"
                               defaultValue=""
                               onChange={handleOnChange}
@@ -105,7 +105,7 @@ const AudioForm = ({ data, setRating, isWritten }) => {
                               {_.map(_.range(Number(value["lowerNum"]), Number(value["upperNum"]) + 1), (num) => {
                               return (
                                   <MenuItem 
-                                      key={num} 
+                                      key={String(num)} 
                                       id={num} 
                                       value={num}
                                   >

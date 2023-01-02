@@ -11,7 +11,8 @@ const MessageSelected = ({ selectMessage, theme }) => {
                 height:"120px",
                 display:"flex",
                 justifyContent:"flex-end",
-                alignItems:"flex-end"
+                alignItems:"flex-end",
+                my:"12rem"
             }}
         >
             <Box 

@@ -9,7 +9,7 @@ const Messages = ({ setSelectMessage, theme, themeHover }) => {
   const { sectionNum } = useAppContext();
 
   return (
-    <Box id="MessageOptions" sx={{ height: "120px" }}>
+    <Box id="MessageOptions" sx={{ height: "120px", my:"12rem"}}>
       {_.map(data[sectionNum][sections[sectionNum]].messages, (text) => {
         return (
           <Button

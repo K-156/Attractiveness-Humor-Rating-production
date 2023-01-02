@@ -40,7 +40,11 @@ const AudioRate = ({ title, link, isWritten }) => {
   const navigate = useNavigate();
 
   const { data, sections } = JSON.parse(localStorage.getItem("data"));
-  const { path } = links.find((link) => link.id === sections[sectionNum + 1]);
+  const { path } =
+    data[sectionNum + 1] !== undefined
+      ? links.find((link) => link.id === sections[sectionNum + 1])
+      : links.find((link) => link.id === 8);
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   let arrOfRank = [];
@@ -130,7 +134,14 @@ const AudioRate = ({ title, link, isWritten }) => {
   };
 
   // generate random number to play audio
-  const randomNum = Math.floor(Math.random() * data[sectionNum][sections[sectionNum]].audioLink.length)
+  const randomNum = isWritten
+    ? Math.floor(
+        Math.random() *
+          data[sectionNum][sections[sectionNum]].introductions.length
+      )
+    : Math.floor(
+        Math.random() * data[sectionNum][sections[sectionNum]].audioLink.length
+      );
 
   return (
     <div>
@@ -148,7 +159,9 @@ const AudioRate = ({ title, link, isWritten }) => {
             className="cardHeader"
             sx={{ color: colorPalette[theme]["primary"] }}
           >
-            {arr[firstCandidate].optionName}
+            {link.includes("q2")
+              ? arr[firstCandidate].optionName
+              : arr[lastCandidate].optionName}
           </Typography>
           <Box className="imageBox">
             <img
@@ -162,10 +175,14 @@ const AudioRate = ({ title, link, isWritten }) => {
           </Box>
           {isWritten ? (
             <IntroMessage
-              text={data[sectionNum][sections[sectionNum]].introductions}
+              text={
+                data[sectionNum][sections[sectionNum]].introductions[randomNum]
+              }
             />
           ) : (
-            <Audio src={data[sectionNum][sections[sectionNum]].audioLink[randomNum]} />
+            <Audio
+              src={data[sectionNum][sections[sectionNum]].audioLink[randomNum]}
+            />
           )}
         </Grid>
         <Grid item xs={7} px={4}>

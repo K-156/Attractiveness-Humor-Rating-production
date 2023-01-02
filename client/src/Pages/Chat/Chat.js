@@ -17,7 +17,11 @@ const Chat = ({ title, link }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const { data, sections } = JSON.parse(localStorage.getItem("data"));
-  const { path } = links.find((link) => link.id === sections[sectionNum + 1]);
+  const { path } =
+  data[sectionNum + 1] !== undefined
+    ? links.find((link) => link.id === sections[sectionNum + 1])
+    : links.find((link) => link.id === 8);
+  
 
   let arrOfRank = [];
   let rankToDisplay = 0;
