@@ -22,20 +22,39 @@ const Profiles = () => {
   );
 
   let arr = [];
+  let arrOfProfile = [];
+  let dataToDisplay = {};
 
-  for (const [key, value] of Object.entries(
-    data[sectionNum][[Object.keys(data[sectionNum])[0]]]
-  )) {
+  // find how many profile
+  for (const [sectionNum, dict] of Object.entries(data)) {
+    for (const [templateNo, data] of Object.entries(dict)) {
+      if (templateNo == 1) {
+        arrOfProfile.push(sectionNum);
+      }
+    }
+  }
+  // find which profile to display
+  for (let i = 0; i < arrOfProfile.length; i++) {
+    const element = arrOfProfile[i];
+    console.log(element, sectionNum);
+    if (element <= sectionNum) {
+      dataToDisplay = data[element][1];
+    }
+  }
+
+  for (const [key, value] of Object.entries(dataToDisplay)) {
     if (key == 1 || key == 2 || key == 3 || key == 4) {
       arr.push(value);
     }
   }
+
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     nextSection()
     navigate(path);
   };
+
 
   return (
     <div>

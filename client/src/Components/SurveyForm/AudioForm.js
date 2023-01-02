@@ -14,20 +14,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import _ from "lodash";
+import _, { mapValues } from "lodash";
 
 const AudioForm = ({ data, setRating, isWritten }) => {
+
   const [listen, setListen] = useState(false);
 
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
+
     setRating((state) => ({
       ...state,
       [name]: value
     }));
   };
+
+  let arr = [];
+
+  for (const [key, value] of Object.entries(data)) {
+    arr.push(value)
+  }
 
   return (
     <>
@@ -69,11 +77,11 @@ const AudioForm = ({ data, setRating, isWritten }) => {
           <Card>
             <CardContent>
               <Grid container gap={1}>
-                {_.map(data, (value) => {
+                {_.map(arr, (value, index) => {
                   return (
                     <Grid 
                       container 
-                      key={value["id_"]} 
+                      key={index} 
                       gap={3}
                     >
                       <Grid
@@ -81,7 +89,7 @@ const AudioForm = ({ data, setRating, isWritten }) => {
                         xs={7}
                         className="flexEnd"
                       >
-                        <Typography sx={{fontSize:"14px"}}>{value["question"]}</Typography>
+                        <Typography sx={{fontSize:"14px"}}>{value["questions"]}</Typography>
                       </Grid>
                       <Grid item xs={3}>
                         <FormControl fullWidth>
@@ -89,12 +97,12 @@ const AudioForm = ({ data, setRating, isWritten }) => {
                               required
                               fullWidth
                               select
-                              name={String(value["id_"])}
+                              name={index}
                               label="Rate"
                               defaultValue=""
                               onChange={handleOnChange}
                           >
-                              {_.map(_.range(value["lower"]["number"], value["upper"]["number"] + 1), (num) => {
+                              {_.map(_.range(Number(value["lowerNum"]), Number(value["upperNum"]) + 1), (num) => {
                               return (
                                   <MenuItem 
                                       key={num} 
@@ -102,8 +110,8 @@ const AudioForm = ({ data, setRating, isWritten }) => {
                                       value={num}
                                   >
                                       {num} 
-                                      {num === value["lower"]["number"] ? ` (${value["lower"]["text"]})` :
-                                        num === value["upper"]["number"] ? ` (${value["upper"]["text"]})` : "" }
+                                      {num === Number(value["lowerNum"]) ? ` (${value["lowerText"]})` :
+                                        num === Number(value["upperNum"]) ? ` (${value["upperText"]})` : "" }
                                   </MenuItem>
                               );
                               })}

@@ -63,8 +63,6 @@ const AttractiveRate = () => {
     });
   };
 
-  console.log(rating)
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({

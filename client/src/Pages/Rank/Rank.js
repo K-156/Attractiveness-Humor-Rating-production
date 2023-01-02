@@ -42,9 +42,10 @@ const Rank = () => {
   const { theme } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
-  const { sectionNum, prevSection, nextSection } = useAppContext();
+  const { sectionNum, prevSection, nextSection, updateUser, user } =
+    useAppContext();
 
-  const {data} = JSON.parse(localStorage.getItem("data"));
+  const { data } = JSON.parse(localStorage.getItem("data"));
   const { path } =
     data[sectionNum + 1] !== undefined
       ? links.find((link) => link.id == Object.keys(data[sectionNum + 1])[0])
@@ -59,7 +60,6 @@ const Rank = () => {
 
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
-    console.log(sectionNum)
     for (const [templateNo, data] of Object.entries(dict)) {
       if (templateNo == 1) {
         arrOfProfile.push(sectionNum);
@@ -80,7 +80,6 @@ const Rank = () => {
       arr.push(value);
     }
   }
-
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -118,6 +117,20 @@ const Rank = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    updateUser({
+      currentUser: {
+        ...user,
+        userResponse: {
+          ...user.userResponse,
+          rank: [
+            ...user.userResponse.rank,
+            //fake data
+            [0, 1, 2, 3],
+          ],
+        },
+      },
+      id: user._id,
+    });
     nextSection();
     navigate(path);
   };

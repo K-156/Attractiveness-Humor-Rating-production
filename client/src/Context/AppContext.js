@@ -56,7 +56,7 @@ const initialState = {
   data: [],
   sections: [],
   activeProjectId: "",
-  sectionNum: 0,
+  sectionNum: 3,
   fileLink: "",
   createdProjectId: "",
   errorMsg:"",

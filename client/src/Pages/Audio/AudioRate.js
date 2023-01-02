@@ -2,7 +2,7 @@ import { useAppContext } from "../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 import NextButton from "../../Components/NavButton/NextButton";
 import AudioForm from "../../Components/SurveyForm/AudioForm";
@@ -11,37 +11,89 @@ import IntroMessage from "../../Components/Message/IntroMessage";
 import Instruction from "../../Components/Instruction/Instruction";
 import Audio from "../../Components/Audio/Audio";
 import links from "../../Utils/links";
+import { colorPalette } from "../../Utils/colorPalette";
 
 const mockdata = [
-  { id_: 0, 
+  {
+    id_: 0,
     question: "Am I humorous?",
-    lower: {number: 1, text: "not humurous"}, 
-    upper: {number: 9, text: "extremely humurous"}, 
+    lower: { number: 1, text: "not humurous" },
+    upper: { number: 9, text: "extremely humurous" },
   },
-  { id_: 1, 
+  {
+    id_: 1,
     question: "Am I interesting?",
-    lower: {number: 1, text: "not at all"}, 
-    upper: {number: 9, text: "very interesting"}, 
-  }, 
-  { id_: 3, 
+    lower: { number: 1, text: "not at all" },
+    upper: { number: 9, text: "very interesting" },
+  },
+  {
+    id_: 3,
     question: "How likely will you hire me?",
-    lower: {number: 1, text: "not at all"}, 
-    upper: {number: 9, text: "very likely"}, 
-  }
-]
+    lower: { number: 1, text: "not at all" },
+    upper: { number: 9, text: "very likely" },
+  },
+];
 
 const AudioRate = ({ title, link, isWritten }) => {
-  const { updateUser, sectionNum, nextSection } = useAppContext();
+  const { updateUser, sectionNum, nextSection, theme } = useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
 
   const { data, sections } = JSON.parse(localStorage.getItem("data"));
   const { path } = links.find((link) => link.id === sections[sectionNum + 1]);
-
   const user = JSON.parse(localStorage.getItem("user"));
-  const firstCandidate = user.userResponse.rank[0];
+
+  let arrOfRank = [];
+  let rankToDisplay = 0;
+
+  // find how many rank
+  for (const [sectionNum, dict] of Object.entries(data)) {
+    for (const [templateNo, data] of Object.entries(dict)) {
+      if (templateNo == 3) {
+        arrOfRank.push(sectionNum);
+      }
+    }
+  }
+
+  // find which rank to display
+  for (let i = 0; i < arrOfRank.length; i++) {
+    const element = arrOfRank[i];
+    if (element < sectionNum) {
+      rankToDisplay = i;
+    }
+  }
+
+  let arr = [];
+  let arrOfProfile = [];
+  let dataToDisplay = {};
+
+  // find how many profile
+  for (const [sectionNum, dict] of Object.entries(data)) {
+    for (const [templateNo, data] of Object.entries(dict)) {
+      if (templateNo == 1) {
+        arrOfProfile.push(sectionNum);
+      }
+    }
+  }
+  // find which profile to display
+  for (let i = 0; i < arrOfProfile.length; i++) {
+    const element = arrOfProfile[i];
+    if (element <= sectionNum) {
+      dataToDisplay = data[element][1];
+    }
+  }
+
+  for (const [key, value] of Object.entries(dataToDisplay)) {
+    if (key == 1 || key == 2 || key == 3 || key == 4) {
+      arr.push(value);
+    }
+  }
+
+  const firstCandidate = user.userResponse.rank[rankToDisplay][0];
   const lastCandidate =
-    user.userResponse.rank[user.userResponse.rank.length - 1];
+    user.userResponse.rank[rankToDisplay][
+      user.userResponse.rank[rankToDisplay].length - 1
+    ];
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -69,13 +121,16 @@ const AudioRate = ({ title, link, isWritten }) => {
           },
           id: user._id,
         });
-        if (title === "1"){
-          navigate(link)
-        } else{
-          nextSection();
-          navigate(path);
-        }
+    if (title === "1") {
+      navigate(link);
+    } else {
+      nextSection();
+      navigate(path);
+    }
   };
+
+  // generate random number to play audio
+  const randomNum = Math.floor(Math.random() * data[sectionNum][sections[sectionNum]].audioLink.length)
 
   return (
     <div>
@@ -89,26 +144,33 @@ const AudioRate = ({ title, link, isWritten }) => {
       <Instruction type={isWritten ? "intro" : "audio"} />
       <Grid container className="centerPadding" gap={2}>
         <Grid item xs={4} px={4}>
+          <Typography
+            className="cardHeader"
+            sx={{ color: colorPalette[theme]["primary"] }}
+          >
+            {arr[firstCandidate].optionName}
+          </Typography>
           <Box className="imageBox">
-            {/* <img
+            <img
               src={
                 link.includes("q2")
-                  ? data.proj[firstCandidate].img
-                  : data.proj[lastCandidate].img
+                  ? arr[firstCandidate].link
+                  : arr[lastCandidate].link
               }
               alt="candidate"
-            /> */}
+            />
           </Box>
           {isWritten ? (
-            <IntroMessage text={data[sectionNum][sections[sectionNum]].introductions} />
+            <IntroMessage
+              text={data[sectionNum][sections[sectionNum]].introductions}
+            />
           ) : (
-            <Audio src={data.audio} />
+            <Audio src={data[sectionNum][sections[sectionNum]].audioLink[randomNum]} />
           )}
         </Grid>
         <Grid item xs={7} px={4}>
           <AudioForm
-            // data={data[sectionNum][sections[sectionNum]].questions}
-            data={mockdata}
+            data={data[sectionNum][sections[sectionNum]].questions}
             setRating={setRating}
             isWritten={isWritten}
           />
