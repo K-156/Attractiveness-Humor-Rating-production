@@ -34,7 +34,6 @@ const DragAndDrop = ({items, setItems, rankItems, setRankItems, allItems }) => {
     }
 
     const onDragEnd = ({active, over}) => {
-        console.log(active.id, over.id)
         if (active.id !== over.id && over.id !== "droppable") {
             setRankItems((rankItems) => {
                 const activeIndex = rankItems.findIndex((id) => id === active.id);

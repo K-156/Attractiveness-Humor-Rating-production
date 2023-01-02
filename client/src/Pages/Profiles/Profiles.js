@@ -16,6 +16,8 @@ const Profiles = () => {
   const state = location.state;
   const navigate = useNavigate();
 
+  console.log(state)
+
   const { data } = JSON.parse(localStorage.getItem("data"));
   const { path } = links.find(
     (link) => link.id == Object.keys(data[sectionNum + 1])[0]
@@ -51,7 +53,7 @@ const Profiles = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     nextSection()
-    navigate(path);
+    navigate(state["link"] ? state["link"] : path);
   };
 
 

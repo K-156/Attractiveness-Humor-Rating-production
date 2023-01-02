@@ -68,14 +68,14 @@ const Rank = () => {
             <Box className="spaceBetween" sx={{width: "250px"}}>
                 <Instruction type="rank" />
                 <Button
-                variant="contained"
-                className={`customButton-${theme}`}
-                onClick={() => {
-                    navigate("/profiles", {
-                    state: {
-                        link: location.pathname,
-                        type: "Rank"
-                    }})
+                    variant="contained"
+                    className={`customButton-${theme}`}
+                    onClick={() => {
+                        navigate("/profiles", {
+                        state: {
+                            link: location.pathname,
+                            type: "Rank"
+                        }})
                     }}
                 >
                 View Profiles
