@@ -26,7 +26,6 @@ const AttractiveRate = () => {
       : links.find((link) => link.id === 8);
 
   let arr = [];
-  let noOfProfile = 0;
   let arrOfProfile = [];
   let dataToDisplay = {};
 
@@ -34,7 +33,6 @@ const AttractiveRate = () => {
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
       if (templateNo == 1) {
-        noOfProfile += 1;
         arrOfProfile.push(sectionNum);
       }
     }
@@ -64,6 +62,8 @@ const AttractiveRate = () => {
       },
     });
   };
+
+  console.log(rating)
 
   const handleOnSubmit = (e) => {
     e.preventDefault();

@@ -23,9 +23,6 @@ const Profiles = () => {
 
   let arr = [];
 
-  console.log(path)
-
-
   for (const [key, value] of Object.entries(
     data[sectionNum][[Object.keys(data[sectionNum])[0]]]
   )) {

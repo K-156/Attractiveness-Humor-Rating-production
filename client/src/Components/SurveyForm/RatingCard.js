@@ -26,7 +26,7 @@ const RatingCard = ({ title, img, id, setRating, description }) => {
     const handleOnChange = (event) => {
         setRating((state) => ({
             ...state, 
-            [id] : event.target.value
+            [String(id)] : event.target.value
         }))
 
     }
