@@ -81,7 +81,7 @@ const AudioForm = ({ data, setRating, isWritten }) => {
                   return (
                     <Grid 
                       container 
-                      key={index} 
+                      key={String(index)} 
                       gap={3}
                     >
                       <Grid

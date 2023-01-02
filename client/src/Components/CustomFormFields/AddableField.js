@@ -98,9 +98,7 @@ const AddableField = ({
           );
         })}
       </Box>
-      {items.length < 1 ? (
-        <></>
-      ) : (
+      {
         <Box sx={{ pt: 1, pl: 2 }}>
           {_.map(items, (value, index) => {
             return (
@@ -111,7 +109,7 @@ const AddableField = ({
                     color: "#264653",
                   }}
                 >
-                  {index + 1}. {value["questions"]}{" "}({value["lowerNum"]} -{" "}
+                  {index + 1}. {value["questions"]} ({value["lowerNum"]} -{" "}
                   {value["lowerText"]}, {value["upperNum"]} -{" "}
                   {value["upperText"]})
                 </Typography>
@@ -128,7 +126,7 @@ const AddableField = ({
             );
           })}
         </Box>
-      )}
+      }
     </Box>
   );
 };

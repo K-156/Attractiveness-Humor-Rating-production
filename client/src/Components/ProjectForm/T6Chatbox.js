@@ -48,6 +48,8 @@ const T6Chatbox = () => {
       submitFormData(formData);
     }, [formData]);
 
+    console.log(formData)
+
     return(
         <Card>
             <CardContent className="cardPadding">
