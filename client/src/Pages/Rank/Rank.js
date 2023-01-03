@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { 
-    Box, 
-    Button, 
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import _ from "lodash";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -20,85 +17,122 @@ import DragAndDrop from "../../Components/DragAndDrop/DragAndDrop";
 
 // const instruction = "Drag and drop the candidates to rank them, with the most interested candidate on the left."
 
-const mockdata = [{
-    _id: 1, 
-    name: "Candidate 1", 
+const mockdata = [
+  {
+    _id: 1,
+    name: "Candidate 1",
     img: "../../Assets/Candidates/Female 1.jpg",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
-                "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi"
-}, {
-    _id: 2, 
-    name: "Candidate 2", 
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
+      "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi",
+  },
+  {
+    _id: 2,
+    name: "Candidate 2",
     img: "../../Assets/Candidates/Female 2.jpg",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
-                "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi"
-}, {
-    _id: 3, 
-    name: "Candidate 3", 
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
+      "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi",
+  },
+  {
+    _id: 3,
+    name: "Candidate 3",
     img: "../../Assets/Candidates/Female 3.jpg",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
-                 "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi"
-}, {
-    _id: 4, 
-    name: "Candidate 4", 
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
+      "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi",
+  },
+  {
+    _id: 4,
+    name: "Candidate 4",
     img: "../../Assets/Candidates/Female 4.jpg",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
-    "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi"
-}
-]
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem magnam sequi est. Consectetur voluptates " +
+      "suscipit officia ipsa rerum, distinctio et minus quas beatae iusto? Perspiciatis commodi",
+  },
+];
 
 const Rank = () => {
+  const { theme, sectionNum } = useAppContext();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const { theme } = useAppContext();
-    const location = useLocation();
-    const navigate = useNavigate();
-    
-    const [allItems, setAllItems] = useState(mockdata);
-    const [items, setItems] = useState(mockdata);
-    const [rankItems, setRankItems] = useState([]); 
+  const { data } = JSON.parse(localStorage.getItem("data"));
 
-    const data = JSON.parse(localStorage.getItem("data"));
-    console.log(data)
+  let arr = [];
+  let arrOfProfile = [];
+  let dataToDisplay = {};
 
-    return (
-        <div>
-            <script>
-                {document.title="Profile Ranking"}
-            </script>
-            <Box className="spaceBetween" sx={{width: "250px"}}>
-                <Instruction type="rank" />
-                <Button
-                    variant="contained"
-                    className={`customButton-${theme}`}
-                    onClick={() => {
-                        navigate("/profiles", {
-                        state: {
-                            link: location.pathname,
-                            type: "Rank"
-                        }})
-                    }}
-                >
-                View Profiles
-                </Button>
-            </Box>
-            <DragAndDrop 
-                items={items}
-                setItems={setItems}
-                rankItems={rankItems}
-                setRankItems={setRankItems}
-                allItems={allItems}
-            />
-            <Box className="flexEnd" sx={{mt: 3}}>
-                <NextButton 
-                    link="/audio-instruction"
-                    disabled={rankItems.length < allItems.length}
-                    ratingType="rank"
-                    isSurvey={true}
-                    storeItem={JSON.stringify({most: rankItems[0], least: rankItems[rankItems.length-1]})}
-                />
-            </Box>
-        </div>
-    )
-}
+  // find how many profile
+  for (const [sectionNum, dict] of Object.entries(data)) {
+    for (const [templateNo, data] of Object.entries(dict)) {
+      if (templateNo == 1) {
+        arrOfProfile.push(sectionNum);
+      }
+    }
+  }
+  // find which profile to display
+  for (let i = 0; i < arrOfProfile.length; i++) {
+    const element = arrOfProfile[i];
+    if (element <= sectionNum) {
+      dataToDisplay = data[element][1];
+    }
+  }
+
+  for (const [key, value] of Object.entries(dataToDisplay)) {
+    if (key == 1 || key == 2 || key == 3 || key == 4) {
+      value["_id"] = key;
+      arr.push(value);
+    }
+  }
+
+  const [allItems, setAllItems] = useState(arr);
+  const [items, setItems] = useState(arr);
+  const [rankItems, setRankItems] = useState([]);
+
+  console.log(arr);
+
+  return (
+    <div>
+      <script>{(document.title = "Profile Ranking")}</script>
+      <Box className="spaceBetween" sx={{ width: "250px" }}>
+        <Instruction type="rank" />
+        <Button
+          variant="contained"
+          className={`customButton-${theme}`}
+          onClick={() => {
+            navigate("/profiles", {
+              state: {
+                link: location.pathname,
+                type: "Rank",
+              },
+            });
+          }}
+        >
+          View Profiles
+        </Button>
+      </Box>
+      <DragAndDrop
+        items={items}
+        setItems={setItems}
+        rankItems={rankItems}
+        setRankItems={setRankItems}
+        allItems={allItems}
+      />
+      <Box className="flexEnd" sx={{ mt: 3 }}>
+        <NextButton
+          link="/audio-instruction"
+          disabled={rankItems.length < allItems.length}
+          ratingType="rank"
+          isSurvey={true}
+          storeItem={JSON.stringify({
+            most: rankItems[0],
+            least: rankItems[rankItems.length - 1],
+          })}
+        />
+      </Box>
+    </div>
+  );
+};
 
 export default Rank;

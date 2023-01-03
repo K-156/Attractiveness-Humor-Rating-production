@@ -27,6 +27,7 @@ const DragAndDrop = ({items, setItems, rankItems, setRankItems, allItems }) => {
     const { theme } = useAppContext();
    
     const onDragOver = ({active, over}) => {
+        console.log(over)
         if (over.id === "droppable" && !(rankItems.includes(active.id))) {
             setRankItems(rankItems.concat(active.id));
             setItems(items.filter((aItem) => aItem["_id"] !== active.id))
@@ -59,10 +60,10 @@ const DragAndDrop = ({items, setItems, rankItems, setRankItems, allItems }) => {
                             const currItem = allItems.filter((aItem) => aItem["_id"] === id)[0]
                             return (
                                 <SortableCard 
-                                    key={id}
-                                    id={id}
-                                    title={currItem["name"]}
-                                    img={require("../../Assets/Candidates/Female 1.jpg")}
+                                    key={currItem["_id"]}
+                                    id={currItem["_id"]}
+                                    title={currItem["optionName"]}
+                                    img={currItem["link"]}
                                     description={currItem["description"]}
                                 />
                             )
@@ -101,8 +102,8 @@ const DragAndDrop = ({items, setItems, rankItems, setRankItems, allItems }) => {
                         <SortableCard 
                             key={aItem["_id"]}
                             id={aItem["_id"]}
-                            title={aItem["name"]}
-                            img={require("../../Assets/Candidates/Female 1.jpg")}
+                            title={aItem["optionName"]}
+                            img={aItem["link"]}
                             description={aItem["description"]}
                         />
                         )})
