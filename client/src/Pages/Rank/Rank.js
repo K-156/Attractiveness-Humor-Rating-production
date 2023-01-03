@@ -14,6 +14,7 @@ import {
 import Instruction from "../../Components/Instruction/Instruction";
 import NextButton from "../../Components/NavButton/NextButton";
 import DragAndDrop from "../../Components/DragAndDrop/DragAndDrop";
+import links from "../../Utils/links";
 
 // const instruction = "Drag and drop the candidates to rank them, with the most interested candidate on the left."
 
@@ -53,11 +54,15 @@ const mockdata = [
 ];
 
 const Rank = () => {
-  const { theme, sectionNum } = useAppContext();
+  const { theme, sectionNum, updateUser, user, nextSection, sections } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
 
   const { data } = JSON.parse(localStorage.getItem("data"));
+  const { path } =
+    data[sectionNum + 1] !== undefined
+      ? links.find((link) => link.id === sections[sectionNum + 1])
+      : links.find((link) => link.id === 8);
 
   let arr = [];
   let arrOfProfile = [];
@@ -90,7 +95,24 @@ const Rank = () => {
   const [items, setItems] = useState(arr);
   const [rankItems, setRankItems] = useState([]);
 
-  console.log(arr);
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    updateUser({
+      currentUser: {
+        ...user,
+        userResponse: {
+          ...user.userResponse,
+          rank: [
+            ...user.userResponse.rank,
+            rankItems,
+          ],
+        },
+      },
+      id: user._id,
+    });
+    nextSection();
+    navigate(path);
+  };
 
   return (
     <div>
@@ -121,14 +143,14 @@ const Rank = () => {
       />
       <Box className="flexEnd" sx={{ mt: 3 }}>
         <NextButton
-          link="/audio-instruction"
           disabled={rankItems.length < allItems.length}
           ratingType="rank"
           isSurvey={true}
-          storeItem={JSON.stringify({
-            most: rankItems[0],
-            least: rankItems[rankItems.length - 1],
-          })}
+          // storeItem={JSON.stringify({
+          //   most: rankItems[0],
+          //   least: rankItems[rankItems.length - 1],
+          // })}
+          handleOnSubmit={handleOnSubmit}
         />
       </Box>
     </div>

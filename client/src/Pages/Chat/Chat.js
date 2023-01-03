@@ -10,13 +10,13 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const Chat = ({ title, link }) => {
-  const { updateUser, nextSection, sectionNum } = useAppContext();
+  const { updateUser, nextSection, sectionNum, sections } = useAppContext();
   const navigate = useNavigate();
 
   const [selectMessage, setSelectMessage] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const { data, sections } = JSON.parse(localStorage.getItem("data"));
+  const { data } = JSON.parse(localStorage.getItem("data"));
   const { path } =
   data[sectionNum + 1] !== undefined
     ? links.find((link) => link.id === sections[sectionNum + 1])
@@ -69,11 +69,11 @@ const Chat = ({ title, link }) => {
     }
   }
 
-  const firstCandidate = user.userResponse.rank[rankToDisplay][0];
+  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0])-1;
   const lastCandidate =
-    user.userResponse.rank[rankToDisplay][
+    Number(user.userResponse.rank[rankToDisplay][
       user.userResponse.rank[rankToDisplay].length - 1
-    ];
+    ])-1;
 
   const handleOnSubmit = (e) => {
     e.preventDefault();

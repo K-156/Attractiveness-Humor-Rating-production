@@ -35,11 +35,11 @@ const mockdata = [
 ];
 
 const AudioRate = ({ title, link, isWritten }) => {
-  const { updateUser, sectionNum, nextSection, theme } = useAppContext();
+  const { updateUser, sectionNum, nextSection, theme, sections } = useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
 
-  const { data, sections } = JSON.parse(localStorage.getItem("data"));
+  const { data } = JSON.parse(localStorage.getItem("data"));
   const { path } =
     data[sectionNum + 1] !== undefined
       ? links.find((link) => link.id === sections[sectionNum + 1])
@@ -93,11 +93,11 @@ const AudioRate = ({ title, link, isWritten }) => {
     }
   }
 
-  const firstCandidate = user.userResponse.rank[rankToDisplay][0];
+  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0])-1;
   const lastCandidate =
-    user.userResponse.rank[rankToDisplay][
+    Number(user.userResponse.rank[rankToDisplay][
       user.userResponse.rank[rankToDisplay].length - 1
-    ];
+    ])-1;
 
   const handleOnSubmit = (e) => {
     e.preventDefault();

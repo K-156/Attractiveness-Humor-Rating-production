@@ -27,7 +27,6 @@ const DragAndDrop = ({items, setItems, rankItems, setRankItems, allItems }) => {
     const { theme } = useAppContext();
    
     const onDragOver = ({active, over}) => {
-        console.log(over)
         if (over.id === "droppable" && !(rankItems.includes(active.id))) {
             setRankItems(rankItems.concat(active.id));
             setItems(items.filter((aItem) => aItem["_id"] !== active.id))
