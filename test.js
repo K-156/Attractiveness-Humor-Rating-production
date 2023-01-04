@@ -1,15 +1,24 @@
-import fs from "fs"; 
-import parse from "csv-parse";
+import fs from "fs";
+import https from "https";
+import readline from "readline";
 
-var csvData=[];
-fs.createReadStream(req.file.path)
-    .pipe(parse({delimiter: ':'}))
-    .on('data', function(csvrow) {
-        console.log(csvrow);
-        //do something with csvrow
-        csvData.push(csvrow);        
-    })
-    .on('end',function() {
-      //do something with csvData
-      console.log(csvData);
+const data = fs.createWriteStream("data.txt");
+let participants = [];
+https.get(
+  "https://res.cloudinary.com/dqbrhsxcs/raw/upload/v1672798198/ClMtzPpQON/ClMtzPpQON_projDetails_email_0.csv",
+  (response) => {
+    var stream = response.pipe(data);
+    const file = readline.createInterface({
+      input: fs.createReadStream("data.txt"),
+      output: process.stdout,
+      terminal: false,
     });
+
+    file.on("line", (line) => {
+      if (line !== "Name,Email") {
+        participants.push(line.split(","));
+      }
+      console.log(participants);
+    });
+  }
+);

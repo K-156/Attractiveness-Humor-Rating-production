@@ -11,6 +11,7 @@ const ProjectSchema = new mongoose.Schema(
       title: String,
       description:String,
       email: [],
+      emailLink:[],
       roles: [],
       duration: String,
       theme:String,

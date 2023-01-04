@@ -1,3 +1,7 @@
+import fs from "fs";
+import https from "https";
+import readline from "readline"
+
 import Project from "../models/Project.js";
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
@@ -73,7 +77,7 @@ const deleteProject = async (req, res) => {
   }
 
   if (project && project.isActive) {
-    throw new BadRequestError("Cannot delete active project")
+    throw new BadRequestError("Cannot delete active project");
   }
 
   checkPermissions(user);
@@ -83,14 +87,34 @@ const deleteProject = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Success! Project deleted" });
 };
 
-const getUsers = async(req,res) => {
+const registerParticipants = async (req, res) => {
+  const data = fs.createWriteStream("data.txt");
+  let participants = [];
+  https.get(
+    "https://res.cloudinary.com/dqbrhsxcs/raw/upload/v1672798198/ClMtzPpQON/ClMtzPpQON_projDetails_email_0.csv",
+    (response) => {
+      var stream = response.pipe(data);
+      const file = readline.createInterface({
+        input: fs.createReadStream('data.txt'),
+        output: process.stdout,
+        terminal: false
+      });
+      
+      file.on('line', (line) => {
+        participants.push(line)
+      });
+    }
+  );
+  res.status(StatusCodes.OK).json({ participants });
+};
 
-}
+const getUsers = async (req, res) => {};
 export {
   createProject,
   updateProject,
   getProject,
   getAllProjects,
   deleteProject,
+  registerParticipants,
   getUsers,
 };
