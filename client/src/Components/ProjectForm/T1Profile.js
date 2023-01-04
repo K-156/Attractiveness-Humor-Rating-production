@@ -16,9 +16,7 @@ import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
 const T1Profile = ({ role }) => {
-
-  const { submitFormData, isEditing, data, sectionNum } =
-    useAppContext();
+  const { submitFormData, isEditing, data, sectionNum } = useAppContext();
 
   const [expanded, setExpanded] = useState({
     instruction: false,
@@ -29,34 +27,34 @@ const T1Profile = ({ role }) => {
   });
 
   const [formData, setFormData] = useState({
-    instruction: isEditing ? data[sectionNum][1].instruction : "",
+    instruction: data[sectionNum]?.[1].instruction,
     1: {
-      optionName: isEditing ? data[sectionNum][1][1].optionName : "",
-      description: isEditing ? data[sectionNum][1][1].description : "",
-      img: isEditing ? data[sectionNum][1][1].img : null,
+      optionName: data[sectionNum]?.[1][1].optionName,
+      description: data[sectionNum]?.[1][1].description,
+      img: data[sectionNum] ? data[sectionNum][1][1].img : null,
       link: null,
-      attributes: isEditing ? data[sectionNum][1][1].attributes : [],
+      attributes: data[sectionNum] ? data[sectionNum][1][1].attributes : [],
     },
     2: {
-      optionName: isEditing ? data[sectionNum][1][2].optionName : "",
-      description: isEditing ? data[sectionNum][1][2].description : "",
-      img: isEditing ? data[sectionNum][1][2].img : null,
+      optionName: data[sectionNum]?.[1][2].optionName,
+      description: data[sectionNum]?.[1][2].description,
+      img: data[sectionNum] ? data[sectionNum][1][2].img: null,
       link: null,
-      attributes: isEditing ? data[sectionNum][1][2].attributes : [],
+      attributes: data[sectionNum] ? data[sectionNum][1][2].attributes : [],
     },
     3: {
-      optionName: isEditing ? data[sectionNum][1][3].optionName : "",
-      description: isEditing ? data[sectionNum][1][3].description : "",
-      img: isEditing ? data[sectionNum][1][3].img : null,
+      optionName: data[sectionNum]?.[1][3].optionName,
+      description: data[sectionNum]?.[1][3].description,
+      img: data[sectionNum] ? data[sectionNum][1][3].img : null,
       link: null,
-      attributes: isEditing ? data[sectionNum][1][3].attributes : [],
+      attributes: data[sectionNum] ? data[sectionNum][1][3].attributes : [],
     },
     4: {
-      optionName: isEditing ? data[0][1][4].optionName : "",
-      description: isEditing ? data[0][1][4].description : "",
-      img: isEditing ? data[sectionNum][1][4].img : null,
+      optionName: data[0]?.[1][4].optionName,
+      description: data[0]?.[1][4].description,
+      img: data[sectionNum] ? data[sectionNum][1][4].img : null,
       link: null,
-      attributes: isEditing ? data[sectionNum][1][4].attributes : [],
+      attributes: data[sectionNum] ? data[sectionNum][1][4].attributes : [],
     },
   });
 
@@ -65,8 +63,8 @@ const T1Profile = ({ role }) => {
   }, [formData]);
 
   return (
-    <Box sx={{mb:3}}>
-      <Typography sx={{color: "#264653"}} >
+    <Box sx={{ mb: 3 }}>
+      <Typography sx={{ color: "#264653" }}>
         Role: <b>{role}</b>
       </Typography>
       <Accordion

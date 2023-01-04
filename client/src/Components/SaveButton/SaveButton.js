@@ -6,8 +6,6 @@ import { Box, Button } from "@mui/material";
 const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
   const { updateProject, editProjectId, data } = useAppContext();
 
-  console.log(templateNum, sectionNum);
-  console.log(data);
   const navigate = useNavigate();
   const handleSubmit = (formData) => {
     if (projectType === "projDetails") {

@@ -61,13 +61,13 @@ const Summary = () => {
           content={projDetails}
           editLink="/projects/details"
         />
-        {_.map(data, (section, index) => {
+        {data && _.map(data, (section, index) => {
           const templateNum = templateOrder[index];
           return (
             <SummaryCard
               header={`Section ${index + 1}: ${templates[templateNum]}`}
               template={templates[templateNum]}
-              content={section[templateNum]}
+              content={section?.[templateNum]}
               editLink={`/projects/sections/${index + 1}`}
               key={index}
               index={index}

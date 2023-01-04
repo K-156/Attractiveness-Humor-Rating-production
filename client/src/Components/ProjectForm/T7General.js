@@ -20,8 +20,8 @@ const T7General = () => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
   const [formData, setFormData] = useState({
-    text: isEditing ? data[sectionNum][7].text :"",
-    isNext: isEditing ? data[sectionNum][7].isNext : false,
+    text: data[sectionNum] ? data[sectionNum][7].text :"",
+    isNext: data[sectionNum] ? data[sectionNum][7].isNext : false,
   });
 
   const handleOnChange = (event) => {

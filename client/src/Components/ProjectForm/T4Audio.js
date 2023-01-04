@@ -17,10 +17,10 @@ const T4Audio = () => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
   const [formData, setFormData] = useState({
-    instruction: isEditing ? data[sectionNum][4].instruction : "",
-    questions: isEditing ? data[sectionNum][4].questions : [],
-    audio: isEditing ? data[sectionNum][4].audio : [],
-    audioLink: isEditing ? data[sectionNum][4].audioLink : [],
+    instruction: data[sectionNum] ? data[sectionNum][4].instruction : "",
+    questions: data[sectionNum] ? data[sectionNum][4].questions : [],
+    audio: data[sectionNum] ? data[sectionNum][4].audio : [],
+    audioLink: data[sectionNum] ? data[sectionNum][4].audioLink : [],
   });
   const [error, setError] = useState({ questions: false });
   const [qn, setQn] = useState({});

@@ -38,6 +38,7 @@ import {
   UPDATE_PROJECT_ERROR,
   SET_ACTIVE_PROJECT,
   SET_SECTION_NO,
+  SET_ORIGINAL_STATE,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -46,12 +47,12 @@ const user = localStorage.getItem("user");
 const initialState = {
   user: user ? JSON.parse(user) : null,
   token,
-  theme: "yellow",
+  theme: "green",
   projects: [],
   isEditing: false,
   editProjectId: "",
   isLoading: false,
-  projDetails: {},
+  projDetails: { email: [], roles: [], graphic:null },
   formData: [],
   data: [],
   sections: [],
@@ -59,7 +60,7 @@ const initialState = {
   sectionNum: 0,
   fileLink: "",
   createdProjectId: "",
-  errorMsg:"",
+  errorMsg: "",
 };
 
 const AppContext = createContext();
@@ -223,7 +224,7 @@ const AppProvider = ({ children }) => {
         });
         dispatch({
           type: UPDATE_PROJECT_SUCCESS,
-          payload: {data,projType},
+          payload: { data, projType },
         });
       } else if (projType === "projData") {
         const { data } = await authFetch.patch(`/projects/${projectId}`, {
@@ -231,7 +232,7 @@ const AppProvider = ({ children }) => {
         });
         dispatch({
           type: UPDATE_PROJECT_SUCCESS,
-          payload: {data,projType},
+          payload: { data, projType },
         });
       } else if (projType === "sections") {
         const { data } = await authFetch.patch(`/projects/${projectId}`, {
@@ -239,7 +240,7 @@ const AppProvider = ({ children }) => {
         });
         dispatch({
           type: UPDATE_PROJECT_SUCCESS,
-          payload: {data,projType},
+          payload: { data, projType },
         });
       }
     } catch (error) {
@@ -383,6 +384,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: PREV_SECTION });
   };
 
+  const setOriginalState = () => {
+    dispatch({ type: SET_ORIGINAL_STATE });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -406,6 +411,7 @@ const AppProvider = ({ children }) => {
         setActiveProject,
         setSectionNum,
         prevSection,
+        setOriginalState,
       }}
     >
       {children}

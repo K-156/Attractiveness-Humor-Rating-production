@@ -6,10 +6,15 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
+  const { sections } = useAppContext();
 
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState(sections);
 
-  const { data } = useAppContext();
+
+
+  console.log(sections)
+
+  
 
   useEffect(() => {
     sessionStorage.setItem("templates", formData);

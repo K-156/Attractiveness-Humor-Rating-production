@@ -12,15 +12,15 @@ const ProjectDetails = () => {
     useAppContext();
 
   const [formData, setFormData] = useState({
-    title: isEditing ? projDetails.title : "",
-    description: isEditing ? projDetails.description : "",
-    email: isEditing ? projDetails.email : [],
+    title: projDetails?.title,
+    description: projDetails?.description,
+    email: projDetails?.email,
     emailLink: [],
-    roles: isEditing ? projDetails.roles : [],
-    duration: isEditing ? projDetails.duration : "",
+    roles: projDetails?.roles,
+    duration: projDetails?.duration ,
     theme: "green",
-    graphic: isEditing ? projDetails.graphic : null,
-    graphicLink: isEditing ? projDetails.graphicLink : "",
+    graphic: projDetails?.graphic,
+    graphicLink: projDetails?.graphicLink,
   });
 
   useEffect(() => {

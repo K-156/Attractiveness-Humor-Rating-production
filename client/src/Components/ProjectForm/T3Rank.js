@@ -24,22 +24,13 @@ const T3Rank = () => {
     4: false,
   });
 
-  // const [formData, setFormData] = useState({
-  //     instruction:"",
-  //     characteristics: {lowerbound: "", upperbound: ""},
-  //     1: {optionName:"", description:"", img:null, attributes:[]},
-  //     2: {optionName:"", description:"", img:null, attributes:[]},
-  //     3: {optionName:"", description:"", img:null, attributes:[]},
-  //     4: {optionName:"", description:"", img:null, attributes:[]},
-  // })
-
   const [formData, setFormData] = useState({
-    instruction: isEditing ? data[sectionNum][3].instruction : "",
+    instruction: data[sectionNum] ? data[sectionNum][3].instruction : "",
     characteristics: {
-      lowerbound: isEditing
+      lowerbound: data[sectionNum]
         ? data[sectionNum][3].characteristics.lowerbound
         : "",
-      upperbound: isEditing
+      upperbound: data[sectionNum]
         ? data[sectionNum][3].characteristics.upperbound
         : "",
     },

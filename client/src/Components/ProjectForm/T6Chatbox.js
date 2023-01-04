@@ -17,8 +17,8 @@ const T6Chatbox = () => {
     const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
     const [formData, setFormData] = useState({
-        instruction: isEditing ? data[sectionNum][6].instruction :"",
-        messages: isEditing ? data[sectionNum][6].messages:[], 
+        instruction: data[sectionNum] ? data[sectionNum][6].instruction :"",
+        messages: data[sectionNum] ? data[sectionNum][6].messages:[], 
     });
     const [error, setError] = useState({
         messages: false, 

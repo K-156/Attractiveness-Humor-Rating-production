@@ -34,6 +34,7 @@ import {
   UPDATE_PROJECT_ERROR,
   SET_ACTIVE_PROJECT,
   SET_SECTION_NO,
+  SET_ORIGINAL_STATE,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -78,7 +79,6 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === GET_PROJECT_SUCCESS) {
-    console.log(action.payload);
     return {
       ...state,
       isLoading: false,
@@ -260,6 +260,17 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+    };
+  }
+
+  if (action.type === SET_ORIGINAL_STATE) {
+    return {
+      ...state,
+      isEditing: initialState.isEditing,
+      projDetails: initialState.projDetails,
+      data: initialState.data,
+      sections: initialState.sections,
+      sectionNum:initialState.sectionNum,
     };
   }
   throw new Error(`no such action: ${action.type}`);

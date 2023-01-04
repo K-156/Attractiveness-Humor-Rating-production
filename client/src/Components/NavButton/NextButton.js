@@ -17,13 +17,9 @@ const NextButton = ({
   data,
   projectType,
   templateNum,
-  sectionNum,
 }) => {
-  const {
-    theme,
-    updateProject,
-    createdProjectId,
-  } = useAppContext();
+  const { theme, updateProject, createdProjectId, getProject, nextSection, sectionNum } =
+    useAppContext();
 
   const navigate = useNavigate();
   const handleOnClick = () => {
@@ -34,24 +30,32 @@ const NextButton = ({
     if (projectType === "projDetails") {
       let dict = {};
       dict[projectType] = data;
-      updateProject(createdProjectId, projectType, dict);
+      updateProject(createdProjectId, projectType, dict).then(() => {
+        getProject(createdProjectId);
+      });
     }
 
     if (projectType === "projData") {
+      nextSection();
       let arr = JSON.parse(localStorage.getItem("projData"))
         ? JSON.parse(localStorage.getItem("projData"))
         : [];
+        console.log(sectionNum,arr.length)
       let dict = {};
       dict[templateNum] = data;
-      if (sectionNum == arr.length + 1) {
+      if (sectionNum == arr.length) {
         arr.push(dict);
       } else {
         arr[sectionNum] = dict;
       }
-      updateProject(createdProjectId, projectType, arr);
+      updateProject(createdProjectId, projectType, arr).then(() => {
+        getProject(createdProjectId);
+      });
       localStorage.setItem(projectType, JSON.stringify(arr));
     } else {
-      updateProject(createdProjectId, projectType, data);
+      updateProject(createdProjectId, projectType, data).then(() => {
+        getProject(createdProjectId);
+      });
       localStorage.setItem(projectType, JSON.stringify(data));
     }
 

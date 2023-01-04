@@ -17,15 +17,15 @@ const T2ProfileRating = () => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
   const [formData, setFormData] = useState({
-    instruction: isEditing ? data[sectionNum][2].instruction : "",
+    instruction: data[sectionNum] ? data[sectionNum]?.[2].instruction : "",
     range: {
       lower: {
-        number: isEditing ? data[sectionNum][2].range.lower.number : "",
-        text: isEditing ? data[sectionNum][2].range.lower.text : "",
+        number: data[sectionNum] ? data[sectionNum]?.[2].range.lower.number : "",
+        text: data[sectionNum] ? data[sectionNum]?.[2].range.lower.text : "",
       },
       upper: {
-        number: isEditing ? data[sectionNum][2].range.upper.number : "",
-        text: isEditing ? data[sectionNum][2].range.upper.text : "",
+        number: data[sectionNum] ? data[sectionNum]?.[2].range.upper.number : "",
+        text: data[sectionNum] ? data[sectionNum]?.[2].range.upper.text : "",
       },
     },
   });

@@ -10,8 +10,13 @@ import SuccessAlert from "../../Components/SnackBar/SuccessAlert";
 
 const Projects = () => {
   const navigate = useNavigate();
-  const { getAllProjects, projects, isLoading, createProject } =
-    useAppContext();
+  const {
+    getAllProjects,
+    projects,
+    isLoading,
+    createProject,
+    setOriginalState,
+  } = useAppContext();
   const handleOnClick = () => {
     createProject();
     navigate("/projects/details");
@@ -21,14 +26,18 @@ const Projects = () => {
 
   useEffect(() => {
     getAllProjects();
+    setOriginalState();
   }, []);
 
-   return (
+
+  return (
     <div>
       <script>{(document.title = "Projects")}</script>
-      {isLoading ? <Loading />
-      : <>
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mx: 6 }}>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mx: 6 }}>
             <Button
               variant="contained"
               onClick={handleOnClick}
@@ -37,13 +46,10 @@ const Projects = () => {
               Add Project
             </Button>
           </Box>
-          <ProjectTable 
-            data={projects} 
-            setDeleteSuccess={setDeleteSuccess}
-          />
+          <ProjectTable data={projects} setDeleteSuccess={setDeleteSuccess} />
         </>
-      }
-      <SuccessAlert 
+      )}
+      <SuccessAlert
         isSuccess={deleteSuccess}
         setIsSuccess={setDeleteSuccess}
         text="Project deleted successfully"

@@ -15,15 +15,18 @@ import AddableNoRange from "../CustomFormFields/AddableNoRange";
 import "./ProjectForm.css";
 
 const T5Intro = () => {
+  const { data, sectionNum, isEditing } = useAppContext();
   const [formData, setFormData] = useState({
-    instruction: "",
-    questions: [],
-    introductions: [],
+    instruction: data[sectionNum] ? data[sectionNum][5].instruction : "",
+    questions: data[sectionNum] ? data[sectionNum][5].questions : [],
+    introductions: data[sectionNum] ? data[sectionNum][5].introductions : [],
   });
   const [error, setError] = useState({
     questions: false,
     introductions: false,
   });
+
+  console.log(formData);
 
   const [qn, setQn] = useState({});
   const [intro, setIntro] = useState({});
@@ -83,6 +86,7 @@ const T5Intro = () => {
                 multiline
                 minRows={3}
                 onChange={handleOnChange}
+                value={formData.instruction}
               />
             </Box>
           </Box>
