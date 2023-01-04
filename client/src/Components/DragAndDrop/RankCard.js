@@ -1,4 +1,3 @@
-import { useNavigate, useLocation } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
 import { 
@@ -12,7 +11,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 import { colorPalette } from "../../Utils/colorPalette";
 
-const SortableCard = ({ id, title, img, description }) => {
+const RankCard = ({ id, title, img, description }) => {
 
     const { theme } = useAppContext();
 
@@ -23,7 +22,7 @@ const SortableCard = ({ id, title, img, description }) => {
         transform,
         transition,
         isDragging, 
-    } = useSortable({id: id});
+    } = useSortable({ id: id });
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -64,4 +63,4 @@ const SortableCard = ({ id, title, img, description }) => {
     )
 }
 
-export default SortableCard;
+export default RankCard;

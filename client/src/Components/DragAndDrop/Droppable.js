@@ -9,9 +9,7 @@ import { colorPalette } from "../../Utils/colorPalette";
 const Droppable = ({ children }) => {
 
     const { theme } = useAppContext(); 
-    const { isOver, setNodeRef } = useDroppable({
-        id: "droppable"
-    })
+    const { isOver, setNodeRef } = useDroppable({ id: "droppable"})
 
     return(
         <Box 

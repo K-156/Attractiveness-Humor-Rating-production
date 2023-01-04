@@ -8,16 +8,11 @@ import {
     DndContext, 
     closestCenter, 
 } from "@dnd-kit/core";
-import { 
-    arrayMove, 
-    SortableContext, 
-    horizontalListSortingStrategy 
-} from "@dnd-kit/sortable";
 import _ from "lodash";
 
 import { ReactComponent as Arrow } from "../../Assets/arrow.svg";
 import Droppable from "./Droppable";
-import SortableCard from "./SortableCard";
+import RankCard from "./RankCard";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const arrowRange = {lower: "Least Interested", upper: "Most Interested"}
@@ -30,55 +25,39 @@ const DragAndDrop = ({items, setItems, rankItems, setRankItems, allItems }) => {
         if (over.id === "droppable" && !(rankItems.includes(active.id))) {
             setRankItems(rankItems.concat(active.id));
             setItems(items.filter((aItem) => aItem["_id"] !== active.id))
-        }        
+        }      
     }
-
-    const onDragEnd = ({active, over}) => {
-        if (active.id !== over.id && over.id !== "droppable") {
-            setRankItems((rankItems) => {
-                const activeIndex = rankItems.findIndex((id) => id === active.id);
-                const overIndex = rankItems.findIndex((id) => id === over.id);
-                return(arrayMove(rankItems, activeIndex, overIndex))
-            })
-        }
-    }   
 
     return (
         <DndContext
             collisionDetection={closestCenter}
             onDragOver={onDragOver}
-            onDragEnd={onDragEnd}
         >
-            <SortableContext 
-                items={rankItems}
-                strategy={horizontalListSortingStrategy}
-            >
-                <Droppable>
-                    {rankItems.length > 0 ?
-                        _.map(rankItems, (id) => {
-                            const currItem = allItems.filter((aItem) => aItem["_id"] === id)[0]
-                            return (
-                                <SortableCard 
-                                    key={currItem["_id"]}
-                                    id={currItem["_id"]}
-                                    title={currItem["optionName"]}
-                                    img={currItem["link"]}
-                                    description={currItem["description"]}
-                                />
-                            )
-                        })
-                    :   <Typography 
-                            sx={{
-                                color: colorPalette[theme]["primary"], 
-                                fontSize:"14px", 
-                                position: "relative", 
-                                margin:"auto"
-                            }}>
-                            Drag and drop candidates here
-                        </Typography>
-                    }                    
-                </Droppable> 
-            </SortableContext>
+            <Droppable>
+                {rankItems.length > 0 ?
+                    _.map(rankItems, (id) => {
+                        const currItem = allItems.filter((aItem) => aItem["_id"] === id)[0]
+                        return (
+                            <RankCard 
+                                key={currItem["_id"]}
+                                id={currItem["_id"]}
+                                title={currItem["optionName"]}
+                                img={currItem["link"]}
+                                description={currItem["description"]}
+                            />
+                        )
+                    })
+                :   <Typography 
+                        sx={{
+                            color: colorPalette[theme]["primary"], 
+                            fontSize:"14px", 
+                            position: "relative", 
+                            margin:"auto"
+                        }}>
+                        Drag and drop candidates here
+                    </Typography>
+                }                    
+            </Droppable> 
             <Arrow style={{width:"100%"}}/>
             <Box display="flex" justifyContent="space-between">
                 <Typography variant="subtitle2" fontWeight="bold" color="#717171">{arrowRange["upper"]}</Typography>
@@ -95,26 +74,26 @@ const DragAndDrop = ({items, setItems, rankItems, setRankItems, allItems }) => {
                     padding: 2
                 }}
             >   
-                { items.length > 0 ?
-                    _.map(items, (aItem) => {
-                        return(
-                        <SortableCard 
-                            key={aItem["_id"]}
-                            id={aItem["_id"]}
-                            title={aItem["optionName"]}
-                            img={aItem["link"]}
-                            description={aItem["description"]}
-                        />
-                        )})
-                :   <Typography 
-                        sx={{
-                            color: "#6A6A6A", 
-                            fontSize:"14px", 
-                        }}
-                    >
-                        Candidates
-                    </Typography>
-                }
+            { items.length > 0 ?
+                _.map(items, (aItem) => {
+                    return(
+                    <RankCard 
+                        key={aItem["_id"]}
+                        id={aItem["_id"]}
+                        title={aItem["optionName"]}
+                        img={aItem["link"]}
+                        description={aItem["description"]}
+                    />
+                    )})
+            :   <Typography 
+                    sx={{
+                        color: "#6A6A6A", 
+                        fontSize:"14px", 
+                    }}
+                >
+                    Candidates
+                </Typography>
+            }
             </Box>
         </DndContext>
     )
