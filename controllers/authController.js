@@ -55,4 +55,6 @@ const updateUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user, token });
 };
 
+
+
 export { register, login, updateUser };

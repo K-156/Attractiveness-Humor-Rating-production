@@ -41,8 +41,8 @@ const UploadFiles = ({
       } else {
         fileLink = await uploadFiles(
           isEditing
-            ? `${editProjectId}_projDetails_email_${items.length}`
-            : `${createdProjectId}_projDetails_email_${items.length}`,
+            ? `${editProjectId}_projDetails_email_${items.length}.csv`
+            : `${createdProjectId}_projDetails_email_${items.length}.csv`,
           event.target.files[0]
         );
         setFormData((state) => ({

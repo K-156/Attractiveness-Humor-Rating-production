@@ -80,7 +80,17 @@ const deleteUploadsUsingDestroy = async (req, res) => {
 const deleteUploads = async (req, res) => {
   const { id: uploadId } = req.params;
   const prefix = uploadId.slice(0, 10);
-  const result = await cloudinary.api.delete_resources_by_prefix(prefix);
+  console.log(uploadId)
+  await cloudinary.api.delete_resources_by_prefix(prefix, {
+    resource_type:"raw"
+  });
+  await cloudinary.api.delete_resources_by_prefix(prefix, {
+    resource_type:"video"
+  });
+  const result = await cloudinary.api.delete_resources_by_prefix(prefix, {
+    resource_type:"image"
+  });
+  
   return res.status(StatusCodes.OK).json(result);
 };
 

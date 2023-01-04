@@ -83,10 +83,14 @@ const deleteProject = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Success! Project deleted" });
 };
 
+const getUsers = async(req,res) => {
+
+}
 export {
   createProject,
   updateProject,
   getProject,
   getAllProjects,
   deleteProject,
+  getUsers,
 };

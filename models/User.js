@@ -18,6 +18,9 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     // select:false,
   },
+  projId:{
+    type:String,
+  },
   role:{
     type:String,
     default:'participant'
