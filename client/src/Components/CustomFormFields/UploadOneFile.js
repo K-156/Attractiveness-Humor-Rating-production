@@ -6,27 +6,22 @@ import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
-
-const UploadOneFile = ({
-  id,
-  setFormData,
-  formData,
-  accept,
-  templateNum,
-}) => {
+const UploadOneFile = ({ id, setFormData, formData, accept, templateNum }) => {
   const {
     uploadFiles,
     isEditing,
     createdProjectId,
     editProjectId,
     sectionNum,
-    isLoading
   } = useAppContext();
 
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   let fileLink = "";
 
   const uploadFile = async (event) => {
+    setIsLoading(true);
     if (event.target.files !== undefined) {
       if (formData[id]["img"] !== null) {
         setError(true);
@@ -49,6 +44,7 @@ const UploadOneFile = ({
         },
       }));
     }
+    setIsLoading(false);
   };
 
   const onDelete = () => {
@@ -75,7 +71,7 @@ const UploadOneFile = ({
           Choose a file to upload
           <input type="file" accept={accept} hidden onChange={uploadFile} />
         </Button>
-        {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"}/>}
+        {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"} />}
       </Box>
       {error && (
         <Alert severity="error">

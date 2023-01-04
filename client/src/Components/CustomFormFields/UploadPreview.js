@@ -7,14 +7,16 @@ import HomeSample from "./HomeSample";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 const UploadPreview = ({ setFormData, formData }) => {
-  const { uploadFiles, isEditing, editProjectId, createdProjectId, isLoading } =
+  const { uploadFiles, isEditing, editProjectId, createdProjectId } =
     useAppContext();
   let fileLink = "";
 
   const [error, setError] = useState(false);
   const [graphic, setGraphic] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const uploadFile = async (event) => {
+    setIsLoading(true);
     if (event.target.files !== undefined) {
       if (formData["graphic"] !== null) {
         setError(true);
@@ -35,6 +37,7 @@ const UploadPreview = ({ setFormData, formData }) => {
     }));
 
     setGraphic(URL.createObjectURL(event.target.files[0]));
+    setIsLoading(false);
   };
 
   const onDelete = () => {

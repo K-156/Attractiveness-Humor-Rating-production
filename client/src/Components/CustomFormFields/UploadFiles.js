@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import { Box, Button, Typography } from "@mui/material";
 import _ from "lodash";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
-
 
 const UploadFiles = ({
   items,
@@ -20,11 +20,12 @@ const UploadFiles = ({
     editProjectId,
     createdProjectId,
     sectionNum,
-    isLoading
   } = useAppContext();
   let fileLink = "";
+  const [isLoading, setIsLoading] = useState(false);
 
   const uploadFile = async (event) => {
+    setIsLoading(true);
     if (event.target.files !== undefined) {
       if (audio) {
         fileLink = await uploadFiles(
@@ -52,6 +53,7 @@ const UploadFiles = ({
         }));
       }
     }
+    setIsLoading(false);
   };
 
   const onDelete = (index) => {
@@ -78,7 +80,7 @@ const UploadFiles = ({
           Choose file(s) to upload
           <input type="file" accept={accept} hidden onChange={uploadFile} />
         </Button>
-        {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"}/>}
+        {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"} />}
       </Box>
 
       {items.length < 1 ? (
