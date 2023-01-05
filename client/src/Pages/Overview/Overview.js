@@ -14,7 +14,7 @@ const options = ["123","345","567","891"]
 
 const Overview = () => {
 
-    const [project, setProject] = useState(options[0]);
+    const [projectId, setProjectId] = useState(options[0]);
 
     const handleOnClick = () => {
         // filter according to project id
@@ -31,7 +31,7 @@ const Overview = () => {
             <Autocomplete
                 options={options}
                 sx={{width: 250, mr: 3}}
-                value={project}
+                value={projectId}
                 renderInput={(params) =>
                     <TextField
                         {...params}
@@ -41,7 +41,7 @@ const Overview = () => {
                 }
                 onChange={(event, value)=>{
                     if (value) {
-                        setProject(value)
+                        setProjectId(value)
                     }
                 }}
             />
@@ -51,12 +51,12 @@ const Overview = () => {
                 sx={{px: 3}}
                 onClick={handleOnClick}
             >
-                Filter
+                Search
             </Button>
         </Box>
         <OverviewTable 
             data={data}
-            projectId={project}
+            projectId={projectId}
         />
         
     

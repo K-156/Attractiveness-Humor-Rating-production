@@ -13,6 +13,7 @@ const UploadFiles = ({
   accept,
   audio,
   templateNum,
+  style
 }) => {
   const {
     uploadFiles,
@@ -70,7 +71,7 @@ const UploadFiles = ({
 
   return (
     <Box className="flexColumn">
-      <Box className="secondColumn">
+      <Box className="secondColumn" style={style}>
         <Button
           variant="contained"
           className="customButton-green"

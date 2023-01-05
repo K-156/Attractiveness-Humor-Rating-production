@@ -14,8 +14,6 @@ const ProjectDetails = () => {
   const [formData, setFormData] = useState({
     title: projDetails?.title,
     description: projDetails?.description,
-    email: projDetails?.email,
-    emailLink: [],
     roles: projDetails?.roles,
     duration: projDetails?.duration,
     theme: projDetails ? projDetails.theme : "green",

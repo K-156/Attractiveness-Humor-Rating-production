@@ -1,6 +1,4 @@
 import { 
-    Alert,
-    AlertTitle,
     Box, 
     Button,
     Dialog, 
@@ -8,39 +6,21 @@ import {
     DialogTitle,
     Typography
 } from "@mui/material";
-import { HiArrowLeft } from "react-icons/hi";
 
-const DeleteDialog = ({ open, setOpen, isActive, handleDelete, id }) => {
+const ConfirmDialog = ({ open, setOpen, handleConfirm, id, text, header }) => {
     return(
         <Dialog open={open}>
-            { isActive ?
-            <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-                <Box sx={{pr:"20px"}}>Active project cannot be deleted</Box>
-                <Button
-                    sx={{
-                        textTransform:"none", 
-                        color: "#ef5350", 
-                        mt: 1
-                    }}
-                    onClick={()=>setOpen(false)}
-                >
-                    <HiArrowLeft  style={{marginRight:"10px"}} />Return
-                </Button>
-            </Alert>
-            :
-            <>
             <DialogTitle 
                 className="center"
                 sx={{fontWeight:"bold", fontSize:"16px", color:"#264653"}}
             >
-                Delete Project?
+                {header}
             </DialogTitle>
             <DialogContent
                 sx={{width: "350px"}}
             >
                 <Typography sx={{textAlign:"center"}}>
-                    This project and the files will be permanently deleted from the storage
+                    {text}
                 </Typography>
                 <Box 
                     className="spaceBetween"
@@ -56,19 +36,16 @@ const DeleteDialog = ({ open, setOpen, isActive, handleDelete, id }) => {
                     <Button
                         variant="contained"
                         className="customButton-green"
-                        onClick={handleDelete}
+                        onClick={handleConfirm}
                         value={true}
                         name={id}
                     >
-                        Delete
+                        Confirm
                     </Button>
                 </Box>
-            </DialogContent>            
-            </>
-            }
-            
+            </DialogContent>                        
         </Dialog>
     )
 }
 
-export default DeleteDialog; 
+export default ConfirmDialog; 

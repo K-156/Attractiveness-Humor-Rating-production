@@ -30,6 +30,7 @@ import GeneralLayout from "./Layout/GeneralLayout";
 import Themes from "./Pages/Project/ThemeSamples";
 import AdminLogin from "./Pages/Login/AdminLogin";
 import Error404 from "./Pages/Error404/Error404";
+import Participants from "./Pages/Participants/Participants";
 
 
 function App() {
@@ -164,6 +165,7 @@ function App() {
             <Route path="/projects/samples/templates" element={<Templates />} />
             <Route path="/projects/samples/themes" element={<Themes />} />
             <Route path="/projects/summary" element={<Summary />} />
+            <Route path="/participants" element={<Participants />} />
           </Route>
         </Routes>
       </Router>

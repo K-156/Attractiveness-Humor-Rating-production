@@ -8,7 +8,9 @@ import {
 } from "@mui/material";
 import { MdSpaceDashboard } from "react-icons/md";
 import { BsCardChecklist } from "react-icons/bs";
+import { HiUserGroup } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
+import _ from "lodash";
 
 import "./NavBar.css";
 
@@ -16,6 +18,20 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation()
   const [tab, setTab] = useState(location.pathname);
+  const navList = [
+    {
+      name: "Overview", 
+      icon: <MdSpaceDashboard />
+    }, 
+    {
+      name: "Projects", 
+      icon: <BsCardChecklist />
+    },
+    {
+      name: "Participants", 
+      icon: <HiUserGroup />
+    },
+  ]
 
   useEffect(() => {
     setTab(location.pathname)
@@ -25,40 +41,30 @@ const NavBar = () => {
     <>
       <div id="NavBar">
         <Box mt={12}>
-          <Button
-            className="navBarButton"
-            sx={{ background: tab.includes("overview") 
-                  ? "#1d353f" 
-                  : "#264653" 
-               }}
-            onClick={() => navigate("/overview")}
-          >
-            <MdSpaceDashboard 
-              size={25} 
-              style={{ margin: "15px" }} 
-            />
-            <Typography sx={{pl: 1}}>
-              Overview
-            </Typography>
-          </Button>
-          <Button
-            className="navBarButton"
-            sx={{ background: tab.includes("projects")
-                  ? "#1d353f" 
-                  : "#264653"  
-                }}
-            onClick={() => navigate("/projects")}
-          >
-            <BsCardChecklist 
-              size={25} 
-              style={{ margin: "15px" }} 
-            />
-            <Typography sx={{pl: 1}}>
-              Projects
-            </Typography>
-          </Button>
+          {_.map(navList, (item) => {
+            return(
+              <Button
+                key={item.name}
+                className="navBarButton"
+                sx={{ background: tab.includes(item.name.toLowerCase()) 
+                      ? "#1d353f" 
+                      : "#264653", 
+                  }}
+                onClick={() => navigate(`/${item.name.toLowerCase()}`)}
+              > 
+                <Box
+                  className="center"
+                  sx={{fontSize:"25px", m: 2}}
+                >
+                  {item.icon}
+                </Box>
+                <Typography sx={{pl: 1}}>
+                  {item.name}
+                </Typography>
+              </Button>
+            )})
+          }
         </Box>
-
         <Box className="logoutPosition">
           <Button
             variant="contained"

@@ -14,7 +14,6 @@ import _ from "lodash";
 
 import "./ProjectForm.css";
 import AddableNoRange from "../CustomFormFields/AddableNoRange";
-import UploadFiles from "../CustomFormFields/UploadFiles";
 import UploadPreview from "../CustomFormFields/UploadPreview";
 
 const ProjectDetailsForm = ({ formData, setFormData }) => {
@@ -23,7 +22,6 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
   const [role, setRole] = useState();
   const [error, setError] = useState({
     title: false,
-    email: false,
     roles: false,
     duration: false,
   });
@@ -89,31 +87,6 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                           helperText={`${textLimit} / 200`}
                           onChange={handleOnChange}
                       />
-                    </Box>
-                </Box>
-                <Box className="twoColumns">
-                    <Box>
-                        <Typography className="variable">Upload participant email</Typography>
-                        <Typography className="variable-subtitle">(in .csv)</Typography>
-                    </Box>
-                    <UploadFiles 
-                        items={formData["email"]}
-                        setFormData={setFormData}
-                        variable="email"
-                        accept=".csv"
-                    />
-                </Box>
-                <Box className="twoColumns">
-                    <Box>
-                        <Typography className="variable">Example of the format</Typography>
-                        <Typography className="variable-subtitle">(in .csv)</Typography>
-                    </Box>
-                    <Box className="secondColumn">
-                        <img 
-                            src={require("../../Assets/emailExample.PNG")}
-                            alt="example"
-                            style={{width:"300px"}}
-                        />  
                     </Box>
                 </Box>
                 <Box className="twoColumns">

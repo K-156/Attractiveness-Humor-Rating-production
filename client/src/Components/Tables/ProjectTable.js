@@ -19,7 +19,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
 import "./Tables.css";
-import DeleteDialog from "../DeleteDialog/DeleteDialog";
+import DeleteDialog from "../Dialog/DeleteDialog";
 
 
 const ProjectTable = ({ data, setDeleteSuccess }) => {
@@ -153,6 +153,8 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
           setDeleteSuccess(true)
         }}
         id={toDelete.id}
+        text="This project and the files will be permanently deleted from the storage"
+        header="Delete Project?"
       />
       
     </Box>
