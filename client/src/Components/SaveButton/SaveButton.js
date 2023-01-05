@@ -11,7 +11,6 @@ const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
     if (projectType === "projDetails") {
       updateProject(editProjectId, projectType, formData);
     }
-
     if (projectType === "projData") {
       let arr = data;
       let dict = {};
@@ -25,7 +24,6 @@ const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
     } else {
       updateProject(editProjectId, projectType, formData);
     }
-
     navigate("/projects/summary");
   };
   return (

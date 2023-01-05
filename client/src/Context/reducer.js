@@ -251,6 +251,13 @@ const reducer = (state, action) => {
         data: data.updatedProject.data,
       };
     }
+    if (projType === "projDetails") {
+      return {
+        ...state,
+        isLoading: false,
+        projDetails: data.updatedProject.projDetails,
+      };
+    }
     return {
       ...state,
       isLoading: false,

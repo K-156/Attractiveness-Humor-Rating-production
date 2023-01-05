@@ -66,11 +66,11 @@ const GeneralContent = ({ content, handleOnClick }) => {
                 })}
               </Box>
             ) : (
-              key !== "graphicLink" && (
+              !key.includes("Link") && (
                 <Typography className="summaryText">
                   {key === "duration"
                     ? `${value} mins`
-                    : key === "isNext"
+                    : key === "isNext" || key === "isEnd"
                     ? `${value === 'true' ? "Yes" : "No"}`
                     : value}
                 </Typography>
