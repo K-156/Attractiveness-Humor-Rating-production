@@ -270,7 +270,7 @@ const reducer = (state, action) => {
       projDetails: initialState.projDetails,
       data: initialState.data,
       sections: initialState.sections,
-      sectionNum: initialState.sectionNum,
+      sectionNum:initialState.sectionNum,
     };
   }
   throw new Error(`no such action: ${action.type}`);

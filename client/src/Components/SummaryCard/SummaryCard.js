@@ -19,8 +19,7 @@ import OptionsContent from "./OptionsContent";
 import GeneralContent from "./GeneralContent";
 
 const SummaryCard = ({ header, content, editLink, template, index }) => {
-  const { setSectionNum, setEditProject, createdProjectId, getAllProjects } =
-    useAppContext();
+  const { setSectionNum } = useAppContext();
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -34,11 +33,7 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
     });
   };
   const handleOnEdit = () => {
-    sessionStorage.setItem("editMode", "edit");
-    getAllProjects().then(() => {
-      setEditProject(createdProjectId);
-    });
-    setSectionNum(index);
+    setSectionNum(index)
     navigate(editLink, {
       state: {
         template: template,

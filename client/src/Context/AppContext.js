@@ -217,7 +217,6 @@ const AppProvider = ({ children }) => {
 
   const updateProject = async (projectId, projType, projData) => {
     dispatch({ type: UPDATE_PROJECT_BEGIN });
-    console.log('hi')
     try {
       if (projType === "projDetails") {
         const { data } = await authFetch.patch(`/projects/${projectId}`, {
