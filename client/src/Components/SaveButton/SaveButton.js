@@ -5,7 +5,7 @@ import { Box, Button } from "@mui/material";
 
 const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
   const { updateProject, editProjectId, data } = useAppContext();
-
+  console.log(editProjectId)
   const navigate = useNavigate();
   const handleSubmit = (formData) => {
     if (projectType === "projDetails") {
@@ -21,6 +21,7 @@ const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
       } else {
         arr[sectionNum - 1] = dict;
       }
+
       updateProject(editProjectId, projectType, arr);
     } else {
       updateProject(editProjectId, projectType, formData);
