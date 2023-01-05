@@ -15,8 +15,6 @@ const UploadPreview = ({ setFormData, formData }) => {
   const [graphic, setGraphic] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(formData['graphic'])
-
   const uploadFile = async (event) => {
     setIsLoading(true);
     if (event.target.files !== undefined) {

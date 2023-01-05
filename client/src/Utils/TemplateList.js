@@ -27,6 +27,7 @@ const variableMap = {
     theme:"Selected Theme",
     graphic:"Landing Page Image",
     range:"Range",
+    isEnd:"Is this the end of the survey?"
 }
 
 export { 

@@ -30,8 +30,8 @@ const UploadFiles = ({
       if (audio) {
         fileLink = await uploadFiles(
           isEditing
-            ? `${editProjectId}_${sectionNum}_${templateNum}`
-            : `${createdProjectId}_${sectionNum}_${templateNum}`,
+            ? `${editProjectId}_${sectionNum}_${templateNum}_${items.length}`
+            : `${createdProjectId}_${sectionNum}_${templateNum}_${items.length}`,
           event.target.files[0]
         );
         setFormData((state) => ({
