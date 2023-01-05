@@ -17,8 +17,8 @@ const ProjectDetails = () => {
     email: projDetails?.email,
     emailLink: [],
     roles: projDetails?.roles,
-    duration: projDetails?.duration ,
-    theme: "green",
+    duration: projDetails?.duration,
+    theme: projDetails ? projDetails.theme : "green",
     graphic: projDetails?.graphic,
     graphicLink: projDetails?.graphicLink,
   });

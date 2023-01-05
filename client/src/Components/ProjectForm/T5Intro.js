@@ -14,7 +14,7 @@ import AddableField from "../CustomFormFields/AddableField";
 import AddableNoRange from "../CustomFormFields/AddableNoRange";
 import "./ProjectForm.css";
 
-const T5Intro = () => {
+const T5Intro = ({ role }) => {
   const { data, sectionNum, isEditing } = useAppContext();
   const [formData, setFormData] = useState({
     instruction: data[sectionNum] ? data[sectionNum][5].instruction : "",
@@ -73,59 +73,64 @@ const T5Intro = () => {
   }, [formData]);
 
   return (
-    <Card>
-      <CardContent className="cardPadding">
-        <FormControl>
-          <Box className="twoColumns">
-            <Typography className="variable">Instruction</Typography>
-            <Box className="secondColumn">
-              <TextField
-                size="small"
-                name="instruction"
-                fullWidth
-                multiline
-                minRows={3}
-                onChange={handleOnChange}
-                value={formData.instruction}
-              />
+    <Box sx={{ mb: 3 }}>
+      <Typography sx={{ color: "#264653" }}>
+        Role: <b>{role}</b>
+      </Typography>
+      <Card>
+        <CardContent className="cardPadding">
+          <FormControl>
+            <Box className="twoColumns">
+              <Typography className="variable">Instruction</Typography>
+              <Box className="secondColumn">
+                <TextField
+                  size="small"
+                  name="instruction"
+                  fullWidth
+                  multiline
+                  minRows={3}
+                  onChange={handleOnChange}
+                  value={formData.instruction}
+                />
+              </Box>
             </Box>
-          </Box>
-          <Box className="twoColumns">
-            <Typography className="variable">Questions</Typography>
-            <Box className="secondColumn">
-              <AddableField
-                name="questions"
-                items={formData["questions"]}
-                error={error["questions"]}
-                setError={setError}
-                errorText="Question added"
-                handleOnChange={handleOnChange}
-                currValue={qn}
-                setFormData={setFormData}
-                variable="questions"
-              />
+            <Box className="twoColumns">
+              <Typography className="variable">Questions</Typography>
+              <Box className="secondColumn">
+                <AddableField
+                  name="questions"
+                  items={formData["questions"]}
+                  error={error["questions"]}
+                  setError={setError}
+                  errorText="Question added"
+                  handleOnChange={handleOnChange}
+                  currValue={qn}
+                  setFormData={setFormData}
+                  variable="questions"
+                />
+              </Box>
             </Box>
-          </Box>
-          <Box className="twoColumns">
-            <Box>
-              <Typography className="variable">Introductions</Typography>
+            <Box className="twoColumns">
+              <Box>
+                <Typography className="variable">Introductions</Typography>
+              </Box>
+              <Box className="secondColumn">
+                <AddableNoRange
+                  items={formData["introductions"]}
+                  error={error["introductions"]}
+                  setError={setError}
+                  errorText="Introduction added"
+                  handleOnChange={handleOnChange}
+                  currValue={intro["introductions"]}
+                  setFormData={setFormData}
+                  variable="introductions"
+                />
+              </Box>
             </Box>
-            <Box className="secondColumn">
-              <AddableNoRange
-                items={formData["introductions"]}
-                error={error["introductions"]}
-                setError={setError}
-                errorText="Introduction added"
-                handleOnChange={handleOnChange}
-                currValue={intro["introductions"]}
-                setFormData={setFormData}
-                variable="introductions"
-              />
-            </Box>
-          </Box>
-        </FormControl>
-      </CardContent>
-    </Card>
+          </FormControl>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

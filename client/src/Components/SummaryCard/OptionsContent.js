@@ -6,12 +6,12 @@ import "./SummaryCard.css";
 import { variableMap } from "../../Utils/templateList";
 
 const OptionsContent = ({ content, handleOnClick, header }) => {
-  const instructionText = content["instruction"];
-  const characteristicsText = content["characteristics"];
+  const instructionText = content?.["instruction"];
+  const characteristicsText = content?.["characteristics"];
 
   const optionContent = Object.fromEntries(
     ["option1", "option2", "option3", "option4"].map((key, index) => {
-      return [key, content[index + 1]];
+      return [key, content?.[index + 1]];
     })
   );
 
@@ -29,7 +29,7 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
           <Typography className="summaryText">{instructionText}</Typography>
         )}
       </Box>
-      {content["characteristics"] && (
+      {content?.["characteristics"] && (
         <Box className="twoColumns">
           <Typography className="summaryVariable">Characteristics</Typography>
           <Box>

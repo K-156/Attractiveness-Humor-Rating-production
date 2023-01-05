@@ -13,7 +13,7 @@ import AddableField from "../CustomFormFields/AddableField";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
-const T4Audio = () => {
+const T4Audio = ({ role }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
   const [formData, setFormData] = useState({
@@ -38,67 +38,71 @@ const T4Audio = () => {
     submitFormData(formData);
   }, [formData]);
 
-
   return (
-    <Card>
-      <CardContent className="cardPadding">
-        <FormControl>
-          <Box className="twoColumns">
-            <Typography className="variable">Instruction</Typography>
-            <Box className="secondColumn">
-              <TextField
-              value={formData.instruction}
-                size="small"
-                name="instruction"
-                fullWidth
-                multiline
-                minRows={3}
-                onChange={(event) => {
-                  setFormData((state) => ({
-                    ...state,
-                    instruction: event.target.value,
-                  }));
-                }}
-              />
+    <Box sx={{ mb: 3 }}>
+      <Typography sx={{ color: "#264653" }}>
+        Role: <b>{role}</b>
+      </Typography>
+      <Card>
+        <CardContent className="cardPadding">
+          <FormControl>
+            <Box className="twoColumns">
+              <Typography className="variable">Instruction</Typography>
+              <Box className="secondColumn">
+                <TextField
+                  value={formData.instruction}
+                  size="small"
+                  name="instruction"
+                  fullWidth
+                  multiline
+                  minRows={3}
+                  onChange={(event) => {
+                    setFormData((state) => ({
+                      ...state,
+                      instruction: event.target.value,
+                    }));
+                  }}
+                />
+              </Box>
             </Box>
-          </Box>
-          <Box className="twoColumns">
-            <Typography className="variable">Questions</Typography>
-            <Box className="secondColumn">
-              <AddableField
-                items={formData["questions"]}
-                error={error["questions"]}
-                setError={setError}
-                errorText="Question added"
-                handleOnChange={handleOnChange}
-                currValue={qn}
-                setFormData={setFormData}
-                variable="questions"
-              />
+            <Box className="twoColumns">
+              <Typography className="variable">Questions</Typography>
+              <Box className="secondColumn">
+                <AddableField
+                  items={formData["questions"]}
+                  error={error["questions"]}
+                  setError={setError}
+                  errorText="Question added"
+                  handleOnChange={handleOnChange}
+                  currValue={qn}
+                  setFormData={setFormData}
+                  variable="questions"
+                />
+              </Box>
             </Box>
-          </Box>
-          <Box className="twoColumns">
-            <Box>
-              <Typography className="variable">
-                Upload Audio
-                <br />
-              </Typography>
-              <Typography className="variable-subtitle">(in .mp3)</Typography>
+            <Box className="twoColumns">
+              <Box>
+                <Typography className="variable">
+                  Upload Audio
+                  <br />
+                </Typography>
+                <Typography className="variable-subtitle">(in .mp3)</Typography>
+              </Box>
+              <Box className="secondColumn">
+                <UploadFiles
+                  items={formData["audio"]}
+                  setFormData={setFormData}
+                  variable="audio"
+                  accept=".mp3"
+                  audio={true}
+                  templateNum={4}
+                />
+              </Box>
             </Box>
-            <Box className="secondColumn">
-              <UploadFiles
-                items={formData["audio"]}
-                setFormData={setFormData}
-                variable="audio"
-                accept=".mp3"
-                audio={true}
-                templateNum={4}
-              />
-            </Box>
-          </Box>
-        </FormControl>
-      </CardContent>
-    </Card>
+          </FormControl>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

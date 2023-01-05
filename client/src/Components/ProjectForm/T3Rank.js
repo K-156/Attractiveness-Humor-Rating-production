@@ -13,7 +13,7 @@ import _ from "lodash";
 
 import "./ProjectForm.css";
 
-const T3Rank = () => {
+const T3Rank = ({ role }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
   const [expanded, setExpanded] = useState({
@@ -61,54 +61,59 @@ const T3Rank = () => {
   }, [formData]);
 
   return (
-    <Card>
-      <CardContent className="cardPadding">
-        <FormControl>
-          <Box className="twoColumns">
-            <Typography className="variable">Instruction</Typography>
-            <Box className="secondColumn">
-              <TextField
-                size="small"
-                name="instruction"
-                fullWidth
-                multiline
-                minRows={3}
-                onChange={handleOnChange}
-                value={formData.instruction}
-              />
+    <Box sx={{ mb: 3 }}>
+      <Typography sx={{ color: "#264653" }}>
+        Role: <b>{role}</b>
+      </Typography>
+      <Card>
+        <CardContent className="cardPadding">
+          <FormControl>
+            <Box className="twoColumns">
+              <Typography className="variable">Instruction</Typography>
+              <Box className="secondColumn">
+                <TextField
+                  size="small"
+                  name="instruction"
+                  fullWidth
+                  multiline
+                  minRows={3}
+                  onChange={handleOnChange}
+                  value={formData.instruction}
+                />
+              </Box>
             </Box>
-          </Box>
-          <Box className="twoColumns">
-            <Typography className="variable">Characteristics</Typography>
-            <Box
-              className="secondColumn"
-              sx={{ justifyContent: "space-between" }}
-            >
-              {_.map(["Lowerbound", "Upperbound"], (type) => {
-                return (
-                  <TextField
-                    key={type}
-                    size="small"
-                    name={type.toLowerCase()}
-                    label={type}
-                    onChange={handleOnChange}
-                    sx={{ width: "180px" }}
-                    value={formData["characteristics"][type.toLowerCase()]}
-                    InputLabelProps={{
-                      shrink:
-                        (isEditing ||
-                          formData["characteristics"][type.toLowerCase()] !==
-                            "") &&
-                        true,
-                    }}
-                  />
-                );
-              })}
+            <Box className="twoColumns">
+              <Typography className="variable">Characteristics</Typography>
+              <Box
+                className="secondColumn"
+                sx={{ justifyContent: "space-between" }}
+              >
+                {_.map(["Lowerbound", "Upperbound"], (type) => {
+                  return (
+                    <TextField
+                      key={type}
+                      size="small"
+                      name={type.toLowerCase()}
+                      label={type}
+                      onChange={handleOnChange}
+                      sx={{ width: "180px" }}
+                      value={formData["characteristics"][type.toLowerCase()]}
+                      InputLabelProps={{
+                        shrink:
+                          (isEditing ||
+                            formData["characteristics"][type.toLowerCase()] !==
+                              "") &&
+                          true,
+                      }}
+                    />
+                  );
+                })}
+              </Box>
             </Box>
-          </Box>
-        </FormControl>
-      </CardContent>
-    </Card>
+          </FormControl>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
