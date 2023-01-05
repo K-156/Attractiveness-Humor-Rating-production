@@ -20,8 +20,9 @@ const T7General = () => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
   const [formData, setFormData] = useState({
-    text: data[sectionNum] ? data[sectionNum][7].text :"",
-    isNext: data[sectionNum] ? data[sectionNum][7].isNext : false,
+    text: data[sectionNum] ? data[sectionNum][7].text : "",
+    isNext: data[sectionNum] ? data[sectionNum][7].isNext : true,
+    isEnd: data[sectionNum] ? data[sectionNum][7].isEnd : true,
   });
 
   const handleOnChange = (event) => {
@@ -59,6 +60,32 @@ const T7General = () => {
           <Box className="twoColumns">
             <Typography className="variable" sx={{ pt: "9px" }}>
               Is there a Next button?
+            </Typography>
+            <RadioGroup
+              row
+              className="secondColumn"
+              sx={{ justifyContent: "space-around" }}
+              defaultValue={formData.isNext}
+            >
+              {_.map(["Yes", "No"], (option) => {
+                return (
+                  <FormControlLabel
+                    key={option}
+                    name="isNext"
+                    value={option === "Yes"}
+                    control={<Radio size="small" />}
+                    label={option}
+                    labelPlacement="start"
+                    sx={{ ".MuiFormControlLabel-label": { fontSize: "14px" } }}
+                    onChange={handleOnChange}
+                  />
+                );
+              })}
+            </RadioGroup>
+          </Box>
+          <Box className="twoColumns">
+            <Typography className="variable" sx={{ pt: "9px" }}>
+              Is this the end of the survey?
             </Typography>
             <RadioGroup
               row
