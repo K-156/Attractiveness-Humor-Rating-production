@@ -12,7 +12,7 @@ import DeleteDialog from "../../Components/Dialog/DeleteDialog";
 import ConfirmDialog from "../../Components/Dialog/ConfirmDialog";
 import UploadParticipantDialog from "../../Components/Dialog/UploadParticipantDialog";
 
-const options = ["123","345","567","891"]
+const options = ["-sk_ggAkhr: Jobify", "foQNPuACMl: more than one profile", "o-hNaDM7zK: csv", "HA4Ys4EpND: Jobify"]
 
 const Participants = () => {
 
@@ -50,7 +50,7 @@ const Participants = () => {
                     renderInput={(params) =>
                         <TextField
                             {...params}
-                            label="Project ID" 
+                            label="Project" 
                             size="small"
                         />
                     }

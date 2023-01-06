@@ -10,7 +10,7 @@ import _ from "lodash";
 
 import OverviewTable from "../../Components/Tables/OverviewTable";
 
-const options = ["123","345","567","891"]
+const options = ["-sk_ggAkhr: Jobify", "foQNPuACMl: more than one profile", "o-hNaDM7zK: csv", "HA4Ys4EpND: Jobify"]
 
 const Overview = () => {
 
@@ -35,7 +35,7 @@ const Overview = () => {
                 renderInput={(params) =>
                     <TextField
                         {...params}
-                        label="Project ID" 
+                        label="Project" 
                         size="small"
                     />
                 }
