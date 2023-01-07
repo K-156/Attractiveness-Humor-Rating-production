@@ -16,7 +16,7 @@ import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
 const T1Profile = ({ role }) => {
-  const { submitFormData, isEditing, data, sectionNum } = useAppContext();
+  const { submitFormData, data, sectionNum } = useAppContext();
 
   const [expanded, setExpanded] = useState({
     instruction: false,
@@ -103,7 +103,10 @@ const T1Profile = ({ role }) => {
               onChange={(event) => {
                 setFormData((state) => ({
                   ...state,
-                  instruction: event.target.value,
+                  [role]:{
+                    ...state[role],
+                    instruction: event.target.value,
+                  }
                 }));
               }}
             />
@@ -139,6 +142,7 @@ const T1Profile = ({ role }) => {
                 setFormData={setFormData}
                 formData={formData}
                 templateNum={1}
+                role={role}
               />
             </AccordionDetails>
           </Accordion>

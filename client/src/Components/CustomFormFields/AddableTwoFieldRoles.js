@@ -3,29 +3,30 @@ import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableNoRange = ({
+const AddableTwoField = ({
+  id,
   items,
-  error,
-  setError,
-  errorText,
+  formData,
   handleOnChange,
-  currValue,
   setFormData,
   variable,
+  currValue,
+  setError,
+  error,
   role,
 }) => {
   const onAdd = () => {
     if (items.includes(currValue)) {
-      setError((state) => ({
-        ...state,
-        [variable]: true,
-      }));
+      setError(true);
     } else {
       setFormData((state) => ({
         ...state,
         [role]: {
           ...state[role],
-          [variable]: items.concat(currValue),
+          [id]: {
+            ...formData[role][id],
+            [variable]: formData[role][id][variable].concat(currValue),
+          },
         },
       }));
     }
@@ -50,13 +51,22 @@ const AddableNoRange = ({
     <Box className="flexColumn">
       <Box className="secondColumn">
         <TextField
+          name="name"
+          label="Name"
           size="small"
-          fullWidth
           onChange={handleOnChange}
           error={error}
-          helperText={error ? errorText : ""}
-          id={variable}
-          name={variable}
+          helperText={error ? "Name-value added" : ""}
+          sx={{ width: "180px", mr: "20px" }}
+        />
+        <TextField
+          name="value"
+          label="Value"
+          size="small"
+          onChange={handleOnChange}
+          error={error}
+          helperText={error ? "Name-value added" : ""}
+          sx={{ width: "180px" }}
         />
         <Button onClick={onAdd}>
           <CgAdd
@@ -71,17 +81,17 @@ const AddableNoRange = ({
       {items?.length < 1 ? (
         <></>
       ) : (
-        <Box sx={{ pt: 1, pl: 2 }}>
-          {_.map(items, (value, index) => {
+        <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
+          {_.map(items, (aItem, index) => {
             return (
-              <Box key={value} className="spaceBetween">
+              <Box key={aItem.name + aItem.value} className="spaceBetween">
                 <Typography
                   sx={{
                     fontSize: "14px",
                     color: "#264653",
                   }}
                 >
-                  {index + 1}. {value}
+                  {index + 1}. {aItem.name}: {aItem.value}
                 </Typography>
                 <Button id={index} onClick={() => onDelete(index)}>
                   <RiDeleteBin6Fill
@@ -101,4 +111,4 @@ const AddableNoRange = ({
   );
 };
 
-export default AddableNoRange;
+export default AddableTwoField;

@@ -10,16 +10,18 @@ import {
   Typography,
 } from "@mui/material";
 
-import AddableField from "../CustomFormFields/AddableField";
-import AddableNoRange from "../CustomFormFields/AddableNoRange";
+import AddableFieldRoles from "../CustomFormFields/AddableFieldRoles";
+import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
 import "./ProjectForm.css";
 
 const T5Intro = ({ role }) => {
-  const { data, sectionNum, isEditing } = useAppContext();
+  const { data, sectionNum } = useAppContext();
   const [formData, setFormData] = useState({
-    instruction: data[sectionNum] ? data[sectionNum][5].instruction : "",
-    questions: data[sectionNum] ? data[sectionNum][5].questions : [],
-    introductions: data[sectionNum] ? data[sectionNum][5].introductions : [],
+    [role]: {
+      instruction: data[sectionNum] ? data[sectionNum][5].instruction : "",
+      questions: data[sectionNum] ? data[sectionNum][5].questions : [],
+      introductions: data[sectionNum] ? data[sectionNum][5].introductions : [],
+    },
   });
   const [error, setError] = useState({
     questions: false,
@@ -44,7 +46,10 @@ const T5Intro = ({ role }) => {
     if (name === "instruction") {
       setFormData((state) => ({
         ...state,
-        instruction: value,
+        [role]: {
+          ...state[role],
+          instruction: value,
+        },
       }));
     } else if (id === "questions") {
       setQn((state) => ({
@@ -90,16 +95,16 @@ const T5Intro = ({ role }) => {
                   multiline
                   minRows={3}
                   onChange={handleOnChange}
-                  value={formData.instruction}
+                  value={formData[role].instruction}
                 />
               </Box>
             </Box>
             <Box className="twoColumns">
               <Typography className="variable">Questions</Typography>
               <Box className="secondColumn">
-                <AddableField
+                <AddableFieldRoles
                   name="questions"
-                  items={formData["questions"]}
+                  items={formData[role]["questions"]}
                   error={error["questions"]}
                   setError={setError}
                   errorText="Question added"
@@ -107,6 +112,7 @@ const T5Intro = ({ role }) => {
                   currValue={qn}
                   setFormData={setFormData}
                   variable="questions"
+                  role={role}
                 />
               </Box>
             </Box>
@@ -115,8 +121,8 @@ const T5Intro = ({ role }) => {
                 <Typography className="variable">Introductions</Typography>
               </Box>
               <Box className="secondColumn">
-                <AddableNoRange
-                  items={formData["introductions"]}
+                <AddableNoRangeRoles
+                  items={formData[role]["introductions"]}
                   error={error["introductions"]}
                   setError={setError}
                   errorText="Introduction added"
@@ -124,6 +130,7 @@ const T5Intro = ({ role }) => {
                   currValue={intro["introductions"]}
                   setFormData={setFormData}
                   variable="introductions"
+                  role={role}
                 />
               </Box>
             </Box>

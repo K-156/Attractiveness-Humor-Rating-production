@@ -1,9 +1,10 @@
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
+import { BsDash } from "react-icons/bs";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableNoRange = ({
+const AddableField = ({
   items,
   error,
   setError,
@@ -15,7 +16,13 @@ const AddableNoRange = ({
   role,
 }) => {
   const onAdd = () => {
-    if (items.includes(currValue)) {
+    const variableList = [
+      _.map(items, (aItem) => {
+        return aItem[variable];
+      }),
+    ];
+
+    if (variableList.includes(currValue[variable])) {
       setError((state) => ({
         ...state,
         [variable]: true,
@@ -68,9 +75,37 @@ const AddableNoRange = ({
           />
         </Button>
       </Box>
-      {items?.length < 1 ? (
-        <></>
-      ) : (
+      <Box>
+        {_.map(["Lower", "Upper"], (type) => {
+          return (
+            <Box key={type} className="secondColumn" sx={{ mt: 1 }}>
+              <TextField
+                size="small"
+                name={`${type.toLowerCase()}Num`}
+                label={`${type}bound`}
+                width="30px"
+                InputProps={{ inputProps: { min: 1 } }}
+                type="number"
+                onChange={handleOnChange}
+                id={variable}
+              />
+              <BsDash
+                size="40px"
+                style={{ marginLeft: "10px", marginRight: "10px" }}
+              />
+              <TextField
+                size="small"
+                name={`${type.toLowerCase()}Text`}
+                label="Characteristics"
+                fullWidth
+                onChange={handleOnChange}
+                id={variable}
+              />
+            </Box>
+          );
+        })}
+      </Box>
+      {
         <Box sx={{ pt: 1, pl: 2 }}>
           {_.map(items, (value, index) => {
             return (
@@ -81,7 +116,9 @@ const AddableNoRange = ({
                     color: "#264653",
                   }}
                 >
-                  {index + 1}. {value}
+                  {index + 1}. {value["questions"]} ({value["lowerNum"]} -{" "}
+                  {value["lowerText"]}, {value["upperNum"]} -{" "}
+                  {value["upperText"]})
                 </Typography>
                 <Button id={index} onClick={() => onDelete(index)}>
                   <RiDeleteBin6Fill
@@ -96,9 +133,9 @@ const AddableNoRange = ({
             );
           })}
         </Box>
-      )}
+      }
     </Box>
   );
 };
 
-export default AddableNoRange;
+export default AddableField;

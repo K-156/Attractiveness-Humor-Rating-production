@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import AddableField from "../CustomFormFields/AddableField";
+import AddableFieldRoles from "../CustomFormFields/AddableFieldRoles";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
@@ -17,10 +17,12 @@ const T4Audio = ({ role }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
   const [formData, setFormData] = useState({
-    instruction: data[sectionNum] ? data[sectionNum][4].instruction : "",
-    questions: data[sectionNum] ? data[sectionNum][4].questions : [],
-    audio: data[sectionNum] ? data[sectionNum][4].audio : [],
-    audioLink: data[sectionNum] ? data[sectionNum][4].audioLink : [],
+    [role]: {
+      instruction: data[sectionNum] ? data[sectionNum][4].instruction : "",
+      questions: data[sectionNum] ? data[sectionNum][4].questions : [],
+      audio: data[sectionNum] ? data[sectionNum][4].audio : [],
+      audioLink: data[sectionNum] ? data[sectionNum][4].audioLink : [],
+    },
   });
   const [error, setError] = useState({ questions: false });
   const [qn, setQn] = useState({});
@@ -59,7 +61,10 @@ const T4Audio = ({ role }) => {
                   onChange={(event) => {
                     setFormData((state) => ({
                       ...state,
-                      instruction: event.target.value,
+                      [role]:{
+                        ...state[role],
+                        instruction: event.target.value,
+                      }
                     }));
                   }}
                 />
@@ -68,8 +73,8 @@ const T4Audio = ({ role }) => {
             <Box className="twoColumns">
               <Typography className="variable">Questions</Typography>
               <Box className="secondColumn">
-                <AddableField
-                  items={formData["questions"]}
+                <AddableFieldRoles
+                  items={formData[role]["questions"]}
                   error={error["questions"]}
                   setError={setError}
                   errorText="Question added"
@@ -77,6 +82,7 @@ const T4Audio = ({ role }) => {
                   currValue={qn}
                   setFormData={setFormData}
                   variable="questions"
+                  role={role}
                 />
               </Box>
             </Box>
@@ -90,12 +96,13 @@ const T4Audio = ({ role }) => {
               </Box>
               <Box className="secondColumn">
                 <UploadFiles
-                  items={formData["audio"]}
+                  items={formData[role]["audio"]}
                   setFormData={setFormData}
                   variable="audio"
                   accept=".mp3"
                   audio={true}
                   templateNum={4}
+                  role={role}
                 />
               </Box>
             </Box>

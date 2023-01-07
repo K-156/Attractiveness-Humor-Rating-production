@@ -3,11 +3,10 @@ import { useState } from "react";
 import { Box, TextField, Typography } from "@mui/material";
 
 import "./ProjectForm.css";
-import AddableTwoField from "../CustomFormFields/AddableTwoField";
+import AddableTwoFieldRoles from "../CustomFormFields/AddableTwoFieldRoles";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
-const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
-
+const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
   const [error, setError] = useState(false);
   const [textLimit, setTextLimit] = useState({
     optionName: 0,
@@ -22,9 +21,12 @@ const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
     if (name === "optionName" || name === "description") {
       setFormData((state) => ({
         ...state,
-        [id]: {
-          ...formData[id],
-          [name]: value,
+        [role]: {
+          ...state[role],
+          [id]: {
+            ...formData[role][id],
+            [name]: value,
+          },
         },
       }));
 
@@ -54,7 +56,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
               inputProps={{ maxLength: 40 }}
               helperText={`${textLimit["optionName"]} / 40`}
               onChange={handleOnChange}
-              value={formData[id].optionName}
+              value={formData[role][id].optionName}
             />
           </Box>
         </Box>
@@ -70,7 +72,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
               inputProps={{ maxLength: 200 }}
               helperText={`${textLimit["description"]} / 200`}
               onChange={handleOnChange}
-              value={formData[id].description}
+              value={formData[role][id].description}
             />
           </Box>
         </Box>
@@ -91,16 +93,16 @@ const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
               formData={formData}
               accept=".png, .jpg, .jpeg"
               templateNum={templateNum}
+              role={role}
             />
-            
           </Box>
         </Box>
         <Box className="twoColumns">
           <Typography className="variable">Attributes</Typography>
           <Box className="secondColumn">
-            <AddableTwoField
+            <AddableTwoFieldRoles
               id={id}
-              items={formData[id]["attributes"]}
+              items={formData[role][id]["attributes"]}
               formData={formData}
               handleOnChange={handleOnChange}
               setFormData={setFormData}
@@ -108,6 +110,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum }) => {
               currValue={attribute}
               error={error}
               setError={setError}
+              role={role}
             />
           </Box>
         </Box>

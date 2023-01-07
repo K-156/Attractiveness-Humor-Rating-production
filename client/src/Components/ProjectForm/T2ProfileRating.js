@@ -16,8 +16,8 @@ import "./ProjectForm.css";
 const T2ProfileRating = ({ role }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
-  const [formData, setFormData] = useState(
-    {
+  const [formData, setFormData] = useState({
+    [role]: {
       instruction: data[sectionNum] ? data[sectionNum]?.[2].instruction : "",
       range: {
         lower: {
@@ -33,12 +33,8 @@ const T2ProfileRating = ({ role }) => {
           text: data[sectionNum] ? data[sectionNum]?.[2].range.upper.text : "",
         },
       },
-    }
-  );
-
-  console.log(formData.instruction)
-
-
+    },
+  });
 
   const handleOnChange = (event) => {
     const name = event.target.name;
@@ -47,7 +43,10 @@ const T2ProfileRating = ({ role }) => {
     if (name === "instruction") {
       setFormData((state) => ({
         ...state,
-        instruction: value,
+        [role]:{
+          ...state[role],
+          instruction: value,
+        }
       }));
       return;
     }
@@ -55,13 +54,16 @@ const T2ProfileRating = ({ role }) => {
     const type = name.includes("lower") ? "lower" : "upper";
     setFormData((state) => ({
       ...state,
-      range: {
-        ...formData["range"],
-        [type]: {
-          ...formData["range"][type],
-          [name.includes("Num") ? "number" : "text"]: value,
+      [role]:{
+        ...state[role],
+        range: {
+          ...formData[role]["range"],
+          [type]: {
+            ...formData[role]["range"][type],
+            [name.includes("Num") ? "number" : "text"]: value,
+          },
         },
-      },
+      }
     }));
   };
 
@@ -87,7 +89,7 @@ const T2ProfileRating = ({ role }) => {
                   multiline
                   minRows={3}
                   onChange={handleOnChange}
-                  value={formData.instruction}
+                  value={formData[role].instruction}
                 />
               </Box>
             </Box>
@@ -106,11 +108,11 @@ const T2ProfileRating = ({ role }) => {
                         InputProps={{ inputProps: { min: 1 } }}
                         type="number"
                         onChange={handleOnChange}
-                        value={formData["range"][type.toLowerCase()]["number"]}
+                        value={formData[role]["range"][type.toLowerCase()]["number"]}
                         InputLabelProps={{
                           shrink:
                             (isEditing ||
-                              formData["range"][type.toLowerCase()][
+                              formData[role]["range"][type.toLowerCase()][
                                 "number"
                               ]) &&
                             true,
@@ -127,11 +129,11 @@ const T2ProfileRating = ({ role }) => {
                         label="Characteristics"
                         fullWidth
                         onChange={handleOnChange}
-                        value={formData["range"][type.toLowerCase()]["text"]}
+                        value={formData[role]["range"][type.toLowerCase()]["text"]}
                         InputLabelProps={{
                           shrink:
                             (isEditing ||
-                              formData["range"][type.toLowerCase()]["text"] !==
+                              formData[role]["range"][type.toLowerCase()]["text"] !==
                                 "") &&
                             true,
                         }}

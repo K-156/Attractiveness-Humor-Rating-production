@@ -25,14 +25,16 @@ const T3Rank = ({ role }) => {
   });
 
   const [formData, setFormData] = useState({
-    instruction: data[sectionNum] ? data[sectionNum]?.[3].instruction : "",
-    characteristics: {
-      lowerbound: data[sectionNum]
-        ? data[sectionNum]?.[3].characteristics.lowerbound
-        : "",
-      upperbound: data[sectionNum]
-        ? data[sectionNum]?.[3].characteristics.upperbound
-        : "",
+    [role]: {
+      instruction: data[sectionNum] ? data[sectionNum]?.[3].instruction : "",
+      characteristics: {
+        lowerbound: data[sectionNum]
+          ? data[sectionNum]?.[3].characteristics.lowerbound
+          : "",
+        upperbound: data[sectionNum]
+          ? data[sectionNum]?.[3].characteristics.upperbound
+          : "",
+      },
     },
   });
 
@@ -43,14 +45,20 @@ const T3Rank = ({ role }) => {
     if (name === "instruction") {
       setFormData((state) => ({
         ...state,
-        instruction: value,
+        [role]:{
+          ...state[role],
+          instruction: value,
+        }
       }));
     } else {
       setFormData((state) => ({
         ...state,
-        characteristics: {
-          ...formData["characteristics"],
-          [name]: value,
+        [role]: {
+          ...state[role],
+          characteristics: {
+            ...formData[role]["characteristics"],
+            [name]: value,
+          },
         },
       }));
     }
@@ -78,7 +86,7 @@ const T3Rank = ({ role }) => {
                   multiline
                   minRows={3}
                   onChange={handleOnChange}
-                  value={formData.instruction}
+                  value={formData[role].instruction}
                 />
               </Box>
             </Box>
@@ -97,12 +105,15 @@ const T3Rank = ({ role }) => {
                       label={type}
                       onChange={handleOnChange}
                       sx={{ width: "180px" }}
-                      value={formData["characteristics"][type.toLowerCase()]}
+                      value={
+                        formData[role]["characteristics"][type.toLowerCase()]
+                      }
                       InputLabelProps={{
                         shrink:
                           (isEditing ||
-                            formData["characteristics"][type.toLowerCase()] !==
-                              "") &&
+                            formData[role]["characteristics"][
+                              type.toLowerCase()
+                            ] !== "") &&
                           true,
                       }}
                     />

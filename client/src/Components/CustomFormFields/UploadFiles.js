@@ -13,7 +13,8 @@ const UploadFiles = ({
   accept,
   audio,
   templateNum,
-  style
+  style,
+  role,
 }) => {
   const {
     uploadFiles,
@@ -37,8 +38,11 @@ const UploadFiles = ({
         );
         setFormData((state) => ({
           ...state,
-          [variable]: items.concat(event.target.files[0].name),
-          audioLink: [...state.audioLink, fileLink],
+          [role]: {
+            ...state[role],
+            [variable]: items.concat(event.target.files[0].name),
+            audioLink: [...state[role].audioLink, fileLink],
+          },
         }));
       } else {
         fileLink = await uploadFiles(
@@ -49,8 +53,11 @@ const UploadFiles = ({
         );
         setFormData((state) => ({
           ...state,
-          [variable]: items.concat(event.target.files[0].name),
-          emailLink: [...state.emailLink, fileLink],
+          [role]: {
+            ...state[role],
+            [variable]: items.concat(event.target.files[0].name),
+            emailLink: [...state[role].emailLink, fileLink],
+          },
         }));
       }
     }
@@ -65,7 +72,10 @@ const UploadFiles = ({
     }
     setFormData((state) => ({
       ...state,
-      [variable]: items,
+      [role]: {
+        ...state[role],
+        [variable]: items,
+      },
     }));
   };
 

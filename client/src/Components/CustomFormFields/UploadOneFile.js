@@ -6,7 +6,14 @@ import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
-const UploadOneFile = ({ id, setFormData, formData, accept, templateNum }) => {
+const UploadOneFile = ({
+  id,
+  setFormData,
+  formData,
+  accept,
+  templateNum,
+  role,
+}) => {
   const {
     uploadFiles,
     isEditing,
@@ -23,7 +30,7 @@ const UploadOneFile = ({ id, setFormData, formData, accept, templateNum }) => {
   const uploadFile = async (event) => {
     setIsLoading(true);
     if (event.target.files !== undefined) {
-      if (formData[id]["img"] !== null) {
+      if (formData[role][id]["img"] !== null) {
         setError(true);
         return;
       }
@@ -37,10 +44,13 @@ const UploadOneFile = ({ id, setFormData, formData, accept, templateNum }) => {
 
       setFormData((state) => ({
         ...state,
-        [id]: {
-          ...formData[id],
-          img: event.target.files[0].name,
-          link: fileLink,
+        [role]: {
+          ...state[role],
+          [id]: {
+            ...formData[role][id],
+            img: event.target.files[0].name,
+            link: fileLink,
+          },
         },
       }));
     }
@@ -51,10 +61,13 @@ const UploadOneFile = ({ id, setFormData, formData, accept, templateNum }) => {
     setError(false);
     setFormData((state) => ({
       ...state,
-      [id]: {
-        ...formData[id],
-        img: null,
-        link: null,
+      [role]: {
+        ...state[role],
+        [id]: {
+          ...formData[state][id],
+          img: null,
+          link: null,
+        },
       },
     }));
   };
@@ -81,15 +94,15 @@ const UploadOneFile = ({ id, setFormData, formData, accept, templateNum }) => {
         </Alert>
       )}
       <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
-        {formData[id]["img"] && (
-          <Box key={formData[id]["img"]} className="spaceBetween">
+        {formData[role][id]["img"] && (
+          <Box key={formData[role][id]["img"]} className="spaceBetween">
             <Typography
               sx={{
                 fontSize: "14px",
                 color: "#264653",
               }}
             >
-              {formData[id]["img"]}
+              {formData[role][id]["img"]}
             </Typography>
             <Button onClick={onDelete}>
               <RiDeleteBin6Fill
