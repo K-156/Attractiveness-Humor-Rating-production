@@ -125,7 +125,8 @@ const displayOutput = async (req, res) => {
 
   const links = project.emailList.emailLink;
 
-  Promise.all(links.map(readCSVPromise)).then((results) => {
+  Promise.all(links.map(readCSVPromise)).then((data) => {
+    const results = data.reduce((acc, val) => acc.concat(val), []);
     res.status(StatusCodes.OK).json({ results });
   });
 };

@@ -29,8 +29,6 @@ const Participants = () => {
   const [uploadOpen, setUploadOpen] = useState(false);
   const [sendOpen, setSendOpen] = useState(false);
 
-  let test = [];
-
   const handleSearch = () => {
     // filter according to project id
   };
@@ -72,7 +70,7 @@ const Participants = () => {
         </Button>
       </Box>
       <ParticipantTable
-        data={test}
+        data={testing}
         setRowsSelected={setRowsSelected}
         projectId={projectId}
         setDeleteOpen={setDeleteOpen}
@@ -117,7 +115,7 @@ var time =
 
 today = dd + "/" + mm + "/" + yyyy + " " + time;
 
-const test = [
+const testing = [
   {
     _id: 1,
     name: "Alan",
