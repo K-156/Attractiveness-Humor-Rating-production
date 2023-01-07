@@ -33,8 +33,12 @@ import {
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_ERROR,
   SET_ACTIVE_PROJECT,
+  SET_CREATE_PROJECT,
   SET_SECTION_NO,
   SET_ORIGINAL_STATE,
+  READ_CSV_BEGIN,
+  READ_CSV_SUCCESS,
+  READ_CSV_ERROR,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -83,9 +87,10 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       data: action.payload?.data,
-      projDetails: action.payload.projDetails,
-      theme: action.payload.projDetails.theme,
-      sections: action.payload.sections,
+      projDetails: action.payload?.projDetails,
+      theme: action.payload?.projDetails.theme,
+      sections: action.payload?.sections,
+      emailList: action.payload ? action.payload.emailList : [],
     };
   }
   if (action.type === GET_PROJECT_ERROR) {
@@ -165,6 +170,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       activeProjectId: action.payload.activeProjId,
+    };
+  }
+
+  if (action.type === SET_CREATE_PROJECT) {
+    return {
+      ...state,
+      createdProjectId: action.payload.id,
     };
   }
 
@@ -258,6 +270,14 @@ const reducer = (state, action) => {
         projDetails: data.updatedProject.projDetails,
       };
     }
+    if (projType === "emailList") {
+      console.log(data);
+      return {
+        ...state,
+        isLoading: false,
+        emailList: data.updatedProject.emailList,
+      };
+    }
     return {
       ...state,
       isLoading: false,
@@ -278,6 +298,23 @@ const reducer = (state, action) => {
       data: initialState.data,
       sections: initialState.sections,
       sectionNum: initialState.sectionNum,
+    };
+  }
+
+  if (action.type === READ_CSV_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === READ_CSV_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      participants: action.payload,
+    };
+  }
+  if (action.type === READ_CSV_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
     };
   }
   throw new Error(`no such action: ${action.type}`);

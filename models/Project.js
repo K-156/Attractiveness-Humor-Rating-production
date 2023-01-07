@@ -9,14 +9,16 @@ const ProjectSchema = new mongoose.Schema(
     },
     projDetails: {
       title: String,
-      description:String,
-      email: [],
-      emailLink:[],
+      description: String,
       roles: [],
       duration: String,
-      theme:String,
-      graphic:[],
-      graphicLink:String,
+      theme: String,
+      graphic: [],
+      graphicLink: String,
+    },
+    emailList: {
+      email: [],
+      emailLink: [],
     },
     sections: {
       type: [],

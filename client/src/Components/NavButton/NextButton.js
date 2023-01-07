@@ -17,14 +17,31 @@ const NextButton = ({
   data,
   projectType,
   templateNum,
+  open,
+  setOpen,
 }) => {
-  const { theme, updateProject, createdProjectId, getProject, nextSection, sectionNum } =
-    useAppContext();
+  const {
+    theme,
+    updateProject,
+    createdProjectId,
+    getProject,
+    nextSection,
+    sectionNum,
+  } = useAppContext();
 
   const navigate = useNavigate();
   const handleOnClick = () => {
     if (ratingType === "rank") {
       sessionStorage.setItem("rank", storeItem);
+    }
+    if (projectType === "emailList") {
+      let dict = {};
+      dict[projectType] = data;
+
+      updateProject(createdProjectId, projectType, dict).then(() => {
+        getProject(createdProjectId);
+      });
+      setOpen(false);
     }
 
     if (projectType === "projDetails") {
@@ -40,7 +57,7 @@ const NextButton = ({
       let arr = JSON.parse(localStorage.getItem("projData"))
         ? JSON.parse(localStorage.getItem("projData"))
         : [];
-        console.log(sectionNum,arr.length)
+      console.log(sectionNum, arr.length);
       let dict = {};
       dict[templateNum] = data;
       if (sectionNum == arr.length) {
@@ -58,10 +75,10 @@ const NextButton = ({
       });
       localStorage.setItem(projectType, JSON.stringify(data));
     }
-
-    navigate(`${link}`, {
-      state: { state },
-    });
+    link &&
+      navigate(`${link}`, {
+        state: { state },
+      });
   };
 
   return (
@@ -73,7 +90,7 @@ const NextButton = ({
         className={isSurvey ? `customButton-${theme}` : "customButton-green"}
       >
         {text === undefined ? "Next" : text}{" "}
-        <HiArrowRight style={{ marginLeft: "10px" }} />
+        {link && <HiArrowRight style={{ marginLeft: "10px" }} />}
       </Button>
     </Box>
   );

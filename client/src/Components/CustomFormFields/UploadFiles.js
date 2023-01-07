@@ -53,11 +53,8 @@ const UploadFiles = ({
         );
         setFormData((state) => ({
           ...state,
-          [role]: {
-            ...state[role],
-            [variable]: items.concat(event.target.files[0].name),
-            emailLink: [...state[role].emailLink, fileLink],
-          },
+          [variable]: items.concat(event.target.files[0].name),
+          emailLink: [...state.emailLink, fileLink],
         }));
       }
     }

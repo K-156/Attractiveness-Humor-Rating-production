@@ -37,8 +37,12 @@ import {
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_ERROR,
   SET_ACTIVE_PROJECT,
+  SET_CREATE_PROJECT,
   SET_SECTION_NO,
   SET_ORIGINAL_STATE,
+  READ_CSV_BEGIN,
+  READ_CSV_SUCCESS,
+  READ_CSV_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -52,7 +56,7 @@ const initialState = {
   isEditing: false,
   editProjectId: "",
   isLoading: false,
-  projDetails: { email: [], roles: [], graphic:null },
+  projDetails: { email: [], roles: [], graphic: null },
   formData: [],
   data: [],
   sections: [],
@@ -61,6 +65,8 @@ const initialState = {
   fileLink: "",
   createdProjectId: "",
   errorMsg: "",
+  emailList: "",
+  participants: [],
 };
 
 const AppContext = createContext();
@@ -242,6 +248,14 @@ const AppProvider = ({ children }) => {
           type: UPDATE_PROJECT_SUCCESS,
           payload: { data, projType },
         });
+      } else if (projType === "emailList") {
+        const { data } = await authFetch.patch(`/projects/${projectId}`, {
+          emailList: projData,
+        });
+        dispatch({
+          type: UPDATE_PROJECT_SUCCESS,
+          payload: { data, projType },
+        });
       }
     } catch (error) {
       if (error.response.status !== 401) {
@@ -345,6 +359,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_ACTIVE_PROJECT, payload: { activeProjId } });
   };
 
+  const setCreateProject = async (id) => {
+    dispatch({ type: SET_CREATE_PROJECT, payload: { id } });
+  };
+
   const editProject = async () => {
     dispatch({ type: EDIT_PROJECT_BEGIN });
     try {
@@ -388,6 +406,24 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_ORIGINAL_STATE });
   };
 
+  const readCSV = async (id) => {
+    dispatch({ type: READ_CSV_BEGIN });
+    try {
+      const {data} = await authFetch.get(`/projects/participants/${id}`);
+      dispatch({
+        type: READ_CSV_SUCCESS,
+        payload: data.results,
+      });
+    } catch (error) {
+      if (error.response.status !== 401) {
+        dispatch({
+          type: READ_CSV_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -412,6 +448,8 @@ const AppProvider = ({ children }) => {
         setSectionNum,
         prevSection,
         setOriginalState,
+        setCreateProject,
+        readCSV,
       }}
     >
       {children}

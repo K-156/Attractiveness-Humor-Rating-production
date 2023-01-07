@@ -1,12 +1,13 @@
 import fs from "fs";
-import https from "https";
-import readline from "readline"
+import request from "request";
+import csv from "csv-parser";
 
 import Project from "../models/Project.js";
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 import checkPermissions from "../utils/checkPermissions.js";
+import { resourceLimits } from "worker_threads";
 
 const createProject = async (req, res) => {
   console.log(req.body);
@@ -42,6 +43,8 @@ const updateProject = async (req, res) => {
   }
 
   // checkPermissions(user);
+
+  console.log(req.body);
 
   const updatedProject = await Project.findOneAndUpdate(
     { _id: projectId },
@@ -87,34 +90,51 @@ const deleteProject = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Success! Project deleted" });
 };
 
-const registerParticipants = async (req, res) => {
-  const data = fs.createWriteStream("data.txt");
-  let participants = [];
-  https.get(
-    "https://res.cloudinary.com/dqbrhsxcs/raw/upload/v1672798198/ClMtzPpQON/ClMtzPpQON_projDetails_email_0.csv",
-    (response) => {
-      var stream = response.pipe(data);
-      const file = readline.createInterface({
-        input: fs.createReadStream('data.txt'),
-        output: process.stdout,
-        terminal: false
-      });
-      
-      file.on('line', (line) => {
-        participants.push(line)
-      });
-    }
-  );
-  res.status(StatusCodes.OK).json({ participants });
+const displayOutput = async (req, res) => {
+  const readCSVPromise = (link) => {
+    return new Promise((resolve, reject) => {
+      const data = [];
+
+      request
+        .get(link)
+        .on("error", (err) => {
+          console.log(err);
+          reject(err);
+        })
+        .pipe(fs.createWriteStream("file.csv"))
+        .on("finish", () => {
+          fs.createReadStream("file.csv")
+            .pipe(csv())
+            .on("data", (row) => {
+              data.push(row);
+            })
+            .on("end", () => {
+              console.log("CSV file successfully processed");
+              resolve(data);
+            });
+        });
+    });
+  };
+
+  const { id: projectId } = req.params;
+
+  const project = await Project.findOne({ _id: projectId });
+  if (!project) {
+    throw new NotFoundError(`No project with id ${projectId}`);
+  }
+
+  const links = project.emailList.emailLink;
+
+  Promise.all(links.map(readCSVPromise)).then((results) => {
+    res.status(StatusCodes.OK).json({ results });
+  });
 };
 
-const getUsers = async (req, res) => {};
 export {
   createProject,
   updateProject,
   getProject,
   getAllProjects,
   deleteProject,
-  registerParticipants,
-  getUsers,
+  displayOutput,
 };
