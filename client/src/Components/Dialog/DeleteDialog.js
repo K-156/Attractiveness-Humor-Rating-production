@@ -32,7 +32,7 @@ const DeleteDialog = ({ open, setOpen, isActive, handleDelete, id, text, header 
             <>
             <DialogTitle 
                 className="center"
-                sx={{fontWeight:"bold", fontSize:"16px", color:"#264653"}}
+                sx={{fontWeight:"bold", fontSize:"16px", color:"#ef5350"}}
             >
                 {header}
             </DialogTitle>

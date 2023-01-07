@@ -6,6 +6,7 @@ import {
     GridToolbarExport 
 } from '@mui/x-data-grid';
 import _ from 'lodash';
+import moment from 'moment';
 
 const OverviewTable = ({ data, projectId }) => {
 
@@ -13,12 +14,7 @@ const OverviewTable = ({ data, projectId }) => {
 
     const CustomToolBar = () => {
       
-        var today = new Date();
-        var dd = String(today.getDate());
-        var mm = String(today.getMonth() + 1);
-        var yyyy = today.getFullYear();
-
-        today = dd + "-" + mm + "-" + yyyy;
+        const today = moment(new Date()).format("DD-MM-YYYY");
 
         return(
           <GridToolbarContainer sx={{p:0}} >

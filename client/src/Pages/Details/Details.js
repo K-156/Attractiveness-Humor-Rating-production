@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
@@ -13,9 +13,12 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
+import axios from "axios";
+
 import { colorPalette } from "../../Utils/colorPalette";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 import links from "../../Utils/links";
+import { getCurrentTime } from "../../Utils/getCurrentTime";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -31,10 +34,16 @@ const Details = () => {
     sex: "",
     age: "",
     ethnicity: "",
+    IPAddress: null, 
+    start: null,
   });
   
   const [toSubmit, setToSubmit] = useState(false);
   const [ageError, setAgeError] = useState(false);
+
+  useEffect(()=> {
+    getIPStartTime()
+  }, [])
 
   const handleOnChange = (event) => {
     const name = event.target.name;
@@ -57,6 +66,8 @@ const Details = () => {
     }
   };
 
+  console.log(formData)
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({ currentUser: { ...user, formData }, id: user._id });
@@ -66,6 +77,18 @@ const Details = () => {
   if (isLoading) {
     return <Loading />;
   }
+
+  const getIPStartTime = async () => {
+    const res = await axios.get("https://geolocation-db.com/json/")
+    const currentTime = getCurrentTime();
+    setFormData((state) => ({
+      ...state, 
+      IPAddress: res.data.IPv4,
+      start: currentTime
+    }))
+  }
+
+
 
   return (
     <div className={`backgroundImage-${theme} center`}>

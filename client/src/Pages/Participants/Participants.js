@@ -69,38 +69,13 @@ const Participants = () => {
                     Search
                 </Button>
             </Box>
-            <Box 
-                className="spaceBetween" 
-                sx={{mt: 2}}
-            >
-                <Button
-                    variant="contained"
-                    className="customButton-green"
-                    onClick={() => setUploadOpen(true)}
-                >
-                    Add participants
-                </Button>
-                <Box className="flexEnd">
-                    <Button
-                        variant="contained"
-                        className="customButton-green"
-                        sx={{px: 3, mr: 3, background:"red"}}
-                        onClick={() => setDeleteOpen(true)}
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        variant="contained"
-                        className="customButton-green"
-                        onClick={() => setSendOpen(true)}
-                    >
-                        Send Email
-                    </Button>
-                </Box>
-            </Box>
             <ParticipantTable 
                 data={data}
                 setRowsSelected={setRowsSelected}
+                projectId={projectId}
+                setDeleteOpen={setDeleteOpen}
+                setUploadOpen={setUploadOpen}
+                setSendOpen={setSendOpen}
             />
             <DeleteDialog
                 open={deleteOpen}
@@ -135,15 +110,16 @@ var today = new Date();
 var dd = String(today.getDate());
 var mm = String(today.getMonth() + 1);
 var yyyy = today.getFullYear();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-today = dd + "-" + mm + "-" + yyyy;
+today = dd + "/" + mm + "/" + yyyy + " " + time;
 
 const data = [
-    { _id: 1, name: "Alan", email: "alan@gmail.com", dateAdded: today},
-    { _id: 2, name: "Betty", email: "betty@gmail.com", dateAdded: today},
-    { _id: 3, name: "Charles", email: "charles@gmail.com", dateAdded: today},
-    { _id: 4, name: "Daniel", email: "daniel@gmail.com", dateAdded: today},
-    { _id: 5, name: "Emily", email: "emily@gmail.com", dateAdded: today},
-    { _id: 6, name: "Fanny", email: "fanny@gmail.com", dateAdded: today},
-    { _id: 7, name: "Gerald", email: "gerald@gmail.com", dateAdded: today},
+    { _id: 1, name: "Alan", email: "alan@gmail.com", dateAdded: today, IPAddress: "123.34.67", start: today, end: today, role: "employer"},
+    { _id: 2, name: "Betty", email: "betty@gmail.com", dateAdded: today, IPAddress: "123.34.67", start: today, end: today, role: "employer"},
+    { _id: 3, name: "Charles", email: "charles@gmail.com", dateAdded: today, IPAddress: "123.34.67", start: today, end: today, role: "job seeker"},
+    { _id: 4, name: "Daniel", email: "daniel@gmail.com", dateAdded: today, IPAddress: "123.34.67", start: today, end: today, role: "employer"},
+    { _id: 5, name: "Emily", email: "emily@gmail.com", dateAdded: today, IPAddress: "123.34.67", start: today, end: today, role: "employer"},
+    { _id: 6, name: "Fanny", email: "fanny@gmail.com", dateAdded: today, IPAddress: "123.34.67", start: today, end: today, role: "employer"},
+    { _id: 7, name: "Gerald", email: "gerald@gmail.com", dateAdded: today, IPAddress: "123.34.67", start: today, end: today, role: "job seeker"},
 ]
