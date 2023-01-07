@@ -16,23 +16,29 @@ import "./ProjectForm.css";
 const T2ProfileRating = ({ role }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
-  const [formData, setFormData] = useState({
-    instruction: data[sectionNum] ? data[sectionNum]?.[2].instruction : "",
-    range: {
-      lower: {
-        number: data[sectionNum]
-          ? data[sectionNum]?.[2].range.lower.number
-          : "",
-        text: data[sectionNum] ? data[sectionNum]?.[2].range.lower.text : "",
+  const [formData, setFormData] = useState(
+    {
+      instruction: data[sectionNum] ? data[sectionNum]?.[2].instruction : "",
+      range: {
+        lower: {
+          number: data[sectionNum]
+            ? data[sectionNum]?.[2].range.lower.number
+            : "",
+          text: data[sectionNum] ? data[sectionNum]?.[2].range.lower.text : "",
+        },
+        upper: {
+          number: data[sectionNum]
+            ? data[sectionNum]?.[2].range.upper.number
+            : "",
+          text: data[sectionNum] ? data[sectionNum]?.[2].range.upper.text : "",
+        },
       },
-      upper: {
-        number: data[sectionNum]
-          ? data[sectionNum]?.[2].range.upper.number
-          : "",
-        text: data[sectionNum] ? data[sectionNum]?.[2].range.upper.text : "",
-      },
-    },
-  });
+    }
+  );
+
+  console.log(formData.instruction)
+
+
 
   const handleOnChange = (event) => {
     const name = event.target.name;

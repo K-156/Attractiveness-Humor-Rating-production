@@ -11,14 +11,16 @@ import {
 } from "@mui/material";
 
 import "./ProjectForm.css";
-import AddableNoRange from "../CustomFormFields/AddableNoRange";
+import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
 
 const T6Chatbox = ({ role }) => {
-  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+  const { submitFormData, data, sectionNum } = useAppContext();
 
   const [formData, setFormData] = useState({
-    instruction: data[sectionNum] ? data[sectionNum][6].instruction : "",
-    messages: data[sectionNum] ? data[sectionNum][6].messages : [],
+    [role]: {
+      instruction: data[sectionNum] ? data[sectionNum][6].instruction : "",
+      messages: data[sectionNum] ? data[sectionNum][6].messages : [],
+    },
   });
   const [error, setError] = useState({
     messages: false,
@@ -33,7 +35,10 @@ const T6Chatbox = ({ role }) => {
     if (name === "instruction") {
       setFormData((state) => ({
         ...state,
-        instruction: value,
+        [role]: {
+          ...state[role],
+          instruction: value,
+        },
       }));
     } else {
       setMessages(value);
@@ -46,8 +51,6 @@ const T6Chatbox = ({ role }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-
-  console.log(formData);
 
   return (
     <Box sx={{ mb: 3 }}>
@@ -67,15 +70,15 @@ const T6Chatbox = ({ role }) => {
                   multiline
                   minRows={3}
                   onChange={handleOnChange}
-                  value={formData.instruction}
+                  value={formData[role].instruction}
                 />
               </Box>
             </Box>
             <Box className="twoColumns">
               <Typography className="variable">Questions</Typography>
               <Box className="secondColumn">
-                <AddableNoRange
-                  items={formData["messages"]}
+                <AddableNoRangeRoles
+                  items={formData[role]["messages"]}
                   error={error["messages"]}
                   setError={setError}
                   errorText="Message added"
@@ -83,6 +86,7 @@ const T6Chatbox = ({ role }) => {
                   currValue={messages}
                   setFormData={setFormData}
                   variable="messages"
+                  role={role}
                 />
               </Box>
             </Box>

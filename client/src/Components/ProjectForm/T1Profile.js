@@ -27,36 +27,40 @@ const T1Profile = ({ role }) => {
   });
 
   const [formData, setFormData] = useState({
-    instruction: data[sectionNum]?.[1].instruction,
-    1: {
-      optionName: data[sectionNum]?.[1][1].optionName,
-      description: data[sectionNum]?.[1][1].description,
-      img: data[sectionNum] ? data[sectionNum][1][1].img : null,
-      link: null,
-      attributes: data[sectionNum] ? data[sectionNum][1][1].attributes : [],
-    },
-    2: {
-      optionName: data[sectionNum]?.[1][2].optionName,
-      description: data[sectionNum]?.[1][2].description,
-      img: data[sectionNum] ? data[sectionNum][1][2].img: null,
-      link: null,
-      attributes: data[sectionNum] ? data[sectionNum][1][2].attributes : [],
-    },
-    3: {
-      optionName: data[sectionNum]?.[1][3].optionName,
-      description: data[sectionNum]?.[1][3].description,
-      img: data[sectionNum] ? data[sectionNum][1][3].img : null,
-      link: null,
-      attributes: data[sectionNum] ? data[sectionNum][1][3].attributes : [],
-    },
-    4: {
-      optionName: data[0]?.[1][4].optionName,
-      description: data[0]?.[1][4].description,
-      img: data[sectionNum] ? data[sectionNum][1][4].img : null,
-      link: null,
-      attributes: data[sectionNum] ? data[sectionNum][1][4].attributes : [],
+    [role]: {
+      instruction: data[sectionNum]?.[1].instruction,
+      1: {
+        optionName: data[sectionNum]?.[1][1].optionName,
+        description: data[sectionNum]?.[1][1].description,
+        img: data[sectionNum] ? data[sectionNum][1][1].img : null,
+        link: null,
+        attributes: data[sectionNum] ? data[sectionNum][1][1].attributes : [],
+      },
+      2: {
+        optionName: data[sectionNum]?.[1][2].optionName,
+        description: data[sectionNum]?.[1][2].description,
+        img: data[sectionNum] ? data[sectionNum][1][2].img : null,
+        link: null,
+        attributes: data[sectionNum] ? data[sectionNum][1][2].attributes : [],
+      },
+      3: {
+        optionName: data[sectionNum]?.[1][3].optionName,
+        description: data[sectionNum]?.[1][3].description,
+        img: data[sectionNum] ? data[sectionNum][1][3].img : null,
+        link: null,
+        attributes: data[sectionNum] ? data[sectionNum][1][3].attributes : [],
+      },
+      4: {
+        optionName: data[0]?.[1][4].optionName,
+        description: data[0]?.[1][4].description,
+        img: data[sectionNum] ? data[sectionNum][1][4].img : null,
+        link: null,
+        attributes: data[sectionNum] ? data[sectionNum][1][4].attributes : [],
+      },
     },
   });
+
+  console.log(formData);
 
   useEffect(() => {
     submitFormData(formData);
@@ -95,7 +99,7 @@ const T1Profile = ({ role }) => {
               fullWidth
               multiline
               minRows={3}
-              value={formData.instruction}
+              value={formData[role].instruction}
               onChange={(event) => {
                 setFormData((state) => ({
                   ...state,
