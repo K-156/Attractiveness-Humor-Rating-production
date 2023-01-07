@@ -74,6 +74,15 @@ const Summary = () => {
             />
           );
         })}
+        {data.length === 0 && 
+            <SummaryCard
+              header="Section - No section added"
+              template={7}
+              content=""
+              editLink={`/projects/sections/`}
+              index={1}
+            />
+        }
       </ProjectLayout>
     </div>
   );

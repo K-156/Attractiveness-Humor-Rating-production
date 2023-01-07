@@ -8,12 +8,12 @@ const LoadingAnimation = ({ isSurvey, size, marginLeft }) => {
   const { theme } = useAppContext();
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box>
       <CircularProgress
         size={size}
         sx={{
           color: colorPalette[isSurvey ? theme : "green"]["primary"],
-          m: "3rem auto",
+          mx: "3rem auto",
           marginLeft: { marginLeft },
         }}
       />

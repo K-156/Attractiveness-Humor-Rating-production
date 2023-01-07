@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   const handleOnSubmit = (e) => {
-    
+    navigate("/consent");
   };
 
   // useEffect(() => {

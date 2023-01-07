@@ -31,6 +31,7 @@ import Themes from "./Pages/Project/ThemeSamples";
 import AdminLogin from "./Pages/Login/AdminLogin";
 import Error404 from "./Pages/Error404/Error404";
 import Participants from "./Pages/Participants/Participants";
+import ConsentForm from "./Pages/ConsentForm/ConsentForm";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/login" element={<AdminLogin />} /> {/*to change to above code*/}
             <Route path="/alogin" element={<AdminLogin />} />
+            <Route path="/consent" element={<ConsentForm />} />
             <Route
               path="/details"
               element={
