@@ -8,7 +8,7 @@ const LoadingAnimation = ({ isSurvey, size, marginLeft }) => {
   const { theme } = useAppContext();
 
   return (
-    <Box>
+    <Box className="center">
       <CircularProgress
         size={size}
         sx={{

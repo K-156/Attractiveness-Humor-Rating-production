@@ -158,7 +158,11 @@ function App() {
           <Route path="/complete" element={<General />} />
 
           {/* Admin */}
-          <Route element={<DashboardLayout />}>
+          <Route element={
+            // <ProtectedRoute>
+              <DashboardLayout />
+            // </ProtectedRoute>
+          }>
             <Route path="/overview" element={<Overview />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/details" element={<ProjectDetails />} />
