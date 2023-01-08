@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
-import _ from "lodash"
+import _ from "lodash";
 
 import {
   Box,
@@ -17,15 +17,18 @@ import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
 const T6Chatbox = ({ roles }) => {
   const { submitFormData, data, sectionNum } = useAppContext();
 
-  const objects = {
-    instruction: data[sectionNum] ? data[sectionNum][6].instruction : "",
-    messages: data[sectionNum] ? data[sectionNum][6].messages : [],
-  };
-
   const dictionary = {};
 
   _.map(roles, (aRole) => {
-    dictionary[aRole] = objects;
+    dictionary[aRole] = data[sectionNum]
+      ? {
+          instruction: data[sectionNum][6][aRole].instruction,
+          messages: data[sectionNum][6][aRole].messages ,
+        }
+      : {
+          instruction:  "",
+          messages:  [],
+        };
   });
 
   const [formData, setFormData] = useState(dictionary);
@@ -39,7 +42,7 @@ const T6Chatbox = ({ roles }) => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData)
+  console.log(formData);
 
   return _.map(roles, (aRole) => {
     return (

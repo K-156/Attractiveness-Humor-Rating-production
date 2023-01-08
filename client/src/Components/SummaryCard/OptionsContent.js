@@ -1,4 +1,4 @@
-import { Box, getCardHeaderUtilityClass, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import _ from "lodash";
 
 import MoreText from "./MoreText";

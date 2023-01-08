@@ -18,16 +18,20 @@ import "./ProjectForm.css";
 const T5Intro = ({ roles }) => {
   const { data, sectionNum } = useAppContext();
 
-  const objects = {
-    instruction: data[sectionNum] ? data[sectionNum][5].instruction : "",
-    questions: data[sectionNum] ? data[sectionNum][5].questions : [],
-    introductions: data[sectionNum] ? data[sectionNum][5].introductions : [],
-  };
-
   const dictionary = {};
 
   _.map(roles, (aRole) => {
-    dictionary[aRole] = objects;
+    dictionary[aRole] = data[sectionNum]
+      ? {
+          instruction: data[sectionNum][5][aRole].instruction,
+          questions: data[sectionNum][5][aRole].questions,
+          introductions: data[sectionNum][5][aRole].introductions,
+        }
+      : {
+          instruction: "",
+          questions: [],
+          introductions: [],
+        };
   });
 
   const [formData, setFormData] = useState(dictionary);
@@ -122,45 +126,45 @@ const T5Intro = ({ roles }) => {
                 </Box>
               </Box>
               <Box className="twoColumns">
-              <Box>
-                <Typography className="variable">Introductions</Typography>
-              </Box>
-              <Box className="secondColumn">
-                <AddableNoRangeRoles
-                  items={formData[aRole]["introductions"]}
-                  error={error["introductions"]}
-                  setError={setError}
-                  errorText="Introduction added"
-                  handleOnChange={(event) => {
-                    const name = event.target.name;
-                    const value = event.target.value;
-                    const id = event.target.id;
-                    if (id === "questions") {
-                      setQn((state) => ({
-                        ...state,
-                        [name]: value,
-                      }));
-                    } else {
-                      setIntro((state) => ({
-                        ...state,
-                        [name]: value,
-                      }));
-                    }
+                <Box>
+                  <Typography className="variable">Introductions</Typography>
+                </Box>
+                <Box className="secondColumn">
+                  <AddableNoRangeRoles
+                    items={formData[aRole]["introductions"]}
+                    error={error["introductions"]}
+                    setError={setError}
+                    errorText="Introduction added"
+                    handleOnChange={(event) => {
+                      const name = event.target.name;
+                      const value = event.target.value;
+                      const id = event.target.id;
+                      if (id === "questions") {
+                        setQn((state) => ({
+                          ...state,
+                          [name]: value,
+                        }));
+                      } else {
+                        setIntro((state) => ({
+                          ...state,
+                          [name]: value,
+                        }));
+                      }
 
-                    if (name === "questions" || name === "introductions") {
-                      setError((state) => ({
-                        ...state,
-                        [name]: false,
-                      }));
-                    }
-                  }}
-                  currValue={intro["introductions"]}
-                  setFormData={setFormData}
-                  variable="introductions"
-                  role={aRole}
-                />
+                      if (name === "questions" || name === "introductions") {
+                        setError((state) => ({
+                          ...state,
+                          [name]: false,
+                        }));
+                      }
+                    }}
+                    currValue={intro["introductions"]}
+                    setFormData={setFormData}
+                    variable="introductions"
+                    role={aRole}
+                  />
+                </Box>
               </Box>
-            </Box>
             </FormControl>
           </CardContent>
         </Card>

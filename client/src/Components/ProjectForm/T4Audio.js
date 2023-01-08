@@ -17,17 +17,22 @@ import "./ProjectForm.css";
 const T4Audio = ({ roles }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
-  const objects = {
-    instruction: data[sectionNum] ? data[sectionNum][4].instruction : "",
-    questions: data[sectionNum] ? data[sectionNum][4].questions : [],
-    audio: data[sectionNum] ? data[sectionNum][4].audio : [],
-    audioLink: data[sectionNum] ? data[sectionNum][4].audioLink : [],
-  };
-
   const dictionary = {};
 
   _.map(roles, (aRole) => {
-    dictionary[aRole] = objects;
+    dictionary[aRole] = data[sectionNum]
+      ? {
+          instruction: data[sectionNum][4][aRole].instruction,
+          questions: data[sectionNum][4][aRole].questions,
+          audio: data[sectionNum][4][aRole].audio,
+          audioLink: data[sectionNum][4][aRole].audioLink,
+        }
+      : {
+          instruction: "",
+          questions: [],
+          audio: [],
+          audioLink: [],
+        };
   });
 
   const [formData, setFormData] = useState(dictionary);
@@ -47,80 +52,83 @@ const T4Audio = ({ roles }) => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData)
+  console.log(formData);
 
   return _.map(roles, (aRole) => {
-  return (
-    <Box sx={{ mb: 3 }}>
-      <Typography sx={{ color: "#264653" }}>
-        Role: <b>{aRole}</b>
-      </Typography>
-      <Card>
-        <CardContent className="cardPadding">
-          <FormControl>
-            <Box className="twoColumns">
-              <Typography className="variable">Instruction</Typography>
-              <Box className="secondColumn">
-                <TextField
-                  value={formData.instruction}
-                  size="small"
-                  name="instruction"
-                  fullWidth
-                  multiline
-                  minRows={3}
-                  onChange={(event) => {
-                    setFormData((state) => ({
-                      ...state,
-                      [aRole]: {
-                        ...state[aRole],
-                        instruction: event.target.value,
-                      },
-                    }));
-                  }}
-                />
+    return (
+      <Box sx={{ mb: 3 }}>
+        <Typography sx={{ color: "#264653" }}>
+          Role: <b>{aRole}</b>
+        </Typography>
+        <Card>
+          <CardContent className="cardPadding">
+            <FormControl>
+              <Box className="twoColumns">
+                <Typography className="variable">Instruction</Typography>
+                <Box className="secondColumn">
+                  <TextField
+                    value={formData[aRole].instruction}
+                    size="small"
+                    name="instruction"
+                    fullWidth
+                    multiline
+                    minRows={3}
+                    onChange={(event) => {
+                      setFormData((state) => ({
+                        ...state,
+                        [aRole]: {
+                          ...state[aRole],
+                          instruction: event.target.value,
+                        },
+                      }));
+                    }}
+                  />
+                </Box>
               </Box>
-            </Box>
-            <Box className="twoColumns">
-              <Typography className="variable">Questions</Typography>
-              <Box className="secondColumn">
-                <AddableFieldRoles
-                  items={formData[aRole]["questions"]}
-                  error={error["questions"]}
-                  setError={setError}
-                  errorText="Question added"
-                  handleOnChange={handleOnChange}
-                  currValue={qn}
-                  setFormData={setFormData}
-                  variable="questions"
-                  role={aRole}
-                />
+              <Box className="twoColumns">
+                <Typography className="variable">Questions</Typography>
+                <Box className="secondColumn">
+                  <AddableFieldRoles
+                    items={formData[aRole]["questions"]}
+                    error={error["questions"]}
+                    setError={setError}
+                    errorText="Question added"
+                    handleOnChange={handleOnChange}
+                    currValue={qn}
+                    setFormData={setFormData}
+                    variable="questions"
+                    role={aRole}
+                  />
+                </Box>
               </Box>
-            </Box>
-            <Box className="twoColumns">
-              <Box>
-                <Typography className="variable">
-                  Upload Audio
-                  <br />
-                </Typography>
-                <Typography className="variable-subtitle">(in .mp3)</Typography>
+              <Box className="twoColumns">
+                <Box>
+                  <Typography className="variable">
+                    Upload Audio
+                    <br />
+                  </Typography>
+                  <Typography className="variable-subtitle">
+                    (in .mp3)
+                  </Typography>
+                </Box>
+                <Box className="secondColumn">
+                  <UploadFiles
+                    items={formData[aRole]["audio"]}
+                    setFormData={setFormData}
+                    variable="audio"
+                    accept=".mp3"
+                    audio={true}
+                    templateNum={4}
+                    role={aRole}
+                  />
+                </Box>
               </Box>
-              <Box className="secondColumn">
-                <UploadFiles
-                  items={formData[aRole]["audio"]}
-                  setFormData={setFormData}
-                  variable="audio"
-                  accept=".mp3"
-                  audio={true}
-                  templateNum={4}
-                  role={aRole}
-                />
-              </Box>
-            </Box>
-          </FormControl>
-        </CardContent>
-      </Card>
-    </Box>
-  );
-})};
+            </FormControl>
+          </CardContent>
+        </Card>
+      </Box>
+    );
+  });
+};
 
 export default T4Audio;

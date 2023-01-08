@@ -28,7 +28,6 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
   const [expandedText, setExpandedText] = useState({});
 
   const handleOnClick = (event, value) => {
-    console.log(header)
     setOpen(true);
     setExpandedText({
       title: event.target.id,
@@ -37,9 +36,9 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
   };
   const handleOnEdit = () => {
     sessionStorage.setItem("editMode", "edit");
-    getAllProjects().then(() => {
-      setEditProject(createdProjectId);
-    });
+    // getAllProjects().then(() => {
+    //   setEditProject(createdProjectId);
+    // });
     setSectionNum(index);
     navigate(editLink, {
       state: {

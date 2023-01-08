@@ -16,28 +16,26 @@ import "./ProjectForm.css";
 const T2ProfileRating = ({ roles }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
-  const objects = {
-    instruction: data[sectionNum] ? data[sectionNum]?.[2].instruction : "",
-    range: {
-      lower: {
-        number: data[sectionNum]
-          ? data[sectionNum]?.[2].range.lower.number
-          : "",
-        text: data[sectionNum] ? data[sectionNum]?.[2].range.lower.text : "",
-      },
-      upper: {
-        number: data[sectionNum]
-          ? data[sectionNum]?.[2].range.upper.number
-          : "",
-        text: data[sectionNum] ? data[sectionNum]?.[2].range.upper.text : "",
-      },
-    },
-  };
-
   const dictionary = {};
 
   _.map(roles, (aRole) => {
-    dictionary[aRole] = objects;
+    dictionary[aRole] = {
+      instruction: data[sectionNum] ? data[sectionNum]?.[2][aRole].instruction : "",
+      range: {
+        lower: {
+          number: data[sectionNum]
+            ? data[sectionNum]?.[2][aRole].range.lower.number
+            : "",
+          text: data[sectionNum] ? data[sectionNum]?.[2][aRole].range.lower.text : "",
+        },
+        upper: {
+          number: data[sectionNum]
+            ? data[sectionNum]?.[2][aRole].range.upper.number
+            : "",
+          text: data[sectionNum] ? data[sectionNum]?.[2][aRole].range.upper.text : "",
+        },
+      },
+    };
   });
 
   const [formData, setFormData] = useState(dictionary);
@@ -46,7 +44,7 @@ const T2ProfileRating = ({ roles }) => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData)
+  console.log(formData);
 
   return _.map(roles, (aRole) => {
     return (

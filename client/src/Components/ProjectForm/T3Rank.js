@@ -16,22 +16,22 @@ import "./ProjectForm.css";
 const T3Rank = ({ roles }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
-  const objects = {
-    instruction: data[sectionNum] ? data[sectionNum]?.[3].instruction : "",
-    characteristics: {
-      lowerbound: data[sectionNum]
-        ? data[sectionNum]?.[3].characteristics.lowerbound
-        : "",
-      upperbound: data[sectionNum]
-        ? data[sectionNum]?.[3].characteristics.upperbound
-        : "",
-    },
-  };
-
   const dictionary = {};
 
   _.map(roles, (aRole) => {
-    dictionary[aRole] = objects;
+    dictionary[aRole] = {
+      instruction: data[sectionNum]
+        ? data[sectionNum]?.[3][aRole].instruction
+        : "",
+      characteristics: {
+        lowerbound: data[sectionNum]
+          ? data[sectionNum]?.[3][aRole].characteristics.lowerbound
+          : "",
+        upperbound: data[sectionNum]
+          ? data[sectionNum]?.[3][aRole].characteristics.upperbound
+          : "",
+      },
+    };
   });
 
   const [formData, setFormData] = useState(dictionary);
