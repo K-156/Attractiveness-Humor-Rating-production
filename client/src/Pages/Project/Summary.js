@@ -23,6 +23,9 @@ const Summary = () => {
   const type = sessionStorage.getItem("editMode");
   const templateOrder = sections
 
+  console.log(templateOrder)
+  console.log(data)
+
   // remove old data 
   localStorage.removeItem("projData")
 
@@ -62,7 +65,11 @@ const Summary = () => {
           editLink="/projects/details"
         />
         {data && _.map(data, (section, index) => {
+          console.log(section)
+          console.log(index)
           const templateNum = templateOrder[index];
+          console.log(templateNum)
+          console.log(section[templateNum])
           return (
             <SummaryCard
               header={`Section ${index + 1}: ${templates[templateNum]}`}
@@ -74,7 +81,7 @@ const Summary = () => {
             />
           );
         })}
-        {data.length === 0 && 
+        {/* {data.length === 0 && 
             <SummaryCard
               header="Section - No section added"
               template={7}
@@ -82,7 +89,7 @@ const Summary = () => {
               editLink={`/projects/sections/`}
               index={1}
             />
-        }
+        } */}
       </ProjectLayout>
     </div>
   );

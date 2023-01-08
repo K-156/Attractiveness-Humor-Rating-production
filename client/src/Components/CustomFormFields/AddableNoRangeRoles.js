@@ -3,7 +3,7 @@ import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableNoRange = ({
+const AddableNoRangeRoles = ({
   items,
   error,
   setError,
@@ -101,4 +101,4 @@ const AddableNoRange = ({
   );
 };
 
-export default AddableNoRange;
+export default AddableNoRangeRoles;

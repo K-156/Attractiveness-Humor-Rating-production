@@ -4,7 +4,7 @@ import { BsDash } from "react-icons/bs";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableField = ({
+const AddableFieldRoles = ({
   items,
   error,
   setError,
@@ -138,4 +138,4 @@ const AddableField = ({
   );
 };
 
-export default AddableField;
+export default AddableFieldRoles;

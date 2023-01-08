@@ -3,7 +3,7 @@ import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableTwoField = ({
+const AddableTwoFieldRoles = ({
   id,
   items,
   formData,
@@ -111,4 +111,4 @@ const AddableTwoField = ({
   );
 };
 
-export default AddableTwoField;
+export default AddableTwoFieldRoles;

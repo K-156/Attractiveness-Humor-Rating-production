@@ -17,6 +17,7 @@ import { GrClose } from "react-icons/gr";
 
 import OptionsContent from "./OptionsContent";
 import GeneralContent from "./GeneralContent";
+import GeneralContentRoles from "./GeneralContentRoles";
 
 const SummaryCard = ({ header, content, editLink, template, index }) => {
   const { setSectionNum, setEditProject, createdProjectId, getAllProjects } =
@@ -68,8 +69,13 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
               handleOnClick={handleOnClick}
               header={header}
             />
-          ) : (
+          ) : header === "Project Details" ? (
             <GeneralContent content={content} handleOnClick={handleOnClick} />
+          ) : (
+            <GeneralContentRoles
+              content={content}
+              handleOnClick={handleOnClick}
+            />
           )}
         </CardContent>
       </Card>
