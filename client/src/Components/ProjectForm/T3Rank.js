@@ -25,17 +25,17 @@ const T3Rank = ({ role }) => {
   });
 
   const [formData, setFormData] = useState({
-    [role]: {
-      instruction: data[sectionNum] ? data[sectionNum]?.[3].instruction : "",
-      characteristics: {
-        lowerbound: data[sectionNum]
-          ? data[sectionNum]?.[3].characteristics.lowerbound
-          : "",
-        upperbound: data[sectionNum]
-          ? data[sectionNum]?.[3].characteristics.upperbound
-          : "",
-      },
-    },
+    // [role]: {
+    //   instruction: data[sectionNum] ? data[sectionNum]?.[3].instruction : "",
+    //   characteristics: {
+    //     lowerbound: data[sectionNum]
+    //       ? data[sectionNum]?.[3].characteristics.lowerbound
+    //       : "",
+    //     upperbound: data[sectionNum]
+    //       ? data[sectionNum]?.[3].characteristics.upperbound
+    //       : "",
+    //   },
+    // },
   });
 
   const handleOnChange = (event) => {

@@ -63,45 +63,14 @@ const Section = () => {
         sectionNum={sectionNum}
         templateNum={currTemplate}
       >
-        {currTemplate === 1 && roles.length > 0 ? (
-          _.map(roles, (aRole) => {
-            return <T1Profile role={aRole} />;
-          })
-        ) : currTemplate === 1 && roles.length === 0 ? (
-          <T1Profile />
-        ) : currTemplate === 2 && roles.length > 0 ? (
-          _.map(roles, (aRole) => {
-            return <T2ProfileRating role={aRole} />;
-          })
-        ) : currTemplate === 2 && roles.length === 0 ? (
-          <T2ProfileRating />
-        ) : currTemplate === 3 && roles.length > 0 ? (
-          _.map(roles, (aRole) => {
-            return <T3Rank role={aRole} />;
-          })
-        ) : currTemplate === 3 && roles.length === 0 ? (
-          <T3Rank />
-        ) : currTemplate === 4 && roles.length > 0 ? (
-          _.map(roles, (aRole) => {
-            return <T4Audio role={aRole} />;
-          })
-        ) : currTemplate === 4 && roles.length === 0 ? (
-          <T4Audio />
-        ) : currTemplate === 5 && roles.length > 0 ? (
-          _.map(roles, (aRole) => {
-            return <T5Intro role={aRole} />;
-          })
-        ) : currTemplate === 5 && roles.length === 0 ? (
-          <T5Intro />
-        ) : currTemplate === 6 && roles.length > 0 ? (
-          _.map(roles, (aRole) => {
-            return <T6Chatbox role={aRole} />;
-          })
-        ) : currTemplate === 6 && roles.length === 0 ? (
-          <T6Chatbox />
-        ) : (
-          <T7General />
-        )}
+        { currTemplate === 1 ? <T1Profile roles={roles}/>
+                    : currTemplate === 2 ? <T2ProfileRating role={roles}/>
+                    : currTemplate === 3 ? <T3Rank roles={roles}/>
+                    : currTemplate === 4 ? <T4Audio roles={roles}/>
+                    : currTemplate === 5 ? <T5Intro roles={roles}/>
+                    : currTemplate === 6 ? <T6Chatbox roles={roles}/>
+                    : <T7General />
+                } 
       </ProjectLayout>
     </div>
   );
