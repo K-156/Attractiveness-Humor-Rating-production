@@ -15,7 +15,6 @@ const AddableField = ({
   variable,
   role,
 }) => {
-  console.log(items)
   const onAdd = () => {
     const variableList = [
       _.map(items, (aItem) => {

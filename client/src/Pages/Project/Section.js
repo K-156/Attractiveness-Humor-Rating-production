@@ -64,7 +64,7 @@ const Section = () => {
         templateNum={currTemplate}
       >
         { currTemplate === 1 ? <T1Profile roles={roles}/>
-                    : currTemplate === 2 ? <T2ProfileRating role={roles}/>
+                    : currTemplate === 2 ? <T2ProfileRating roles={roles}/>
                     : currTemplate === 3 ? <T3Rank roles={roles}/>
                     : currTemplate === 4 ? <T4Audio roles={roles}/>
                     : currTemplate === 5 ? <T5Intro roles={roles}/>

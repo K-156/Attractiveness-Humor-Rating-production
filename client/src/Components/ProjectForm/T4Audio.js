@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
+import _ from "lodash";
 
 import {
   Box,
@@ -13,17 +14,23 @@ import AddableFieldRoles from "../CustomFormFields/AddableFieldRoles";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
-const T4Audio = ({ role }) => {
+const T4Audio = ({ roles }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
-  const [formData, setFormData] = useState({
-    // [role]: {
-    //   instruction: data[sectionNum] ? data[sectionNum][4].instruction : "",
-    //   questions: data[sectionNum] ? data[sectionNum][4].questions : [],
-    //   audio: data[sectionNum] ? data[sectionNum][4].audio : [],
-    //   audioLink: data[sectionNum] ? data[sectionNum][4].audioLink : [],
-    // },
+  const objects = {
+    instruction: data[sectionNum] ? data[sectionNum][4].instruction : "",
+    questions: data[sectionNum] ? data[sectionNum][4].questions : [],
+    audio: data[sectionNum] ? data[sectionNum][4].audio : [],
+    audioLink: data[sectionNum] ? data[sectionNum][4].audioLink : [],
+  };
+
+  const dictionary = {};
+
+  _.map(roles, (aRole) => {
+    dictionary[aRole] = objects;
   });
+
+  const [formData, setFormData] = useState(dictionary);
   const [error, setError] = useState({ questions: false });
   const [qn, setQn] = useState({});
   const handleOnChange = (event) => {
@@ -40,10 +47,13 @@ const T4Audio = ({ role }) => {
     submitFormData(formData);
   }, [formData]);
 
+  console.log(formData)
+
+  return _.map(roles, (aRole) => {
   return (
     <Box sx={{ mb: 3 }}>
       <Typography sx={{ color: "#264653" }}>
-        Role: <b>{role}</b>
+        Role: <b>{aRole}</b>
       </Typography>
       <Card>
         <CardContent className="cardPadding">
@@ -61,10 +71,10 @@ const T4Audio = ({ role }) => {
                   onChange={(event) => {
                     setFormData((state) => ({
                       ...state,
-                      [role]:{
-                        ...state[role],
+                      [aRole]: {
+                        ...state[aRole],
                         instruction: event.target.value,
-                      }
+                      },
                     }));
                   }}
                 />
@@ -74,7 +84,7 @@ const T4Audio = ({ role }) => {
               <Typography className="variable">Questions</Typography>
               <Box className="secondColumn">
                 <AddableFieldRoles
-                  items={formData[role]["questions"]}
+                  items={formData[aRole]["questions"]}
                   error={error["questions"]}
                   setError={setError}
                   errorText="Question added"
@@ -82,7 +92,7 @@ const T4Audio = ({ role }) => {
                   currValue={qn}
                   setFormData={setFormData}
                   variable="questions"
-                  role={role}
+                  role={aRole}
                 />
               </Box>
             </Box>
@@ -96,13 +106,13 @@ const T4Audio = ({ role }) => {
               </Box>
               <Box className="secondColumn">
                 <UploadFiles
-                  items={formData[role]["audio"]}
+                  items={formData[aRole]["audio"]}
                   setFormData={setFormData}
                   variable="audio"
                   accept=".mp3"
                   audio={true}
                   templateNum={4}
-                  role={role}
+                  role={aRole}
                 />
               </Box>
             </Box>
@@ -111,6 +121,6 @@ const T4Audio = ({ role }) => {
       </Card>
     </Box>
   );
-};
+})};
 
 export default T4Audio;
