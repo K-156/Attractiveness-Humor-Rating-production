@@ -6,18 +6,16 @@ import "./SummaryCard.css";
 import { variableMap } from "../../Utils/templateList";
 
 const OptionsContent = ({ content, handleOnClick, header }) => {
-  const instructionText = content?.["instruction"];
-  const characteristicsText = content?.["characteristics"];
-
-  const optionContent = Object.fromEntries(
-    ["option1", "option2", "option3", "option4"].map((key, index) => {
-      return [key, content?.[index + 1]];
-    })
-  );
 
   return (
     <>
       {_.map(content, (arr, role) => {
+        const optionContent = Object.fromEntries(
+          ["option1", "option2", "option3", "option4"].map((key, index) => {
+            return [key, content[role]?.[index + 1]];
+          })
+        );
+
         return (
           <>
             <Box className="twoColumns">
@@ -53,60 +51,62 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
                 </Box>
               </Box>
             )}
+            {header.toLowerCase().includes("template 1") &&
+              _.map(optionContent, (value, key) => {
+                console.log(value, key);
+                const optionNum = key[key.length - 1];
+                return (
+                  <Box key={key}>
+                    <Box sx={{ mx: "10px", mt: 2 }}>
+                      <Typography
+                        className="summaryText"
+                        sx={{ fontWeight: "bold" }}
+                      >
+                        Option {optionNum}
+                      </Typography>
+                    </Box>
+                    {_.map(value, (aValue, aKey) => {
+                      console.log(aValue);
+                      return (
+                        <Box key={aKey} className="twoColumns">
+                          <Typography className="summaryVariable">
+                            {variableMap[aKey]}
+                          </Typography>
+                          {typeof aValue === "string" && aValue.length > 100 ? (
+                            <MoreText
+                              handleOnClick={handleOnClick}
+                              id={variableMap[aKey]}
+                              value={aValue}
+                            />
+                          ) : aKey.toLowerCase() === "attributes" ? (
+                            <Box>
+                              {_.map(aValue, (attribute, index) => {
+                                return (
+                                  <Typography
+                                    key={index}
+                                    className="summaryText"
+                                  >
+                                    {index + 1}. {attribute["name"]}:{" "}
+                                    {attribute["value"]}
+                                  </Typography>
+                                );
+                              })}
+                            </Box>
+                          ) : (
+                            aKey !== "link" && (
+                              <Typography className="summaryText">
+                                {aValue}
+                              </Typography>
+                            )
+                          )}
+                        </Box>
+                      );
+                    })}
+                  </Box>
+                );
+              })}
           </>
         );
-
-        // {
-        //   header.toLowerCase().includes("template 1") &&
-        //     _.map(optionContent, (value, key) => {
-        //       const optionNum = key[key.length - 1];
-        //       return (
-        //         <Box key={key}>
-        //           <Box sx={{ mx: "10px", mt: 2 }}>
-        //             <Typography
-        //               className="summaryText"
-        //               sx={{ fontWeight: "bold" }}
-        //             >
-        //               Option {optionNum}
-        //             </Typography>
-        //           </Box>
-        //           {_.map(value, (aValue, aKey) => {
-        //             return (
-        //               <Box key={aKey} className="twoColumns">
-        //                 <Typography className="summaryVariable">
-        //                   {variableMap[aKey]}
-        //                 </Typography>
-        //                 {typeof aValue === "string" && aValue.length > 100 ? (
-        //                   <MoreText
-        //                     handleOnClick={handleOnClick}
-        //                     id={variableMap[aKey]}
-        //                     value={aValue}
-        //                   />
-        //                 ) : aKey.toLowerCase() === "attributes" ? (
-        //                   <Box>
-        //                     {_.map(aValue, (attribute, index) => {
-        //                       return (
-        //                         <Typography key={index} className="summaryText">
-        //                           {index + 1}. {attribute["name"]}:{" "}
-        //                           {attribute["value"]}
-        //                         </Typography>
-        //                       );
-        //                     })}
-        //                   </Box>
-        //                 ) : (
-        //                   aKey !== "link" && (
-        //                     <Typography className="summaryText">
-        //                       {aValue}
-        //                     </Typography>
-        //                   )
-        //                 )}
-        //               </Box>
-        //             );
-        //           })}
-        //         </Box>
-        //       );
-        //     });
-        // }
       })}
     </>
   );
