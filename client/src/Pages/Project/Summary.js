@@ -23,7 +23,6 @@ const Summary = () => {
   const type = sessionStorage.getItem("editMode");
   const templateOrder = sections
 
-  console.log(templateOrder)
   console.log(data)
 
   // remove old data 
@@ -65,11 +64,7 @@ const Summary = () => {
           editLink="/projects/details"
         />
         {data && _.map(data, (section, index) => {
-          console.log(section)
-          console.log(index)
           const templateNum = templateOrder[index];
-          console.log(templateNum)
-          console.log(section[templateNum])
           return (
             <SummaryCard
               header={`Section ${index + 1}: ${templates[templateNum]}`}

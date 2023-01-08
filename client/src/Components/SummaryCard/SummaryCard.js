@@ -28,6 +28,7 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
   const [expandedText, setExpandedText] = useState({});
 
   const handleOnClick = (event, value) => {
+    console.log(header)
     setOpen(true);
     setExpandedText({
       title: event.target.id,
