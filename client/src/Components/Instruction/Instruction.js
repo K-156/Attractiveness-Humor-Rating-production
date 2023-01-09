@@ -13,11 +13,12 @@ const Instruction = ({ type }) => {
 
     // const text = sessionStorage.getItem(type);
     const {data, sections} = JSON.parse(localStorage.getItem("data"));
+    const role = sessionStorage.getItem("role");
 
     return(
         <div className="flexStart">
             <Tooltip 
-                title={data[sectionNum][sections[sectionNum]].instruction}
+                title={data[sectionNum][sections[sectionNum]][role].instruction}
                 placement="bottom-start"
                 slotProps= {{
                     tooltip: {

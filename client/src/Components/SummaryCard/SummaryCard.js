@@ -20,8 +20,13 @@ import GeneralContent from "./GeneralContent";
 import GeneralContentRoles from "./GeneralContentRoles";
 
 const SummaryCard = ({ header, content, editLink, template, index }) => {
-  const { setSectionNum, setEditProject, createdProjectId, getAllProjects } =
-    useAppContext();
+  const {
+    setSectionNum,
+    setEditProject,
+    createdProjectId,
+    getAllProjects,
+    editProjectId,
+  } = useAppContext();
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -36,9 +41,14 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
   };
   const handleOnEdit = () => {
     sessionStorage.setItem("editMode", "edit");
-    // getAllProjects().then(() => {
-    //   setEditProject(createdProjectId);
-    // });
+    if (editProjectId === "") {
+      getAllProjects().then(() => {
+        setEditProject(createdProjectId);
+      });
+    }
+
+    console.log(editLink)
+
     setSectionNum(index);
     navigate(editLink, {
       state: {
@@ -69,7 +79,8 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
               handleOnClick={handleOnClick}
               header={header}
             />
-          ) : header === "Project Details" ? (
+          ) : header === "Project Details" ||
+            header.toLowerCase().includes("template 7") ? (
             <GeneralContent content={content} handleOnClick={handleOnClick} />
           ) : (
             <GeneralContentRoles

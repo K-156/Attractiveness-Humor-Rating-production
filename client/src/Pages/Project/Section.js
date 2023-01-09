@@ -14,7 +14,7 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
 
 const Section = () => {
-  const { formData, sections, isEditing } = useAppContext();
+  const { formData, sections, isEditing, projDetails } = useAppContext();
 
   const location = useLocation();
   const sectionNum = parseInt(location.pathname.split("/").pop());
@@ -22,7 +22,7 @@ const Section = () => {
     ? sections
     : sessionStorage.getItem("templates").split(",");
   const currTemplate = parseInt(templateList[sectionNum - 1]);
-  const roles = JSON.parse(localStorage.getItem("projDetails")).roles;
+  const roles = projDetails.roles
 
   let templateType = null;
   const { template } = location.state;

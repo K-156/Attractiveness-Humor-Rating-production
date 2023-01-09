@@ -9,15 +9,13 @@ import _ from "lodash";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Home = () => {
-  const { getProject, setActiveProject, activeProjectId, theme } =
+  const { getProject, setActiveProject, activeProjectId, theme, projDetails } =
     useAppContext();
   const navigate = useNavigate();
   const handleOnClick = (event) => {
-    sessionStorage.setItem("role", event.target.id.toLowerCase());
+    sessionStorage.setItem("role", event.target.id);
     navigate(`/login`);
   };
-
-  const data = JSON.parse(localStorage.getItem("data"));
 
   useEffect(() => {
     setActiveProject();
@@ -44,7 +42,7 @@ const Home = () => {
               color: colorPalette[theme]?.secondary,
             }}
           >
-            {data?.projDetails.title}
+            {projDetails?.title}
           </Typography>
           <Typography
             sx={{
@@ -52,11 +50,11 @@ const Home = () => {
               my: 3,
             }}
           >
-            {data?.projDetails.description}
+            {projDetails?.description}
           </Typography>
           <Grid container gap={1}>
             <Grid item xs={12} className="center" sx={{ my: 1 }}>
-              {data?.projDetails.roles.length === 0 ? (
+              {projDetails?.roles.length === 0 ? (
                 <Button
                   id="start"
                   onClick={handleOnClick}
@@ -76,8 +74,8 @@ const Home = () => {
                 </Typography>
               )}
             </Grid>
-            {data?.projDetails.roles.length > 0 &&
-              _.map(data?.projDetails.roles, (role) => {
+            {projDetails?.roles.length > 0 &&
+              _.map(projDetails?.roles, (role) => {
                 return (
                   <Grid item xs={5.5} className="center" key={role}>
                     <Button
@@ -95,7 +93,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={5.5}>
           <img
-            src={data?.projDetails.graphicLink}
+            src={projDetails?.graphicLink}
             alt="landing page"
             style={{
               width: "100%",

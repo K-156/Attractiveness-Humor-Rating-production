@@ -53,7 +53,6 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
             )}
             {header.toLowerCase().includes("template 1") &&
               _.map(optionContent, (value, key) => {
-                console.log(value, key);
                 const optionNum = key[key.length - 1];
                 return (
                   <Box key={key}>
@@ -66,7 +65,6 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
                       </Typography>
                     </Box>
                     {_.map(value, (aValue, aKey) => {
-                      console.log(aValue);
                       return (
                         <Box key={aKey} className="twoColumns">
                           <Typography className="summaryVariable">

@@ -8,7 +8,8 @@ import "./InstructionPage.css";
 
 const InstructionPage = ({ type, link }) => {
   const { theme, sectionNum } = useAppContext();
-  const {data} = JSON.parse(localStorage.getItem("data"));
+  const { data } = JSON.parse(localStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
 
   return (
     <div className={`backgroundImage-${theme} center`}>
@@ -42,7 +43,7 @@ const InstructionPage = ({ type, link }) => {
             </Box>
             <Box className="center" pt={1.5}>
               <Typography className="textCenter">
-                {data[sectionNum][Object.keys(data[sectionNum])[0]].instruction}
+                {data[sectionNum][Object.keys(data[sectionNum])[0]][role].instruction}
               </Typography>
             </Box>
           </CardContent>

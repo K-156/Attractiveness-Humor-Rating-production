@@ -9,16 +9,15 @@ import NextButton from "../../Components/NavButton/NextButton";
 import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
-
 const Profiles = () => {
   const { sectionNum, nextSection } = useAppContext();
   const location = useLocation();
   const state = location.state;
   const navigate = useNavigate();
 
-  console.log(state)
-
   const { data } = JSON.parse(localStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
+
   const { path } = links.find(
     (link) => link.id == Object.keys(data[sectionNum + 1])[0]
   );
@@ -39,7 +38,7 @@ const Profiles = () => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1];
+      dataToDisplay = data[element][1][role];
     }
   }
 
@@ -49,13 +48,14 @@ const Profiles = () => {
     }
   }
 
+  console.log(arr)
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    nextSection()
-    navigate(state["link"] ? state["link"] : path);
+    nextSection();
+    navigate(path)
+    // navigate(state["link"] ? state["link"] : path);
   };
-
 
   return (
     <div>
@@ -71,7 +71,7 @@ const Profiles = () => {
                 img={item.link}
                 description={item.description}
                 candidateCount={arr.length}
-                link={state["link"]}
+                // link={state["link"]}
               />
             </Grid>
           );
@@ -80,7 +80,8 @@ const Profiles = () => {
       <Box className="flexEnd">
         <NextButton
           isSurvey={true}
-          text={state ? state["type"] : "Next"}
+          text={"Next"}
+          // text={state ? state["type"] : "Next"}
           handleOnSubmit={handleOnSubmit}
         />
       </Box>

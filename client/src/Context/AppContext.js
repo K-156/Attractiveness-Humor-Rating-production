@@ -67,6 +67,7 @@ const initialState = {
   errorMsg: "",
   emailList: "",
   participants: [],
+  activeProjectData:[],
 };
 
 const AppContext = createContext();

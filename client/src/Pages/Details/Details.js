@@ -22,28 +22,33 @@ import { getCurrentTime } from "../../Utils/getCurrentTime";
 
 const Details = () => {
   const navigate = useNavigate();
-  const { updateUser, user, theme , isLoading, sectionNum } =
+  const { updateUser, user, theme, isLoading, sectionNum } =
     useAppContext();
 
   const detailList = ["Sex", "Age", "Ethnicity"];
-  
+
   const { data } = JSON.parse(localStorage.getItem("data"));
-  const { path } = links.find((link) => link.id == Object.keys(data[sectionNum])[0]);
+
+  const { path } = links.find(
+    (link) => link.id == Object.keys(data[sectionNum])[0]
+  );
+
+
 
   const [formData, setFormData] = useState({
     sex: "",
     age: "",
     ethnicity: "",
-    IPAddress: null, 
+    IPAddress: null,
     start: null,
   });
-  
+
   const [toSubmit, setToSubmit] = useState(false);
   const [ageError, setAgeError] = useState(false);
 
-  useEffect(()=> {
-    getIPStartTime()
-  }, [])
+  useEffect(() => {
+    getIPStartTime();
+  }, []);
 
   const handleOnChange = (event) => {
     const name = event.target.name;
@@ -66,7 +71,7 @@ const Details = () => {
     }
   };
 
-  console.log(formData)
+  console.log(formData);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -79,16 +84,14 @@ const Details = () => {
   }
 
   const getIPStartTime = async () => {
-    const res = await axios.get("https://geolocation-db.com/json/")
+    const res = await axios.get("https://geolocation-db.com/json/");
     const currentTime = getCurrentTime();
     setFormData((state) => ({
-      ...state, 
+      ...state,
       IPAddress: res.data.IPv4,
-      start: currentTime
-    }))
-  }
-
-
+      start: currentTime,
+    }));
+  };
 
   return (
     <div className={`backgroundImage-${theme} center`}>
