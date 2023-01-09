@@ -13,7 +13,7 @@ const SurveyLayout = () => {
     return(
         <Box
             sx={{
-                backgroundColor: colorPalette[theme]["background"],
+                backgroundColor: colorPalette[theme]?.["background"],
                 p: "25px 25px 50px 25px",
                 minHeight:"100vh"
             }}

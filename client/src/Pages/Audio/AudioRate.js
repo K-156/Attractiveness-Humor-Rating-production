@@ -40,6 +40,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   const navigate = useNavigate();
 
   const { data } = JSON.parse(localStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
   const { path } =
     data[sectionNum + 1] !== undefined
       ? links.find((link) => link.id === sections[sectionNum + 1])
@@ -83,7 +84,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1];
+      dataToDisplay = data[element][1][role];
     }
   }
 
@@ -137,10 +138,10 @@ const AudioRate = ({ title, link, isWritten }) => {
   const randomNum = isWritten
     ? Math.floor(
         Math.random() *
-          data[sectionNum][sections[sectionNum]].introductions.length
+          data[sectionNum][sections[sectionNum]][role].introductions.length
       )
     : Math.floor(
-        Math.random() * data[sectionNum][sections[sectionNum]].audioLink.length
+        Math.random() * data[sectionNum][sections[sectionNum]][role].audioLink.length
       );
 
   return (
@@ -176,18 +177,18 @@ const AudioRate = ({ title, link, isWritten }) => {
           {isWritten ? (
             <IntroMessage
               text={
-                data[sectionNum][sections[sectionNum]].introductions[randomNum]
+                data[sectionNum][sections[sectionNum]][role].introductions[randomNum]
               }
             />
           ) : (
             <Audio
-              src={data[sectionNum][sections[sectionNum]].audioLink[randomNum]}
+              src={data[sectionNum][sections[sectionNum]][role].audioLink[randomNum]}
             />
           )}
         </Grid>
         <Grid item xs={7} px={4}>
           <AudioForm
-            data={data[sectionNum][sections[sectionNum]].questions}
+            data={data[sectionNum][sections[sectionNum]][role].questions}
             setRating={setRating}
             isWritten={isWritten}
           />
@@ -198,7 +199,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             disabled={
               !isValid(
                 rating,
-                data[sectionNum][sections[sectionNum]].questions.length
+                data[sectionNum][sections[sectionNum]][role].questions.length
               )
             }
             handleOnSubmit={handleOnSubmit}

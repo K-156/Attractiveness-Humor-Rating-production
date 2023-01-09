@@ -22,8 +22,10 @@ const Description = () => {
   const { id, candidateCount, link } = location.state;
 
   const { data } = JSON.parse(localStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
+
   const attributes =
-    data[sectionNum][[Object.keys(data[sectionNum])[0]]][Number(id) + 1]
+    data[sectionNum][Object.keys(data[sectionNum])[0]][role][Number(id) + 1]
       .attributes;
 
   const handleOnChange = (event) => {
@@ -52,9 +54,7 @@ const Description = () => {
                 <Box className="imageBox">
                   <img
                     src={
-                      data[sectionNum][[Object.keys(data[sectionNum])[0]]][
-                        Number(id) + 1
-                      ].link
+                      data[sectionNum][Object.keys(data[sectionNum])[0]][role][Number(id) + 1].link
                     }
                     alt="profile"
                   />
@@ -64,9 +64,7 @@ const Description = () => {
                   sx={{ color: colorPalette[theme]["primary"] }}
                 >
                   {
-                    data[sectionNum][[Object.keys(data[sectionNum])[0]]][
-                      Number(id) + 1
-                    ].optionName
+                    data[sectionNum][Object.keys(data[sectionNum])[0]][role][Number(id) + 1].optionName
                   }
                 </Typography>
               </Grid>

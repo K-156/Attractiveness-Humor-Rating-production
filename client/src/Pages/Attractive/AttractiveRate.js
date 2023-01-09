@@ -19,6 +19,7 @@ const AttractiveRate = () => {
   const location = useLocation();
 
   const { data } = JSON.parse(localStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
 
   const { path } =
     data[sectionNum + 1] !== undefined
@@ -41,7 +42,7 @@ const AttractiveRate = () => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element < sectionNum) {
-      dataToDisplay = data[element][1];
+      dataToDisplay = data[element][1][role];
     }
   }
 

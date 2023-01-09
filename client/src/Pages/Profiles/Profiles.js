@@ -10,12 +10,11 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const Profiles = () => {
-  const { sectionNum, nextSection } = useAppContext();
+  const { sectionNum, nextSection, data } = useAppContext();
   const location = useLocation();
   const state = location.state;
   const navigate = useNavigate();
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
 
   const { path } = links.find(
@@ -54,7 +53,7 @@ const Profiles = () => {
     e.preventDefault();
     nextSection();
     navigate(path)
-    // navigate(state["link"] ? state["link"] : path);
+    navigate(state["link"] ? state["link"] : path);
   };
 
   return (
@@ -71,7 +70,7 @@ const Profiles = () => {
                 img={item.link}
                 description={item.description}
                 candidateCount={arr.length}
-                // link={state["link"]}
+                link={state["link"]}
               />
             </Grid>
           );
@@ -81,7 +80,7 @@ const Profiles = () => {
         <NextButton
           isSurvey={true}
           text={"Next"}
-          // text={state ? state["type"] : "Next"}
+          text={state ? state["type"] : "Next"}
           handleOnSubmit={handleOnSubmit}
         />
       </Box>

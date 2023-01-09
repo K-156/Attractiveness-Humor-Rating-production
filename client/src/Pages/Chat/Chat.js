@@ -17,6 +17,7 @@ const Chat = ({ title, link }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const { data } = JSON.parse(localStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
   const { path } =
   data[sectionNum + 1] !== undefined
     ? links.find((link) => link.id === sections[sectionNum + 1])
@@ -59,7 +60,7 @@ const Chat = ({ title, link }) => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1];
+      dataToDisplay = data[element][1][role];
     }
   }
 

@@ -69,7 +69,8 @@ const NextButton = ({
         getProject(createdProjectId);
       });
       localStorage.setItem(projectType, JSON.stringify(arr));
-    } else {
+    }
+    if (projectType === "sections") {
       updateProject(createdProjectId, projectType, data).then(() => {
         getProject(createdProjectId);
       });
@@ -80,6 +81,7 @@ const NextButton = ({
         state: { state },
       });
   };
+
 
   return (
     <Box sx={style}>

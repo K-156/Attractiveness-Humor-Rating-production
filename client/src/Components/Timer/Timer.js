@@ -86,7 +86,7 @@ const Timer = () => {
             <Typography 
                 className="center"
                 sx={{
-                    color: isWarning ? "#F47070" : colorPalette[theme]["secondary"],
+                    color: isWarning ? "#F47070" : colorPalette[theme]?.["secondary"],
                     mb:1,
                     fontSize:"14px"
                 }}

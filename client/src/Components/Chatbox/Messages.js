@@ -6,11 +6,13 @@ import "./Chatbox.css";
 
 const Messages = ({ setSelectMessage, theme, themeHover }) => {
   const { data, sections } = JSON.parse(localStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
+
   const { sectionNum } = useAppContext();
 
   return (
     <Box id="MessageOptions" sx={{ height: "120px", my:"12rem"}}>
-      {_.map(data[sectionNum][sections[sectionNum]].messages, (text) => {
+      {_.map(data[sectionNum][sections[sectionNum]][role].messages, (text) => {
         return (
           <Button
             key={text}

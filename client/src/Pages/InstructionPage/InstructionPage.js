@@ -7,8 +7,7 @@ import { colorPalette } from "../../Utils/colorPalette";
 import "./InstructionPage.css";
 
 const InstructionPage = ({ type, link }) => {
-  const { theme, sectionNum } = useAppContext();
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  const { theme, sectionNum, data } = useAppContext();
   const role = sessionStorage.getItem("role");
 
   return (
@@ -24,7 +23,7 @@ const InstructionPage = ({ type, link }) => {
         </Box>
         <Card
           sx={{
-            background: colorPalette[theme]["primary"],
+            background: colorPalette[theme]?.["primary"],
             color: "#FFFFFF",
             mx: 30,
             width: "80%",

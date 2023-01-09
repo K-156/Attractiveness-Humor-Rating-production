@@ -53,10 +53,11 @@ const Rank = () => {
   const navigate = useNavigate();
 
   const { data } = JSON.parse(localStorage.getItem("data"));
-//   const { path } =
-//     data[sectionNum + 1] !== undefined
-//       ? links.find((link) => link.id === sections[sectionNum + 1])
-//       : links.find((link) => link.id === 8);
+  const role = sessionStorage.getItem("role");
+  const { path } =
+    data[sectionNum + 1] !== undefined
+      ? links.find((link) => link.id === sections[sectionNum + 1])
+      : links.find((link) => link.id === 8);
 
   let arr = [];
   let arrOfProfile = [];
@@ -74,7 +75,7 @@ const Rank = () => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1];
+      dataToDisplay = data[element][1][role];
     }
   }
 
@@ -105,7 +106,7 @@ const Rank = () => {
       id: user._id,
     });
     nextSection();
-    // navigate(path);
+    navigate(path);
   };
 
     return (
