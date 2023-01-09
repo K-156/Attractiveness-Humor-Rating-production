@@ -13,29 +13,9 @@ import Audio from "../../Components/Audio/Audio";
 import links from "../../Utils/links";
 import { colorPalette } from "../../Utils/colorPalette";
 
-const mockdata = [
-  {
-    id_: 0,
-    question: "Am I humorous?",
-    lower: { number: 1, text: "not humurous" },
-    upper: { number: 9, text: "extremely humurous" },
-  },
-  {
-    id_: 1,
-    question: "Am I interesting?",
-    lower: { number: 1, text: "not at all" },
-    upper: { number: 9, text: "very interesting" },
-  },
-  {
-    id_: 3,
-    question: "How likely will you hire me?",
-    lower: { number: 1, text: "not at all" },
-    upper: { number: 9, text: "very likely" },
-  },
-];
-
 const AudioRate = ({ title, link, isWritten }) => {
-  const { updateUser, sectionNum, nextSection, theme, sections } = useAppContext();
+  const { updateUser, sectionNum, nextSection, theme, sections } =
+    useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
 
@@ -94,11 +74,13 @@ const AudioRate = ({ title, link, isWritten }) => {
     }
   }
 
-  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0])-1;
+  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0]) - 1;
   const lastCandidate =
-    Number(user.userResponse.rank[rankToDisplay][
-      user.userResponse.rank[rankToDisplay].length - 1
-    ])-1;
+    Number(
+      user.userResponse.rank[rankToDisplay][
+        user.userResponse.rank[rankToDisplay].length - 1
+      ]
+    ) - 1;
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -135,14 +117,33 @@ const AudioRate = ({ title, link, isWritten }) => {
   };
 
   // generate random number to play audio
-  const randomNum = isWritten
-    ? Math.floor(
-        Math.random() *
-          data[sectionNum][sections[sectionNum]][role].introductions.length
-      )
-    : Math.floor(
-        Math.random() * data[sectionNum][sections[sectionNum]][role].audioLink.length
-      );
+  function getRandomNumber(title) {
+    // Check if a random number is stored in local storage
+    const storedNumber = localStorage.getItem(`randomNumber${title}`);
+
+    console.log(typeof storedNumber)
+    console.log(localStorage.getItem(`randomNumber1`))
+    // If a random number is stored, return it
+    if (storedNumber) {
+      return storedNumber;
+    }
+
+    // If no random number is stored, generate a new one and store it in local storage
+    const randomNumber = isWritten
+      ? Math.floor(
+          Math.random() *
+            data[sectionNum][sections[sectionNum]][role].introductions.length
+        )
+      : Math.floor(
+          Math.random() *
+            data[sectionNum][sections[sectionNum]][role].audioLink.length
+        );
+    localStorage.setItem(`randomNumber${title}`, randomNumber);
+    return randomNumber;
+  }
+
+  // Use the getRandomNumber() function to get a random number
+  const randomNum = getRandomNumber(title);
 
   return (
     <div>
@@ -177,12 +178,18 @@ const AudioRate = ({ title, link, isWritten }) => {
           {isWritten ? (
             <IntroMessage
               text={
-                data[sectionNum][sections[sectionNum]][role].introductions[randomNum]
+                data[sectionNum][sections[sectionNum]][role].introductions[
+                  randomNum
+                ]
               }
             />
           ) : (
             <Audio
-              src={data[sectionNum][sections[sectionNum]][role].audioLink[randomNum]}
+              src={
+                data[sectionNum][sections[sectionNum]][role].audioLink[
+                  randomNum
+                ]
+              }
             />
           )}
         </Grid>

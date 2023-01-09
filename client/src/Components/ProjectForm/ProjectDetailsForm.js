@@ -141,7 +141,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                         select
                         name="theme"
                         label="Select theme"
-                        defaultValue={formData.theme}
+                        defaultValue={formData.theme === undefined ? "green" : formData.theme}
                         onChange={handleOnChange}
                       >
                         {_.map(["Blue", "Brown", "Green", "Pink", "Yellow"], (value) => {

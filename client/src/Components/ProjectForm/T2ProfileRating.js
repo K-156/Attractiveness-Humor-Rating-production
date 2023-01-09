@@ -16,6 +16,8 @@ import "./ProjectForm.css";
 const T2ProfileRating = ({ roles }) => {
   const { submitFormData, data, sectionNum, isEditing } = useAppContext();
 
+  console.log(roles)
+
   const dictionary = {};
 
   _.map(roles, (aRole) => {

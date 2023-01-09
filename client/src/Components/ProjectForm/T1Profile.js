@@ -18,6 +18,8 @@ import ProfileForm from "./ProfileForm";
 const T1Profile = ({ roles }) => {
   const { submitFormData, data, sectionNum } = useAppContext();
 
+  console.log(roles)
+
   const objects2 = {
     instruction: false,
     1: false,

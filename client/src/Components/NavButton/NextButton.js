@@ -45,9 +45,7 @@ const NextButton = ({
     }
 
     if (projectType === "projDetails") {
-      let dict = {};
-      dict[projectType] = data;
-      updateProject(createdProjectId, projectType, dict).then(() => {
+      updateProject(createdProjectId, projectType, data).then(() => {
         getProject(createdProjectId);
       });
     }

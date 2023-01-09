@@ -37,8 +37,8 @@ const UploadOneFile = ({
 
       fileLink = await uploadFiles(
         isEditing
-          ? `${editProjectId}_${sectionNum}_${templateNum}_${id}`
-          : `${createdProjectId}_${sectionNum}_${templateNum}_${id}`,
+          ? `${editProjectId}_${sectionNum}_${templateNum}_${id}_${role}`
+          : `${createdProjectId}_${sectionNum}_${templateNum}_${id}_${role}`,
         event.target.files[0]
       );
 

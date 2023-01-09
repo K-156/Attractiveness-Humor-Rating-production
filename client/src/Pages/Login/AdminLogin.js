@@ -81,7 +81,7 @@ const AdminLogin = () => {
               <Typography
                 variant="h5"
                 className="formCardHeader"
-                sx={{color: colorPalette[theme]["primary"]}}
+                sx={{color: colorPalette[theme]?.["primary"]}}
               >
                 LOGIN
               </Typography>
@@ -131,6 +131,7 @@ const AdminLogin = () => {
                     <img
                         src={require(`../../Assets/Theme/${theme}/login.svg`)}
                         style={{width: "100%"}}
+                        alt="background"
                     />
                 </Box>     
         </Grid>
