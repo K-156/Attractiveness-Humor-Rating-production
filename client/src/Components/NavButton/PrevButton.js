@@ -7,10 +7,16 @@ import { HiArrowLeft } from "react-icons/hi";
 const PrevButton = ({ isSurvey, state, text, style, link }) => {
   const { theme, getProject, createdProjectId, prevSection } = useAppContext();
 
+  console.log(text);
+  console.log(link);
+
   const navigate = useNavigate();
   const handleOnClick = () => {
-    prevSection();
-    getProject(createdProjectId);
+    if (text === "Profiles") {
+    } else {
+      prevSection();
+      getProject(createdProjectId);
+    }
     navigate(`${link}`, {
       state: { state },
     });

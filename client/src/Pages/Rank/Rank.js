@@ -48,7 +48,15 @@ const mockdata = [
 ];
 
 const Rank = () => {
-  const { theme, sectionNum, updateUser, user, nextSection, sections } = useAppContext();
+  const {
+    theme,
+    sectionNum,
+    updateUser,
+    user,
+    nextSection,
+    sections,
+    prevSection,
+  } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -97,10 +105,7 @@ const Rank = () => {
         ...user,
         userResponse: {
           ...user.userResponse,
-          rank: [
-            ...user.userResponse.rank,
-            rankItems,
-          ],
+          rank: [...user.userResponse.rank, rankItems],
         },
       },
       id: user._id,
@@ -109,60 +114,60 @@ const Rank = () => {
     navigate(path);
   };
 
-    return (
-        <div>
-            <script>
-                {document.title="Profile Ranking"}
-            </script>
-            <Box className="spaceBetween">
-                <Box className="spaceBetween" sx={{width: "250px"}}>
-                    <Instruction type="rank" />
-                    <Button
-                        variant="contained"
-                        className={`customButton-${theme}`}
-                        onClick={() => {
-                            navigate("/profiles", {
-                            state: {
-                                link: location.pathname,
-                                type: "Rank"
-                            }})
-                        }}
-                    >
-                    View Profiles
-                    </Button>
-                </Box>
-                <Button
-                    variant="contained"
-                    className={`customButton-${theme}`}
-                    onClick={() => {
-                        setRankItems([])
-                        setItems(allItems)
-                    }}
-                >
-                    Reset Rank
-                </Button>
-            </Box>  
-            <DragAndDrop 
-                items={items}
-                setItems={setItems}
-                rankItems={rankItems}
-                setRankItems={setRankItems}
-                allItems={allItems}
-            />
-            <Box className="flexEnd" sx={{mt: 3}}>
-                <NextButton
-                    disabled={rankItems.length < allItems.length}
-                    ratingType="rank"
-                    isSurvey={true}
-                    // storeItem={JSON.stringify({
-                    //   most: rankItems[0],
-                    //   least: rankItems[rankItems.length - 1],
-                    // })}
-                    handleOnSubmit={handleOnSubmit}
-                />
-            </Box>
-        </div>
-    )
+  return (
+    <div>
+      <script>{(document.title = "Profile Ranking")}</script>
+      <Box className="spaceBetween">
+        <Box className="spaceBetween" sx={{ width: "250px" }}>
+          <Instruction type="rank" />
+          <Button
+            variant="contained"
+            className={`customButton-${theme}`}
+            onClick={() => {
+              prevSection();
+              navigate("/profiles", {
+                state: {
+                  link: location.pathname,
+                  type: "Rank",
+                },
+              });
+            }}
+          >
+            View Profiles
+          </Button>
+        </Box>
+        <Button
+          variant="contained"
+          className={`customButton-${theme}`}
+          onClick={() => {
+            setRankItems([]);
+            setItems(allItems);
+          }}
+        >
+          Reset Rank
+        </Button>
+      </Box>
+      <DragAndDrop
+        items={items}
+        setItems={setItems}
+        rankItems={rankItems}
+        setRankItems={setRankItems}
+        allItems={allItems}
+      />
+      <Box className="flexEnd" sx={{ mt: 3 }}>
+        <NextButton
+          disabled={rankItems.length < allItems.length}
+          ratingType="rank"
+          isSurvey={true}
+          // storeItem={JSON.stringify({
+          //   most: rankItems[0],
+          //   least: rankItems[rankItems.length - 1],
+          // })}
+          handleOnSubmit={handleOnSubmit}
+        />
+      </Box>
+    </div>
+  );
 };
 
 export default Rank;

@@ -79,7 +79,6 @@ const Profiles = () => {
       <Box className="flexEnd">
         <NextButton
           isSurvey={true}
-          text={"Next"}
           text={state ? state["type"] : "Next"}
           handleOnSubmit={handleOnSubmit}
         />

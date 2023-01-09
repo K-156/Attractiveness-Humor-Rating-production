@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
 import { 
@@ -17,9 +17,9 @@ const ItemCard = ({ title, img, id, candidateCount, description, link }) => {
 
     const { theme } = useAppContext();
     const navigate = useNavigate();
-    const location = useLocation();
 
     const handleOnClick = (event) => {
+        console.log("hi")
         navigate(`/profiles/${parseInt(event.target.id)+1}`, {
             state: {
                 id: `${event.target.id}`,
