@@ -90,6 +90,20 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     </Box>
                 </Box>
                 <Box className="twoColumns">
+                    <Typography className="variable">Consent Form</Typography>
+                    <Box className="secondColumn">
+                      <TextField
+                          name="consent"
+                          // value={formData?.description}
+                          size="small"
+                          fullWidth
+                          multiline
+                          minRows={3}
+                          onChange={handleOnChange}
+                      />
+                    </Box>
+                </Box>
+                <Box className="twoColumns">
                     <Typography className="variable">Roles</Typography>
                     <AddableNoRange 
                         items={formData["roles"]} 
