@@ -22,8 +22,16 @@ import { getCurrentTime } from "../../Utils/getCurrentTime";
 
 const Details = () => {
   const navigate = useNavigate();
-  const { updateUser, user, theme, isLoading, sectionNum } =
-    useAppContext();
+  const {
+    updateUser,
+    user,
+    theme,
+    isLoading,
+    sectionNum,
+    activeProjectId,
+    setActiveProject,
+    getProject,
+  } = useAppContext();
 
   const detailList = ["Sex", "Age", "Ethnicity"];
 
@@ -32,8 +40,6 @@ const Details = () => {
   const { path } = links.find(
     (link) => link.id == Object.keys(data[sectionNum])[0]
   );
-
-
 
   const [formData, setFormData] = useState({
     sex: "",
@@ -45,6 +51,13 @@ const Details = () => {
 
   const [toSubmit, setToSubmit] = useState(false);
   const [ageError, setAgeError] = useState(false);
+
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId);
+    }
+  }, [activeProjectId]);
 
   useEffect(() => {
     getIPStartTime();

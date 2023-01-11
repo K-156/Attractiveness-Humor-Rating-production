@@ -76,6 +76,7 @@ const UploadParticipantDialog = ({
             text={"Save"}
             open={open}
             setOpen={setOpen}
+            handleUpload={handleUpload}
           />
         </Box>
       </DialogContent>

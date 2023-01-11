@@ -10,6 +10,7 @@ import { Box, Button, Tooltip } from "@mui/material";
 import _ from "lodash";
 import moment from "moment";
 import { BsInfoCircle } from "react-icons/bs";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 const ParticipantTable = ({
   data,
@@ -18,9 +19,12 @@ const ParticipantTable = ({
   setDeleteOpen,
   setUploadOpen,
   setSendOpen,
+  isLoading
 }) => {
   const [pageSize, setPageSize] = useState(5);
   const { participants } = useAppContext();
+
+  console.log(isLoading)
 
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");
@@ -81,8 +85,6 @@ const ParticipantTable = ({
     );
   };
 
-  console.log(participants);
-
   for (const [key, value] of Object.entries(participants)) {
     value["_id"] = Number(key) + 1;
   }
@@ -98,6 +100,7 @@ const ParticipantTable = ({
       onSelectionModelChange={(id) => setRowsSelected(id)}
       disableSelectionOnClick
       rows={participants}
+      loading={isLoading && <LoadingAnimation />}
       getRowId={(row) => row["_id"]}
       columns={[
         {

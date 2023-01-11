@@ -8,11 +8,17 @@ const ProjectSchema = new mongoose.Schema(
       default: () => nanoid(10),
     },
     projDetails: {
-      title: String,
+      title: {
+        type: String,
+        default: "untitled",
+      },
       description: String,
       roles: [],
       duration: String,
-      theme: String,
+      theme: {
+        type: String,
+        default: "green",
+      },
       graphic: [],
       graphicLink: String,
     },

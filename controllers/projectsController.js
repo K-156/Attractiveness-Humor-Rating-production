@@ -1,13 +1,14 @@
 import fs from "fs";
 import request from "request";
 import csv from "csv-parser";
+import Papa from "papaparse";
+import iconv from "iconv-lite";
 
 import Project from "../models/Project.js";
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 import checkPermissions from "../utils/checkPermissions.js";
-import { resourceLimits } from "worker_threads";
 
 const createProject = async (req, res) => {
   console.log(req.body);
@@ -103,7 +104,7 @@ const displayOutput = async (req, res) => {
         })
         .pipe(fs.createWriteStream("file.csv"))
         .on("finish", () => {
-          fs.createReadStream("file.csv")
+          fs.createReadStream("file.csv", "utf-8")
             .pipe(csv())
             .on("data", (row) => {
               data.push(row);

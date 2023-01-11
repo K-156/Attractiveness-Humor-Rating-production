@@ -7,18 +7,27 @@ import ParticipantTable from "../../Components/Tables/ParticipantTable";
 import DeleteDialog from "../../Components/Dialog/DeleteDialog";
 import ConfirmDialog from "../../Components/Dialog/ConfirmDialog";
 import UploadParticipantDialog from "../../Components/Dialog/UploadParticipantDialog";
-
-const options = [
-  "-sk_ggAkhr: Jobify",
-  "foQNPuACMl: more than one profile",
-  "o-hNaDM7zK: csv",
-  "HA4Ys4EpND: Jobify",
-];
+import LoadingAnimation from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Participants = () => {
-  const { setCreateProject, createdProjectId, getProject, readCSV, participants } =
-    useAppContext();
+  const {
+    setCreateProject,
+    createdProjectId,
+    getProject,
+    readCSV,
+    participants,
+    getAllProjects,
+    projects,
+  } = useAppContext();
+
+  const options = [];
+  _.map(projects, (project) => {
+    const { projDetails } = project;
+    options.push(`${project._id}: ${projDetails.title}`);
+  });
+
   const [projectId, setProjectId] = useState(options[0]);
+  const [isLoading, setIsLoading] = useState(false);
   const [rowsSelected, setRowsSelected] = useState([]);
   const [formData, setFormData] = useState({
     email: [],
@@ -31,16 +40,29 @@ const Participants = () => {
 
   const handleSearch = () => {
     // filter according to project id
-  };
-
-  const handleUpload = () => {};
-
-  useEffect(() => {
-    // must set to the selected project so when admin upload will be to the correct project
-    setCreateProject("v1UXczCoJx").then(() => {
+    setCreateProject(projectId?.split(":")[0]).then(() => {
       getProject(createdProjectId);
     });
-    readCSV("v1UXczCoJx")
+    readCSV(projectId.split(":")[0]);
+  };
+
+  const handleUpload = async () => {
+    setIsLoading(true)
+    await readCSV(projectId.split(":")[0]);
+    setIsLoading(false)
+  };
+
+  
+
+
+  useEffect(() => {
+    // get projects name and id
+    getAllProjects();
+    // must set to the selected project so when admin upload will be to the correct project
+    setCreateProject(projectId?.split(":")[0]).then(() => {
+      getProject(createdProjectId);
+    });
+    readCSV(projectId?.split(":")[0]);
   }, []);
 
   return (
@@ -76,6 +98,7 @@ const Participants = () => {
         setDeleteOpen={setDeleteOpen}
         setUploadOpen={setUploadOpen}
         setSendOpen={setSendOpen}
+        isLoading={isLoading}
       />
       <DeleteDialog
         open={deleteOpen}

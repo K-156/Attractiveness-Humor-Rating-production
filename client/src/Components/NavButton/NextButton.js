@@ -19,6 +19,7 @@ const NextButton = ({
   templateNum,
   open,
   setOpen,
+  handleUpload,
 }) => {
   const {
     theme,
@@ -35,13 +36,11 @@ const NextButton = ({
       sessionStorage.setItem("rank", storeItem);
     }
     if (projectType === "emailList") {
-      let dict = {};
-      dict[projectType] = data;
-
-      updateProject(createdProjectId, projectType, dict).then(() => {
+      updateProject(createdProjectId, projectType, data).then(() => {
         getProject(createdProjectId);
       });
       setOpen(false);
+      handleUpload();
     }
 
     if (projectType === "projDetails") {
@@ -79,7 +78,6 @@ const NextButton = ({
         state: { state },
       });
   };
-
 
   return (
     <Box sx={style}>
