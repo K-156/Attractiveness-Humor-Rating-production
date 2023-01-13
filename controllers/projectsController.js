@@ -3,6 +3,7 @@ import request from "request";
 import csv from "csv-parser";
 import Papa from "papaparse";
 import iconv from "iconv-lite";
+import sgMail from "@sendgrid/mail";
 
 import Project from "../models/Project.js";
 import User from "../models/User.js";
@@ -91,6 +92,27 @@ const deleteProject = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Success! Project deleted" });
 };
 
+const sendEmail = async (req, res) => {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+    to: "limstephanie156@gmail.com", // Change to your recipient
+    from: "limstephanie156@gmail.com", // Change to your verified sender
+    subject: "Sending with SendGrid is Fun",
+    text: "and easy to do anywhere, even with Node.js",
+    html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+  };
+  // sgMail
+  //   .send(msg)
+  //   .then(() => {
+  //     console.log("Email sent");
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+  const info = await sgMail.send(msg);
+  res.status(StatusCodes.OK).json(info);
+};
+
 const displayOutput = async (req, res) => {
   const readCSVPromise = (link) => {
     return new Promise((resolve, reject) => {
@@ -105,6 +127,7 @@ const displayOutput = async (req, res) => {
         .pipe(fs.createWriteStream("file.csv"))
         .on("finish", () => {
           fs.createReadStream("file.csv", "utf-8")
+            .pipe(iconv.decodeStream("utf8"))
             .pipe(csv())
             .on("data", (row) => {
               data.push(row);
@@ -139,4 +162,5 @@ export {
   getAllProjects,
   deleteProject,
   displayOutput,
+  sendEmail,
 };

@@ -9,6 +9,7 @@ import {
   getProject,
   deleteProject,
   displayOutput,
+  sendEmail,
 } from "../controllers/projectsController.js";
 
 import {
@@ -33,4 +34,5 @@ router
   .post(authenticateUser, createFolder)
   .delete(authenticateUser, deleteFolder);
 router.route("/participants/:id").get(authenticateUser, displayOutput);
+router.route("/send_email/:id").get(authenticateUser, sendEmail);
 export default router;

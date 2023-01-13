@@ -24,8 +24,6 @@ const ParticipantTable = ({
   const [pageSize, setPageSize] = useState(5);
   const { participants } = useAppContext();
 
-  console.log(isLoading)
-
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");
 

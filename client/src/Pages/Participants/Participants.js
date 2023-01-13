@@ -7,7 +7,6 @@ import ParticipantTable from "../../Components/Tables/ParticipantTable";
 import DeleteDialog from "../../Components/Dialog/DeleteDialog";
 import ConfirmDialog from "../../Components/Dialog/ConfirmDialog";
 import UploadParticipantDialog from "../../Components/Dialog/UploadParticipantDialog";
-import LoadingAnimation from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Participants = () => {
   const {
@@ -47,13 +46,10 @@ const Participants = () => {
   };
 
   const handleUpload = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     await readCSV(projectId.split(":")[0]);
-    setIsLoading(false)
+    setIsLoading(false);
   };
-
-  
-
 
   useEffect(() => {
     // get projects name and id
@@ -64,6 +60,20 @@ const Participants = () => {
     });
     readCSV(projectId?.split(":")[0]);
   }, []);
+
+  const handleConfirm = () => {
+    
+  }
+
+  console.log(participants);
+
+  console.log(rowsSelected);
+
+  const newParticipants = participants.map((participant) => {
+    console.log(participant)
+    return participant._id !== 1;
+  });
+  console.log(newParticipants);
 
   return (
     <div>
