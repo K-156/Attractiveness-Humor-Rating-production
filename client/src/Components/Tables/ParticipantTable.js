@@ -87,6 +87,8 @@ const ParticipantTable = ({
     value["_id"] = Number(key) + 1;
   }
 
+  console.log(participants)
+
   return (
     <DataGrid
       components={{ Toolbar: CustomToolBar }}

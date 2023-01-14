@@ -1,5 +1,8 @@
 import {
   SET_THEME,
+  REGISTER_USER_BEGIN,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_ERROR,
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
@@ -50,6 +53,22 @@ const reducer = (state, action) => {
   if (action.type === SET_THEME) {
     return { ...state, theme: action.payload };
   }
+
+  if (action.type === REGISTER_USER_BEGIN) {
+    return { ...state };
+  }
+  if (action.type === REGISTER_USER_SUCCESS) {
+    return {
+      ...state
+    };
+  }
+  if (action.type === REGISTER_USER_ERROR) {
+    return {
+      ...state,
+      isValid: false,
+    };
+  }
+
   if (action.type === LOGIN_USER_BEGIN) {
     return { ...state };
   }
@@ -66,6 +85,7 @@ const reducer = (state, action) => {
       isValid: false,
     };
   }
+
   if (action.type === UPDATE_USER_BEGIN) {
     return { ...state };
   }

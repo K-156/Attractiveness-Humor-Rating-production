@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
+import axios from "axios";
 
 import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import _ from "lodash";
@@ -18,6 +19,7 @@ const Participants = () => {
     getAllProjects,
     projects,
     sendEmail,
+    isValid,
   } = useAppContext();
 
   const options = [];
@@ -62,20 +64,64 @@ const Participants = () => {
     readCSV(projectId?.split(":")[0]);
   }, []);
 
-  const handleConfirm = () => {
-    sendEmail();
+  const registerUser = async (currentUser) => {
+    try {
+      const response = await axios.post("/api/v1/auth/register", currentUser);
+      console.log(response);
+      if (response.status === 201) {
+        console.log(`successfully registered.`);
+      } else {
+        console.log(`Error registering`);
+      }
+    } catch (error) {
+      console.log(error.response); //if got error this is return
+      const { data } = error.response;
+      return data.msg;
+    }
+  };
+
+  const handleConfirm = async () => {
+    // Create an array of promises
+    const registerPromises = participants.map((element) => {
+        return registerUser({
+          email: element.Email,
+          password: "123456",
+          projId: createdProjectId,
+        });
+    });
+    try {
+        // Wait for all promises to resolve
+        const results = await Promise.all(registerPromises);
+        console.log(results);
+        // sendEmail();
+        // isValid ? setSendOpen(false) : setSendOpen(true);
+    } catch (error) {
+        console.log(error);
+    }
     setSendOpen(false);
-  }
+  };
 
-  console.log(participants);
+  // const handleConfirm = async () => {
+  //   participants.forEach((element, index) => {
+  //     registerUser({
+  //       email: element.Email,
+  //       password: "123456",
+  //       projId: createdProjectId,
+  //     });
+  //   });
+  //   // sendEmail();
+  //   // isValid ? setSendOpen(false) : setSendOpen(true);
+  // };
 
-  console.log(rowsSelected);
+  // console.log(participants);
+
+  // console.log(rowsSelected);
 
   const newParticipants = participants.map((participant) => {
-    console.log(participant)
+    // console.log(participant);
     return participant._id !== 1;
   });
-  console.log(newParticipants);
+  // console.log(newParticipants);
 
   return (
     <div>
