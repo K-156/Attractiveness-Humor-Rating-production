@@ -17,6 +17,7 @@ const Participants = () => {
     participants,
     getAllProjects,
     projects,
+    sendEmail,
   } = useAppContext();
 
   const options = [];
@@ -62,7 +63,8 @@ const Participants = () => {
   }, []);
 
   const handleConfirm = () => {
-    
+    sendEmail();
+    setSendOpen(false);
   }
 
   console.log(participants);
@@ -121,7 +123,7 @@ const Participants = () => {
       <ConfirmDialog
         open={sendOpen}
         setOpen={setSendOpen}
-        // handleConfirm={}
+        handleConfirm={handleConfirm}
         id={rowsSelected.toString()}
         text={`Are you sure you want to send the email to the selected participants (${rowsSelected.length} selected)?`}
         header="Send Email?"

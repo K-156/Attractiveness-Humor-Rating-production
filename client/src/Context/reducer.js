@@ -39,6 +39,9 @@ import {
   READ_CSV_BEGIN,
   READ_CSV_SUCCESS,
   READ_CSV_ERROR,
+  SEND_EMAIL_BEGIN,
+  SEND_EMAIL_SUCCESS,
+  SEND_EMAIL_ERROR,
 } from "./actions";
 
 import { initialState } from "./AppContext";
@@ -312,6 +315,22 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === READ_CSV_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
+
+  if (action.type === SEND_EMAIL_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === SEND_EMAIL_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
+  if (action.type === SEND_EMAIL_ERROR) {
     return {
       ...state,
       isLoading: false,

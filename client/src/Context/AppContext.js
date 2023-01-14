@@ -43,6 +43,9 @@ import {
   READ_CSV_BEGIN,
   READ_CSV_SUCCESS,
   READ_CSV_ERROR,
+  SEND_EMAIL_BEGIN,
+  SEND_EMAIL_SUCCESS,
+  SEND_EMAIL_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -425,6 +428,23 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const sendEmail = async (id) => {
+    dispatch({ type: SEND_EMAIL_BEGIN });
+    try {
+      await authFetch.get(`/projects/send_email/${id}`);
+      dispatch({
+        type: SEND_EMAIL_SUCCESS,
+      });
+    } catch (error) {
+      if (error.response.status !== 401) {
+        dispatch({
+          type: SEND_EMAIL_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -451,6 +471,7 @@ const AppProvider = ({ children }) => {
         setOriginalState,
         setCreateProject,
         readCSV,
+        sendEmail,
       }}
     >
       {children}

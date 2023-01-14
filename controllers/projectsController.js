@@ -94,6 +94,7 @@ const deleteProject = async (req, res) => {
 
 const sendEmail = async (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
   const msg = {
     to: "limstephanie156@gmail.com", // Change to your recipient
     from: "limstephanie156@gmail.com", // Change to your verified sender
@@ -101,16 +102,17 @@ const sendEmail = async (req, res) => {
     text: "and easy to do anywhere, even with Node.js",
     html: "<strong>and easy to do anywhere, even with Node.js</strong>",
   };
-  // sgMail
-  //   .send(msg)
-  //   .then(() => {
-  //     console.log("Email sent");
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  const info = await sgMail.send(msg);
-  res.status(StatusCodes.OK).json(info);
+  
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log("Email sent");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  res.status(StatusCodes.OK).json({ msg: "Success! Email Sent!" });
 };
 
 const displayOutput = async (req, res) => {
