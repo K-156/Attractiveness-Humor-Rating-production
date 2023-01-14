@@ -19,7 +19,9 @@ const Participants = () => {
     getAllProjects,
     projects,
     sendEmail,
-    isValid,
+    getUsersByProjId,
+    users,
+    deleteUsers,
   } = useAppContext();
 
   const options = [];
@@ -51,6 +53,7 @@ const Participants = () => {
   const handleUpload = async () => {
     setIsLoading(true);
     await readCSV(projectId.split(":")[0]);
+    await getUsersByProjId(createdProjectId);
     setIsLoading(false);
   };
 
@@ -80,23 +83,34 @@ const Participants = () => {
     }
   };
 
+  const handleDelete = async () => {
+    rowsSelected.forEach((user) => {
+      deleteUsers(user);
+    });
+    setDeleteOpen(false);
+    setIsLoading(true);
+    await readCSV(projectId.split(":")[0]);
+    await getUsersByProjId(createdProjectId);
+    setIsLoading(false);
+  };
+
   const handleConfirm = async () => {
     // Create an array of promises
     const registerPromises = participants.map((element) => {
-        return registerUser({
-          email: element.Email,
-          password: "123456",
-          projId: createdProjectId,
-        });
+      return registerUser({
+        email: element.Email,
+        password: "123456",
+        projId: createdProjectId,
+      });
     });
     try {
-        // Wait for all promises to resolve
-        const results = await Promise.all(registerPromises);
-        console.log(results);
-        // sendEmail();
-        // isValid ? setSendOpen(false) : setSendOpen(true);
+      // Wait for all promises to resolve
+      const results = await Promise.all(registerPromises);
+      console.log(results);
+      // sendEmail();
+      // isValid ? setSendOpen(false) : setSendOpen(true);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
     setSendOpen(false);
   };
@@ -115,7 +129,7 @@ const Participants = () => {
 
   // console.log(participants);
 
-  // console.log(rowsSelected);
+  console.log(rowsSelected);
 
   const newParticipants = participants.map((participant) => {
     // console.log(participant);
@@ -150,7 +164,7 @@ const Participants = () => {
         </Button>
       </Box>
       <ParticipantTable
-        data={testing}
+        data={users}
         setRowsSelected={setRowsSelected}
         projectId={projectId}
         setDeleteOpen={setDeleteOpen}
@@ -161,7 +175,7 @@ const Participants = () => {
       <DeleteDialog
         open={deleteOpen}
         setOpen={setDeleteOpen}
-        // handleDelete={}
+        handleDelete={handleDelete}
         id={rowsSelected.toString()}
         text={`The participant(s) (${rowsSelected.length} selected) will be permanently deleted from the storage`}
         header="Delete Participant(s)?"

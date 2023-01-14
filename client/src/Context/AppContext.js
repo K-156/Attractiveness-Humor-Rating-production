@@ -18,6 +18,8 @@ import {
   GET_PROJECT_SUCCESS,
   GET_ALL_PROJECTS_BEGIN,
   GET_ALL_PROJECTS_SUCCESS,
+  GET_USERS_BY_PROJID_BEGIN,
+  GET_USERS_BY_PROJID_SUCCESS,
   CREATE_PROJECT_BEGIN,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_ERROR,
@@ -25,6 +27,8 @@ import {
   SET_EDIT_PROJECT,
   DELETE_PROJECT_BEGIN,
   DELETE_PROJECT_ERROR,
+  DELETE_USERS_BEGIN,
+  DELETE_USERS_ERROR,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
@@ -75,6 +79,7 @@ const initialState = {
   participants: [],
   activeProjectData:[],
   isValid:true,
+  users:[],
 };
 
 const AppContext = createContext();
@@ -219,6 +224,20 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: GET_ALL_PROJECTS_SUCCESS,
         payload: projects,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const getUsersByProjId = async (projectId) => {
+    dispatch({ type: GET_USERS_BY_PROJID_BEGIN });
+    try {
+      const { data } = await authFetch.get(`/auth/${projectId}`);
+      const { users } = data;
+      dispatch({
+        type: GET_USERS_BY_PROJID_SUCCESS,
+        payload: users,
       });
     } catch (error) {
       console.log(error.response);
@@ -420,6 +439,19 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const deleteUsers = async (id) => {
+    dispatch({ type: DELETE_USERS_BEGIN });
+    try {
+      await authFetch.delete(`/auth/${id}`);
+    } catch (error) {
+      console.log(error.response);
+      dispatch({
+        type: DELETE_USERS_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+  };
+
   const nextSection = () => {
     dispatch({ type: NEXT_SECTION });
   };
@@ -495,6 +527,8 @@ const AppProvider = ({ children }) => {
         setCreateProject,
         readCSV,
         sendEmail,
+        getUsersByProjId,
+        deleteUsers,
       }}
     >
       {children}

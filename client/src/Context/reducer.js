@@ -14,6 +14,8 @@ import {
   GET_PROJECT_ERROR,
   GET_ALL_PROJECTS_BEGIN,
   GET_ALL_PROJECTS_SUCCESS,
+  GET_USERS_BY_PROJID_BEGIN,
+  GET_USERS_BY_PROJID_SUCCESS,
   CREATE_PROJECT_BEGIN,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_ERROR,
@@ -21,6 +23,8 @@ import {
   SET_EDIT_PROJECT,
   DELETE_PROJECT_BEGIN,
   DELETE_PROJECT_ERROR,
+  DELETE_USERS_BEGIN,
+  DELETE_USERS_ERROR,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
@@ -128,9 +132,20 @@ const reducer = (state, action) => {
   }
   if (action.type === GET_ALL_PROJECTS_SUCCESS) {
     return {
-      ...state,
+      ...state, 
       isLoading: false,
       projects: action.payload,
+    };
+  }
+
+  if (action.type === GET_USERS_BY_PROJID_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === GET_USERS_BY_PROJID_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      users: action.payload,
     };
   }
 
@@ -207,6 +222,16 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === DELETE_PROJECT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      errorMsg: action.payload.msg,
+    };
+  }
+  if (action.type === DELETE_USERS_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === DELETE_USERS_ERROR) {
     return {
       ...state,
       isLoading: false,

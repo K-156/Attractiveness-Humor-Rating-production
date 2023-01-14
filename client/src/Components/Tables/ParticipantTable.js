@@ -22,7 +22,7 @@ const ParticipantTable = ({
   isLoading
 }) => {
   const [pageSize, setPageSize] = useState(5);
-  const { participants } = useAppContext();
+  const { participants, users } = useAppContext();
 
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");
@@ -83,11 +83,15 @@ const ParticipantTable = ({
     );
   };
 
-  for (const [key, value] of Object.entries(participants)) {
-    value["_id"] = Number(key) + 1;
+  for (const [key, value] of Object.entries(users)) {
+    console.log(key)
+    console.log(value)
+    // value["_id"] = Number(key) + 1;
   }
 
-  console.log(participants)
+  console.log(users)
+  
+  // console.log(participants)
 
   return (
     <DataGrid
@@ -99,7 +103,7 @@ const ParticipantTable = ({
       checkboxSelection
       onSelectionModelChange={(id) => setRowsSelected(id)}
       disableSelectionOnClick
-      rows={participants}
+      rows={users}
       loading={isLoading && <LoadingAnimation />}
       getRowId={(row) => row["_id"]}
       columns={[
@@ -111,7 +115,7 @@ const ParticipantTable = ({
           headerAlign: "left",
         },
         { field: "Name", headerName: "Name", flex: 1.5 },
-        { field: "Email", headerName: "Email", flex: 2.5 },
+        { field: "email", headerName: "Email", flex: 2.5 },
         {
           field: "dateAdded",
           headerName: "Date Added",
