@@ -119,7 +119,6 @@ const displayOutput = async (req, res) => {
   const readCSVPromise = (link) => {
     return new Promise((resolve, reject) => {
       const data = [];
-
       request
         .get(link)
         .on("error", (err) => {
@@ -132,6 +131,7 @@ const displayOutput = async (req, res) => {
             .pipe(iconv.decodeStream("utf8"))
             .pipe(csv())
             .on("data", (row) => {
+              console.log(row)
               data.push(row);
             })
             .on("end", () => {
@@ -150,9 +150,11 @@ const displayOutput = async (req, res) => {
   }
 
   const links = project.emailList.emailLink;
+  console.log(links)
 
   Promise.all(links.map(readCSVPromise)).then((data) => {
     const results = data.reduce((acc, val) => acc.concat(val), []);
+    console.log(results)
     res.status(StatusCodes.OK).json({ results });
   });
 };

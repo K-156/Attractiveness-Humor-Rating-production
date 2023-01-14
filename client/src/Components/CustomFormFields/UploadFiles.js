@@ -47,8 +47,8 @@ const UploadFiles = ({
       } else {
         fileLink = await uploadFiles(
           isEditing
-            ? `${editProjectId}_projDetails_email_${items.length}.csv`
-            : `${createdProjectId}_projDetails_email_${items.length}.csv`,
+            ? `${editProjectId}_projDetails_email_${items?.length}.csv`
+            : `${createdProjectId}_projDetails_email_${items?.length}.csv`,
           event.target.files[0]
         );
         setFormData((state) => ({
@@ -91,7 +91,7 @@ const UploadFiles = ({
         {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"} />}
       </Box>
 
-      {items.length < 1 ? (
+      {items?.length < 1 ? (
         <></>
       ) : (
         <Box

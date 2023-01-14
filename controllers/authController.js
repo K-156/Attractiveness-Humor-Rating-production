@@ -1,3 +1,4 @@
+import { authenticator } from "otplib";
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
 import {
@@ -6,13 +7,24 @@ import {
   UnAuthenticatedError,
 } from "../errors/index.js";
 
+const generateOTP = (email) => {
+
+  const secret = email;
+  const token = authenticator.generate(secret);
+  return token
+
+};
+
 const register = async (req, res) => {
   const { email } = req.body;
+  
   const userAlreadyExists = await User.findOne({ email });
   if (userAlreadyExists) {
     throw new BadRequestError("Email already in use");
   }
-  const user = await User.create(req.body);
+
+  const otp = generateOTP(email)
+  const user = await User.create({...req.body, otp});
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({ user, token });
 };
@@ -74,7 +86,6 @@ const getUsersByProjId = async (req, res) => {
 };
 
 const deleteUsers = async (req, res) => {
-
   const { id: userId } = req.params;
   const users = await User.findOne({ _id: userId });
 
@@ -94,4 +105,5 @@ export {
   getAllUsers,
   getUsersByProjId,
   deleteUsers,
+  generateOTP,
 };

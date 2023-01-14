@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import otplib from "otplib";
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -17,6 +18,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide password"],
     // select:false,
+  },
+  otp:{
+    type:String,
   },
   projId:{
     type:String,
@@ -45,6 +49,12 @@ const UserSchema = new mongoose.Schema({
     prewrittenResponse: [],
   },
 });
+
+UserSchema.methods.compareOTP = async function (candidateOTP) {
+  const token = authenticator.generate(this.email);
+  const isMatch = otplib.authenticator.check(token, this.email);
+  return isMatch;
+};
 
 UserSchema.pre("save", async function () {
   if (!this.isModified("password")) return;

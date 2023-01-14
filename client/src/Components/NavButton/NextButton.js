@@ -31,12 +31,12 @@ const NextButton = ({
   } = useAppContext();
 
   const navigate = useNavigate();
-  const handleOnClick = () => {
+  const handleOnClick = async () => {
     if (ratingType === "rank") {
       sessionStorage.setItem("rank", storeItem);
     }
     if (projectType === "emailList") {
-      updateProject(createdProjectId, projectType, data).then(() => {
+      await updateProject(createdProjectId, projectType, data).then(() => {
         getProject(createdProjectId);
       });
       setOpen(false);

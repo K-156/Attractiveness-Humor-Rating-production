@@ -33,6 +33,6 @@ router
   .route("/folder/:id")
   .post(authenticateUser, createFolder)
   .delete(authenticateUser, deleteFolder);
-router.route("/participants/:id").get(authenticateUser, displayOutput);
+router.route("/participants/:id").get(displayOutput);
 router.route("/send_email/:id").get(authenticateUser, sendEmail);
 export default router;

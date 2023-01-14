@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import axios from "axios";
 
-import { Autocomplete, Box, Button, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  formControlClasses,
+  TextField,
+} from "@mui/material";
 import _ from "lodash";
 import ParticipantTable from "../../Components/Tables/ParticipantTable";
 import DeleteDialog from "../../Components/Dialog/DeleteDialog";
@@ -14,14 +20,13 @@ const Participants = () => {
     setCreateProject,
     createdProjectId,
     getProject,
-    readCSV,
-    participants,
     getAllProjects,
     projects,
     sendEmail,
     getUsersByProjId,
     users,
     deleteUsers,
+    emailList,
   } = useAppContext();
 
   const options = [];
@@ -33,27 +38,54 @@ const Participants = () => {
   const [projectId, setProjectId] = useState(options[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [rowsSelected, setRowsSelected] = useState([]);
-  const [formData, setFormData] = useState({
-    email: [],
-    emailLink: [],
-  });
+  const [formData, setFormData] = useState(emailList);
+
+  // const [formData, setFormData] = useState({
+  //   email: [],
+  //   emailLink: [],
+  // });
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
   const [sendOpen, setSendOpen] = useState(false);
 
-  const handleSearch = () => {
-    // filter according to project id
-    setCreateProject(projectId?.split(":")[0]).then(() => {
-      getProject(createdProjectId);
-    });
-    readCSV(projectId.split(":")[0]);
+  const handleSearch = async () => {
+    setIsLoading(true);
+    setCreateProject(projectId?.split(":")[0]);
+    await getProject(projectId.split(":")[0]);
+    await getUsersByProjId(projectId.split(":")[0]);
+    setIsLoading(false);
+  };
+
+  const readCSV = async (id) => {
+    try {
+      const { data } = await axios.get(`/api/v1/projects/participants/${id}`);
+      return data.results
+    } catch (error) {
+      if (error.response.status !== 401) {
+        console.log(error.response.data.msg);
+      }
+    }
   };
 
   const handleUpload = async () => {
     setIsLoading(true);
-    await readCSV(projectId.split(":")[0]);
-    await getUsersByProjId(createdProjectId);
+    const participants = await readCSV(projectId.split(":")[0]);
+    const registerPromises = participants.map((element) => {
+      return registerUser({
+        email: element.Email,
+        password: "123456",
+        projId: projectId.split(":")[0],
+      });
+    });
+    try {
+      // Wait for all promises to resolve
+      const results = await Promise.all(registerPromises);
+      await getUsersByProjId(projectId.split(":")[0]);
+      console.log(results);
+    } catch (error) {
+      console.log(error);
+    }
     setIsLoading(false);
   };
 
@@ -64,8 +96,12 @@ const Participants = () => {
     setCreateProject(projectId?.split(":")[0]).then(() => {
       getProject(createdProjectId);
     });
-    readCSV(projectId?.split(":")[0]);
+
   }, []);
+
+  useEffect(() => {
+    setFormData(emailList);
+  }, [emailList]);
 
   const registerUser = async (currentUser) => {
     try {
@@ -89,29 +125,11 @@ const Participants = () => {
     });
     setDeleteOpen(false);
     setIsLoading(true);
-    await readCSV(projectId.split(":")[0]);
     await getUsersByProjId(createdProjectId);
     setIsLoading(false);
   };
 
   const handleConfirm = async () => {
-    // Create an array of promises
-    const registerPromises = participants.map((element) => {
-      return registerUser({
-        email: element.Email,
-        password: "123456",
-        projId: createdProjectId,
-      });
-    });
-    try {
-      // Wait for all promises to resolve
-      const results = await Promise.all(registerPromises);
-      console.log(results);
-      // sendEmail();
-      // isValid ? setSendOpen(false) : setSendOpen(true);
-    } catch (error) {
-      console.log(error);
-    }
     setSendOpen(false);
   };
 
@@ -128,14 +146,6 @@ const Participants = () => {
   // };
 
   // console.log(participants);
-
-  console.log(rowsSelected);
-
-  const newParticipants = participants.map((participant) => {
-    // console.log(participant);
-    return participant._id !== 1;
-  });
-  // console.log(newParticipants);
 
   return (
     <div>

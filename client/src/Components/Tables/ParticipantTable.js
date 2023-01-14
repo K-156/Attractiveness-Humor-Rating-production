@@ -83,14 +83,7 @@ const ParticipantTable = ({
     );
   };
 
-  for (const [key, value] of Object.entries(users)) {
-    console.log(key)
-    console.log(value)
-    // value["_id"] = Number(key) + 1;
-  }
 
-  console.log(users)
-  
   // console.log(participants)
 
   return (

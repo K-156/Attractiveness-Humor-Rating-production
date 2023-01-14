@@ -865,6 +865,44 @@
     "prop-types" "^15.8.1"
     "reselect" "^4.1.6"
 
+"@otplib/core@^12.0.1":
+  "integrity" "sha512-4sGntwbA/AC+SbPhbsziRiD+jNDdIzsZ3JUyfZwjtKyc/wufl1pnSIaG4Uqx8ymPagujub0o92kgBnB89cuAMA=="
+  "resolved" "https://registry.npmjs.org/@otplib/core/-/core-12.0.1.tgz"
+  "version" "12.0.1"
+
+"@otplib/plugin-crypto@^12.0.1":
+  "integrity" "sha512-qPuhN3QrT7ZZLcLCyKOSNhuijUi9G5guMRVrxq63r9YNOxxQjPm59gVxLM+7xGnHnM6cimY57tuKsjK7y9LM1g=="
+  "resolved" "https://registry.npmjs.org/@otplib/plugin-crypto/-/plugin-crypto-12.0.1.tgz"
+  "version" "12.0.1"
+  dependencies:
+    "@otplib/core" "^12.0.1"
+
+"@otplib/plugin-thirty-two@^12.0.1":
+  "integrity" "sha512-MtT+uqRso909UkbrrYpJ6XFjj9D+x2Py7KjTO9JDPhL0bJUYVu5kFP4TFZW4NFAywrAtFRxOVY261u0qwb93gA=="
+  "resolved" "https://registry.npmjs.org/@otplib/plugin-thirty-two/-/plugin-thirty-two-12.0.1.tgz"
+  "version" "12.0.1"
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    "thirty-two" "^1.0.2"
+
+"@otplib/preset-default@^12.0.1":
+  "integrity" "sha512-xf1v9oOJRyXfluBhMdpOkr+bsE+Irt+0D5uHtvg6x1eosfmHCsCC6ej/m7FXiWqdo0+ZUI6xSKDhJwc8yfiOPQ=="
+  "resolved" "https://registry.npmjs.org/@otplib/preset-default/-/preset-default-12.0.1.tgz"
+  "version" "12.0.1"
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    "@otplib/plugin-crypto" "^12.0.1"
+    "@otplib/plugin-thirty-two" "^12.0.1"
+
+"@otplib/preset-v11@^12.0.1":
+  "integrity" "sha512-9hSetMI7ECqbFiKICrNa4w70deTUfArtwXykPUvSHWOdzOlfa9ajglu7mNCntlvxycTiOAXkQGwjQCzzDEMRMg=="
+  "resolved" "https://registry.npmjs.org/@otplib/preset-v11/-/preset-v11-12.0.1.tgz"
+  "version" "12.0.1"
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    "@otplib/plugin-crypto" "^12.0.1"
+    "@otplib/plugin-thirty-two" "^12.0.1"
+
 "@popperjs/core@^2.11.6":
   "integrity" "sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.6.tgz"
@@ -1330,6 +1368,11 @@
   "integrity" "sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ=="
   "resolved" "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
   "version" "1.0.2"
+
+"crypto-js@^4.1.1":
+  "integrity" "sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw=="
+  "resolved" "https://registry.npmjs.org/crypto-js/-/crypto-js-4.1.1.tgz"
+  "version" "4.1.1"
 
 "csstype@^3.0.2", "csstype@^3.1.1":
   "integrity" "sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw=="
@@ -2292,6 +2335,15 @@
     "type-check" "~0.3.2"
     "word-wrap" "~1.2.3"
 
+"otplib@^12.0.1":
+  "integrity" "sha512-xDGvUOQjop7RDgxTQ+o4pOol0/3xSZzawTiPKRrHnQWAy0WjhNs/5HdIDJCrqC4MBynmjXgULc6YfioaxZeFgg=="
+  "resolved" "https://registry.npmjs.org/otplib/-/otplib-12.0.1.tgz"
+  "version" "12.0.1"
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    "@otplib/preset-default" "^12.0.1"
+    "@otplib/preset-v11" "^12.0.1"
+
 "pac-proxy-agent@^5.0.0":
   "integrity" "sha512-CcFG3ZtnxO8McDigozwE3AqAw15zDvGH+OjXO4kzf7IkEKkQ4gxQ+3sdF50WmhQ4P/bVusXcqNE2S3XrNURwzQ=="
   "resolved" "https://registry.npmjs.org/pac-proxy-agent/-/pac-proxy-agent-5.0.0.tgz"
@@ -2778,6 +2830,11 @@
   "version" "8.1.1"
   dependencies:
     "has-flag" "^4.0.0"
+
+"thirty-two@^1.0.2":
+  "integrity" "sha512-OEI0IWCe+Dw46019YLl6V10Us5bi574EvlJEOcAkB29IzQ/mYD1A6RyNHLjZPiHCmuodxvgF6U+vZO1L15lxVA=="
+  "resolved" "https://registry.npmjs.org/thirty-two/-/thirty-two-1.0.2.tgz"
+  "version" "1.0.2"
 
 "to-regex-range@^5.0.1":
   "integrity" "sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ=="
