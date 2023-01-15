@@ -19,10 +19,10 @@ const Projects = () => {
   } = useAppContext();
   const handleOnClick = async () => {
     const createdProjectId = await createProject();
-
     navigate("/projects/details");
     sessionStorage.setItem("editMode", "add");
     sessionStorage.setItem("createdProjectId", createdProjectId);
+    sessionStorage.setItem("sectionNum", 0);
   };
   const [deleteSuccess, setDeleteSuccess] = useState(false);
 

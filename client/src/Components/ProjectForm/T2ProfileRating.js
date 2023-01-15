@@ -14,62 +14,44 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T2ProfileRating = () => {
-  const { submitFormData, data, isEditing, getProject, sectionNum } = useAppContext();
+  const { submitFormData, data, isEditing, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
-  // const sectionNum = 0;
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   useEffect(() => {
     getProject(createdProjectId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
-        dictionary[aRole] = {
-          instruction: project.data[sectionNum]?.[2][aRole].instruction,
-          range: {
-            lower: {
-              number: project.data[sectionNum]?.[2][aRole].range?.lower.number,
-              text: project.data[sectionNum]?.[2][aRole].range?.lower.text,
-            },
-            upper: {
-              number: project.data[sectionNum]?.[2][aRole].range?.upper.number,
-              text: project.data[sectionNum]?.[2][aRole].range?.upper.text,
-            },
-          },
-        };
+        dictionary[aRole] = project.data[sectionNum]
+          ? {
+              instruction: project.data[sectionNum][2][aRole].instruction,
+              range: {
+                lower: {
+                  number:
+                    project.data[sectionNum][2][aRole].range?.lower.number,
+                  text: project.data[sectionNum][2][aRole].range?.lower.text,
+                },
+                upper: {
+                  number:
+                    project.data[sectionNum][2][aRole].range?.upper.number,
+                  text: project.data[sectionNum][2][aRole].range?.upper.text,
+                },
+              },
+            }
+          : {
+              instruction: "",
+              range: {
+                lower: { number: "", text: "" },
+                upper: { number: "", text: "" },
+              },
+            };
       });
-      setFormData(dictionary)
+      setFormData(dictionary);
     });
   }, []);
 
-  const dictionary = {};
-
-  _.map(roles, (aRole) => {
-    dictionary[aRole] = {
-      instruction: data[sectionNum]
-        ? data[sectionNum]?.[2][aRole].instruction
-        : "",
-      range: {
-        lower: {
-          number: data[sectionNum]
-            ? data[sectionNum]?.[2][aRole].range?.lower.number
-            : "",
-          text: data[sectionNum]
-            ? data[sectionNum]?.[2][aRole].range?.lower.text
-            : "",
-        },
-        upper: {
-          number: data[sectionNum]
-            ? data[sectionNum]?.[2][aRole].range?.upper.number
-            : "",
-          text: data[sectionNum]
-            ? data[sectionNum]?.[2][aRole].range?.upper.text
-            : "",
-        },
-      },
-    };
-  });
-
-  const [formData, setFormData] = useState(dictionary);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     submitFormData(formData);
@@ -106,7 +88,7 @@ const T2ProfileRating = () => {
                         },
                       }));
                     }}
-                    value={formData[aRole].instruction}
+                    value={formData[aRole]?.instruction}
                   />
                 </Box>
               </Box>
@@ -147,14 +129,14 @@ const T2ProfileRating = () => {
                             }));
                           }}
                           value={
-                            formData[aRole]["range"][type.toLowerCase()][
+                            formData[aRole]?.["range"][type.toLowerCase()][
                               "number"
                             ]
                           }
                           InputLabelProps={{
                             shrink:
                               (isEditing ||
-                                formData[aRole]["range"][type.toLowerCase()][
+                                formData[aRole]?.["range"][type.toLowerCase()][
                                   "number"
                                 ]) &&
                               true,
@@ -193,12 +175,12 @@ const T2ProfileRating = () => {
                             }));
                           }}
                           value={
-                            formData[aRole]["range"][type.toLowerCase()]["text"]
+                            formData[aRole]?.["range"][type.toLowerCase()]["text"]
                           }
                           InputLabelProps={{
                             shrink:
                               (isEditing ||
-                                formData[aRole]["range"][type.toLowerCase()][
+                                formData[aRole]?.["range"][type.toLowerCase()][
                                   "text"
                                 ] !== "") &&
                               true,

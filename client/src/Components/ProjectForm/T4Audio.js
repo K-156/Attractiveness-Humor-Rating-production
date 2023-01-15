@@ -15,45 +15,34 @@ import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
 const T4Audio = () => {
-  const { submitFormData, data, isEditing, getProject, sectionNum } = useAppContext();
+  const { submitFormData, data, isEditing, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
-  // const sectionNum = 0;
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   useEffect(() => {
     getProject(createdProjectId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
-        dictionary[aRole] = {
-          instruction: project.data[sectionNum][4][aRole].instruction,
-          questions: project.data[sectionNum][4][aRole].questions,
-          audio: project.data[sectionNum][4][aRole].audio,
-          audioLink: project.data[sectionNum][4][aRole].audioLink,
-        };
+        dictionary[aRole] = project.data[sectionNum]
+          ? {
+              instruction: project.data[sectionNum][4][aRole].instruction,
+              questions: project.data[sectionNum][4][aRole].questions,
+              audio: project.data[sectionNum][4][aRole].audio,
+              audioLink: project.data[sectionNum][4][aRole].audioLink,
+            }
+          : {
+              instruction: "",
+              questions: [],
+              audio: [],
+              audioLink: [],
+            };
       });
       setFormData(dictionary);
     });
   }, []);
 
-  const dictionary = {};
-
-  _.map(roles, (aRole) => {
-    dictionary[aRole] = data[sectionNum]
-      ? {
-          instruction: data[sectionNum][4][aRole].instruction,
-          questions: data[sectionNum][4][aRole].questions,
-          audio: data[sectionNum][4][aRole].audio,
-          audioLink: data[sectionNum][4][aRole].audioLink,
-        }
-      : {
-          instruction: "",
-          questions: [],
-          audio: [],
-          audioLink: [],
-        };
-  });
-
-  const [formData, setFormData] = useState(dictionary);
+  const [formData, setFormData] = useState({});
   const [error, setError] = useState({ questions: false });
   const [qn, setQn] = useState({});
   const handleOnChange = (event) => {
@@ -85,7 +74,7 @@ const T4Audio = () => {
                 <Typography className="variable">Instruction</Typography>
                 <Box className="secondColumn">
                   <TextField
-                    value={formData[aRole].instruction}
+                    value={formData[aRole]?.instruction}
                     size="small"
                     name="instruction"
                     fullWidth
@@ -107,7 +96,7 @@ const T4Audio = () => {
                 <Typography className="variable">Questions</Typography>
                 <Box className="secondColumn">
                   <AddableFieldRoles
-                    items={formData[aRole]["questions"]}
+                    items={formData[aRole]?.["questions"]}
                     error={error["questions"]}
                     setError={setError}
                     errorText="Question added"
@@ -131,7 +120,7 @@ const T4Audio = () => {
                 </Box>
                 <Box className="secondColumn">
                   <UploadFiles
-                    items={formData[aRole]["audio"]}
+                    items={formData[aRole]?.["audio"]}
                     setFormData={setFormData}
                     variable="audio"
                     accept=".mp3"

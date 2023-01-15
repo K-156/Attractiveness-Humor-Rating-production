@@ -304,6 +304,7 @@ const reducer = (state, action) => {
   }
   if (action.type === UPDATE_PROJECT_SUCCESS) {
     const { projType, data } = action.payload;
+    console.log(data)
     if (projType === "projData") {
       return {
         ...state,
@@ -319,7 +320,6 @@ const reducer = (state, action) => {
       };
     }
     if (projType === "emailList") {
-      console.log(data);
       return {
         ...state,
         isLoading: false,

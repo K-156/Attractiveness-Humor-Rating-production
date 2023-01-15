@@ -16,47 +16,36 @@ import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
 import "./ProjectForm.css";
 
 const T5Intro = () => {
-  const { data, getProject, sectionNum } = useAppContext();
+  const { data, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
-  // const sectionNum = 0;
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   useEffect(() => {
     getProject(createdProjectId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
-        dictionary[aRole] = {
-          instruction: project.data[sectionNum][5][aRole].instruction,
-          questions: project.data[sectionNum][5][aRole].questions,
-          introductions: project.data[sectionNum][5][aRole].introductions,
-        };
+        dictionary[aRole] = project.data[sectionNum]
+          ? {
+              instruction: project.data[sectionNum][5][aRole].instruction,
+              questions: project.data[sectionNum][5][aRole].questions,
+              introductions: project.data[sectionNum][5][aRole].introductions,
+            }
+          : {
+              instruction: "",
+              questions: [],
+              introductions: [],
+            };
       });
       setFormData(dictionary);
     });
   }, []);
 
-  const dictionary = {};
-
-  _.map(roles, (aRole) => {
-    dictionary[aRole] = data[sectionNum]
-      ? {
-          instruction: data[sectionNum][5][aRole].instruction,
-          questions: data[sectionNum][5][aRole].questions,
-          introductions: data[sectionNum][5][aRole].introductions,
-        }
-      : {
-          instruction: "",
-          questions: [],
-          introductions: [],
-        };
-  });
-
-  const [formData, setFormData] = useState(dictionary);
+  const [formData, setFormData] = useState({});
   const [error, setError] = useState({
     questions: false,
     introductions: false,
   });
-
 
   const [qn, setQn] = useState({});
   const [intro, setIntro] = useState({});
@@ -98,7 +87,7 @@ const T5Intro = () => {
                         },
                       }));
                     }}
-                    value={formData[aRole].instruction}
+                    value={formData[aRole]?.instruction}
                   />
                 </Box>
               </Box>
@@ -107,7 +96,7 @@ const T5Intro = () => {
                 <Box className="secondColumn">
                   <AddableFieldRoles
                     name="questions"
-                    items={formData[aRole]["questions"]}
+                    items={formData[aRole]?.["questions"]}
                     error={error["questions"]}
                     setError={setError}
                     errorText="Question added"
@@ -147,7 +136,7 @@ const T5Intro = () => {
                 </Box>
                 <Box className="secondColumn">
                   <AddableNoRangeRoles
-                    items={formData[aRole]["introductions"]}
+                    items={formData[aRole]?.["introductions"]}
                     error={error["introductions"]}
                     setError={setError}
                     errorText="Introduction added"
@@ -174,7 +163,7 @@ const T5Intro = () => {
                         }));
                       }
                     }}
-                    currValue={intro["introductions"]}
+                    currValue={intro?.["introductions"]}
                     setFormData={setFormData}
                     variable="introductions"
                     role={aRole}

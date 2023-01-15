@@ -31,10 +31,7 @@ const T7General = () => {
     });
   }, []);
 
-  const [formData, setFormData] = useState({
-    text: data[sectionNum] ? data[sectionNum][7]?.text : "",
-    isEnd: data[sectionNum] ? data[sectionNum][7]?.isEnd : true,
-  });
+  const [formData, setFormData] = useState({});
 
   const handleOnChange = (event) => {
     const name = event.target.name;

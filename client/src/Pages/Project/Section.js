@@ -22,7 +22,7 @@ const Section = () => {
     ? sections
     : sessionStorage.getItem("templates").split(",");
   const currTemplate = parseInt(templateList[sectionNum - 1]);
-  const roles = projDetails.roles
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
 
   let templateType = null;
   const { template } = location.state;

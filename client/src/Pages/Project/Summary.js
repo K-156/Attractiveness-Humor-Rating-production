@@ -23,8 +23,6 @@ const Summary = () => {
   const type = sessionStorage.getItem("editMode");
   const templateOrder = sections
 
-  console.log(data)
-
   // remove old data 
   localStorage.removeItem("projData")
 

@@ -14,11 +14,10 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T3Rank = () => {
-  const { submitFormData, data, isEditing, getProject,sectionNum } = useAppContext();
+  const { submitFormData, data, isEditing, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
-
-  // const sectionNum = 0;
+  const sectionNum = sessionStorage.getItem("sectionNum")
 
   useEffect(() => {
     getProject(createdProjectId).then((project) => {
@@ -38,25 +37,7 @@ const T3Rank = () => {
     });
   }, []);
 
-  const dictionary = {};
-
-  _.map(roles, (aRole) => {
-    dictionary[aRole] = {
-      instruction: data[sectionNum]
-        ? data[sectionNum]?.[3][aRole].instruction
-        : "",
-      characteristics: {
-        lowerbound: data[sectionNum]
-          ? data[sectionNum]?.[3][aRole].characteristics?.lowerbound
-          : "",
-        upperbound: data[sectionNum]
-          ? data[sectionNum]?.[3][aRole].characteristics?.upperbound
-          : "",
-      },
-    };
-  });
-
-  const [formData, setFormData] = useState(dictionary);
+  const [formData, setFormData] = useState({});
 
 
   useEffect(() => {
@@ -92,7 +73,7 @@ const T3Rank = () => {
                         },
                       }));
                     }}
-                    value={formData[aRole].instruction}
+                    value={formData[aRole]?.instruction}
                   />
                 </Box>
               </Box>
@@ -126,12 +107,12 @@ const T3Rank = () => {
                         }}
                         sx={{ width: "180px" }}
                         value={
-                          formData[aRole]["characteristics"][type.toLowerCase()]
+                          formData[aRole]?.["characteristics"][type.toLowerCase()]
                         }
                         InputLabelProps={{
                           shrink:
                             (isEditing ||
-                              formData[aRole]["characteristics"][
+                              formData[aRole]?.["characteristics"][
                                 type.toLowerCase()
                               ] !== "") &&
                             true,
