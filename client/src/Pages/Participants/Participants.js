@@ -127,13 +127,18 @@ const Participants = () => {
   };
 
   const handleConfirm = async () => {
-    const emails = rowsSelected.map((id) => {
+    const selectedUsers = rowsSelected.map((id) => {
       const user = users.find((user) => user._id === id);
-      return user?.email;
+      return user;
     });
 
-    emails.forEach((email) => {
-      sendEmail(email);
+    selectedUsers.forEach((user) => {
+      sendEmail({
+        email: user.email,
+        name: user.name,
+        otp: user.otp,
+        projId: user.projId,
+      });
     });
     setSendOpen(false);
   };

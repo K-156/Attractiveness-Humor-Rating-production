@@ -14,7 +14,7 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T2ProfileRating = () => {
-  const { submitFormData, data, isEditing, getProject } = useAppContext();
+  const { submitFormData, isEditing, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const sectionNum = sessionStorage.getItem("sectionNum");

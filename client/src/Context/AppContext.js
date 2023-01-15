@@ -488,10 +488,10 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const sendEmail = async (id) => {
+  const sendEmail = async (currentUser) => {
     dispatch({ type: SEND_EMAIL_BEGIN });
     try {
-      await authFetch.get(`/projects/send_email/${id}`);
+      await authFetch.post(`/projects/send_email`, currentUser);
       dispatch({
         type: SEND_EMAIL_SUCCESS,
       });

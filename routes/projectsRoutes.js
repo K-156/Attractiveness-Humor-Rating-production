@@ -34,5 +34,5 @@ router
   .post(authenticateUser, createFolder)
   .delete(authenticateUser, deleteFolder);
 router.route("/participants/:id").get(displayOutput);
-router.route("/send_email/:id").get(authenticateUser, sendEmail);
+router.route("/send_email").post(authenticateUser, sendEmail);
 export default router;

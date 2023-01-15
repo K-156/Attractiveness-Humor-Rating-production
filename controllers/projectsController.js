@@ -95,14 +95,18 @@ const deleteProject = async (req, res) => {
 const sendEmail = async (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const { id: email } = req.params;
-  const projTitle = "Jobify";
+  const { email, name, otp, projId } = req.body;
+  const {projDetails} = await Project.findOne({ _id: projId });
+
 
   const msg = {
     to: email, // Change to your recipient
     from: "limstephanie156@gmail.com", // Change to your verified sender
-    subject: `Participants of ${projTitle}`,
-    html: "Dear Stephanie, </br>We would like you to participant in this survey. Please click the following link and your OTP number is 696969. You only have 45 minutes to complete the survey.</br> Thank you!",
+    subject: `Participants of ${projDetails.title}`,
+    html: 
+    `Dear ${name}, </br></br> Thank you for signing up to participate in this survey. `
+    + "Please click the following link:"
+    + `<br><br>Your OTP number is ${otp}. You only have ${projDetails.duration} minutes to complete the survey. When the time is up, you would not be able to continue or return to the survey. <br><br> Thank you.`,
   };
 
   sgMail

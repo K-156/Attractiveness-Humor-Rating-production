@@ -93,7 +93,6 @@ const T3Rank = () => {
                         onChange={(event) => {
                           const name = event.target.name;
                           const value = event.target.value;
-
                           setFormData((state) => ({
                             ...state,
                             [aRole]: {
@@ -112,10 +111,7 @@ const T3Rank = () => {
                         InputLabelProps={{
                           shrink:
                             (isEditing ||
-                              formData[aRole]?.["characteristics"][
-                                type.toLowerCase()
-                              ] !== "") &&
-                            true,
+                              formData[aRole]?.["characteristics"][type.toLowerCase()] !== "") && true,
                         }}
                       />
                     );
