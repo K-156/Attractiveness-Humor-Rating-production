@@ -16,6 +16,7 @@ import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
 
 const T6Chatbox = ({ roles }) => {
   const { submitFormData, data, sectionNum } = useAppContext();
+  console.log(sectionNum)
 
   const dictionary = {};
 

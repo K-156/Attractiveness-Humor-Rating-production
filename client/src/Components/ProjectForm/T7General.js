@@ -17,11 +17,22 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T7General = () => {
-  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+  const { submitFormData, data, sectionNum, isEditing, getProject } =
+    useAppContext();
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+
+  useEffect(() => {
+    getProject(createdProjectId).then((proj) => {
+      const { data } = proj;
+      setFormData({
+        text: data[sectionNum][7].text,
+        isEnd: data[sectionNum][7].isEnd,
+      });
+    });
+  }, []);
 
   const [formData, setFormData] = useState({
     text: data[sectionNum] ? data[sectionNum][7].text : "",
-    isNext: data[sectionNum] ? data[sectionNum][7].isNext : true,
     isEnd: data[sectionNum] ? data[sectionNum][7].isEnd : true,
   });
 
@@ -57,32 +68,7 @@ const T7General = () => {
               />
             </Box>
           </Box>
-          <Box className="twoColumns">
-            <Typography className="variable" sx={{ pt: "9px" }}>
-              Is there a Next button?
-            </Typography>
-            <RadioGroup
-              row
-              className="secondColumn"
-              sx={{ justifyContent: "space-around" }}
-              defaultValue={formData.isNext}
-            >
-              {_.map(["Yes", "No"], (option) => {
-                return (
-                  <FormControlLabel
-                    key={option}
-                    name="isNext"
-                    value={option === "Yes"}
-                    control={<Radio size="small" />}
-                    label={option}
-                    labelPlacement="start"
-                    sx={{ ".MuiFormControlLabel-label": { fontSize: "14px" } }}
-                    onChange={handleOnChange}
-                  />
-                );
-              })}
-            </RadioGroup>
-          </Box>
+
           <Box className="twoColumns">
             <Typography className="variable" sx={{ pt: "9px" }}>
               Is this the end of the survey?
@@ -91,13 +77,13 @@ const T7General = () => {
               row
               className="secondColumn"
               sx={{ justifyContent: "space-around" }}
-              defaultValue={formData.isNext}
+              defaultValue={formData.isEnd}
             >
               {_.map(["Yes", "No"], (option) => {
                 return (
                   <FormControlLabel
                     key={option}
-                    name="isNext"
+                    name="isEnd"
                     value={option === "Yes"}
                     control={<Radio size="small" />}
                     label={option}

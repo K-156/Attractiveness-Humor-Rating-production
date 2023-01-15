@@ -16,7 +16,31 @@ import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
 const T1Profile = ({ roles }) => {
-  const { submitFormData, data, sectionNum } = useAppContext();
+  const { submitFormData, data, sectionNum, getProject } = useAppContext();
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+
+  useEffect(() => {
+    getProject(createdProjectId).then((data) => {
+      console.log(data)
+      // setFormData({
+      //   title:
+      //     data.projDetails.title === "untitled" ? "" : data.projDetails.title,
+      //   description: data.projDetails.description,
+      //   consent: data.projDetails.consent,
+      //   roles: data.projDetails.roles,
+      //   duration: data.projDetails.duration,
+      //   theme:
+      //     data.projDetails.theme === undefined
+      //       ? "green"
+      //       : data.projDetails.theme,
+      //   graphic:
+      //     data.projDetails.graphic?.length === 0
+      //       ? null
+      //       : data.projDetails.graphic,
+      //   graphicLink: data.projDetails.graphicLink,
+      // });
+    });
+  }, []);
 
   const objects2 = {
     instruction: false,
@@ -79,6 +103,8 @@ const T1Profile = ({ roles }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
+
+ 
 
   return _.map(roles, (aRole) => {
     return (

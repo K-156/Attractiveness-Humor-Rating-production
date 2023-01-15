@@ -47,8 +47,6 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
       });
     }
 
-    console.log(editLink)
-
     setSectionNum(index);
     navigate(editLink, {
       state: {
@@ -56,6 +54,7 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
       },
     });
   };
+  console.log(content)
 
   return (
     <>
