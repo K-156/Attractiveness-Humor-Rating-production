@@ -39,7 +39,7 @@ const AdminLogin = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    loginUser(formData)
+    loginUser(formData, "admin")
       // if (!user) {
       //   setIsValid(false)
       // }

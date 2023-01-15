@@ -44,8 +44,7 @@ function App() {
           <Route element={<GeneralLayout />} >
             <Route path="/" element={<Home />}  />
             <Route path="*" element={<Error404 />} />
-            {/* <Route path="/login" element={<Login />} /> */}
-            <Route path="/login" element={<AdminLogin />} /> {/*to change to above code*/}
+            <Route path="/login" element={<Login />} />
             <Route path="/alogin" element={<AdminLogin />} />
             <Route path="/consent" element={<ConsentForm />} />
             <Route

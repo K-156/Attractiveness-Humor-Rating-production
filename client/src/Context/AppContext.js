@@ -77,9 +77,9 @@ const initialState = {
   errorMsg: "",
   emailList: "",
   participants: [],
-  activeProjectData:[],
-  isValid:true,
-  users:[],
+  activeProjectData: [],
+  isValid: true,
+  users: [],
 };
 
 const AppContext = createContext();
@@ -137,12 +137,12 @@ const AppProvider = ({ children }) => {
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
-      const response = await axios.post('/api/v1/auth/register', currentUser);
+      const response = await axios.post("/api/v1/auth/register", currentUser);
       console.log(response);
       dispatch({
         type: REGISTER_USER_SUCCESS,
       });
-      return response
+      return response;
     } catch (error) {
       console.log(error.response);
       dispatch({
@@ -152,10 +152,14 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const loginUser = async (currentUser) => {
+  const loginUser = async (currentUser, type) => {
     dispatch({ type: LOGIN_USER_BEGIN });
+    console.log(type);
     try {
-      const { data } = await axios.post(`/api/v1/auth/login`, currentUser);
+      const { data } =
+        type === "admin"
+          ? await axios.post(`/api/v1/auth/admin/login`, currentUser)
+          : await axios.post(`/api/v1/auth/login`, currentUser);
       const { user, token } = data;
       dispatch({
         type: LOGIN_USER_SUCCESS,
@@ -467,7 +471,7 @@ const AppProvider = ({ children }) => {
   const readCSV = async (id) => {
     dispatch({ type: READ_CSV_BEGIN });
     try {
-      const {data} = await authFetch.get(`/projects/participants/${id}`);
+      const { data } = await authFetch.get(`/projects/participants/${id}`);
       dispatch({
         type: READ_CSV_SUCCESS,
         payload: data.results,

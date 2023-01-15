@@ -8,6 +8,7 @@ import {
   getAllUsers,
   getUsersByProjId,
   deleteUsers,
+  adminLogin,
 } from "../controllers/authController.js";
 import authenticateUser from "../middleware/auth.js";
 
@@ -18,6 +19,7 @@ router
   .delete(authenticateUser, deleteUsers);
 router.route("/register").post(register);
 router.route("/login").post(login);
+router.route("/admin/login").post(adminLogin);
 router.route("/updateUser/:id").patch(authenticateUser, updateUser);
 
 export default router;

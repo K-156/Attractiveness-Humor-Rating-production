@@ -20,7 +20,7 @@ import { colorPalette } from "../../Utils/colorPalette";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { theme} = useAppContext();
+  const { theme, loginUser, user } = useAppContext();
 
   const [isValid, setIsValid] = useState(true);
   const [formData, setFormData] = useState();
@@ -38,74 +38,75 @@ const Login = () => {
   };
 
   const handleOnSubmit = (e) => {
-    navigate("/consent");
+    e.preventDefault();
+    loginUser(formData)
+    // navigate("/consent");
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/details");
-  //   }
-  // }, [user, navigate]);
+  console.log(formData);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/consent");
+    }
+  }, [user, navigate]);
 
   return (
     <div className={`backgroundImage-${theme}`}>
       <script>{(document.title = "Login")}</script>
       <Box pt={3} pl={3}>
-      <PrevButton 
-        isSurvey={true}
-        text="Back" 
-        link="/" 
-      />
-      <Grid container className="centerPadding" sx={{mt:3}}gap={2}>
-        <Grid item xs={5} px={2}>
-          <Card sx={{ px: 1, py: 2, mt: 4 }}>
-            <CardContent className="flexColumn center">
-              <Typography
-                variant="h5"
-                className="formCardHeader"
-                sx={{color: colorPalette[theme]["primary"]}}
-              >
-                LOGIN
-              </Typography>
-              <FormControl sx={{ width: "80%", my: 2 }}>
-                <FormGroup>
-                  <TextField
-                    required
-                    error={error.email}
-                    helperText={error.email ? "Enter your email" : ""}
-                    name="code"
-                    label="Enter login code"
-                    onChange={handleOnChange}
-                  />
-                </FormGroup>
-              </FormControl>
-              {isValid ? (
-                <Box height="30px"></Box>
-              ) : (
-                <Alert severity="error" sx={{ mb: 2, width: "80%" }}>
-                  Invalid code
-                </Alert>
-              )}
-              <Button
-                variant="contained"
-                type="submit"
-                className={`customButton-${theme}`}
-                onClick={handleOnSubmit}
-              >
-                Submit
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={5} px={2}>
-                <Box className="center">
-                    <img
-                        src={require(`../../Assets/Theme/${theme}/login.svg`)}
-                        style={{width: "100%"}}
+        <PrevButton isSurvey={true} text="Back" link="/" />
+        <Grid container className="centerPadding" sx={{ mt: 3 }} gap={2}>
+          <Grid item xs={5} px={2}>
+            <Card sx={{ px: 1, py: 2, mt: 4 }}>
+              <CardContent className="flexColumn center">
+                <Typography
+                  variant="h5"
+                  className="formCardHeader"
+                  sx={{ color: colorPalette[theme]["primary"] }}
+                >
+                  LOGIN
+                </Typography>
+                <FormControl sx={{ width: "80%", my: 2 }}>
+                  <FormGroup>
+                    <TextField
+                      required
+                      error={error.email}
+                      helperText={error.email ? "Enter your email" : ""}
+                      name="otp"
+                      label="Enter login code"
+                      onChange={handleOnChange}
                     />
-                </Box>     
+                  </FormGroup>
+                </FormControl>
+                {isValid ? (
+                  <Box height="30px"></Box>
+                ) : (
+                  <Alert severity="error" sx={{ mb: 2, width: "80%" }}>
+                    Invalid code
+                  </Alert>
+                )}
+                <Button
+                  variant="contained"
+                  type="submit"
+                  className={`customButton-${theme}`}
+                  onClick={handleOnSubmit}
+                >
+                  Submit
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={5} px={2}>
+            <Box className="center">
+              <img
+                src={require(`../../Assets/Theme/${theme}/login.svg`)}
+                style={{ width: "100%" }}
+                alt="background"
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
       </Box>
     </div>
   );

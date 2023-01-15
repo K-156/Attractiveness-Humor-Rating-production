@@ -50,9 +50,9 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.compareOTP = async function (candidateOTP) {
-  const token = authenticator.generate(this.email);
-  const isMatch = otplib.authenticator.check(token, this.email);
+UserSchema.methods.compareOTP = async function (candidateEmail) {
+  const token = otplib.authenticator.generate(candidateEmail);
+  const isMatch = otplib.authenticator.check(token, candidateEmail);
   return isMatch;
 };
 

@@ -29,7 +29,7 @@ const register = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ user, token });
 };
 
-const login = async (req, res) => {
+const adminLogin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     throw new BadRequestError("Please provide all values");
@@ -39,6 +39,24 @@ const login = async (req, res) => {
     throw new UnAuthenticatedError("User does not exist");
   }
   const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw new UnAuthenticatedError("Invalid Credentials");
+  }
+  const token = user.createJWT();
+  // user.password = undefined;
+  res.status(StatusCodes.OK).json({ user, token });
+};
+
+const login = async (req, res) => {
+  const { otp } = req.body;
+  // if (!email || !password) {
+  //   throw new BadRequestError("Please provide all values");
+  // }
+  const user = await User.findOne({ otp })
+  if (!user) {
+    throw new UnAuthenticatedError("User does not exist");
+  }
+  const isPasswordCorrect = await user.compareOTP(user.email);
   if (!isPasswordCorrect) {
     throw new UnAuthenticatedError("Invalid Credentials");
   }
@@ -106,4 +124,5 @@ export {
   getUsersByProjId,
   deleteUsers,
   generateOTP,
+  adminLogin,
 };
