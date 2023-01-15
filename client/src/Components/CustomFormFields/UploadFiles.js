@@ -15,7 +15,8 @@ const UploadFiles = ({
   templateNum,
   style,
   role,
-  emailList
+  emailList,
+  audioList,
 }) => {
   const {
     uploadFiles,
@@ -65,10 +66,12 @@ const UploadFiles = ({
   const onDelete = (index) => {
     if (index === 0) {
       items.shift();
-      emailList.shift()
+      emailList?.shift();
+      audioList?.shift();
     } else {
       items.splice(index, 1);
-      emailList.splice(index, 1);
+      emailList?.splice(index, 1);
+      audioList?.splice(index, 1);
     }
     if (role !== undefined) {
       setFormData((state) => ({
@@ -76,6 +79,7 @@ const UploadFiles = ({
         [role]: {
           ...state[role],
           [variable]: items,
+          audioLink: audioList,
         },
       }));
     } else {

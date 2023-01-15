@@ -19,14 +19,13 @@ const ParticipantTable = ({
   setDeleteOpen,
   setUploadOpen,
   setSendOpen,
-  isLoading
+  isLoading,
 }) => {
   const [pageSize, setPageSize] = useState(5);
   const { users } = useAppContext();
-
+  console.log(users);
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");
-    // console.log(users)
     return (
       <GridToolbarContainer className="spaceBetween" sx={{ mb: 1 }}>
         <Box>
@@ -83,9 +82,6 @@ const ParticipantTable = ({
     );
   };
 
-
-  // console.log(participants)
-
   return (
     <DataGrid
       components={{ Toolbar: CustomToolBar }}
@@ -107,14 +103,13 @@ const ParticipantTable = ({
           align: "left",
           headerAlign: "left",
         },
-        { field: "Name", headerName: "Name", flex: 1.5 },
+        { field: "name", headerName: "Name", flex: 1.5 },
         { field: "email", headerName: "Email", flex: 2.5 },
         {
-          field: "dateAdded",
+          field: "createdAt",
           headerName: "Date Added",
           type: "date",
           valueFormatter: (params) => moment(params.value).format("DD/MM/YYYY"),
-          valueGetter: (params) => moment(params.value).format("DD/MM/YYYY"),
         },
         {
           field: "IPAddress",
@@ -138,9 +133,9 @@ const ParticipantTable = ({
           type: "dateTime",
           flex: 1.5,
           valueFormatter: (params) =>
-            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
-          valueGetter: (params) =>
-            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+            params.value === undefined
+              ? "null"
+              : moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
         },
         {
           field: "end",
@@ -148,9 +143,11 @@ const ParticipantTable = ({
           type: "dateTime",
           flex: 1.5,
           valueFormatter: (params) =>
-            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
-          valueGetter: (params) =>
-            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+            params.value === undefined
+              ? "null"
+              : moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+          // valueGetter: (params) =>
+          //   moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
         },
         {
           field: "duration",
@@ -158,13 +155,18 @@ const ParticipantTable = ({
           type: "dateTime",
           flex: 1.5,
           valueFormatter: (params) =>
-            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
-          valueGetter: (params) =>
-            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+            params.value === undefined
+              ? "null"
+              : moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
         },
-        { field: "role", headerName: "Role" },
-        { field: "otp", headerName: "OTP"},
-        { field: "completionCode", headerName: "Completion code",flex: 1, },
+        { field: "otp", headerName: "OTP" },
+        {
+          field: "completionCode",
+          headerName: "Completion code",
+          flex: 1,
+          valueFormatter: (params) =>
+            params.value === undefined ? "null" : params.value,
+        },
       ]}
       componentsProps={{
         Toolbar: {

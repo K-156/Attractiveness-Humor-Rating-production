@@ -4,51 +4,59 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import otplib from "otplib";
 
-const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: [true, "Please provide email"],
-    validate: {
-      validator: validator.isEmail,
-      message: "Please provide a valid email",
+const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
     },
-    unique: true,
+    email: {
+      type: String,
+      required: [true, "Please provide email"],
+      validate: {
+        validator: validator.isEmail,
+        message: "Please provide a valid email",
+      },
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Please provide password"],
+      // select:false,
+    },
+    otp: {
+      type: String,
+    },
+    projId: {
+      type: String,
+    },
+    role: {
+      type: String,
+      default: "participant",
+    },
+    sex: {
+      type: String,
+      enum: ["female", "male"],
+    },
+    age: {
+      type: Number,
+      trim: true,
+    },
+    ethnicity: {
+      type: String,
+      trim: true,
+    },
+    userResponse: {
+      attractivenessRating: [],
+      rank: [],
+      audioRating: [],
+      writtenIntroRating: [],
+      prewrittenResponse: [],
+    },
   },
-  password: {
-    type: String,
-    required: [true, "Please provide password"],
-    // select:false,
-  },
-  otp:{
-    type:String,
-  },
-  projId:{
-    type:String,
-  },
-  role:{
-    type:String,
-    default:'participant'
-  },
-  sex: {
-    type: String,
-    enum: ["female", "male"],
-  },
-  age: {
-    type: Number,
-    trim: true,
-  },
-  ethnicity: {
-    type: String,
-    trim: true,
-  },
-  userResponse: {
-    attractivenessRating: [],
-    rank: [],
-    audioRating: [],
-    writtenIntroRating: [],
-    prewrittenResponse: [],
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 UserSchema.methods.compareOTP = async function (candidateEmail) {
   const token = otplib.authenticator.generate(candidateEmail);
@@ -63,7 +71,7 @@ UserSchema.pre("save", async function () {
 });
 
 UserSchema.methods.createJWT = function () {
-  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET)
+  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET);
   //   , {
   //   expiresIn: process.env.JWT_LIFETIME,
   //   // expiresIn: '10000',

@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import axios from "axios";
 
-import {
-  Autocomplete,
-  Box,
-  Button,
-  TextField,
-} from "@mui/material";
+import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import _ from "lodash";
 import ParticipantTable from "../../Components/Tables/ParticipantTable";
 import DeleteDialog from "../../Components/Dialog/DeleteDialog";
@@ -34,15 +29,13 @@ const Participants = () => {
     options.push(`${project._id}: ${projDetails.title}`);
   });
 
-  const [projectId, setProjectId] = useState(options[0]);
+  // persist data in session storage if user hits refresh
+  const currentProjId = sessionStorage.getItem("projId");
+
+  const [projectId, setProjectId] = useState(currentProjId);
   const [isLoading, setIsLoading] = useState(false);
   const [rowsSelected, setRowsSelected] = useState([]);
   const [formData, setFormData] = useState(emailList);
-
-  // const [formData, setFormData] = useState({
-  //   email: [],
-  //   emailLink: [],
-  // });
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
@@ -51,6 +44,7 @@ const Participants = () => {
   const handleSearch = async () => {
     setIsLoading(true);
     setCreateProject(projectId?.split(":")[0]);
+    sessionStorage.setItem("projId", projectId);
     await getProject(projectId.split(":")[0]);
     await getUsersByProjId(projectId.split(":")[0]);
     setIsLoading(false);
@@ -70,9 +64,9 @@ const Participants = () => {
   const handleUpload = async () => {
     setIsLoading(true);
     const participants = await readCSV(projectId.split(":")[0]);
-    console.log(participants);
     const registerPromises = participants.map((element) => {
       return registerUser({
+        name: element.Name,
         email: element.Email,
         password: "123456",
         projId: projectId.split(":")[0],
@@ -90,12 +84,16 @@ const Participants = () => {
   };
 
   useEffect(() => {
-    // get projects name and id
     getAllProjects();
-    // must set to the selected project so when admin upload will be to the correct project
-    setCreateProject(projectId?.split(":")[0]).then(() => {
-      getProject(createdProjectId);
-    });
+    if (currentProjId !== undefined) {
+      setCreateProject(currentProjId.split(":")[0]);
+      getProject(currentProjId.split(":")[0]);
+      getUsersByProjId(currentProjId.split(":")[0]);
+    } else {
+      setCreateProject(projectId?.split(":")[0]);
+      getProject(projectId?.split(":")[0]);
+      getUsersByProjId(projectId?.split(":")[0]);
+    }
   }, []);
 
   useEffect(() => {
@@ -129,17 +127,16 @@ const Participants = () => {
   };
 
   const handleConfirm = async () => {
-    const emails = rowsSelected.map(id => {
-      const user = users.find(user => user._id === id);
+    const emails = rowsSelected.map((id) => {
+      const user = users.find((user) => user._id === id);
       return user?.email;
     });
-    
+
     emails.forEach((email) => {
-      sendEmail(email)
-    })
+      sendEmail(email);
+    });
     setSendOpen(false);
   };
-
 
   return (
     <div>
