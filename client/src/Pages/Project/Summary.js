@@ -13,15 +13,16 @@ const Summary = () => {
     data,
     sections,
     createProject,
-    isEditing,
     getProject,
     isLoading,
-    createdProjectId,
-    editProjectId,
   } = useAppContext();
 
   const type = sessionStorage.getItem("editMode");
-  const templateOrder = sections
+  const templateOrder = JSON.parse(sessionStorage.getItem("templates"));
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const editProjectId = sessionStorage.getItem("editProjectId");
+  const isEditing =
+    sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   // remove old data 
   localStorage.removeItem("projData")

@@ -14,13 +14,16 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T2ProfileRating = () => {
-  const { submitFormData, isEditing, getProject } = useAppContext();
+  const { submitFormData, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const editProjectId = sessionStorage.getItem("editProjectId");
+  const isEditing =
+    sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   useEffect(() => {
-    getProject(createdProjectId).then((project) => {
+    getProject(isEditing ? editProjectId : createdProjectId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
         dictionary[aRole] = project.data[sectionNum]
@@ -175,7 +178,9 @@ const T2ProfileRating = () => {
                             }));
                           }}
                           value={
-                            formData[aRole]?.["range"][type.toLowerCase()]["text"]
+                            formData[aRole]?.["range"][type.toLowerCase()][
+                              "text"
+                            ]
                           }
                           InputLabelProps={{
                             shrink:

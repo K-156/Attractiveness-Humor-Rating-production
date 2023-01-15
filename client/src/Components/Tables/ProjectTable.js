@@ -20,30 +20,43 @@ import _ from "lodash";
 
 import "./Tables.css";
 import DeleteDialog from "../Dialog/DeleteDialog";
-
+import { GET_PROJECT_BEGIN } from "../../Context/actions";
 
 const ProjectTable = ({ data, setDeleteSuccess }) => {
   const navigate = useNavigate();
-  const { setEditProject, deleteProject, isEditing, editProject, publishProject, deleteAllUsers } = useAppContext();
+  const {
+    setEditProject,
+    deleteProject,
+    isEditing,
+    editProject,
+    publishProject,
+    deleteAllUsers,
+    getProject
+  } = useAppContext();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
   const [toDelete, setToDelete] = useState({
-    id: "", isActive: null
+    id: "",
+    isActive: null,
   });
-
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
   };
 
-  const handleOnEdit = (id) => {
+  const handleOnEdit = async (id) => {
     navigate("/projects/summary");
     sessionStorage.setItem("editMode", "edit");
+    sessionStorage.setItem("editProjectId", id);
+    const data = await getProject(id);
+    const {sections, projDetails} = data;
+    sessionStorage.setItem("templates", JSON.stringify(sections));
+    sessionStorage.setItem("roles", JSON.stringify(projDetails.roles));
     setEditProject(id);
     if (isEditing) {
-      editProject()
+      editProject();
     }
   };
 
@@ -51,9 +64,9 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
     setOpen(true);
     setToDelete({
       id: item._id,
-      isActive: item.isActive
+      isActive: item.isActive,
     });
-  }
+  };
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
@@ -64,16 +77,10 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
         <Table size="small">
           <TableHead className="tableHeader">
             <TableRow>
-              <TableCell 
-                className="tableHeader-cell" 
-                sx={{ width: "5%" }}
-              >
+              <TableCell className="tableHeader-cell" sx={{ width: "5%" }}>
                 ID
               </TableCell>
-              <TableCell 
-                className="tableHeader-cell"
-                sx={{ width: "75%" }}
-              >
+              <TableCell className="tableHeader-cell" sx={{ width: "75%" }}>
                 Project Name
               </TableCell>
               <TableCell></TableCell>
@@ -98,7 +105,7 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
                         disabled={item.isPublish}
                         className="publishChip"
                         label="Publish"
-                        onClick={()=>publishProject(item._id)}
+                        onClick={() => publishProject(item._id)}
                       />
                     </TableCell>
                     <TableCell>
@@ -111,14 +118,14 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
                     <TableCell>
                       <Button
                         id={item.name}
-                        sx={{minWidth:"10px"}}
-                        onClick={()=>handleOnDelete(item)}
+                        sx={{ minWidth: "10px" }}
+                        onClick={() => handleOnDelete(item)}
                       >
                         <RiDeleteBin6Fill
                           size={15}
-                          style={{ 
+                          style={{
                             color: "#264653",
-                            pointerEvents: "none" 
+                            pointerEvents: "none",
                           }}
                         />
                       </Button>
@@ -144,21 +151,20 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
         onPageChange={(event, newPage) => setPage(newPage)}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <DeleteDialog 
+      <DeleteDialog
         open={open}
         setOpen={setOpen}
         isActive={toDelete.isActive}
-        handleDelete={(event)=> {
-          // delete registered participants 
-          deleteAllUsers(event.target.name)
-          deleteProject(event.target.name)
-          setDeleteSuccess(true)
+        handleDelete={(event) => {
+          // delete registered participants
+          deleteAllUsers(event.target.name);
+          deleteProject(event.target.name);
+          setDeleteSuccess(true);
         }}
         id={toDelete.id}
         text="This project and the files will be permanently deleted from the storage"
         header="Delete Project?"
       />
-      
     </Box>
   );
 };

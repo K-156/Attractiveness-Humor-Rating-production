@@ -19,9 +19,11 @@ const T6Chatbox = () => {
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const editProjectId = sessionStorage.getItem("editProjectId");
+  const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false
 
   useEffect(() => {
-    getProject(createdProjectId).then((project) => {
+    getProject(isEditing ? editProjectId : createdProjectId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
         dictionary[aRole] = project.data[sectionNum]

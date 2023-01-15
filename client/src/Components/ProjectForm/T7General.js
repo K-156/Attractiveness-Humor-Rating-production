@@ -17,12 +17,15 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T7General = () => {
-  const { submitFormData, data, sectionNum, isEditing, getProject } =
-    useAppContext();
+  const { submitFormData, data, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const sectionNum = sessionStorage.getItem("sectionNum");
+  const editProjectId = sessionStorage.getItem("editProjectId");
+  const isEditing =
+    sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   useEffect(() => {
-    getProject(createdProjectId).then((proj) => {
+    getProject(isEditing ? editProjectId : createdProjectId).then((proj) => {
       const { data } = proj;
       setFormData({
         text: data[sectionNum] ? data[sectionNum][7]?.text : "",
@@ -46,6 +49,8 @@ const T7General = () => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
+
+  console.log(formData)
 
   return (
     <Card>

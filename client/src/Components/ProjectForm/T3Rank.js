@@ -14,13 +14,16 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T3Rank = () => {
-  const { submitFormData, data, isEditing, getProject } = useAppContext();
+  const { submitFormData, data, getProject } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const sectionNum = sessionStorage.getItem("sectionNum")
+  const editProjectId = sessionStorage.getItem("editProjectId");
+  const isEditing =
+    sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   useEffect(() => {
-    getProject(createdProjectId).then((project) => {
+    getProject(isEditing ? editProjectId : createdProjectId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
         dictionary[aRole] = {
