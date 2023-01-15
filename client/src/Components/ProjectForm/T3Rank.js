@@ -13,8 +13,30 @@ import _ from "lodash";
 
 import "./ProjectForm.css";
 
-const T3Rank = ({ roles }) => {
-  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+const T3Rank = () => {
+  const { submitFormData, data, isEditing, getProject,sectionNum } = useAppContext();
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
+
+  // const sectionNum = 0;
+
+  useEffect(() => {
+    getProject(createdProjectId).then((project) => {
+      const dictionary = {};
+      _.map(roles, (aRole) => {
+        dictionary[aRole] = {
+          instruction: project.data[sectionNum]?.[3][aRole].instruction,
+          characteristics: {
+            lowerbound:
+              project.data[sectionNum]?.[3][aRole].characteristics?.lowerbound,
+            upperbound:
+              project.data[sectionNum]?.[3][aRole].characteristics?.upperbound,
+          },
+        };
+      });
+      setFormData(dictionary);
+    });
+  }, []);
 
   const dictionary = {};
 
@@ -25,10 +47,10 @@ const T3Rank = ({ roles }) => {
         : "",
       characteristics: {
         lowerbound: data[sectionNum]
-          ? data[sectionNum]?.[3][aRole].characteristics.lowerbound
+          ? data[sectionNum]?.[3][aRole].characteristics?.lowerbound
           : "",
         upperbound: data[sectionNum]
-          ? data[sectionNum]?.[3][aRole].characteristics.upperbound
+          ? data[sectionNum]?.[3][aRole].characteristics?.upperbound
           : "",
       },
     };
@@ -36,7 +58,6 @@ const T3Rank = ({ roles }) => {
 
   const [formData, setFormData] = useState(dictionary);
 
-  console.log(formData);
 
   useEffect(() => {
     submitFormData(formData);
@@ -127,5 +148,4 @@ const T3Rank = ({ roles }) => {
     );
   });
 };
-
 export default T3Rank;

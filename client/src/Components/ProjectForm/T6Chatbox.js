@@ -14,21 +14,35 @@ import {
 import "./ProjectForm.css";
 import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
 
-const T6Chatbox = ({ roles }) => {
-  const { submitFormData, data, sectionNum } = useAppContext();
-  console.log(sectionNum)
+const T6Chatbox = () => {
+  const { submitFormData, data, getProject,sectionNum } = useAppContext();
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  // const sectionNum = sessionStorage.getItem("sectionNum") 
+
+  useEffect(() => {
+    getProject(createdProjectId).then((project) => {
+      const dictionary = {};
+      _.map(roles, (aRole) => {
+        dictionary[aRole] = {
+          instruction: project.data[sectionNum][6][aRole]?.instruction,
+          messages: project.data[sectionNum][6][aRole]?.messages,
+        };
+      });
+      setFormData(dictionary);
+    });
+  }, []);
 
   const dictionary = {};
-
   _.map(roles, (aRole) => {
     dictionary[aRole] = data[sectionNum]
       ? {
           instruction: data[sectionNum][6][aRole].instruction,
-          messages: data[sectionNum][6][aRole].messages ,
+          messages: data[sectionNum][6][aRole].messages,
         }
       : {
-          instruction:  "",
-          messages:  [],
+          instruction: "",
+          messages: [],
         };
   });
 
@@ -42,8 +56,6 @@ const T6Chatbox = ({ roles }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-
-  console.log(formData);
 
   return _.map(roles, (aRole) => {
     return (

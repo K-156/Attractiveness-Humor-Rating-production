@@ -13,28 +13,57 @@ import { BsDash } from "react-icons/bs";
 import _ from "lodash";
 import "./ProjectForm.css";
 
-const T2ProfileRating = ({ roles }) => {
-  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+const T2ProfileRating = () => {
+  const { submitFormData, data, isEditing, getProject, sectionNum } = useAppContext();
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  // const sectionNum = 0;
 
-  console.log(roles)
+  useEffect(() => {
+    getProject(createdProjectId).then((project) => {
+      const dictionary = {};
+      _.map(roles, (aRole) => {
+        dictionary[aRole] = {
+          instruction: project.data[sectionNum]?.[2][aRole].instruction,
+          range: {
+            lower: {
+              number: project.data[sectionNum]?.[2][aRole].range?.lower.number,
+              text: project.data[sectionNum]?.[2][aRole].range?.lower.text,
+            },
+            upper: {
+              number: project.data[sectionNum]?.[2][aRole].range?.upper.number,
+              text: project.data[sectionNum]?.[2][aRole].range?.upper.text,
+            },
+          },
+        };
+      });
+      setFormData(dictionary)
+    });
+  }, []);
 
   const dictionary = {};
 
   _.map(roles, (aRole) => {
     dictionary[aRole] = {
-      instruction: data[sectionNum] ? data[sectionNum]?.[2][aRole].instruction : "",
+      instruction: data[sectionNum]
+        ? data[sectionNum]?.[2][aRole].instruction
+        : "",
       range: {
         lower: {
           number: data[sectionNum]
-            ? data[sectionNum]?.[2][aRole].range.lower.number
+            ? data[sectionNum]?.[2][aRole].range?.lower.number
             : "",
-          text: data[sectionNum] ? data[sectionNum]?.[2][aRole].range.lower.text : "",
+          text: data[sectionNum]
+            ? data[sectionNum]?.[2][aRole].range?.lower.text
+            : "",
         },
         upper: {
           number: data[sectionNum]
-            ? data[sectionNum]?.[2][aRole].range.upper.number
+            ? data[sectionNum]?.[2][aRole].range?.upper.number
             : "",
-          text: data[sectionNum] ? data[sectionNum]?.[2][aRole].range.upper.text : "",
+          text: data[sectionNum]
+            ? data[sectionNum]?.[2][aRole].range?.upper.text
+            : "",
         },
       },
     };

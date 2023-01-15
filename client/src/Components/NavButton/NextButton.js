@@ -44,13 +44,14 @@ const NextButton = ({
     }
 
     if (projectType === "projDetails") {
+      sessionStorage.setItem("roles", JSON.stringify(data.roles));
       updateProject(createdProjectId, projectType, data).then(() => {
         getProject(createdProjectId);
       });
     }
 
     if (projectType === "projData") {
-      nextSection();
+      nextSection()
       let arr = JSON.parse(localStorage.getItem("projData"))
         ? JSON.parse(localStorage.getItem("projData"))
         : [];
@@ -65,13 +66,11 @@ const NextButton = ({
       updateProject(createdProjectId, projectType, arr).then(() => {
         getProject(createdProjectId);
       });
-      localStorage.setItem(projectType, JSON.stringify(arr));
     }
     if (projectType === "sections") {
       updateProject(createdProjectId, projectType, data).then(() => {
         getProject(createdProjectId);
       });
-      localStorage.setItem(projectType, JSON.stringify(data));
     }
     link &&
       navigate(`${link}`, {

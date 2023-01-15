@@ -15,32 +15,18 @@ import _ from "lodash";
 import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 
-const T1Profile = ({ roles }) => {
-  const { submitFormData, data, sectionNum, getProject } = useAppContext();
+const T1Profile = () => {
+  const { submitFormData, data, getProject, sectionNum } = useAppContext();
   const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  // const sectionNum = 0;
 
-  useEffect(() => {
-    getProject(createdProjectId).then((data) => {
+  useEffect(()=> {
+    getProject(createdProjectId).then((project)=>{
+      const {data} = project
       console.log(data)
-      // setFormData({
-      //   title:
-      //     data.projDetails.title === "untitled" ? "" : data.projDetails.title,
-      //   description: data.projDetails.description,
-      //   consent: data.projDetails.consent,
-      //   roles: data.projDetails.roles,
-      //   duration: data.projDetails.duration,
-      //   theme:
-      //     data.projDetails.theme === undefined
-      //       ? "green"
-      //       : data.projDetails.theme,
-      //   graphic:
-      //     data.projDetails.graphic?.length === 0
-      //       ? null
-      //       : data.projDetails.graphic,
-      //   graphicLink: data.projDetails.graphicLink,
-      // });
-    });
-  }, []);
+    })
+  },[])
 
   const objects2 = {
     instruction: false,

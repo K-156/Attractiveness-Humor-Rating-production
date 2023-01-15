@@ -18,8 +18,8 @@ const ProjectLayout = ({
   projectType,
   formData,
   templateNum,
-  sectionNum, 
-  nextDisabled
+  sectionNum,
+  nextDisabled,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,29 +62,30 @@ const ProjectLayout = ({
         </Box>
       ) : (
         <>
-          { isEdit ?
+          {isEdit ? (
             <SaveButton
               projectType={projectType}
               formData={formData}
               templateNum={templateNum}
               sectionNum={sectionNum}
             />
-          : <Box
-            className="spaceBetween"
-            sx={{pt: 3}} 
-            >
-            {location.pathname.includes("projects/details") 
-              ? <Box /> : <PrevButton link={prevLink} />}
-            <NextButton
-              disabled={nextDisabled}
-              link={nextLink}
-              projectType={projectType}
-              data={formData}
-              templateNum={templateNum}
-              sectionNum={sectionNum}
-            />
-          </Box>
-          }
+          ) : (
+            <Box className="spaceBetween" sx={{ pt: 3 }}>
+              {location.pathname.includes("projects/details") ? (
+                <Box />
+              ) : (
+                <PrevButton link={prevLink} projectType={projectType} />
+              )}
+              <NextButton
+                disabled={nextDisabled}
+                link={nextLink}
+                projectType={projectType}
+                data={formData}
+                templateNum={templateNum}
+                sectionNum={sectionNum}
+              />
+            </Box>
+          )}
         </>
       )}
     </>

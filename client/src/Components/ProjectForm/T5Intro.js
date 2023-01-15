@@ -15,8 +15,25 @@ import AddableFieldRoles from "../CustomFormFields/AddableFieldRoles";
 import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
 import "./ProjectForm.css";
 
-const T5Intro = ({ roles }) => {
-  const { data, sectionNum } = useAppContext();
+const T5Intro = () => {
+  const { data, getProject, sectionNum } = useAppContext();
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  // const sectionNum = 0;
+
+  useEffect(() => {
+    getProject(createdProjectId).then((project) => {
+      const dictionary = {};
+      _.map(roles, (aRole) => {
+        dictionary[aRole] = {
+          instruction: project.data[sectionNum][5][aRole].instruction,
+          questions: project.data[sectionNum][5][aRole].questions,
+          introductions: project.data[sectionNum][5][aRole].introductions,
+        };
+      });
+      setFormData(dictionary);
+    });
+  }, []);
 
   const dictionary = {};
 
@@ -40,7 +57,6 @@ const T5Intro = ({ roles }) => {
     introductions: false,
   });
 
-  console.log(formData);
 
   const [qn, setQn] = useState({});
   const [intro, setIntro] = useState({});

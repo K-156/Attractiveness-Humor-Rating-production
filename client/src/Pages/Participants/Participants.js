@@ -86,9 +86,9 @@ const Participants = () => {
   useEffect(() => {
     getAllProjects();
     if (currentProjId !== undefined) {
-      setCreateProject(currentProjId.split(":")[0]);
-      getProject(currentProjId.split(":")[0]);
-      getUsersByProjId(currentProjId.split(":")[0]);
+      setCreateProject(currentProjId?.split(":")[0]);
+      getProject(currentProjId?.split(":")[0]);
+      getUsersByProjId(currentProjId?.split(":")[0]);
     } else {
       setCreateProject(projectId?.split(":")[0]);
       getProject(projectId?.split(":")[0]);

@@ -6,7 +6,7 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
-  const { sections } = useAppContext();
+  const { sections, projDetails } = useAppContext();
   const [formData, setFormData] = useState(sections);
 
   useEffect(() => {

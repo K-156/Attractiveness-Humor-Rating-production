@@ -25,15 +25,15 @@ const T7General = () => {
     getProject(createdProjectId).then((proj) => {
       const { data } = proj;
       setFormData({
-        text: data[sectionNum][7].text,
-        isEnd: data[sectionNum][7].isEnd,
+        text: data[sectionNum] ? data[sectionNum][7]?.text : "",
+        isEnd: data[sectionNum] ? data[sectionNum][7]?.isEnd : true,
       });
     });
   }, []);
 
   const [formData, setFormData] = useState({
-    text: data[sectionNum] ? data[sectionNum][7].text : "",
-    isEnd: data[sectionNum] ? data[sectionNum][7].isEnd : true,
+    text: data[sectionNum] ? data[sectionNum][7]?.text : "",
+    isEnd: data[sectionNum] ? data[sectionNum][7]?.isEnd : true,
   });
 
   const handleOnChange = (event) => {

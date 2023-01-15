@@ -14,8 +14,26 @@ import AddableFieldRoles from "../CustomFormFields/AddableFieldRoles";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
-const T4Audio = ({ roles }) => {
-  const { submitFormData, data, sectionNum, isEditing } = useAppContext();
+const T4Audio = () => {
+  const { submitFormData, data, isEditing, getProject, sectionNum } = useAppContext();
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  // const sectionNum = 0;
+
+  useEffect(() => {
+    getProject(createdProjectId).then((project) => {
+      const dictionary = {};
+      _.map(roles, (aRole) => {
+        dictionary[aRole] = {
+          instruction: project.data[sectionNum][4][aRole].instruction,
+          questions: project.data[sectionNum][4][aRole].questions,
+          audio: project.data[sectionNum][4][aRole].audio,
+          audioLink: project.data[sectionNum][4][aRole].audioLink,
+        };
+      });
+      setFormData(dictionary);
+    });
+  }, []);
 
   const dictionary = {};
 

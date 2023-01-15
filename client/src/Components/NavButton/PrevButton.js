@@ -4,15 +4,16 @@ import { useAppContext } from "../../Context/AppContext";
 import { Box, Button } from "@mui/material";
 import { HiArrowLeft } from "react-icons/hi";
 
-const PrevButton = ({ isSurvey, state, text, style, link }) => {
-  const { theme, getProject, createdProjectId, prevSection } = useAppContext();
-
+const PrevButton = ({ isSurvey, state, text, style, link, projectType }) => {
+  const { theme, getProject, createdProjectId, prevSection, sectionNum } =
+    useAppContext();
   const navigate = useNavigate();
-  const handleOnClick = () => {
+  const handleOnClick = async () => {
     if (text === "Profiles") {
-    } else {
+    } else if (projectType === "projData") {
       prevSection();
-      getProject(createdProjectId);
+      await getProject(createdProjectId);
+      sessionStorage.setItem("sectionNum", sectionNum);
     }
     navigate(`${link}`, {
       state: { state },
