@@ -116,6 +116,21 @@ const deleteUsers = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Success! User deleted" });
 };
 
+const deleteAllUsers = async (req, res) => {
+  const { id: projId } = req.params;
+  const users = await User.find({ projId: projId });
+
+  if (!users) {
+    throw new NotFoundError(`No users with id ${users}`);
+  }
+
+  users.forEach((user)=>{
+    user.remove();
+  })
+
+  res.status(StatusCodes.OK).json({ msg: "Success! User deleted" });
+};
+
 export {
   register,
   login,
@@ -125,4 +140,5 @@ export {
   deleteUsers,
   generateOTP,
   adminLogin,
+  deleteAllUsers,
 };

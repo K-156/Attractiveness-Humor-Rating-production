@@ -24,7 +24,7 @@ import DeleteDialog from "../Dialog/DeleteDialog";
 
 const ProjectTable = ({ data, setDeleteSuccess }) => {
   const navigate = useNavigate();
-  const { setEditProject, deleteProject, isEditing, editProject, publishProject } = useAppContext();
+  const { setEditProject, deleteProject, isEditing, editProject, publishProject, deleteAllUsers } = useAppContext();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
@@ -149,6 +149,8 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
         setOpen={setOpen}
         isActive={toDelete.isActive}
         handleDelete={(event)=> {
+          // delete registered participants 
+          deleteAllUsers(event.target.name)
           deleteProject(event.target.name)
           setDeleteSuccess(true)
         }}

@@ -25,6 +25,8 @@ import {
   DELETE_PROJECT_ERROR,
   DELETE_USERS_BEGIN,
   DELETE_USERS_ERROR,
+  DELETE_ALL_USERS_BEGIN,
+  DELETE_ALL_USERS_ERROR,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
@@ -238,6 +240,18 @@ const reducer = (state, action) => {
       errorMsg: action.payload.msg,
     };
   }
+
+  if (action.type === DELETE_ALL_USERS_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === DELETE_ALL_USERS_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      errorMsg: action.payload.msg,
+    };
+  }
+
   if (action.type === EDIT_PROJECT_BEGIN) {
     return {
       ...state,

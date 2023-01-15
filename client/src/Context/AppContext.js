@@ -29,6 +29,8 @@ import {
   DELETE_PROJECT_ERROR,
   DELETE_USERS_BEGIN,
   DELETE_USERS_ERROR,
+  DELETE_ALL_USERS_BEGIN,
+  DELETE_ALL_USERS_ERROR,
   EDIT_PROJECT_BEGIN,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_ERROR,
@@ -458,6 +460,19 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const deleteAllUsers = async (id) => {
+    dispatch({ type: DELETE_ALL_USERS_BEGIN });
+    try {
+      await authFetch.delete(`/auth/allUsers/${id}`);
+    } catch (error) {
+      console.log(error.response);
+      dispatch({
+        type: DELETE_ALL_USERS_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+  };
+
   const nextSection = () => {
     dispatch({ type: NEXT_SECTION });
   };
@@ -535,6 +550,7 @@ const AppProvider = ({ children }) => {
         sendEmail,
         getUsersByProjId,
         deleteUsers,
+        deleteAllUsers,
       }}
     >
       {children}
