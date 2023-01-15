@@ -16,7 +16,7 @@ const UploadParticipantDialog = ({
   setFormData,
   handleUpload,
 }) => {
-  // console.log(formData)
+  console.log(formData)
   return (
     <Dialog open={open}>
       <DialogTitle
@@ -35,6 +35,7 @@ const UploadParticipantDialog = ({
           </Box>
           <UploadFiles
             items={formData["email"]}
+            emailList={formData["emailLink"]}
             setFormData={setFormData}
             variable="email"
             accept=".csv"

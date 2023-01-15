@@ -6,7 +6,6 @@ import {
   Autocomplete,
   Box,
   Button,
-  formControlClasses,
   TextField,
 } from "@mui/material";
 import _ from "lodash";
@@ -60,7 +59,7 @@ const Participants = () => {
   const readCSV = async (id) => {
     try {
       const { data } = await axios.get(`/api/v1/projects/participants/${id}`);
-      return data.results
+      return data.results;
     } catch (error) {
       if (error.response.status !== 401) {
         console.log(error.response.data.msg);
@@ -71,6 +70,7 @@ const Participants = () => {
   const handleUpload = async () => {
     setIsLoading(true);
     const participants = await readCSV(projectId.split(":")[0]);
+    console.log(participants);
     const registerPromises = participants.map((element) => {
       return registerUser({
         email: element.Email,
@@ -96,7 +96,6 @@ const Participants = () => {
     setCreateProject(projectId?.split(":")[0]).then(() => {
       getProject(createdProjectId);
     });
-
   }, []);
 
   useEffect(() => {
@@ -130,22 +129,17 @@ const Participants = () => {
   };
 
   const handleConfirm = async () => {
+    const emails = rowsSelected.map(id => {
+      const user = users.find(user => user._id === id);
+      return user?.email;
+    });
+    
+    emails.forEach((email) => {
+      sendEmail(email)
+    })
     setSendOpen(false);
   };
 
-  // const handleConfirm = async () => {
-  //   participants.forEach((element, index) => {
-  //     registerUser({
-  //       email: element.Email,
-  //       password: "123456",
-  //       projId: createdProjectId,
-  //     });
-  //   });
-  //   // sendEmail();
-  //   // isValid ? setSendOpen(false) : setSendOpen(true);
-  // };
-
-  // console.log(participants);
 
   return (
     <div>

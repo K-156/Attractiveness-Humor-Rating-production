@@ -95,14 +95,16 @@ const deleteProject = async (req, res) => {
 const sendEmail = async (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+  const { id: email } = req.params;
+  const projTitle = "Jobify";
+
   const msg = {
-    to: "limstephanie156@gmail.com", // Change to your recipient
+    to: email, // Change to your recipient
     from: "limstephanie156@gmail.com", // Change to your verified sender
-    subject: "Sending with SendGrid is Fun",
-    text: "and easy to do anywhere, even with Node.js",
-    html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+    subject: `Participants of ${projTitle}`,
+    html: "Dear Stephanie, </br>We would like you to participant in this survey. Please click the following link and your OTP number is 696969. You only have 45 minutes to complete the survey.</br> Thank you!",
   };
-  
+
   sgMail
     .send(msg)
     .then(() => {
@@ -131,7 +133,7 @@ const displayOutput = async (req, res) => {
             .pipe(iconv.decodeStream("utf8"))
             .pipe(csv())
             .on("data", (row) => {
-              console.log(row)
+              console.log(row);
               data.push(row);
             })
             .on("end", () => {
@@ -150,11 +152,11 @@ const displayOutput = async (req, res) => {
   }
 
   const links = project.emailList.emailLink;
-  console.log(links)
+  console.log(links);
 
   Promise.all(links.map(readCSVPromise)).then((data) => {
     const results = data.reduce((acc, val) => acc.concat(val), []);
-    console.log(results)
+    console.log(results);
     res.status(StatusCodes.OK).json({ results });
   });
 };

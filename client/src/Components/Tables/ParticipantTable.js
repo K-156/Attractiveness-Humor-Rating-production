@@ -22,11 +22,11 @@ const ParticipantTable = ({
   isLoading
 }) => {
   const [pageSize, setPageSize] = useState(5);
-  const { participants, users } = useAppContext();
+  const { users } = useAppContext();
 
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");
-
+    // console.log(users)
     return (
       <GridToolbarContainer className="spaceBetween" sx={{ mb: 1 }}>
         <Box>
@@ -152,7 +152,19 @@ const ParticipantTable = ({
           valueGetter: (params) =>
             moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
         },
+        {
+          field: "duration",
+          headerName: "Total Time Taken",
+          type: "dateTime",
+          flex: 1.5,
+          valueFormatter: (params) =>
+            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+          valueGetter: (params) =>
+            moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+        },
         { field: "role", headerName: "Role" },
+        { field: "otp", headerName: "OTP"},
+        { field: "completionCode", headerName: "Completion code",flex: 1, },
       ]}
       componentsProps={{
         Toolbar: {
