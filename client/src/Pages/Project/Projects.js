@@ -17,10 +17,12 @@ const Projects = () => {
     createProject,
     setOriginalState,
   } = useAppContext();
-  const handleOnClick = () => {
-    createProject();
+  const handleOnClick = async () => {
+    const createdProjectId = await createProject();
+
     navigate("/projects/details");
     sessionStorage.setItem("editMode", "add");
+    sessionStorage.setItem("createdProjectId", createdProjectId);
   };
   const [deleteSuccess, setDeleteSuccess] = useState(false);
 
@@ -28,7 +30,6 @@ const Projects = () => {
     getAllProjects();
     setOriginalState();
   }, []);
-
 
   return (
     <div>

@@ -18,8 +18,6 @@ import ProfileForm from "./ProfileForm";
 const T1Profile = ({ roles }) => {
   const { submitFormData, data, sectionNum } = useAppContext();
 
-  console.log(roles)
-
   const objects2 = {
     instruction: false,
     1: false,
@@ -75,20 +73,12 @@ const T1Profile = ({ roles }) => {
     dictionary2[aRole] = objects2;
   });
 
-  console.log(dictionary2);
-
   const [expanded, setExpanded] = useState(dictionary2);
-
   const [formData, setFormData] = useState(dictionary);
-
-  console.log(formData);
 
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-
-  console.log(formData);
-  console.log(expanded);
 
   return _.map(roles, (aRole) => {
     return (

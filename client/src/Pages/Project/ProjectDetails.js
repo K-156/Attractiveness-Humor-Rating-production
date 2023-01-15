@@ -7,25 +7,47 @@ import { useEffect } from "react";
 
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
 
-  const { isEditing, editProjectId, setEditProject, projDetails } =
+  const { isEditing, editProjectId, setEditProject, projDetails, getProject } =
     useAppContext();
-
-  const [formData, setFormData] = useState({
-    title: projDetails?.title,
-    description: projDetails?.description,
-    roles: projDetails?.roles,
-    duration: projDetails?.duration,
-    theme: projDetails ? projDetails.theme : "green",
-    graphic: projDetails?.graphic,
-    graphicLink: projDetails?.graphicLink,
-  });
 
   useEffect(() => {
     if (isEditing) {
       setEditProject(editProjectId);
+    } else {
+      getProject(createdProjectId).then((data) => {
+        setFormData({
+          title:
+            data.projDetails.title === "untitled" ? "" : data.projDetails.title,
+          description: data.projDetails.description,
+          consent: data.projDetails.consent,
+          roles: data.projDetails.roles,
+          duration: data.projDetails.duration,
+          theme:
+            data.projDetails.theme === undefined
+              ? "green"
+              : data.projDetails.theme,
+          graphic:
+            data.projDetails.graphic?.length === 0
+              ? null
+              : data.projDetails.graphic,
+          graphicLink: data.projDetails.graphicLink,
+        });
+      });
     }
   }, []);
+
+  const [formData, setFormData] = useState({
+    title: projDetails?.title,
+    description: projDetails?.description,
+    consent: projDetails?.consent,
+    roles: projDetails?.roles,
+    duration: projDetails?.duration,
+    theme: projDetails?.theme === undefined ? "green" : projDetails.theme,
+    graphic: projDetails?.graphic,
+    graphicLink: projDetails?.graphicLink,
+  });
 
   return (
     <div>

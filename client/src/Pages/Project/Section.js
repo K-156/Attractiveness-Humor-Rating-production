@@ -24,8 +24,6 @@ const Section = () => {
   const currTemplate = parseInt(templateList[sectionNum - 1]);
   const roles = projDetails.roles
 
-  console.log(roles)
-
   let templateType = null;
   const { template } = location.state;
 

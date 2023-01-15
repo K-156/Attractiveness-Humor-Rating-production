@@ -94,7 +94,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                     <Box className="secondColumn">
                       <TextField
                           name="consent"
-                          // value={formData?.description}
+                          value={formData?.consent}
                           size="small"
                           fullWidth
                           multiline
@@ -155,7 +155,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                         select
                         name="theme"
                         label="Select theme"
-                        defaultValue={formData.theme === undefined ? "green" : formData.theme}
+                        defaultValue={formData.theme}
                         onChange={handleOnChange}
                       >
                         {_.map(["Blue", "Brown", "Green", "Pink", "Yellow"], (value) => {

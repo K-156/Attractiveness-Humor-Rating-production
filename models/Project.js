@@ -13,6 +13,7 @@ const ProjectSchema = new mongoose.Schema(
         default: "untitled",
       },
       description: String,
+      consent:String,
       roles: [],
       duration: String,
       theme: {

@@ -6,6 +6,7 @@ import { colorPalette } from "../../Utils/colorPalette";
 import "./HomeSample.css";
 
 const HomeSample = ({ theme, title, description, roleList, graphic }) => {
+  console.log(theme)
   return (
     <div className={`sampleBackground-${theme}`}>
       <Box className="flexEnd" sx={{ mb: 5, m: 1 }}>

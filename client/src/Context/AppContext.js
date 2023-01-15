@@ -211,7 +211,8 @@ const AppProvider = ({ children }) => {
         type: GET_PROJECT_SUCCESS,
         payload: project,
       });
-      localStorage.setItem("data", JSON.stringify(project));
+      return project
+      // localStorage.setItem("data", JSON.stringify(project));
     } catch (error) {
       dispatch({
         type: GET_PROJECT_ERROR,
@@ -261,6 +262,7 @@ const AppProvider = ({ children }) => {
         type: CREATE_PROJECT_SUCCESS,
         payload: data.project._id,
       });
+      return data.project._id
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({

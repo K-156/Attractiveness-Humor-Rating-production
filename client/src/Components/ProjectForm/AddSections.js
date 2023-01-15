@@ -90,7 +90,7 @@ const AddSection = ({ formData, setFormData }) => {
                           {index + 1}. {templates[value]}
                         </Typography>
                         <Box>
-                          <Button
+                          {/* <Button
                             id={index}
                             onClick={() => navigate(`${index + 1}`)}
                             sx={{ minWidth: "40px" }}
@@ -102,7 +102,7 @@ const AddSection = ({ formData, setFormData }) => {
                                 pointerEvents: "none",
                               }}
                             />
-                          </Button>
+                          </Button> */}
                           <Button
                             id={index}
                             onClick={() => onDelete(index)}

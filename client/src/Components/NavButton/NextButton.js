@@ -47,6 +47,7 @@ const NextButton = ({
       updateProject(createdProjectId, projectType, data).then(() => {
         getProject(createdProjectId);
       });
+      sessionStorage.setItem(projectType, JSON.stringify(data));
     }
 
     if (projectType === "projData") {
