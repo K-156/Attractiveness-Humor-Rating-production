@@ -16,35 +16,11 @@ import { templates } from "../../Utils/templateList";
 import "./ProjectForm.css";
 import ReorderList from "../ReorderList/ReorderList";
 
-const AddSection = ({ formData, setFormData }) => {
+const AddSection = ({ formData, setFormData, type }) => {
 
   const [error, setError] = useState({
     profile: false, rank: false
   })
-
-  const onDelete = (index) => {
-
-    const value = formData[index];  
-    if (value === 1 || value === 3) {
-      const findNext = formData.indexOf(value, index + 1) 
-      const valueList = value === 1 ? [2,3,4,5,6] : [4,5,6];
-      const nextValue = formData.slice(index + 1, findNext === -1 ? formData.length : findNext);
-      const filteredArray = nextValue.filter(value => valueList.includes(value));
-      const beforeValues = formData.slice(0, index)
-      if (filteredArray.length > 0 && !beforeValues.includes(value)) {
-        setError({profile: value === 1, rank: value === 3 });
-            return;
-      }
-    }
-   
-    if (index === 0) {
-      formData.shift();
-    } else {
-      formData.splice(index, 1);
-    }
-    setFormData([...formData]);
-    setError({rank: false, profile: false});
-  };
 
   const handleAddSection = (event) => {
     const value = event.target.value;
@@ -104,9 +80,9 @@ const AddSection = ({ formData, setFormData }) => {
               <ReorderList 
                 formData={formData}
                 setFormData={setFormData}
-                onDelete={onDelete}
                 error={error}
                 setError={setError}
+                type={type}
               />
             </Box>
           </Box>

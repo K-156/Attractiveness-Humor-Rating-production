@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { 
     Alert,
     AlertTitle, 
@@ -5,13 +7,14 @@ import {
     Button, 
     Typography
 } from "@mui/material";
-import _, { filter } from "lodash";
+import _ from "lodash";
 import { TfiArrowCircleUp, TfiArrowCircleDown } from "react-icons/tfi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
 import { templates } from "../../Utils/templateList";
+import DeleteDialog from "../Dialog/DeleteDialog";
 
-const ReorderList = ({ formData, setFormData, onDelete, error, setError}) => {
+const ReorderList = ({ formData, setFormData, error, setError, type }) => {
 
     const changeOrder = (index, direction) => {
         let newIndex = index;
@@ -59,6 +62,33 @@ const ReorderList = ({ formData, setFormData, onDelete, error, setError}) => {
         return true;
     }  
 
+    const [open, setOpen] = useState(false);
+    const [toDelete, setToDelete] = useState();
+    const onDelete = (index) => {
+        const value = formData[index];  
+        if (value === 1 || value === 3) {
+          const findNext = formData.indexOf(value, index + 1) 
+          const valueList = value === 1 ? [2,3,4,5,6] : [4,5,6];
+          const nextValue = formData.slice(index + 1, findNext === -1 ? formData.length : findNext);
+          const filteredArray = nextValue.filter(value => valueList.includes(value));
+          const beforeValues = formData.slice(0, index)
+          if (filteredArray.length > 0 && !beforeValues.includes(value)) {
+            setError({profile: value === 1, rank: value === 3 });
+                return;
+          }
+        }
+       
+        if (index === 0) {
+          formData.shift();
+        } else {
+          formData.splice(index, 1);
+        }
+        setFormData([...formData]);
+        setError({rank: false, profile: false});
+        setOpen(false)
+      };
+
+
     return(
         <Box 
             className="flexColumn"
@@ -92,7 +122,15 @@ const ReorderList = ({ formData, setFormData, onDelete, error, setError}) => {
                             </Button>
                             <Button
                                 id={index}
-                                onClick={() => onDelete(index)}
+                                onClick={() => {
+                                    if (type === "edit") {
+                                        setOpen(true);
+                                        setToDelete(index);
+                                    } else {
+                                        onDelete(index);
+                                    }
+                                    
+                                }}
                                 sx={{ minWidth: "40px", height: "32px" }}
                             >
                                 <RiDeleteBin6Fill
@@ -113,7 +151,14 @@ const ReorderList = ({ formData, setFormData, onDelete, error, setError}) => {
                 {error["profile"] && "Profile section (Template 1) must be added before Templates 2 to 6"} 
                 {error["rank"] && "Rank section (Template 3) must be added before Templates 4 to 6"}
             </Alert>         
-            }   
+            }
+            <DeleteDialog
+                open={open}
+                setOpen={setOpen}
+                handleDelete={() => onDelete(toDelete)}
+                text="The details in the section will be permanently deleted"
+                header="Delete Section?"
+            />   
         </Box>
     )
 }
