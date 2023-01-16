@@ -40,7 +40,7 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
     });
   };
   const handleOnEdit = () => {
-    sessionStorage.setItem("editMode", "edit");
+    localStorage.setItem("editMode", "edit");
     // if (editProjectId === "") {
     //   getAllProjects().then(() => {
     //     setEditProject(createdProjectId);
