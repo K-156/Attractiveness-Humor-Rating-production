@@ -1,22 +1,29 @@
 import { useAppContext } from "../../Context/AppContext";
-import { useEffect } from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import NextButton from "../../Components/NavButton/NextButton";
 import { colorPalette } from "../../Utils/colorPalette";
 import links from "../../Utils/links";
+import { getCurrentTime } from "../../Utils/getCurrentTime";
 
-const text =
-  "Thank you for completing the survey.\nYour responses have been submitted.\n\nHave a nice day!";
+const text = "Thank you for completing the survey.\nYour responses have been submitted.\n\nHave a nice day!";
 
 const General = () => {
   const { removeUserFromLocalStorage, theme, sectionNum } = useAppContext();
+  const location = useLocation();
 
   const { data, sections } = JSON.parse(localStorage.getItem("data"));
   let { path } = "/"
 
   if (sectionNum !== sections.length) {
     path = links.find((link) => link.id === sections[sectionNum + 1]);
+  }
+
+  const [endTime, setEndTime] = useState();
+  if (location.pathname.includes("complete")) {
+    setEndTime(getCurrentTime);
   }
 
   //   setTimeout(() => {
