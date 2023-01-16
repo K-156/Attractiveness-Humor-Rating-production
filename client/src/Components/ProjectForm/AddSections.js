@@ -10,12 +10,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import { MdEdit } from "react-icons/md";
 import _ from "lodash";
 
 import { templates } from "../../Utils/templateList";
 import "./ProjectForm.css";
+import ReorderList from "../ReorderList/ReorderList";
 
 const AddSection = ({ formData, setFormData }) => {
   const navigate = useNavigate();
@@ -56,7 +55,8 @@ const AddSection = ({ formData, setFormData }) => {
                 select
                 id="sections"
                 label="Select template"
-                defaultValue=""
+                value=""
+                InputLabelProps={{shrink:false}}
                 onChange={(event) => {
                   setFormData(formData.concat(Number(event.target.value)));
                 }}
@@ -73,55 +73,12 @@ const AddSection = ({ formData, setFormData }) => {
                   );
                 })}
               </TextField>
-              {formData.length < 1 ? (
-                <></>
-              ) : (
-                <Box sx={{ pt: 1, px: 2 }}>
-                  {_.map(formData, (value, index) => {
-                    return (
-                      <Box
-                        key={value}
-                        className="spaceBetween"
-                      >
-                        <Typography
-                          variant="subtitle2"
-                          sx={{ color: "#264653" }}
-                        >
-                          {index + 1}. {templates[value]}
-                        </Typography>
-                        <Box>
-                          {/* <Button
-                            id={index}
-                            onClick={() => navigate(`${index + 1}`)}
-                            sx={{ minWidth: "40px" }}
-                          >
-                            <MdEdit
-                              size={15}
-                              style={{
-                                color: "#264653",
-                                pointerEvents: "none",
-                              }}
-                            />
-                          </Button> */}
-                          <Button
-                            id={index}
-                            onClick={() => onDelete(index)}
-                            sx={{ minWidth: "40px" }}
-                          >
-                            <RiDeleteBin6Fill
-                              size={15}
-                              style={{
-                                color: "#264653",
-                                pointerEvents: "none",
-                              }}
-                            />
-                          </Button>
-                        </Box>
-                      </Box>
-                    );
-                  })}
-                </Box>
-              )}
+              <ReorderList 
+                formData={formData}
+                setFormData={setFormData}
+                onDelete={onDelete}
+              />
+
             </Box>
           </Box>
         </FormControl>

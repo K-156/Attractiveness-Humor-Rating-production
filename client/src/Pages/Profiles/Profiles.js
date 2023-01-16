@@ -18,7 +18,7 @@ const Profiles = () => {
   const role = sessionStorage.getItem("role");
 
   const { path } = links.find(
-    (link) => link.id == Object.keys(data[sectionNum + 1])[0]
+    (link) => link.id === Object.keys(data[sectionNum + 1])[0]
   );
 
   let arr = [];
@@ -28,7 +28,7 @@ const Profiles = () => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo == 1) {
+      if (templateNo === 1) {
         arrOfProfile.push(sectionNum);
       }
     }
@@ -42,7 +42,7 @@ const Profiles = () => {
   }
 
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key == 1 || key == 2 || key == 3 || key == 4) {
+    if (key === 1 || key === 2 || key === 3 || key === 4) {
       arr.push(value);
     }
   }

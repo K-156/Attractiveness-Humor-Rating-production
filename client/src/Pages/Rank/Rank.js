@@ -74,7 +74,7 @@ const Rank = () => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo == 1) {
+      if (templateNo === 1) {
         arrOfProfile.push(sectionNum);
       }
     }
@@ -88,7 +88,7 @@ const Rank = () => {
   }
 
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key == 1 || key == 2 || key == 3 || key == 4) {
+    if (key === 1 || key === 2 || key === 3 || key === 4) {
       value["_id"] = key;
       arr.push(value);
     }

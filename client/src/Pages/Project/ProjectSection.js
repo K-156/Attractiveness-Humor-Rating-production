@@ -32,7 +32,10 @@ const ProjectDetails = () => {
         formData={formData}
         nextDisabled={formData.length === 0}
       >
-        <AddSection formData={formData} setFormData={setFormData} />
+        <AddSection 
+          formData={formData} 
+          setFormData={setFormData} 
+        />
       </ProjectLayout>
     </div>
   );
