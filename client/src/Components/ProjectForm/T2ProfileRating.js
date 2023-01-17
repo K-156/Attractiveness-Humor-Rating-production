@@ -64,7 +64,7 @@ const T2ProfileRating = () => {
 
   return _.map(roles, (aRole) => {
     return (
-      <Box sx={{ mb: 3 }}>
+      <Box key={aRole} sx={{ mb: 3 }}>
         <Typography sx={{ color: "#264653" }}>
           Role: <b>{aRole}</b>
         </Typography>

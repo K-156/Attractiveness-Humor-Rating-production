@@ -9,8 +9,7 @@ const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
   const createdProjectId = sessionStorage.getItem("createdProjectId");
   const editProjectId = sessionStorage.getItem("editProjectId");
-  const isEditing =
-    sessionStorage.getItem("editMode") === "edit" ? true : false;
+  const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   const { projDetails, getProject } = useAppContext();
 

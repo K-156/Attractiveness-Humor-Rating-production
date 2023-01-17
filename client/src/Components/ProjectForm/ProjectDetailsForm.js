@@ -99,12 +99,16 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                           fullWidth
                           multiline
                           minRows={3}
+                          maxRows={10}
                           onChange={handleOnChange}
                       />
                     </Box>
                 </Box>
                 <Box className="twoColumns">
-                    <Typography className="variable">Roles</Typography>
+                    <Box>
+                      <Typography className="variable">Roles</Typography>
+                      <Typography className="variable-subtitle">(Add NA if there is no role)</Typography>
+                    </Box>
                     <AddableNoRange 
                         items={formData["roles"]} 
                         error={error["roles"]}

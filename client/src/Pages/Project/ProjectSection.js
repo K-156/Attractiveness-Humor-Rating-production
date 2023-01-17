@@ -5,7 +5,7 @@ import AddSection from "../../Components/ProjectForm/AddSections";
 import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
-  const type = localStorage.getItem("editMode");
+  const type = sessionStorage.getItem("editMode");
   const { sections, projDetails } = useAppContext();
   const [formData, setFormData] = useState(sections);
 

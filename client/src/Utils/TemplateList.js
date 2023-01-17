@@ -16,6 +16,7 @@ const variableMap = {
     instruction: "Instruction",
     optionName: "Name", 
     description: "Description", 
+    consent: "Consent Form",
     img: "Upload Image", 
     attributes: "Attributes", 
     questions: "Questions",

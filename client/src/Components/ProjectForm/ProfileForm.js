@@ -6,7 +6,10 @@ import "./ProjectForm.css";
 import AddableTwoFieldRoles from "../CustomFormFields/AddableTwoFieldRoles";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
-const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
+const ProfileFormCopy = ({ id, gender, role, setFormData, formData, templateNum }) => {
+  // console.log(id, role)
+  // console.log(formData[role][id])
+
   const [error, setError] = useState(false);
   const [textLimit, setTextLimit] = useState({
     optionName: 0,
@@ -23,10 +26,13 @@ const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
         ...state,
         [role]: {
           ...state[role],
-          [id]: {
-            ...formData[role][id],
-            [name]: value,
-          },
+          [gender]: {
+            ...state[role][gender], 
+            [id]: {
+              ...formData[role][gender][id],
+              [name]: value,
+            },
+          }
         },
       }));
 
@@ -56,7 +62,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
               inputProps={{ maxLength: 40 }}
               helperText={`${textLimit["optionName"]} / 40`}
               onChange={handleOnChange}
-              value={formData[role][id].optionName}
+              value={formData[role][gender][id] ? formData[role][gender][id].optionName : ""}
             />
           </Box>
         </Box>
@@ -72,7 +78,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
               inputProps={{ maxLength: 200 }}
               helperText={`${textLimit["description"]} / 200`}
               onChange={handleOnChange}
-              value={formData[role][id].description}
+              value={formData[role][gender][id] ? formData[role][gender][id].description : ""}
             />
           </Box>
         </Box>
@@ -94,6 +100,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
               accept=".png, .jpg, .jpeg"
               templateNum={templateNum}
               role={role}
+              gender={gender}
             />
           </Box>
         </Box>
@@ -102,7 +109,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
           <Box className="secondColumn">
             <AddableTwoFieldRoles
               id={id}
-              items={formData[role][id]["attributes"]}
+              items={formData[role][gender][id] ? formData[role][gender][id].attributes : []}
               formData={formData}
               handleOnChange={handleOnChange}
               setFormData={setFormData}
@@ -111,6 +118,7 @@ const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
               error={error}
               setError={setError}
               role={role}
+              gender={gender}
             />
           </Box>
         </Box>
@@ -119,4 +127,4 @@ const ProfileForm = ({ id, setFormData, formData, templateNum, role }) => {
   );
 };
 
-export default ProfileForm;
+export default ProfileFormCopy;

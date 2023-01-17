@@ -14,7 +14,9 @@ const AddableTwoFieldRoles = ({
   setError,
   error,
   role,
+  gender
 }) => {
+
   const onAdd = () => {
     if (items.includes(currValue)) {
       setError(true);
@@ -23,10 +25,13 @@ const AddableTwoFieldRoles = ({
         ...state,
         [role]: {
           ...state[role],
-          [id]: {
-            ...formData[role][id],
-            [variable]: formData[role][id][variable].concat(currValue),
-          },
+          [gender]: {
+            ...state[role][gender],
+            [id]: {
+              ...state[role][gender][id],
+              [variable]: formData[role][gender][id][variable].concat(currValue),
+            },
+          }
         },
       }));
     }
@@ -42,7 +47,13 @@ const AddableTwoFieldRoles = ({
       ...state,
       [role]: {
         ...state[role],
-        [variable]: items,
+        [gender]: {
+          ...state[role][gender],
+          [id]: {
+            ...state[role][id],
+            [variable]: items,
+          },
+        }
       },
     }));
   };

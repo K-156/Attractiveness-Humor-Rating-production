@@ -13,6 +13,7 @@ const UploadOneFile = ({
   accept,
   templateNum,
   role,
+  gender
 }) => {
   const {
     uploadFiles,
@@ -30,7 +31,7 @@ const UploadOneFile = ({
   const uploadFile = async (event) => {
     setIsLoading(true);
     if (event.target.files !== undefined) {
-      if (formData[role][id]["img"] !== null) {
+      if (formData[role][gender][id]["img"] !== null) {
         setError(true);
         return;
       }
@@ -46,11 +47,14 @@ const UploadOneFile = ({
         ...state,
         [role]: {
           ...state[role],
-          [id]: {
-            ...formData[role][id],
-            img: event.target.files[0].name,
-            link: fileLink,
-          },
+          [gender]: {
+            ...state[role][gender],
+            [id]: {
+              ...state[role][gender][id],
+              img: event.target.files[0].name,
+              link: fileLink,
+            },
+          }
         },
       }));
     }
@@ -63,11 +67,14 @@ const UploadOneFile = ({
       ...state,
       [role]: {
         ...state[role],
-        [id]: {
-          ...formData[state][id],
-          img: null,
-          link: null,
-        },
+        [gender]: {
+          ...state[role][gender],
+          [id]: {
+            ...state[role][gender][id],
+            img: null,
+            link: null,
+          },
+        }
       },
     }));
   };
@@ -94,15 +101,15 @@ const UploadOneFile = ({
         </Alert>
       )}
       <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
-        {formData[role][id]["img"] && (
-          <Box key={formData[role][id]["img"]} className="spaceBetween">
+        {formData[role][gender][id]["img"] && (
+          <Box key={formData[role][gender][id]["img"]} className="spaceBetween">
             <Typography
               sx={{
                 fontSize: "14px",
                 color: "#264653",
               }}
             >
-              {formData[role][id]["img"]}
+              {formData[role][gender][id]["img"]}
             </Typography>
             <Button onClick={onDelete}>
               <RiDeleteBin6Fill
