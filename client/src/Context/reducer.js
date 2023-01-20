@@ -65,7 +65,7 @@ const reducer = (state, action) => {
   }
   if (action.type === REGISTER_USER_SUCCESS) {
     return {
-      ...state
+      ...state,
     };
   }
   if (action.type === REGISTER_USER_ERROR) {
@@ -134,7 +134,7 @@ const reducer = (state, action) => {
   }
   if (action.type === GET_ALL_PROJECTS_SUCCESS) {
     return {
-      ...state, 
+      ...state,
       isLoading: false,
       projects: action.payload,
     };
@@ -195,6 +195,7 @@ const reducer = (state, action) => {
       projDetails,
       data,
       sections,
+      theme: projDetails.theme,
     };
   }
 
@@ -318,7 +319,7 @@ const reducer = (state, action) => {
   }
   if (action.type === UPDATE_PROJECT_SUCCESS) {
     const { projType, data } = action.payload;
-    console.log(data)
+    console.log(data);
     if (projType === "projData") {
       return {
         ...state,

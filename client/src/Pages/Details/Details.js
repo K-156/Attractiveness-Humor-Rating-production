@@ -30,7 +30,7 @@ const Details = () => {
     activeProjectId,
     setActiveProject,
     getProject,
-    sections
+    sections,
   } = useAppContext();
 
   const detailList = ["Sex", "Age", "Ethnicity"];
@@ -40,12 +40,9 @@ const Details = () => {
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId).then((proj) => {
-        const { data } = proj;
-      });
+      getProject(activeProjectId);
     }
   }, [activeProjectId]);
-
 
   const [formData, setFormData] = useState({
     sex: "",

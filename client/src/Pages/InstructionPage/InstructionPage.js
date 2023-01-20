@@ -1,4 +1,5 @@
 import { useAppContext } from "../../Context/AppContext";
+import { useEffect } from "react";
 
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
@@ -7,8 +8,23 @@ import { colorPalette } from "../../Utils/colorPalette";
 import "./InstructionPage.css";
 
 const InstructionPage = ({ type, link }) => {
-  const { theme, sectionNum, data } = useAppContext();
+  const {
+    theme,
+    sectionNum,
+    data,
+    activeProjectId,
+    setActiveProject,
+    getProject,
+    sections,
+  } = useAppContext();
   const role = sessionStorage.getItem("role");
+
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId);
+    }
+  }, [activeProjectId]);
 
   return (
     <div className={`backgroundImage-${theme} center`}>
@@ -42,7 +58,9 @@ const InstructionPage = ({ type, link }) => {
             </Box>
             <Box className="center" pt={1.5}>
               <Typography className="textCenter">
-                {data[sectionNum][Object.keys(data[sectionNum])[0]][role].instruction}
+                {data.length !== 0
+                  ? data[sectionNum][sections[sectionNum]][role]?.instruction
+                  : ""}
               </Typography>
             </Box>
           </CardContent>
