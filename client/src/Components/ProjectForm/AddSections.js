@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -19,20 +19,21 @@ import ReorderList from "../ReorderList/ReorderList";
 const AddSection = ({ formData, setFormData, type, data, projId }) => {
 
   const [error, setError] = useState({
-    profile: false, rank: false
-  })
+    profile: false,
+    rank: false,
+  });
 
   const handleAddSection = (event) => {
     const value = event.target.value;
     if (value >= 2 && value <= 6 && !formData.includes(1)) {
-      setError({profile: true, rank: false})
+      setError({ profile: true, rank: false });
     } else if (value >= 4 && value <= 6 && !formData.includes(3)) {
-      setError({profile:false, rank: true})
+      setError({ profile: false, rank: true });
     } else {
-      setError({profile: false, rank: false})
+      setError({ profile: false, rank: false });
       setFormData(formData.concat(Number(value)));
-    }   
-  }
+    }
+  };
 
   return (
     <Card>
@@ -41,18 +42,15 @@ const AddSection = ({ formData, setFormData, type, data, projId }) => {
           <Box className="twoColumns">
             <Typography className="variable flexColumn">
               Sections
-              <Link
-                className="projectLink"
-                to="/projects/samples/templates"
-              >
+              <Link className="projectLink" to="/projects/samples/templates">
                 <i>View Templates</i>
               </Link>
             </Typography>
             <Box
-              sx={{ 
-                display: "flex", 
-                flexDirection: "column", 
-                width: "400px" 
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "400px",
               }}
             >
               <TextField
@@ -62,22 +60,18 @@ const AddSection = ({ formData, setFormData, type, data, projId }) => {
                 id="sections"
                 label="Select template"
                 value=""
-                InputLabelProps={{shrink:false}}
+                InputLabelProps={{ shrink: false }}
                 onChange={handleAddSection}
               >
                 {_.map(templates, (value, key) => {
                   return (
-                    <MenuItem 
-                      key={key} 
-                      id={key} 
-                      value={key}
-                    >
+                    <MenuItem key={key} id={key} value={key}>
                       {value}
                     </MenuItem>
                   );
                 })}
               </TextField>
-              <ReorderList 
+              <ReorderList
                 formData={formData}
                 data={data}
                 setFormData={setFormData}

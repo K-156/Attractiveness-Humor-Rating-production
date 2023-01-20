@@ -6,22 +6,21 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
-  const {
-    sections,
-    getProject,
-    isEditing,
-    editProjectId,
-    createdProjectId,
-    data,
-  } = useAppContext();
+  const { sections, data, getProject } = useAppContext();
   const [formData, setFormData] = useState(sections);
+  const isEditing =
+    sessionStorage.getItem("editMode") === "edit" ? true : false;
+  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const editProjectId = sessionStorage.getItem("editProjectId");
 
   useEffect(() => {
     sessionStorage.setItem("templates", JSON.stringify(formData));
   }, [formData]);
 
   useEffect(() => {
-    getProject(isEditing ? editProjectId : createdProjectId);
+    getProject(isEditing ? editProjectId : createdProjectId).then((project) => {
+      setFormData(project.sections)
+    })
   }, []);
 
   return (
