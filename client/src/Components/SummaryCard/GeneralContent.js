@@ -54,6 +54,20 @@ const GeneralContent = ({ content, handleOnClick }) => {
                         {aValue["upperText"]})
                       </Typography>
                     );
+                  } else if (key === "roles") {
+                    console.log(value)
+                    console.log(aValue)
+                    return (
+                      <Typography
+                        key={key}
+                        sx={{
+                          fontSize: "14px",
+                          color: "#264653",
+                        }}
+                      >
+                        {index + 1}. {aValue["role"]} ({aValue["isGender"] ? "Yes" : "No"}) 
+                      </Typography>
+                    );
                   } else {
                     return (
                       key !== "audioLink" && (
@@ -71,7 +85,7 @@ const GeneralContent = ({ content, handleOnClick }) => {
                   {key === "duration"
                     ? `${value} mins`
                     : key === "isEnd"
-                    ? `${value === 'true' ? "Yes" : "No"}`
+                    ? `${value === "true" ? "Yes" : "No"}`
                     : value}
                 </Typography>
               )

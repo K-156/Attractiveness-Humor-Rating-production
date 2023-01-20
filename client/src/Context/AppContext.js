@@ -66,7 +66,6 @@ const initialState = {
   theme: "green",
   projects: [],
   isEditing: false,
-  editProjectId: "",
   isLoading: false,
   projDetails: { email: [], roles: [], graphic: null },
   formData: [],
@@ -75,13 +74,13 @@ const initialState = {
   activeProjectId: "",
   sectionNum: 0,
   fileLink: "",
-  createdProjectId: "",
   errorMsg: "",
   emailList: "",
   participants: [],
   activeProjectData: [],
   isValid: true,
   users: [],
+  projId:"",
 };
 
 const AppContext = createContext();

@@ -24,7 +24,7 @@ const NextButton = ({
   const {
     theme,
     updateProject,
-    createdProjectId,
+    projId,
     getProject,
     nextSection,
     sectionNum,
@@ -36,8 +36,8 @@ const NextButton = ({
       sessionStorage.setItem("rank", storeItem);
     }
     if (projectType === "emailList") {
-      await updateProject(createdProjectId, projectType, data).then(() => {
-        getProject(createdProjectId);
+      await updateProject(projId, projectType, data).then(() => {
+        getProject(projId);
       });
       setOpen(false);
       handleUpload();
@@ -45,8 +45,8 @@ const NextButton = ({
 
     if (projectType === "projDetails") {
       sessionStorage.setItem("roles", JSON.stringify(data.roles));
-      updateProject(createdProjectId, projectType, data).then(() => {
-        getProject(createdProjectId);
+      updateProject(projId, projectType, data).then(() => {
+        getProject(projId);
       });
     }
 
@@ -63,14 +63,14 @@ const NextButton = ({
       } else {
         arr[sectionNum] = dict;
       }
-      updateProject(createdProjectId, projectType, arr).then(() => {
-        getProject(createdProjectId);
+      updateProject(projId, projectType, arr).then(() => {
+        getProject(projId);
       });
       localStorage.setItem(projectType, JSON.stringify(arr));
     }
     if (projectType === "sections") {
-      updateProject(createdProjectId, projectType, data).then(() => {
-        getProject(createdProjectId);
+      updateProject(projId, projectType, data).then(() => {
+        getProject(projId);
       });
       localStorage.setItem(projectType, JSON.stringify(data));
     }

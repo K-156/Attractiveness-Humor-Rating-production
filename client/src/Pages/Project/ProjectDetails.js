@@ -7,14 +7,13 @@ import { useEffect } from "react";
 
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
-  const createdProjectId = sessionStorage.getItem("createdProjectId");
-  const editProjectId = sessionStorage.getItem("editProjectId");
+  const projId = sessionStorage.getItem("projId")
   const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   const { projDetails, getProject } = useAppContext();
 
   useEffect(() => {
-    getProject(isEditing ? editProjectId : createdProjectId).then((data) => {
+    getProject(projId).then((data) => {
       setFormData({
         title:
           data.projDetails.title === "untitled" ? "" : data.projDetails.title,

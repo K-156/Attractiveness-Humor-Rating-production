@@ -49,7 +49,7 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
   const handleOnEdit = async (id) => {
     navigate("/projects/summary");
     sessionStorage.setItem("editMode", "edit");
-    sessionStorage.setItem("editProjectId", id);
+    sessionStorage.setItem("projId", id);
     const data = await getProject(id);
     const {sections, projDetails} = data;
     sessionStorage.setItem("templates", JSON.stringify(sections));

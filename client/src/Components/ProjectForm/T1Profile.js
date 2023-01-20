@@ -24,19 +24,22 @@ import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 const T1Profile = () => {
 
   const { submitFormData, data, getProject, sectionNum } = useAppContext();
-  const createdProjectId = sessionStorage.getItem("createdProjectId");
-  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  const projId = sessionStorage.getItem("projId")
+  const rolesList = JSON.parse(sessionStorage.getItem("roles"));
+  let roles = [];
+  rolesList.forEach((dict) => {
+    roles.push(dict["role"])
+  })
 
   const [formData, setFormData] = useState({});
   const [expanded, setExpanded] = useState({});
   const [isCategorise, setIsCategorise] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  
+
   useEffect(() => {
-    getProject(createdProjectId).then((project) => {
-      const { data } = project;
-      console.log(data)
-    })
+    getProject(projId)
     formatData(data);
     setIsLoading(false)
   }, [])
@@ -106,9 +109,6 @@ const T1Profile = () => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-
-  console.log(formData)
-  console.log(isCategorise)
 
   if (isLoading) {
     return <LoadingAnimation />

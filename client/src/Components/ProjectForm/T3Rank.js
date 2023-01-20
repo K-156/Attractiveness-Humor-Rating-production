@@ -15,15 +15,18 @@ import "./ProjectForm.css";
 
 const T3Rank = () => {
   const { submitFormData, data, getProject } = useAppContext();
-  const createdProjectId = sessionStorage.getItem("createdProjectId");
-  const roles = JSON.parse(sessionStorage.getItem("roles"));
-  const sectionNum = sessionStorage.getItem("sectionNum")
-  const editProjectId = sessionStorage.getItem("editProjectId");
+  const projId = sessionStorage.getItem("projId");
+  const sectionNum = sessionStorage.getItem("sectionNum");
   const isEditing =
     sessionStorage.getItem("editMode") === "edit" ? true : false;
+  const rolesList = JSON.parse(sessionStorage.getItem("roles"));
+  let roles = [];
+  rolesList.forEach((dict) => {
+    roles.push(dict["role"]);
+  });
 
   useEffect(() => {
-    getProject(isEditing ? editProjectId : createdProjectId).then((project) => {
+    getProject(projId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
         dictionary[aRole] = {
@@ -41,7 +44,6 @@ const T3Rank = () => {
   }, []);
 
   const [formData, setFormData] = useState({});
-
 
   useEffect(() => {
     submitFormData(formData);
@@ -109,12 +111,17 @@ const T3Rank = () => {
                         }}
                         sx={{ width: "180px" }}
                         value={
-                          formData[aRole]?.["characteristics"][type.toLowerCase()]
+                          formData[aRole]?.["characteristics"][
+                            type.toLowerCase()
+                          ]
                         }
                         InputLabelProps={{
                           shrink:
                             (isEditing ||
-                              formData[aRole]?.["characteristics"][type.toLowerCase()] !== "") && true,
+                              formData[aRole]?.["characteristics"][
+                                type.toLowerCase()
+                              ] !== "") &&
+                            true,
                         }}
                       />
                     );

@@ -11,32 +11,19 @@ import { templates } from "../../Utils/templateList";
 import LoadingAnimation from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Summary = () => {
-  const {
-    projDetails,
-    data,
-    sections,
-    createProject,
-    getProject,
-    isLoading,
-  } = useAppContext();
-
+  const { projDetails, data, createProject, getProject, isLoading } =
+    useAppContext();
   const navigate = useNavigate();
   const type = sessionStorage.getItem("editMode");
   const templateOrder = JSON.parse(sessionStorage.getItem("templates"));
-  const createdProjectId = sessionStorage.getItem("createdProjectId");
-  const editProjectId = sessionStorage.getItem("editProjectId");
-  const isEditing =
-    sessionStorage.getItem("editMode") === "edit" ? true : false;
+  const projId = sessionStorage.getItem("projId");
 
-  // remove old data 
-  localStorage.removeItem("projData")
+  // remove old data
+  localStorage.removeItem("projData");
 
   useEffect(() => {
-    if (isEditing) {
-      getProject(editProjectId);
-    } else {
-      getProject(createdProjectId);
-    }
+    sessionStorage.setItem("editMode", "edit");
+    getProject(projId);
   }, []);
 
   if (isLoading) {
@@ -66,7 +53,7 @@ const Summary = () => {
           content={projDetails}
           editLink="/projects/details"
         />
-        <Box className="flexEnd" sx={{mt: 2, mb: 1}}>
+        <Box className="flexEnd" sx={{ mt: 2, mb: 1 }}>
           <Button
             variant="contained"
             className="customButton-green"
@@ -75,28 +62,29 @@ const Summary = () => {
             Add/Reorder Sections
           </Button>
         </Box>
-        {data && _.map(data, (section, index) => {
-          const templateNum = templateOrder[index];
-          return (
-            <SummaryCard
-              header={`Section ${index + 1}: ${templates[templateNum]}`}
-              template={templates[templateNum]}
-              content={section?.[templateNum]}
-              editLink={`/projects/sections/${index + 1}`}
-              key={index}
-              index={index}
-            />
-          );
-        })}
-        {data.length === 0 && 
-            <SummaryCard
-              header="Section - No section added"
-              template={7}
-              content=""
-              editLink={`/projects/sections/`}
-              index={1}
-            />
-        }
+        {data &&
+          _.map(data, (section, index) => {
+            const templateNum = templateOrder[index];
+            return (
+              <SummaryCard
+                header={`Section ${index + 1}: ${templates[templateNum]}`}
+                template={templates[templateNum]}
+                content={section?.[templateNum]}
+                editLink={`/projects/sections/${index + 1}`}
+                key={index}
+                index={index}
+              />
+            );
+          })}
+        {data.length === 0 && (
+          <SummaryCard
+            header="Section - No section added"
+            template={7}
+            content=""
+            editLink={`/projects/sections/`}
+            index={1}
+          />
+        )}
       </ProjectLayout>
     </div>
   );

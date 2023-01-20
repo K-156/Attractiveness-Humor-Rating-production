@@ -14,7 +14,7 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
 
 const Section = () => {
-  const { formData, sections, isEditing, projDetails } = useAppContext();
+  const { formData, sections, isEditing } = useAppContext();
 
   const location = useLocation();
   const sectionNum = parseInt(location.pathname.split("/").pop());

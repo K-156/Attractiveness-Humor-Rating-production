@@ -21,7 +21,7 @@ const Projects = () => {
     const createdProjectId = await createProject();
     navigate("/projects/details");
     sessionStorage.setItem("editMode", "add");
-    sessionStorage.setItem("createdProjectId", createdProjectId);
+    sessionStorage.setItem("projId", createdProjectId);
     sessionStorage.setItem("sectionNum", 0);
   };
   const [deleteSuccess, setDeleteSuccess] = useState(false);

@@ -166,7 +166,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      createdProjectId: action.payload,
+      projId: action.payload,
     };
   }
   if (action.type === CREATE_PROJECT_ERROR) {
@@ -191,7 +191,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isEditing: true,
-      editProjectId: _id,
+      projId: _id,
       projDetails,
       data,
       sections,
@@ -217,7 +217,7 @@ const reducer = (state, action) => {
   if (action.type === SET_CREATE_PROJECT) {
     return {
       ...state,
-      createdProjectId: action.payload.id,
+      projId: action.payload.id,
     };
   }
 

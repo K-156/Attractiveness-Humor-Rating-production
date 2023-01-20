@@ -7,8 +7,6 @@ import AddableTwoFieldRoles from "../CustomFormFields/AddableTwoFieldRoles";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
 const ProfileFormCopy = ({ id, gender, role, setFormData, formData, templateNum }) => {
-  // console.log(id, role)
-  // console.log(formData[role][id])
 
   const [error, setError] = useState(false);
   const [textLimit, setTextLimit] = useState({

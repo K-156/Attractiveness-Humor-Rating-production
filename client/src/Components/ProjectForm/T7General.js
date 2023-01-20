@@ -18,14 +18,11 @@ import "./ProjectForm.css";
 
 const T7General = () => {
   const { submitFormData, data, getProject } = useAppContext();
-  const createdProjectId = sessionStorage.getItem("createdProjectId");
+  const projId = sessionStorage.getItem("projId")
   const sectionNum = sessionStorage.getItem("sectionNum");
-  const editProjectId = sessionStorage.getItem("editProjectId");
-  const isEditing =
-    sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   useEffect(() => {
-    getProject(isEditing ? editProjectId : createdProjectId).then((proj) => {
+    getProject(projId).then((proj) => {
       const { data } = proj;
       setFormData({
         text: data[sectionNum] ? data[sectionNum][7]?.text : "",
