@@ -1,11 +1,14 @@
-import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
+
+import { Box, Button } from "@mui/material";
+import _ from "lodash";
 
 import SummaryCard from "../../Components/SummaryCard/SummaryCard";
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
-import { useEffect } from "react";
-import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
+import LoadingAnimation from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Summary = () => {
   const {
@@ -17,6 +20,7 @@ const Summary = () => {
     isLoading,
   } = useAppContext();
 
+  const navigate = useNavigate();
   const type = sessionStorage.getItem("editMode");
   const templateOrder = JSON.parse(sessionStorage.getItem("templates"));
   const createdProjectId = sessionStorage.getItem("createdProjectId");
@@ -36,7 +40,7 @@ const Summary = () => {
   }, []);
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingAnimation />;
   }
 
   return (
@@ -62,6 +66,15 @@ const Summary = () => {
           content={projDetails}
           editLink="/projects/details"
         />
+        <Box className="flexEnd" sx={{mt: 2, mb: 1}}>
+          <Button
+            variant="contained"
+            className="customButton-green"
+            onClick={() => navigate("/projects/sections")}
+          >
+            Add/Reorder Sections
+          </Button>
+        </Box>
         {data && _.map(data, (section, index) => {
           const templateNum = templateOrder[index];
           return (
