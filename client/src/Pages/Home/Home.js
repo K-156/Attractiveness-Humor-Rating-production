@@ -14,6 +14,7 @@ const Home = () => {
   const navigate = useNavigate();
   const handleOnClick = (event) => {
     sessionStorage.setItem("role", event.target.id);
+    console.log(event)
     navigate(`/login`);
   };
 

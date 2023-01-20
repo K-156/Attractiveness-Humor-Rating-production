@@ -77,7 +77,7 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
               handleOnClick={handleOnClick}
               header={header}
             />
-          ) : header === "Project Details" ||
+          ) : header === "Project Details" || header === "Sections" ||
             header.toLowerCase().includes("template 7") ? (
             <GeneralContent content={content} handleOnClick={handleOnClick} />
           ) : (

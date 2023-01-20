@@ -10,7 +10,7 @@ const ProjectDetails = () => {
   const [formData, setFormData] = useState(sections);
 
   useEffect(() => {
-    sessionStorage.setItem("templates", formData);
+    sessionStorage.setItem("templates", JSON.stringify(formData));
   }, [formData]);
 
   return (

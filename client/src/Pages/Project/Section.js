@@ -20,7 +20,7 @@ const Section = () => {
   const sectionNum = parseInt(location.pathname.split("/").pop());
   const templateList = isEditing
     ? sections
-    : sessionStorage.getItem("templates").split(",");
+    : JSON.parse(sessionStorage.getItem("templates"));
   const currTemplate = parseInt(templateList[sectionNum - 1]);
   const roles = JSON.parse(sessionStorage.getItem("roles"));
 

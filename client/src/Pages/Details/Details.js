@@ -27,19 +27,25 @@ const Details = () => {
     user,
     theme,
     isLoading,
-    sectionNum,
     activeProjectId,
     setActiveProject,
     getProject,
+    sections
   } = useAppContext();
 
   const detailList = ["Sex", "Age", "Ethnicity"];
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  // const { data } = JSON.parse(localStorage.getItem("data"));
 
-  const { path } = links.find(
-    (link) => link.id == Object.keys(data[sectionNum])[0]
-  );
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId).then((proj) => {
+        const { data } = proj;
+      });
+    }
+  }, [activeProjectId]);
+
 
   const [formData, setFormData] = useState({
     sex: "",
@@ -51,13 +57,6 @@ const Details = () => {
 
   const [toSubmit, setToSubmit] = useState(false);
   const [ageError, setAgeError] = useState(false);
-
-  useEffect(() => {
-    setActiveProject();
-    if (activeProjectId !== "") {
-      getProject(activeProjectId);
-    }
-  }, [activeProjectId]);
 
   useEffect(() => {
     getIPStartTime();
@@ -89,7 +88,7 @@ const Details = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({ currentUser: { ...user, formData }, id: user._id });
-    navigate(path);
+    navigate(links.find((link) => link.id === sections[0]).path);
   };
 
   if (isLoading) {
