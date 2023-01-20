@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
 import ProjectDetailsForm from "../../Components/ProjectForm/ProjectDetailsForm";
@@ -45,6 +45,7 @@ const ProjectDetails = () => {
     graphic: projDetails?.graphic,
     graphicLink: projDetails?.graphicLink,
   });
+
 
   return (
     <div>

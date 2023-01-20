@@ -1,8 +1,11 @@
+import { useState, memo } from "react";
 import { useAppContext } from "../../Context/AppContext";
+
 import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
 import { MdFileUpload } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import _ from "lodash";
+
 import HomeSample from "./HomeSample";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
@@ -12,31 +15,30 @@ const UploadPreview = ({ setFormData, formData }) => {
   let fileLink = "";
 
   const [error, setError] = useState(false);
-  const [graphic, setGraphic] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const uploadFile = async (event) => {
     setIsLoading(true);
-    if (event.target.files !== undefined) {
+    const file = event.target.files;
+    if (file !== undefined && file.length !== 0) {
       if (formData["graphic"] !== null) {
         setError(true);
         return;
       }
+
+      fileLink = await uploadFiles(
+        isEditing
+          ? `${editProjectId}_projDetails_graphic`
+          : `${createdProjectId}_projDetails_graphic`,
+          file[0]
+      );
+
+      setFormData((state) => ({
+        ...state,
+        graphic: file[0].name,
+        graphicLink: fileLink,
+      }));
     }
-    fileLink = await uploadFiles(
-      isEditing
-        ? `${editProjectId}_projDetails_graphic`
-        : `${createdProjectId}_projDetails_graphic`,
-      event.target.files[0]
-    );
-
-    setFormData((state) => ({
-      ...state,
-      graphic: event.target.files[0].name,
-      graphicLink: fileLink,
-    }));
-
-    setGraphic(URL.createObjectURL(event.target.files[0]));
     setIsLoading(false);
   };
 
@@ -98,7 +100,7 @@ const UploadPreview = ({ setFormData, formData }) => {
             theme={formData["theme"]}
             title={formData["title"]}
             description={formData["description"]}
-            roleList={formData["roles"]}
+            roleList={_.map(formData["roles"], (role) => role["role"])}
             graphic={formData.graphicLink}
           />
         </Box>
@@ -107,4 +109,4 @@ const UploadPreview = ({ setFormData, formData }) => {
   );
 };
 
-export default UploadPreview;
+export default memo(UploadPreview);

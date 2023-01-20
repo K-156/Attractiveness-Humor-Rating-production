@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill } from "react-icons/bs";
 import _ from "lodash";
@@ -6,7 +8,6 @@ import { colorPalette } from "../../Utils/colorPalette";
 import "./HomeSample.css";
 
 const HomeSample = ({ theme, title, description, roleList, graphic }) => {
-  console.log(theme)
   return (
     <div className={`sampleBackground-${theme}`}>
       <Box className="flexEnd" sx={{ mb: 5, m: 1 }}>
@@ -73,4 +74,4 @@ const HomeSample = ({ theme, title, description, roleList, graphic }) => {
     </div>
   );
 };
-export default HomeSample;
+export default memo(HomeSample);
