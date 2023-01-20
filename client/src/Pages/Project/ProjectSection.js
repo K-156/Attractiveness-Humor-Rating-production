@@ -6,12 +6,23 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 
 const ProjectDetails = () => {
   const type = sessionStorage.getItem("editMode");
-  const { sections, projDetails } = useAppContext();
+  const {
+    sections,
+    getProject,
+    isEditing,
+    editProjectId,
+    createdProjectId,
+    data,
+  } = useAppContext();
   const [formData, setFormData] = useState(sections);
 
   useEffect(() => {
     sessionStorage.setItem("templates", JSON.stringify(formData));
   }, [formData]);
+
+  useEffect(() => {
+    getProject(isEditing ? editProjectId : createdProjectId);
+  }, []);
 
   return (
     <div>
@@ -32,10 +43,12 @@ const ProjectDetails = () => {
         formData={formData}
         nextDisabled={formData.length === 0}
       >
-        <AddSection 
-          formData={formData} 
-          setFormData={setFormData} 
+        <AddSection
+          formData={formData}
+          setFormData={setFormData}
           type={type}
+          data={data}
+          projId={isEditing ? editProjectId : createdProjectId}
         />
       </ProjectLayout>
     </div>

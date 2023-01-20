@@ -16,7 +16,7 @@ import { templates } from "../../Utils/templateList";
 import "./ProjectForm.css";
 import ReorderList from "../ReorderList/ReorderList";
 
-const AddSection = ({ formData, setFormData, type }) => {
+const AddSection = ({ formData, setFormData, type, data, projId }) => {
 
   const [error, setError] = useState({
     profile: false, rank: false
@@ -79,10 +79,12 @@ const AddSection = ({ formData, setFormData, type }) => {
               </TextField>
               <ReorderList 
                 formData={formData}
+                data={data}
                 setFormData={setFormData}
                 error={error}
                 setError={setError}
                 type={type}
+                projId={projId}
               />
             </Box>
           </Box>
