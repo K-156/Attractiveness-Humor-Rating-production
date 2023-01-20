@@ -1,5 +1,6 @@
 import { useAppContext } from "../../Context/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import { Box, Grid } from "@mui/material";
 import _ from "lodash";
@@ -10,16 +11,35 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const Profiles = () => {
-  const { sectionNum, nextSection, data } = useAppContext();
+  const {
+    sectionNum,
+    nextSection,
+    sections,
+    setActiveProject,
+    getProject,
+    activeProjectId,
+  } = useAppContext();
   const location = useLocation();
   const state = location.state;
   const navigate = useNavigate();
 
   const role = sessionStorage.getItem("role");
+  const data = JSON.parse(sessionStorage.getItem("data"))
 
-  const { path } = links.find(
-    (link) => link.id === Object.keys(data[sectionNum + 1])[0]
-  );
+
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId)
+    }
+  }, [activeProjectId]);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    nextSection();
+    navigate(links.find((link) => link.id === sections[sectionNum]).path);
+    // navigate(state["link"] ? state["link"] : path);
+  };
 
   let arr = [];
   let arrOfProfile = [];
@@ -28,11 +48,12 @@ const Profiles = () => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo === 1) {
-        arrOfProfile.push(sectionNum);
+      if (Number(templateNo) === 1) {
+        arrOfProfile.push(Number(sectionNum));
       }
     }
   }
+
   // find which profile to display
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
@@ -40,21 +61,12 @@ const Profiles = () => {
       dataToDisplay = data[element][1][role];
     }
   }
-
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key === 1 || key === 2 || key === 3 || key === 4) {
+    if (key === '1' || key === '2' || key === '3' || key === '4') {
       arr.push(value);
     }
   }
 
-  console.log(arr)
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    nextSection();
-    navigate(path)
-    navigate(state["link"] ? state["link"] : path);
-  };
 
   return (
     <div>
@@ -69,7 +81,7 @@ const Profiles = () => {
                 title={item.optionName}
                 img={item.link}
                 description={item.description}
-                candidateCount={arr.length}
+                candidateCount={arr?.length}
                 link={state["link"]}
               />
             </Grid>

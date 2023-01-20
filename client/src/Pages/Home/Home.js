@@ -21,7 +21,9 @@ const Home = () => {
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then((proj)=>{
+        sessionStorage.setItem("data",JSON.stringify(proj.data));
+      })
     }
   }, [activeProjectId]);
 
