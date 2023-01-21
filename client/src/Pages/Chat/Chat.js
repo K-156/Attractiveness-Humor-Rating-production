@@ -86,13 +86,14 @@ const Chat = ({ title, link }) => {
     }
   }
 
-  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0]) - 1;
+  const firstCandidate = Number(user.rank[rankToDisplay][0]) - 1;
   const lastCandidate =
     Number(
-      user.userResponse.rank[rankToDisplay][
-        user.userResponse.rank[rankToDisplay].length - 1
+      user.rank[rankToDisplay][
+        user.rank[rankToDisplay].length - 1
       ]
     ) - 1;
+
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -101,14 +102,11 @@ const Chat = ({ title, link }) => {
         ...user,
         userResponse: {
           ...user.userResponse,
-          prewrittenResponse: [
-            ...user.userResponse.prewrittenResponse,
-            selectMessage,
-          ],
+          [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]: selectMessage,
         },
       },
       id: user._id,
-    });
+    })
     if (title === "1") {
       navigate(link);
     } else {
@@ -132,6 +130,7 @@ const Chat = ({ title, link }) => {
         setSelectMessage={setSelectMessage}
         firstCandidate={arr[firstCandidate]}
         lastCandidate={arr[lastCandidate]}
+        title={title}
       />
       <Box className="spaceBetween" sx={{ mx: 5, my: 3 }}>
         <NextButton

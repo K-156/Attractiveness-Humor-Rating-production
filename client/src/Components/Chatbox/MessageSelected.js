@@ -31,7 +31,7 @@ const MessageSelected = ({ selectMessage, theme }) => {
                         borderRadius: "10px"
                     }}
                 >
-                    {selectMessage}
+                    {Object.values(selectMessage)}
                 </Typography>
                 <BsPersonCircle 
                     size="30px" 

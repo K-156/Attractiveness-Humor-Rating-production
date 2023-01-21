@@ -94,7 +94,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   const lastCandidate =
     Number(user.rank[rankToDisplay][user.rank[rankToDisplay].length - 1]) - 1;
 
-    console.log(rating)
+  console.log(rating);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -104,7 +104,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             ...user,
             userResponse: {
               ...user.userResponse,
-              [sectionNum]: rating,
+              [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]: rating,
             },
           },
           id: user._id,
@@ -114,7 +114,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             ...user,
             userResponse: {
               ...user.userResponse,
-              [sectionNum]: rating,
+              [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]: rating,
             },
           },
           id: user._id,

@@ -15,6 +15,7 @@ const ChatTemplate = ({
   link,
   firstCandidate,
   lastCandidate,
+  title,
 }) => {
   const { theme } = useAppContext();
 
@@ -40,6 +41,7 @@ const ChatTemplate = ({
                 setSelectMessage={setSelectMessage}
                 theme={colorPalette[theme]["primary"]}
                 themeHover={colorPalette[theme]["primaryLight"]}
+                title={title}
               />
             ) : (
               <MessageSelected
