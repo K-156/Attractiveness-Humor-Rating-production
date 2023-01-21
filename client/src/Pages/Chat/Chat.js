@@ -10,19 +10,32 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const Chat = ({ title, link }) => {
-  const { updateUser, nextSection, sectionNum, sections } = useAppContext();
+  const { updateUser, nextSection } = useAppContext();
   const navigate = useNavigate();
 
   const [selectMessage, setSelectMessage] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
-  const { path } =
-  data[sectionNum + 1] !== undefined
-    ? links.find((link) => link.id === sections[sectionNum + 1])
-    : links.find((link) => link.id === 8);
-  
+
+  const userGender = sessionStorage.getItem("userGender");
+  const gender = sessionStorage.getItem("gender");
+  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
+  const sections = JSON.parse(sessionStorage.getItem("sections"));
+
+  const oppGender = (userGender) => {
+    if (userGender === "female") {
+      return "Male";
+    } else {
+      return "Female";
+    }
+  };
+
+  const path =
+    data[sectionNum + 1] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+      : links.find((link) => link.id === 8);
 
   let arrOfRank = [];
   let rankToDisplay = 0;
@@ -31,7 +44,7 @@ const Chat = ({ title, link }) => {
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
       if (templateNo == 3) {
-        arrOfRank.push(sectionNum);
+        arrOfRank.push(Number(sectionNum));
       }
     }
   }
@@ -51,8 +64,8 @@ const Chat = ({ title, link }) => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo == 1) {
-        arrOfProfile.push(sectionNum);
+      if (Number(templateNo) === 1) {
+        arrOfProfile.push(Number(sectionNum));
       }
     }
   }
@@ -60,7 +73,10 @@ const Chat = ({ title, link }) => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1][role];
+      dataToDisplay =
+        data[element][1][role][
+          gender === "true" ? oppGender(userGender) : "NA"
+        ];
     }
   }
 
@@ -70,11 +86,13 @@ const Chat = ({ title, link }) => {
     }
   }
 
-  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0])-1;
+  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0]) - 1;
   const lastCandidate =
-    Number(user.userResponse.rank[rankToDisplay][
-      user.userResponse.rank[rankToDisplay].length - 1
-    ])-1;
+    Number(
+      user.userResponse.rank[rankToDisplay][
+        user.userResponse.rank[rankToDisplay].length - 1
+      ]
+    ) - 1;
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -95,6 +113,10 @@ const Chat = ({ title, link }) => {
       navigate(link);
     } else {
       nextSection();
+      sessionStorage.setItem(
+        "sectionNum",
+        Number(sessionStorage.getItem("sectionNum")) + 1
+      );
       navigate(path);
     }
   };

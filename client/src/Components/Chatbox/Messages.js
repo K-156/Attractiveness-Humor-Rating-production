@@ -5,10 +5,11 @@ import _ from "lodash";
 import "./Chatbox.css";
 
 const Messages = ({ setSelectMessage, theme, themeHover }) => {
-  const { data, sections } = JSON.parse(localStorage.getItem("data"));
+  
+  const data = JSON.parse(sessionStorage.getItem("data"));
+  const sections = JSON.parse(sessionStorage.getItem("sections"));
+  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
   const role = sessionStorage.getItem("role");
-
-  const { sectionNum } = useAppContext();
 
   return (
     <Box id="MessageOptions" sx={{ height: "120px", my:"12rem"}}>
