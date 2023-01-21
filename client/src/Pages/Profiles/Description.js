@@ -15,18 +15,29 @@ import PrevButton from "../../Components/NavButton/PrevButton";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Description = () => {
-  const { theme, sectionNum } = useAppContext();
+  const { theme, sectionNum, sections } = useAppContext();
 
   const location = useLocation();
   const navigate = useNavigate();
   const { id, candidateCount, link } = location.state;
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
+  const userGender = sessionStorage.getItem("userGender");
+  const gender = sessionStorage.getItem("gender");
+
+  const oppGender = (userGender) => {
+    if (userGender === "female") {
+      return "Male";
+    } else {
+      return "Female";
+    }
+  };
 
   const attributes =
-    data[sectionNum][Object.keys(data[sectionNum])[0]][role][Number(id) + 1]
-      .attributes;
+    data[sectionNum][1][role][gender === "true" ? oppGender(userGender) : "NA"][
+      Number(id) + 1
+    ].attributes;
 
   const handleOnChange = (event) => {
     const newId = parseInt(event.target.textContent);
@@ -54,7 +65,9 @@ const Description = () => {
                 <Box className="imageBox">
                   <img
                     src={
-                      data[sectionNum][Object.keys(data[sectionNum])[0]][role][Number(id) + 1].link
+                      data[sectionNum][1][role][
+                        gender === "true" ? oppGender(userGender) : "NA"
+                      ][Number(id) + 1].link
                     }
                     alt="profile"
                   />
@@ -64,7 +77,9 @@ const Description = () => {
                   sx={{ color: colorPalette[theme]["primary"] }}
                 >
                   {
-                    data[sectionNum][Object.keys(data[sectionNum])[0]][role][Number(id) + 1].optionName
+                    data[sectionNum][1][role][
+                      gender === "true" ? oppGender(userGender) : "NA"
+                    ][Number(id) + 1].optionName
                   }
                 </Typography>
               </Grid>

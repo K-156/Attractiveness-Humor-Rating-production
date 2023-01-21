@@ -25,7 +25,16 @@ const Profiles = () => {
 
   const role = sessionStorage.getItem("role");
   const data = JSON.parse(sessionStorage.getItem("data"))
+  const userGender = sessionStorage.getItem("userGender");
+  const gender = sessionStorage.getItem("gender");
 
+  const oppGender = (userGender) => {
+    if (userGender === "female") {
+      return "Male"
+    } else {
+      return "Female"
+    }
+  }
 
   useEffect(() => {
     setActiveProject();
@@ -48,7 +57,7 @@ const Profiles = () => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (Number(templateNo) === 1) {
+      if (Number(templateNo)=== 1) {
         arrOfProfile.push(Number(sectionNum));
       }
     }
@@ -58,7 +67,7 @@ const Profiles = () => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1][role];
+      dataToDisplay = data[element][1][role][gender === "true" ? oppGender(userGender) : "NA"];
     }
   }
   for (const [key, value] of Object.entries(dataToDisplay)) {
@@ -67,6 +76,7 @@ const Profiles = () => {
     }
   }
 
+  console.log(arr)
 
   return (
     <div>
@@ -79,10 +89,11 @@ const Profiles = () => {
               <ItemCard
                 id={index}
                 title={item.optionName}
-                img={item.link}
+                img={item?.link}
                 description={item.description}
                 candidateCount={arr?.length}
-                link={state["link"]}
+                gender={gender === "true" ? oppGender(userGender) : "NA"}
+                // link={state["link"]}
               />
             </Grid>
           );

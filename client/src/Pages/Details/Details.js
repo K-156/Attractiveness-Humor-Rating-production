@@ -85,6 +85,7 @@ const Details = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({ currentUser: { ...user, formData }, id: user._id });
+    sessionStorage.setItem("userGender", formData.sex);
     navigate(links.find((link) => link.id === sections[0]).path);
   };
 

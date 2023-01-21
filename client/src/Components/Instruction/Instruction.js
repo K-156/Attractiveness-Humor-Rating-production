@@ -8,9 +8,8 @@ import { colorPalette } from "../../Utils/colorPalette";
 const Instruction = ({ type }) => {
   const { theme, sectionNum, activeProjectId, setActiveProject, getProject } =
     useAppContext();
-
-  // const text = sessionStorage.getItem(type);
-  const { data, sections } = JSON.parse(localStorage.getItem("data"));
+  const sections= JSON.parse(sessionStorage.getItem("sections"));
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
 
   useEffect(() => {

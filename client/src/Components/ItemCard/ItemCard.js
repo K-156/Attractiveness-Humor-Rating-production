@@ -17,9 +17,7 @@ const ItemCard = ({ title, img, id, candidateCount, description, link }) => {
 
     const { theme } = useAppContext();
     const navigate = useNavigate();
-
     const handleOnClick = (event) => {
-        console.log("hi")
         navigate(`/profiles/${parseInt(event.target.id)+1}`, {
             state: {
                 id: `${event.target.id}`,

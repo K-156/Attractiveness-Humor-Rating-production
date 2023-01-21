@@ -20,7 +20,11 @@ const Home = () => {
 
   const handleOnClick = (event) => {
     sessionStorage.setItem("role", event.target.id);
-    console.log(event)
+    rolesList.forEach((dict) => {
+      if (dict["role"] === event.target.id) {
+        sessionStorage.setItem("gender", dict["isGender"])
+      }
+    })
     navigate(`/login`);
   };
 
@@ -29,6 +33,7 @@ const Home = () => {
     if (activeProjectId !== "") {
       getProject(activeProjectId).then((proj)=>{
         sessionStorage.setItem("data",JSON.stringify(proj.data));
+        sessionStorage.setItem("sections",JSON.stringify(proj.sections));
       })
     }
   }, [activeProjectId]);
