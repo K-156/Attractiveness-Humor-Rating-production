@@ -24,9 +24,9 @@ const Overview = () => {
     const { projDetails } = project;
     options.push(`${project._id}: ${projDetails.title}`);
   });
-  const [projectId, setProjectId] = useState(options[0]);
+  const [projectId, setProjectId] = useState(currentProjId);
 
-  const test = [];
+  const displayData = [];
   _.map(users, (user) => {
     const dict = {};
     dict["_id"] = user["_id"];
@@ -35,10 +35,8 @@ const Overview = () => {
         dict[key] = value;
       }
     });
-    test.push(dict);
+    displayData.push(dict);
   });
-
-  console.log(test);
 
   const handleOnClick = async () => {
     // filter according to project id
@@ -89,7 +87,7 @@ const Overview = () => {
           Search
         </Button>
       </Box>
-      <OverviewTable data={test} projectId={projectId} users={users} />
+      <OverviewTable data={displayData} projectId={projectId}/>
     </div>
   );
 };
@@ -98,7 +96,7 @@ export default Overview;
 
 const data = [
   {
-    id_: 1,
+    _id: 1,
     option1_rank: 7,
     option2_rank: 8,
     option3_rank: 5,
@@ -110,7 +108,7 @@ const data = [
     best_q5: 2,
   },
   {
-    id_: 2,
+    _id: 2,
     option1_rank: 4,
     option2_rank: 2,
     option3_rank: 1,
@@ -122,7 +120,7 @@ const data = [
     best_q5: 8,
   },
   {
-    id_: 3,
+    _id: 3,
     option1_rank: 4,
     option2_rank: 2,
     option3_rank: 1,
@@ -134,7 +132,7 @@ const data = [
     best_q5: 8,
   },
   {
-    id_: 4,
+    _id: 4,
     option1_rank: 7,
     option2_rank: 8,
     option3_rank: 5,
@@ -146,7 +144,7 @@ const data = [
     best_q5: 2,
   },
   {
-    id_: 5,
+    _id: 5,
     option1_rank: 4,
     option2_rank: 2,
     option3_rank: 1,

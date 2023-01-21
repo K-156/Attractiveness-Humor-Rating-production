@@ -8,15 +8,8 @@ import {
 import _ from "lodash";
 import moment from "moment";
 
-const OverviewTable = ({ data, projectId, users }) => {
-  // const columns = [];
-
-  // _.map(users[0]?.userResponse, (value, key) => {
-  //   _.map(Object.keys(value), (key) => {
-  //     columns.push(key);
-  //   });
-  // });
-
+const OverviewTable = ({ data, projectId }) => {
+  console.log(data);
   const [pageSize, setPageSize] = useState(5);
 
   const CustomToolBar = () => {
@@ -57,20 +50,17 @@ const OverviewTable = ({ data, projectId, users }) => {
       disableSelectionOnClick
       rows={data}
       getRowId={(row) => row["_id"]}
-      // columns={columns.forEach((element) => {
-      //   return {
-      //     key: element,
-      //     field:element,
-      //     headerName: element === "_id" ? "User ID" : element,
-      //   };
-      // })}
-      columns={_.map(Object.keys(data[0]), (key) => {
-        return {
-          key: key,
-          field: key,
-          headerName: key === "_id" ? "User ID" : key,
-        };
-      })}
+      columns={
+        data.length === 0
+          ? []
+          : _.map(Object.keys(data[0]), (key) => {
+              return {
+                key: key,
+                field: key,
+                headerName: key === "_id" ? "User ID" : key,
+              };
+            })
+      }
       componentsProps={{
         Toolbar: {
           sx: {
