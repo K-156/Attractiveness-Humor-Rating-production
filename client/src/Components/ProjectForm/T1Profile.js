@@ -116,6 +116,8 @@ const T1Profile = () => {
     submitFormData(formData);
   }, [formData]);
 
+  console.log(formData)
+
   if (isLoading) {
     return <LoadingAnimation />;
   }

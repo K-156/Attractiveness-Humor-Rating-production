@@ -53,6 +53,7 @@ const NextButton = ({
     if (projectType === "projData") {
       nextSection()
       sessionStorage.setItem("sectionNum", Number(sessionStorage.getItem("sectionNum"))+1);
+      console.log('hi')
       let arr = JSON.parse(localStorage.getItem("projData"))
         ? JSON.parse(localStorage.getItem("projData"))
         : [];

@@ -76,7 +76,7 @@ const Summary = () => {
               />
             );
           })}
-        {data.length === 0 && (
+        {data?.length === 0 && (
           <SummaryCard
             header="Section - No section added"
             template={7}

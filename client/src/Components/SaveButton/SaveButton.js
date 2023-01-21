@@ -5,14 +5,15 @@ import { Box, Button } from "@mui/material";
 
 const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
   const { updateProject, data } = useAppContext();
-  const editProjectId = sessionStorage.getItem("editProjectId");
+  const projId = sessionStorage.getItem("projId");
 
   const navigate = useNavigate();
   const handleSubmit = (formData) => {
     if (projectType === "projDetails") {
-      updateProject(editProjectId, projectType, formData);
+      updateProject(projId, projectType, formData);
     }
     if (projectType === "projData") {
+      console.log('hi')
       let arr = data;
       let dict = {};
       dict[templateNum] = formData;
@@ -21,9 +22,9 @@ const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
       } else {
         arr[sectionNum - 1] = dict;
       }
-      updateProject(editProjectId, projectType, arr);
+      updateProject(projId, projectType, arr);
     } else {
-      updateProject(editProjectId, projectType, formData);
+      updateProject(projId, projectType, formData);
     }
     navigate("/projects/summary");
   };

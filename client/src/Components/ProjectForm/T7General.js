@@ -17,7 +17,7 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T7General = () => {
-  const { submitFormData, data, getProject } = useAppContext();
+  const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId")
   const sectionNum = sessionStorage.getItem("sectionNum");
 
