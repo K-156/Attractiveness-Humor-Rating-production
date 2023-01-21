@@ -16,15 +16,16 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 
-const AudioForm = ({ data, setRating, isWritten }) => {
+const AudioForm = ({ data, setRating, isWritten, title }) => {
 
   const [listen, setListen] = useState(false);
+  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
+
+  const type = title === "1" ? "best" : "worst";
 
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-
-
     setRating((state) => ({
       ...state,
       [name]: value
@@ -32,7 +33,6 @@ const AudioForm = ({ data, setRating, isWritten }) => {
   };
 
   let arr = [];
-
   for (const [key, value] of Object.entries(data)) {
     arr.push(value)
   }
@@ -97,7 +97,7 @@ const AudioForm = ({ data, setRating, isWritten }) => {
                               required
                               fullWidth
                               select
-                              name={isWritten ? `intro_q${index + 1}` : `audio_q${index + 1}`}
+                              name={isWritten ? `${type}_intro_q${index + 1}_${sectionNum}` : `${type}_audio_q${index + 1}_${sectionNum}`}
                               label="Rate"
                               defaultValue=""
                               onChange={handleOnChange}

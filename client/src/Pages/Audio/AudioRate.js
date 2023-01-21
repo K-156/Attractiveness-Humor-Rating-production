@@ -212,6 +212,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             data={data[sectionNum][sections[sectionNum]][role].questions}
             setRating={setRating}
             isWritten={isWritten}
+            title={title}
           />
         </Grid>
         <Grid item xs={12} className="spaceBetween" sx={{ py: 3, px: 9 }}>
