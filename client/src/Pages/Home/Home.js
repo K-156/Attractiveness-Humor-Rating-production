@@ -12,6 +12,12 @@ const Home = () => {
   const { getProject, setActiveProject, activeProjectId, theme, projDetails } =
     useAppContext();
   const navigate = useNavigate();
+  const rolesList = projDetails.roles
+  let roles = [];
+  rolesList.forEach((dict) => {
+    roles.push(dict["role"]);
+  });
+
   const handleOnClick = (event) => {
     sessionStorage.setItem("role", event.target.id);
     console.log(event)
@@ -57,7 +63,7 @@ const Home = () => {
           </Typography>
           <Grid container gap={1}>
             <Grid item xs={12} className="center" sx={{ my: 1 }}>
-              {projDetails?.roles.length === 0 ? (
+              {roles.length === 0 ? (
                 <Button
                   id="start"
                   onClick={handleOnClick}
@@ -77,8 +83,8 @@ const Home = () => {
                 </Typography>
               )}
             </Grid>
-            {projDetails?.roles.length > 0 &&
-              _.map(projDetails?.roles, (role) => {
+            {roles.length > 0 &&
+              _.map(roles, (role) => {
                 return (
                   <Grid item xs={5.5} className="center" key={role}>
                     <Button

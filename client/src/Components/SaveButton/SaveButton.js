@@ -13,7 +13,6 @@ const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
       updateProject(projId, projectType, formData);
     }
     if (projectType === "projData") {
-      console.log('hi')
       let arr = data;
       let dict = {};
       dict[templateNum] = formData;

@@ -18,6 +18,7 @@ import { GrClose } from "react-icons/gr";
 import OptionsContent from "./OptionsContent";
 import GeneralContent from "./GeneralContent";
 import GeneralContentRoles from "./GeneralContentRoles";
+import OptionsContentRoles from "./OptionsContentRoles";
 
 const SummaryCard = ({ header, content, editLink, template, index }) => {
   const {
@@ -70,14 +71,19 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
               />
             </Button>
           </Box>
-          {header.toLowerCase().includes("template 1") ||
-          header.toLowerCase().includes("template 3") ? (
+          {header.toLowerCase().includes("template 3") ? (
             <OptionsContent
               content={content}
               handleOnClick={handleOnClick}
               header={header}
             />
-          ) : header === "Project Details" || header === "Sections" ||
+          ) : header.toLowerCase().includes("template 1") ? (
+            <OptionsContentRoles
+              content={content}
+              handleOnClick={handleOnClick}
+              header={header}
+            />
+          ) : header === "Project Details" ||
             header.toLowerCase().includes("template 7") ? (
             <GeneralContent content={content} handleOnClick={handleOnClick} />
           ) : (

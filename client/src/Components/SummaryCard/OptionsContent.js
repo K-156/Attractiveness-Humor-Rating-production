@@ -16,6 +16,8 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
           })
         );
 
+        console.log(optionContent)
+
         return (
           <>
             <Box className="twoColumns">

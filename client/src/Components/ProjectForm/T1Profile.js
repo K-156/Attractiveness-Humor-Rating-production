@@ -78,7 +78,7 @@ const T1Profile = () => {
           [aRole]: {
             ...state[aRole],
             [gender]: {
-              ...state[aRole][gender],
+              ...state[aRole]?.[gender],
               [num]: {
                 optionName: data[sectionNum]
                   ? data[sectionNum]?.[1][aRole][num].optionName
@@ -103,7 +103,7 @@ const T1Profile = () => {
           [aRole]: {
             ...state[aRole],
             [gender]: {
-              ...state[aRole][gender],
+              ...state[aRole]?.[gender],
               [num]: false,
             },
           },

@@ -55,8 +55,6 @@ const GeneralContent = ({ content, handleOnClick }) => {
                       </Typography>
                     );
                   } else if (key === "roles") {
-                    console.log(value)
-                    console.log(aValue)
                     return (
                       <Typography
                         key={key}
