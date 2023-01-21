@@ -33,16 +33,14 @@ import Error404 from "./Pages/Error404/Error404";
 import Participants from "./Pages/Participants/Participants";
 import ConsentForm from "./Pages/ConsentForm/ConsentForm";
 
-
 function App() {
-
   return (
     <div id="app">
       <CssBaseline />
       <Router>
         <Routes>
-          <Route element={<GeneralLayout />} >
-            <Route path="/" element={<Home />}  />
+          <Route element={<GeneralLayout />}>
+            <Route path="/" element={<Home />} />
             <Route path="*" element={<Error404 />} />
             <Route path="/login" element={<Login />} />
             <Route path="/alogin" element={<AdminLogin />} />
@@ -77,6 +75,16 @@ function App() {
             />
             <Route path="/profiles" element={<Profiles />} />
             <Route path="/profiles/:id" element={<Description />} />
+            <Route
+              path="/attractive-rate-instruction"
+              element={
+                <InstructionPage
+                  key="attractive"
+                  type="attractive"
+                  link="/attractive/rate"
+                />
+              }
+            />
             <Route path="/attractive/rate" element={<AttractiveRate />} />
             <Route
               path="/rank-instruction"
@@ -157,11 +165,13 @@ function App() {
           <Route path="/complete" element={<General />} />
 
           {/* Admin */}
-          <Route element={
-            // <ProtectedRoute>
+          <Route
+            element={
+              // <ProtectedRoute>
               <DashboardLayout />
-            // </ProtectedRoute>
-          }>
+              // </ProtectedRoute>
+            }
+          >
             <Route path="/overview" element={<Overview />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/details" element={<ProjectDetails />} />

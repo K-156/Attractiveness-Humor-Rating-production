@@ -25,6 +25,7 @@ const Home = () => {
         sessionStorage.setItem("gender", dict["isGender"])
       }
     })
+    sessionStorage.setItem("sectionNum",0)
     navigate(`/login`);
   };
 

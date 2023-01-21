@@ -10,7 +10,6 @@ import "./InstructionPage.css";
 const InstructionPage = ({ type, link }) => {
   const {
     theme,
-    sectionNum,
     data,
     activeProjectId,
     setActiveProject,
@@ -18,6 +17,7 @@ const InstructionPage = ({ type, link }) => {
     sections,
   } = useAppContext();
   const role = sessionStorage.getItem("role");
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   useEffect(() => {
     setActiveProject();

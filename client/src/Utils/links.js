@@ -1,6 +1,6 @@
 const links = [
   { id: 1, path: "/attractive-instruction" },
-  { id: 2, path: "/attractive/rate" },
+  { id: 2, path: "/attractive-rate-instruction" },
   { id: 3, path: "/rank-instruction" },
   { id: 4, path: "/audio-instruction" },
   { id: 5, path: "/intro-instruction" },

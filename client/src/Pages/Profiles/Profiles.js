@@ -12,7 +12,6 @@ import links from "../../Utils/links";
 
 const Profiles = () => {
   const {
-    sectionNum,
     nextSection,
     sections,
     setActiveProject,
@@ -24,29 +23,36 @@ const Profiles = () => {
   const navigate = useNavigate();
 
   const role = sessionStorage.getItem("role");
-  const data = JSON.parse(sessionStorage.getItem("data"))
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const userGender = sessionStorage.getItem("userGender");
   const gender = sessionStorage.getItem("gender");
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   const oppGender = (userGender) => {
     if (userGender === "female") {
-      return "Male"
+      return "Male";
     } else {
-      return "Female"
+      return "Female";
     }
-  }
+  };
 
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId)
+      getProject(activeProjectId);
     }
   }, [activeProjectId]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     nextSection();
-    navigate(links.find((link) => link.id === sections[sectionNum]).path);
+    sessionStorage.setItem(
+      "sectionNum",
+      Number(sessionStorage.getItem("sectionNum")) + 1
+    );
+    navigate(
+      links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+    );
     // navigate(state["link"] ? state["link"] : path);
   };
 
@@ -57,7 +63,7 @@ const Profiles = () => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (Number(templateNo)=== 1) {
+      if (Number(templateNo) === 1) {
         arrOfProfile.push(Number(sectionNum));
       }
     }
@@ -67,16 +73,17 @@ const Profiles = () => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1][role][gender === "true" ? oppGender(userGender) : "NA"];
+      dataToDisplay =
+        data[element][1][role][
+          gender === "true" ? oppGender(userGender) : "NA"
+        ];
     }
   }
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key === '1' || key === '2' || key === '3' || key === '4') {
+    if (key === "1" || key === "2" || key === "3" || key === "4") {
       arr.push(value);
     }
   }
-
-  console.log(arr)
 
   return (
     <div>

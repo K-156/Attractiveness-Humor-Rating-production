@@ -12,18 +12,29 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const AttractiveRate = () => {
-  const { updateUser, user, sectionNum, nextSection, theme, prevSection } =
+  const { updateUser, user, nextSection, theme, prevSection, sections} =
     useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
+  const userGender = sessionStorage.getItem("userGender");
+  const gender = sessionStorage.getItem("gender");
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
-  const { path } =
-    data[sectionNum + 1] !== undefined
-      ? links.find((link) => link.id == Object.keys(data[sectionNum + 1])[0])
+  const oppGender = (userGender) => {
+    if (userGender === "female") {
+      return "Male";
+    } else {
+      return "Female";
+    }
+  };;
+
+  const path =
+    data[sections[Number(sectionNum) + 1]] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
       : links.find((link) => link.id === 8);
 
   let arr = [];
@@ -33,16 +44,19 @@ const AttractiveRate = () => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo == 1) {
-        arrOfProfile.push(sectionNum);
+      if (Number(templateNo) === 1) {
+        arrOfProfile.push(Number(sectionNum));
       }
     }
   }
   // find which profile to display
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
-    if (element < sectionNum) {
-      dataToDisplay = data[element][1][role];
+    if (element <= sectionNum) {
+      dataToDisplay =
+        data[element][1][role][
+          gender === "true" ? oppGender(userGender) : "NA"
+        ];
     }
   }
 
@@ -79,6 +93,10 @@ const AttractiveRate = () => {
       id: user._id,
     });
     nextSection();
+    sessionStorage.setItem(
+      "sectionNum",
+      Number(sessionStorage.getItem("sectionNum")) + 1
+    );
     navigate(path);
   };
 

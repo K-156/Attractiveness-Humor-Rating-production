@@ -15,7 +15,7 @@ import PrevButton from "../../Components/NavButton/PrevButton";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Description = () => {
-  const { theme, sectionNum, sections } = useAppContext();
+  const { theme } = useAppContext();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ const Description = () => {
   const role = sessionStorage.getItem("role");
   const userGender = sessionStorage.getItem("userGender");
   const gender = sessionStorage.getItem("gender");
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   const oppGender = (userGender) => {
     if (userGender === "female") {

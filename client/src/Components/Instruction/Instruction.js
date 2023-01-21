@@ -6,11 +6,12 @@ import { Button, Tooltip } from "@mui/material";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Instruction = ({ type }) => {
-  const { theme, sectionNum, activeProjectId, setActiveProject, getProject } =
+  const { theme, activeProjectId, setActiveProject, getProject } =
     useAppContext();
   const sections= JSON.parse(sessionStorage.getItem("sections"));
   const data = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   useEffect(() => {
     setActiveProject();
