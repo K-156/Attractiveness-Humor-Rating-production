@@ -30,7 +30,7 @@ const AttractiveRate = () => {
     } else {
       return "Female";
     }
-  };;
+  };
 
   const path =
     data[sections[Number(sectionNum) + 1]] !== undefined

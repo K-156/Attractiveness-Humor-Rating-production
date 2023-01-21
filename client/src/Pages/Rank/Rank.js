@@ -50,7 +50,6 @@ const mockdata = [
 const Rank = () => {
   const {
     theme,
-    sectionNum,
     updateUser,
     user,
     nextSection,
@@ -60,11 +59,23 @@ const Rank = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
-  const { path } =
-    data[sectionNum + 1] !== undefined
-      ? links.find((link) => link.id === sections[sectionNum + 1])
+  const userGender = sessionStorage.getItem("userGender");
+  const gender = sessionStorage.getItem("gender");
+  const sectionNum = sessionStorage.getItem("sectionNum");
+
+  const oppGender = (userGender) => {
+    if (userGender === "female") {
+      return "Male";
+    } else {
+      return "Female";
+    }
+  };
+
+  const path =
+    data[sections[Number(sectionNum) + 1]] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
       : links.find((link) => link.id === 8);
 
   let arr = [];
@@ -74,8 +85,8 @@ const Rank = () => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo === 1) {
-        arrOfProfile.push(sectionNum);
+      if (Number(templateNo) === 1) {
+        arrOfProfile.push(Number(sectionNum));
       }
     }
   }
@@ -83,16 +94,20 @@ const Rank = () => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1][role];
+      dataToDisplay =
+        data[element][1][role][
+          gender === "true" ? oppGender(userGender) : "NA"
+        ];
     }
   }
 
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key === 1 || key === 2 || key === 3 || key === 4) {
-      value["_id"] = key;
+    if (key == 1 || key == 2 || key == 3 || key == 4) {
+      value["_id"] = Number(key);
       arr.push(value);
     }
   }
+
 
   const [allItems, setAllItems] = useState(arr);
   const [items, setItems] = useState(arr);
@@ -111,6 +126,10 @@ const Rank = () => {
       id: user._id,
     });
     nextSection();
+    sessionStorage.setItem(
+      "sectionNum",
+      Number(sessionStorage.getItem("sectionNum")) + 1
+    );
     navigate(path);
   };
 
