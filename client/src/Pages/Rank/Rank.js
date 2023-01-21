@@ -109,7 +109,7 @@ const Rank = () => {
   const rankDict = {};
   rankItems.map((item, index) => {
     const result = rankItems.indexOf(index + 1);
-    rankDict[`option${index + 1}_rank`] = result + 1;
+    rankDict[`option${index + 1}_rank_${sectionNum}`] = result + 1;
   });
 
   console.log(rankDict);
