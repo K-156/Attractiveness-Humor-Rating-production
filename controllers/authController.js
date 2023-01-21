@@ -8,23 +8,21 @@ import {
 } from "../errors/index.js";
 
 const generateOTP = (email) => {
-
   const secret = email;
   const token = authenticator.generate(secret);
-  return token
-
+  return token;
 };
 
 const register = async (req, res) => {
   const { email } = req.body;
-  
+
   const userAlreadyExists = await User.findOne({ email });
   if (userAlreadyExists) {
     throw new BadRequestError("Email already in use");
   }
 
-  const otp = generateOTP(email)
-  const user = await User.create({...req.body, otp});
+  const otp = generateOTP(email);
+  const user = await User.create({ ...req.body, otp });
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({ user, token });
 };
@@ -52,7 +50,7 @@ const login = async (req, res) => {
   // if (!email || !password) {
   //   throw new BadRequestError("Please provide all values");
   // }
-  const user = await User.findOne({ otp })
+  const user = await User.findOne({ otp });
   if (!user) {
     throw new UnAuthenticatedError("User does not exist");
   }
@@ -69,7 +67,7 @@ const updateUser = async (req, res) => {
   // const { id: userId } = req.params;
   console.log(req.body);
 
-  const { userResponse, role } = req.body;
+  const { userResponse, role, rank } = req.body;
 
   const user = await User.findOne({ _id: req.user.userId }).select("+password");
 
@@ -78,6 +76,7 @@ const updateUser = async (req, res) => {
   user.ethnicity = req.body.formData?.ethnicity;
   user.userResponse = userResponse;
   user.role = role;
+  user.rank = rank;
 
   await user.save();
   const token = user.createJWT();
@@ -124,9 +123,9 @@ const deleteAllUsers = async (req, res) => {
     throw new NotFoundError(`No users with id ${users}`);
   }
 
-  users.forEach((user)=>{
+  users.forEach((user) => {
     user.remove();
-  })
+  });
 
   res.status(StatusCodes.OK).json({ msg: "Success! User deleted" });
 };

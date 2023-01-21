@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
+import { useEffect } from "react";
 
 import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import _ from "lodash";
@@ -7,7 +8,17 @@ import _ from "lodash";
 import OverviewTable from "../../Components/Tables/OverviewTable";
 
 const Overview = () => {
-  const { projects } = useAppContext();
+  const {
+    projects,
+    getProject,
+    getUsersByProjId,
+    setCreateProject,
+    users,
+    getAllProjects,
+  } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const currentProjId = sessionStorage.getItem("projId");
+
   const options = [];
   _.map(projects, (project) => {
     const { projDetails } = project;
@@ -15,9 +26,42 @@ const Overview = () => {
   });
   const [projectId, setProjectId] = useState(options[0]);
 
-  const handleOnClick = () => {
+  const test = [];
+  _.map(users, (user) => {
+    const dict = {};
+    dict["_id"] = user["_id"];
+    _.map(user?.userResponse, (arr) => {
+      for (const [key, value] of Object.entries(arr)) {
+        dict[key] = value;
+      }
+    });
+    test.push(dict);
+  });
+
+  console.log(test);
+
+  const handleOnClick = async () => {
     // filter according to project id
+    setIsLoading(true);
+    setCreateProject(projectId?.split(":")[0]);
+    sessionStorage.setItem("projId", projectId);
+    await getProject(projectId.split(":")[0]);
+    await getUsersByProjId(projectId.split(":")[0]);
+    setIsLoading(false);
   };
+
+  useEffect(() => {
+    getAllProjects();
+    if (currentProjId !== undefined) {
+      setCreateProject(currentProjId?.split(":")[0]);
+      getProject(currentProjId?.split(":")[0]);
+      getUsersByProjId(currentProjId?.split(":")[0]);
+    } else {
+      setCreateProject(projectId?.split(":")[0]);
+      getProject(projectId?.split(":")[0]);
+      getUsersByProjId(projectId?.split(":")[0]);
+    }
+  }, []);
 
   return (
     <div>
@@ -45,7 +89,7 @@ const Overview = () => {
           Search
         </Button>
       </Box>
-      <OverviewTable data={data} projectId={projectId} />
+      <OverviewTable data={test} projectId={projectId} users={users} />
     </div>
   );
 };

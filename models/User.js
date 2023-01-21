@@ -46,12 +46,13 @@ const UserSchema = new mongoose.Schema(
       trim: true,
     },
     userResponse: {
-      attractivenessRating: [],
-      rank: [],
-      audioRating: [],
-      writtenIntroRating: [],
-      prewrittenResponse: [],
+      // attractivenessRating: [],
+      // rank: [],
+      // audioRating: [],
+      // writtenIntroRating: [],
+      // prewrittenResponse: [],
     },
+    rank:[],
   },
   {
     timestamps: true,

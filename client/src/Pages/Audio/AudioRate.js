@@ -24,7 +24,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   const userGender = sessionStorage.getItem("userGender");
   const gender = sessionStorage.getItem("gender");
   const sectionNum = Number(sessionStorage.getItem("sectionNum"));
-  const sections = JSON.parse(sessionStorage.getItem("sections"))
+  const sections = JSON.parse(sessionStorage.getItem("sections"));
 
   const oppGender = (userGender) => {
     if (userGender === "female") {
@@ -35,7 +35,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   };
 
   const path =
-    data[sectionNum+1] !== undefined
+    data[sectionNum + 1] !== undefined
       ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
       : links.find((link) => link.id === 8);
 
@@ -90,13 +90,11 @@ const AudioRate = ({ title, link, isWritten }) => {
     }
   }
 
-  const firstCandidate = Number(user.userResponse.rank[rankToDisplay][0]) - 1;
+  const firstCandidate = Number(user.rank[rankToDisplay][0]) - 1;
   const lastCandidate =
-    Number(
-      user.userResponse.rank[rankToDisplay][
-        user.userResponse.rank[rankToDisplay].length - 1
-      ]
-    ) - 1;
+    Number(user.rank[rankToDisplay][user.rank[rankToDisplay].length - 1]) - 1;
+
+    console.log(rating)
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -106,10 +104,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             ...user,
             userResponse: {
               ...user.userResponse,
-              writtenIntroRating: [
-                ...user.userResponse.writtenIntroRating,
-                rating,
-              ],
+              [sectionNum]: rating,
             },
           },
           id: user._id,
@@ -119,11 +114,12 @@ const AudioRate = ({ title, link, isWritten }) => {
             ...user,
             userResponse: {
               ...user.userResponse,
-              audioRating: [...user.userResponse.audioRating, rating],
+              [sectionNum]: rating,
             },
           },
           id: user._id,
         });
+
     if (title === "1") {
       navigate(link);
     } else {

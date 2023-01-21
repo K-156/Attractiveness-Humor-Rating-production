@@ -27,7 +27,6 @@ const RatingCard = ({ title, img, id, setRating, description }) => {
             ...state, 
             [String(id)] : event.target.value
         }))
-
     }
     
     return(

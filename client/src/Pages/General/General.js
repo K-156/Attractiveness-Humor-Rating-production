@@ -1,6 +1,7 @@
 import { useAppContext } from "../../Context/AppContext";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import NextButton from "../../Components/NavButton/NextButton";
@@ -8,28 +9,35 @@ import { colorPalette } from "../../Utils/colorPalette";
 import links from "../../Utils/links";
 import { getCurrentTime } from "../../Utils/getCurrentTime";
 
-const text = "Thank you for completing the survey.\nYour responses have been submitted.\n\nHave a nice day!";
+const text =
+  "Thank you for completing the survey.\nYour responses have been submitted.\n\nHave a nice day!";
 
 const General = () => {
-  const { removeUserFromLocalStorage, theme, sectionNum } = useAppContext();
+  const { removeUserFromLocalStorage, theme } = useAppContext();
   const location = useLocation();
 
-  const { data, sections } = JSON.parse(localStorage.getItem("data"));
-  let { path } = "/"
+  const data = JSON.parse(sessionStorage.getItem("data"));
+  const sections = JSON.parse(sessionStorage.getItem("sections"));
+  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
 
-  if (sectionNum !== sections.length) {
-    path = links.find((link) => link.id === sections[sectionNum + 1]);
+  let path = "/";
+  if (sectionNum + 1 !== sections.length) {
+    path = links.find(
+      (link) => link.id === sections[Number(sectionNum) + 1]
+    ).path;
   }
 
   const [endTime, setEndTime] = useState();
-  if (location.pathname.includes("complete")) {
-    setEndTime(getCurrentTime);
-  }
+  useEffect(() => {
+    if (location.pathname.includes("complete")) {
+      setEndTime(getCurrentTime);
+    }
+  }, []);
 
-  //   setTimeout(() => {
-  //     removeUserFromLocalStorage();
-  //   }, 300);
-  //   sessionStorage.clear();
+  // setTimeout(() => {
+  //   removeUserFromLocalStorage();
+  // }, 300);
+  // sessionStorage.clear();
 
   return (
     <div
@@ -64,7 +72,7 @@ const General = () => {
         </Card>
       </Box>
       {data[sectionNum][sections[sectionNum]].isNext === "true" && (
-        <Box className="flexEnd" sx={{ py: 3, width: "80%", px:6 }}>
+        <Box className="flexEnd" sx={{ py: 3, width: "80%", px: 6 }}>
           <NextButton isSurvey={true} link={path} />
         </Box>
       )}

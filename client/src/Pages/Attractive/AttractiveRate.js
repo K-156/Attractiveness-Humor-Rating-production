@@ -12,7 +12,7 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const AttractiveRate = () => {
-  const { updateUser, user, nextSection, theme, prevSection, sections} =
+  const { updateUser, user, nextSection, theme, prevSection, sections } =
     useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
@@ -84,10 +84,7 @@ const AttractiveRate = () => {
         ...user,
         userResponse: {
           ...user.userResponse,
-          attractivenessRating: [
-            ...user.userResponse.attractivenessRating,
-            rating,
-          ],
+          [sectionNum]: rating,
         },
       },
       id: user._id,
@@ -118,7 +115,7 @@ const AttractiveRate = () => {
           return (
             <Grid item key={index} xs={3}>
               <RatingCard
-                id={index}
+                id={`option${index + 1}_rate`}
                 title={item.optionName}
                 img={item.link}
                 description={item.description}

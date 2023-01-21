@@ -48,14 +48,8 @@ const mockdata = [
 ];
 
 const Rank = () => {
-  const {
-    theme,
-    updateUser,
-    user,
-    nextSection,
-    sections,
-    prevSection,
-  } = useAppContext();
+  const { theme, updateUser, user, nextSection, sections, prevSection } =
+    useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -108,10 +102,17 @@ const Rank = () => {
     }
   }
 
-
   const [allItems, setAllItems] = useState(arr);
   const [items, setItems] = useState(arr);
   const [rankItems, setRankItems] = useState([]);
+
+  const rankDict = {};
+  rankItems.map((item, index) => {
+    const result = rankItems.indexOf(index + 1);
+    rankDict[`option${index + 1}_rank`] = result + 1;
+  });
+
+  console.log(rankDict);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -120,8 +121,9 @@ const Rank = () => {
         ...user,
         userResponse: {
           ...user.userResponse,
-          rank: [...user.userResponse.rank, rankItems],
+          [sectionNum]: rankDict,
         },
+        rank: [...user.rank, rankItems],
       },
       id: user._id,
     });
@@ -178,10 +180,6 @@ const Rank = () => {
           disabled={rankItems.length < allItems.length}
           ratingType="rank"
           isSurvey={true}
-          // storeItem={JSON.stringify({
-          //   most: rankItems[0],
-          //   least: rankItems[rankItems.length - 1],
-          // })}
           handleOnSubmit={handleOnSubmit}
         />
       </Box>
