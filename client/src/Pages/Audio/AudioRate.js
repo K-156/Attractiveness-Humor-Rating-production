@@ -14,16 +14,29 @@ import links from "../../Utils/links";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const AudioRate = ({ title, link, isWritten }) => {
-  const { updateUser, sectionNum, nextSection, theme, sections } =
-    useAppContext();
+  const { updateUser, nextSection, theme } = useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
 
-  const { data } = JSON.parse(localStorage.getItem("data"));
+  const data = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
-  const { path } =
-    data[sectionNum + 1] !== undefined
-      ? links.find((link) => link.id === sections[sectionNum + 1])
+
+  const userGender = sessionStorage.getItem("userGender");
+  const gender = sessionStorage.getItem("gender");
+  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
+  const sections = JSON.parse(sessionStorage.getItem("sections"))
+
+  const oppGender = (userGender) => {
+    if (userGender === "female") {
+      return "Male";
+    } else {
+      return "Female";
+    }
+  };
+
+  const path =
+    data[sectionNum+1] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
       : links.find((link) => link.id === 8);
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -35,7 +48,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
       if (templateNo == 3) {
-        arrOfRank.push(sectionNum);
+        arrOfRank.push(Number(sectionNum));
       }
     }
   }
@@ -55,8 +68,8 @@ const AudioRate = ({ title, link, isWritten }) => {
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo == 1) {
-        arrOfProfile.push(sectionNum);
+      if (Number(templateNo) === 1) {
+        arrOfProfile.push(Number(sectionNum));
       }
     }
   }
@@ -64,7 +77,10 @@ const AudioRate = ({ title, link, isWritten }) => {
   for (let i = 0; i < arrOfProfile.length; i++) {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
-      dataToDisplay = data[element][1][role];
+      dataToDisplay =
+        data[element][1][role][
+          gender === "true" ? oppGender(userGender) : "NA"
+        ];
     }
   }
 
@@ -112,6 +128,10 @@ const AudioRate = ({ title, link, isWritten }) => {
       navigate(link);
     } else {
       nextSection();
+      sessionStorage.setItem(
+        "sectionNum",
+        Number(sessionStorage.getItem("sectionNum")) + 1
+      );
       navigate(path);
     }
   };
@@ -121,8 +141,6 @@ const AudioRate = ({ title, link, isWritten }) => {
     // Check if a random number is stored in local storage
     const storedNumber = localStorage.getItem(`randomNumber${title}`);
 
-    console.log(typeof storedNumber)
-    console.log(localStorage.getItem(`randomNumber1`))
     // If a random number is stored, return it
     if (storedNumber) {
       return storedNumber;
