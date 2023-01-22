@@ -21,10 +21,10 @@ import { colorPalette } from "../../Utils/colorPalette";
 const Login = () => {
   const navigate = useNavigate();
   const { theme, loginUser, user } = useAppContext();
-
   const [isValid, setIsValid] = useState(true);
-  const [formData, setFormData] = useState();
-  const [error, setError] = useState({ email: false, password: false });
+  const [formData, setFormData] = useState({ otp: "" });
+  const [error, setError] = useState({ otp: false });
+
   const handleOnChange = (event) => {
     setIsValid(true);
     setFormData((state) => ({
@@ -37,16 +37,28 @@ const Login = () => {
     }));
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    loginUser(formData)
-    // navigate("/consent");
+    if (formData.otp === "") {
+      setError((state) => ({ ...state, otp: true }));
+      setTimeout(() => {
+        setError({ otp: false });
+      }, 3000);
+      return;
+    }
+
+    await loginUser(formData).then((userData) => {
+      if (!userData) {
+        setIsValid(false);
+        setTimeout(() => {
+          setIsValid(true);
+        }, 3000);
+      }
+    });
   };
 
-  console.log(formData);
-
   useEffect(() => {
-    if (user) {
+    if (user?.role === "participant") {
       navigate("/consent");
     }
   }, [user, navigate]);
@@ -71,8 +83,10 @@ const Login = () => {
                   <FormGroup>
                     <TextField
                       required
-                      error={error.email}
-                      helperText={error.email ? "Enter your email" : ""}
+                      error={error.otp}
+                      helperText={
+                        error.otp ? "Enter your one-time password" : ""
+                      }
                       name="otp"
                       label="Enter login code"
                       onChange={handleOnChange}

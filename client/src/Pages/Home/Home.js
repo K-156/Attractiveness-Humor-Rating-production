@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill, BsArrowRight } from "react-icons/bs";
@@ -25,7 +25,6 @@ const Home = () => {
         sessionStorage.setItem("gender", dict["isGender"])
       }
     })
-    sessionStorage.setItem("sectionNum",0)
     navigate(`/login`);
   };
 

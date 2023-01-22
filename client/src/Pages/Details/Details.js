@@ -86,6 +86,7 @@ const Details = () => {
     e.preventDefault();
     updateUser({ currentUser: { ...user, formData }, id: user._id });
     sessionStorage.setItem("userGender", formData.sex);
+    localStorage.setItem("userSection", 0);
     navigate(links.find((link) => link.id === sections[0]).path);
   };
 

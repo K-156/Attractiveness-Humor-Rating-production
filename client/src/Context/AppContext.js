@@ -154,7 +154,6 @@ const AppProvider = ({ children }) => {
 
   const loginUser = async (currentUser, type) => {
     dispatch({ type: LOGIN_USER_BEGIN });
-    console.log(type);
     try {
       const { data } =
         type === "admin"
@@ -166,6 +165,7 @@ const AppProvider = ({ children }) => {
         payload: { user, token },
       });
       addUserToLocalStorage({ user, token });
+      return user;
     } catch (error) {
       dispatch({
         type: LOGIN_USER_ERROR,
