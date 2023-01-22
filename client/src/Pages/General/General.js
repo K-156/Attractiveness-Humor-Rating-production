@@ -46,9 +46,13 @@ const General = () => {
     }
   }, []);
 
-  // setTimeout(() => {
-  //   removeUserFromLocalStorage();
-  // }, 300);
+  setInterval(() => {
+    // Check if the OTP has expired
+    if (location.pathname.includes("complete")) {
+      removeUserFromLocalStorage();
+    }
+  }, 5000);
+
   // sessionStorage.clear();
 
   return (

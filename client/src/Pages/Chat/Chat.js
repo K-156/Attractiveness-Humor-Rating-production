@@ -94,7 +94,7 @@ const Chat = ({ title, link }) => {
       ]
     ) - 1;
 
-
+      console.log(selectMessage)
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({

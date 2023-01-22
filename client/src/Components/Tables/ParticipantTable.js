@@ -110,9 +110,24 @@ const ParticipantTable = ({
           type: "date",
           valueFormatter: (params) => moment(params.value).format("DD/MM/YYYY"),
         },
-        { field: "sex", headerName: "Sex" },
-        { field: "age", headerName: "Age" },
-        { field: "ethnicity", headerName: "Ethnicity"},
+        {
+          field: "sex",
+          headerName: "Sex",
+          valueFormatter: (params) =>
+            params.value === undefined ? "null" : params.value,
+        },
+        {
+          field: "age",
+          headerName: "Age",
+          valueFormatter: (params) =>
+            params.value === undefined ? "null" : params.value,
+        },
+        {
+          field: "ethnicity",
+          headerName: "Ethnicity",
+          valueFormatter: (params) =>
+            params.value === undefined ? "null" : params.value,
+        },
         {
           field: "ipAddress",
           headerName: "IP Address",
@@ -160,7 +175,7 @@ const ParticipantTable = ({
             const end = user.endTime;
             if (start === undefined || end === undefined) return "null";
             const duration = moment.duration(moment(end).diff(moment(start)));
-            return duration.humanize()
+            return duration.humanize();
           },
         },
         { field: "otp", headerName: "OTP" },

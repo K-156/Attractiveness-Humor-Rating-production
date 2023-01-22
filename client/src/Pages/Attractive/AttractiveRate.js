@@ -115,7 +115,7 @@ const AttractiveRate = () => {
           return (
             <Grid item key={index} xs={3}>
               <RatingCard
-                id={`option${index + 1}_rate_${sectionNum}`}
+                id={`option${index + 1}_rate`}
                 title={item.optionName}
                 img={item.link}
                 description={item.description}

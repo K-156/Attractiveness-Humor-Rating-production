@@ -10,11 +10,12 @@ const Messages = ({ setSelectMessage, theme, themeHover, title }) => {
   const sectionNum = Number(sessionStorage.getItem("sectionNum"));
   const role = sessionStorage.getItem("role");
   const type = title === "1" ? "best" : "worst";
+  console.log(title)
   const handleOnChange = (event) => {
     const value = event.target.id;
     setSelectMessage((state) => ({
       ...state,
-      [`${type}_prewritten_${sectionNum}`]: value,
+      [`${type}_prewritten_msg`]: value,
     }));
   };
   return (

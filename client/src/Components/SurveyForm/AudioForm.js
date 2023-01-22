@@ -97,7 +97,7 @@ const AudioForm = ({ data, setRating, isWritten, title }) => {
                               required
                               fullWidth
                               select
-                              name={isWritten ? `${type}_intro_q${index + 1}_${sectionNum}` : `${type}_audio_q${index + 1}_${sectionNum}`}
+                              name={isWritten ? `${type}_intro_q${index + 1}` : `${type}_audio_q${index + 1}`}
                               label="Rate"
                               defaultValue=""
                               onChange={handleOnChange}
