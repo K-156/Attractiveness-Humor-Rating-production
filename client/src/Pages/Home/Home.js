@@ -35,6 +35,7 @@ const Home = () => {
       getProject(activeProjectId).then((proj)=>{
         sessionStorage.setItem("data",JSON.stringify(proj.data));
         sessionStorage.setItem("sections",JSON.stringify(proj.sections));
+        sessionStorage.setItem("duration", proj.projDetails.duration)
       })
     }
   }, [activeProjectId]);

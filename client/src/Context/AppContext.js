@@ -125,7 +125,6 @@ const AppProvider = ({ children }) => {
   const removeUserFromLocalStorage = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("data");
   };
 
   const setTheme = (theme) => {

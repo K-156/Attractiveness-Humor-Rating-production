@@ -51,8 +51,8 @@ const UserSchema = new mongoose.Schema(
     ipAddress: { type: String },
     userResponse: {},
     rank: [],
-    startTime: { type: Date},
-    endTime: { type: Date},
+    startTime: { type: Date },
+    endTime: { type: Date },
   },
   {
     timestamps: true,
@@ -70,7 +70,6 @@ UserSchema.methods.checkOTPValid = async function (candidateEmail) {
   const isMatch = otplib.authenticator.check(token, candidateEmail);
   return isMatch;
 };
-
 
 UserSchema.pre("save", async function () {
   if (!this.isModified("password")) return;

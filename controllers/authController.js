@@ -65,7 +65,7 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnAuthenticatedError("Invalid Credentials");
   }
-  if (user?.startTime !== "undefined") {
+  if (user?.startTime) {
     throw new BadRequestError("OTP already used!")
   }
   const token = user.createJWT();
