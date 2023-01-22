@@ -18,6 +18,7 @@ const Overview = () => {
   } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const currentProjId = sessionStorage.getItem("projId");
+  const sections = JSON.parse(sessionStorage.getItem("sections"));
 
   const options = [];
   _.map(projects, (project) => {
@@ -43,22 +44,26 @@ const Overview = () => {
     setIsLoading(true);
     setCreateProject(projectId?.split(":")[0]);
     sessionStorage.setItem("projId", projectId);
-    await getProject(projectId.split(":")[0]);
+    await getProject(projectId.split(":")[0]).then((proj) => {
+      const { data, sections, projDetails } = proj;
+      sessionStorage.setItem("data", JSON.stringify(data));
+      sessionStorage.setItem("sections", JSON.stringify(sections));
+      sessionStorage.setItem("role", projDetails.roles["0"]["role"])
+    });
     await getUsersByProjId(projectId.split(":")[0]);
     setIsLoading(false);
   };
 
   useEffect(() => {
     getAllProjects();
-    if (currentProjId !== undefined) {
-      setCreateProject(currentProjId?.split(":")[0]);
-      getProject(currentProjId?.split(":")[0]);
-      getUsersByProjId(currentProjId?.split(":")[0]);
-    } else {
-      setCreateProject(projectId?.split(":")[0]);
-      getProject(projectId?.split(":")[0]);
-      getUsersByProjId(projectId?.split(":")[0]);
-    }
+    setCreateProject(projectId?.split(":")[0]);
+    getProject(projectId?.split(":")[0]).then((proj) => {
+      const { data, sections, projDetails } = proj;
+      sessionStorage.setItem("data", JSON.stringify(data));
+      sessionStorage.setItem("sections", JSON.stringify(sections));
+      sessionStorage.setItem("role", projDetails.roles["0"]["role"])
+    });
+    getUsersByProjId(projectId?.split(":")[0]);
   }, []);
 
   return (
@@ -87,7 +92,11 @@ const Overview = () => {
           Search
         </Button>
       </Box>
-      <OverviewTable data={displayData} projectId={projectId}/>
+      <OverviewTable
+        data={displayData}
+        projectId={projectId}
+        sections={sections}
+      />
     </div>
   );
 };

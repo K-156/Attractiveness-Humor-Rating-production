@@ -12,7 +12,6 @@ import UploadParticipantDialog from "../../Components/Dialog/UploadParticipantDi
 const Participants = () => {
   const {
     setCreateProject,
-    createdProjectId,
     getProject,
     getAllProjects,
     projects,
@@ -122,7 +121,8 @@ const Participants = () => {
     });
     setDeleteOpen(false);
     setIsLoading(true);
-    await getUsersByProjId(createdProjectId);
+    await getProject(projectId.split(":")[0]);
+    await getUsersByProjId(projectId.split(":")[0]);
     setIsLoading(false);
   };
 

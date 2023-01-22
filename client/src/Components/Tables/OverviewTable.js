@@ -8,9 +8,53 @@ import {
 import _ from "lodash";
 import moment from "moment";
 
-const OverviewTable = ({ data, projectId }) => {
-  console.log(data);
+const OverviewTable = ({ data, projectId, sections }) => {
   const [pageSize, setPageSize] = useState(5);
+  const surveyData = JSON.parse(sessionStorage.getItem("data"));
+  const role = sessionStorage.getItem("role");
+
+  const columns = ["_id"];
+  sections.forEach((element) => {
+    switch (element) {
+      case 2:
+        for (let i = 1; i <= 4; i++) {
+          columns.push(`option${i}_rate`);
+        }
+        break;
+      case 3:
+        for (let i = 1; i <= 4; i++) {
+          columns.push(`option${i}_rank`);
+        }
+        break;
+      case 4:
+        const audioIndex = sections.indexOf(4);
+        const audioQns = surveyData[audioIndex]?.["4"][role]?.questions.length;
+        for (let i = 1; i <= audioQns; i++) {
+          columns.push(`best_audio_q${i}`);
+        }
+        for (let i = 1; i <= audioQns; i++) {
+          columns.push(`worst_audio_q${i}`);
+        }
+
+        break;
+      case 5:
+        const introIndex = sections.indexOf(5);
+        const introQns = surveyData[introIndex]?.["5"][role]?.questions.length;
+        for (let i = 1; i <= introQns; i++) {
+          columns.push(`best_intro_q${i}`);
+        }
+        for (let i = 1; i <= introQns; i++) {
+          columns.push(`worst_intro_q${i}`);
+        }
+        break;
+      case 6:
+        columns.push("best_prewritten_msg");
+        columns.push("worst_prewritten_msg");
+        break;
+      default:
+        console.log("no need column name");
+    }
+  });
 
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");
@@ -50,17 +94,15 @@ const OverviewTable = ({ data, projectId }) => {
       disableSelectionOnClick
       rows={data}
       getRowId={(row) => row["_id"]}
-      columns={
-        data.length === 0
-          ? []
-          : _.map(Object.keys(data[0]), (key) => {
-              return {
-                key: key,
-                field: key,
-                headerName: key === "_id" ? "User ID" : key,
-              };
-            })
-      }
+      columns={_.map(columns, (key) => {
+        return {
+          key: key,
+          field: key,
+          headerName: key === "_id" ? "User ID" : key,
+          valueFormatter: (params) =>
+            params.value === undefined ? "null" : params.value,
+        };
+      })}
       componentsProps={{
         Toolbar: {
           sx: {
