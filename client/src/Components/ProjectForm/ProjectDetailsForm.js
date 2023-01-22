@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -17,6 +17,8 @@ import AddableRoles from "../CustomFormFields/AddableRoles";
 import UploadPreview from "../CustomFormFields/UploadPreview";
 
 const ProjectDetailsForm = ({ formData, setFormData }) => {
+
+  console.log(formData)
 
   const [textLimit, setTextLimit] = useState(0)
   const [error, setError] = useState({
@@ -176,7 +178,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
   )
 }
 
-export default memo(ProjectDetailsForm);
+export default ProjectDetailsForm;
 
 
 

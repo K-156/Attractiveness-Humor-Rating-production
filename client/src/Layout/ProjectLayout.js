@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Box, Button, Typography } from "@mui/material";
@@ -23,7 +24,7 @@ const ProjectLayout = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   const saveProject = () => {
     navigate("/projects");
   };
@@ -92,4 +93,4 @@ const ProjectLayout = ({
   );
 };
 
-export default ProjectLayout;
+export default memo(ProjectLayout);

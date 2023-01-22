@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -89,9 +91,7 @@ const AddableTwoFieldRoles = ({
           />
         </Button>
       </Box>
-      {items?.length < 1 ? (
-        <></>
-      ) : (
+      {items?.length > 0 &&
         <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
           {_.map(items, (aItem, index) => {
             return (
@@ -117,9 +117,9 @@ const AddableTwoFieldRoles = ({
             );
           })}
         </Box>
-      )}
+      }
     </Box>
   );
 };
 
-export default AddableTwoFieldRoles;
+export default memo(AddableTwoFieldRoles);

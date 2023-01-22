@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
 import AddSection from "../../Components/ProjectForm/AddSections";
 import ProjectLayout from "../../Layout/ProjectLayout";
 
+const type = sessionStorage.getItem("editMode");
+const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
+const projId = sessionStorage.getItem("projId")
+
 const ProjectDetails = () => {
-  const type = sessionStorage.getItem("editMode");
   const { sections, data, getProject } = useAppContext();
   const [formData, setFormData] = useState(sections);
-  const projId = sessionStorage.getItem("projId")
 
   useEffect(() => {
     sessionStorage.setItem("templates", JSON.stringify(formData));

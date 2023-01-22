@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
@@ -14,15 +15,14 @@ import ProjectLayout from "../../Layout/ProjectLayout";
 import { templates } from "../../Utils/templateList";
 
 const Section = () => {
-  const { formData, sections, isEditing } = useAppContext();
 
+  const { formData, sections, isEditing } = useAppContext();
   const location = useLocation();
   const sectionNum = parseInt(location.pathname.split("/").pop());
   const templateList = isEditing
     ? sections
     : JSON.parse(sessionStorage.getItem("templates"));
   const currTemplate = parseInt(templateList[sectionNum - 1]);
-  const roles = JSON.parse(sessionStorage.getItem("roles"));
 
   let templateType = null;
   const { template } = location.state;
@@ -63,12 +63,12 @@ const Section = () => {
         sectionNum={sectionNum}
         templateNum={currTemplate}
       >
-        { currTemplate === 1 ? <T1Profile roles={roles}/>
-                    : currTemplate === 2 ? <T2ProfileRating roles={roles}/>
-                    : currTemplate === 3 ? <T3Rank roles={roles}/>
-                    : currTemplate === 4 ? <T4Audio roles={roles}/>
-                    : currTemplate === 5 ? <T5Intro roles={roles}/>
-                    : currTemplate === 6 ? <T6Chatbox roles={roles}/>
+        { currTemplate === 1 ? <T1Profile />
+                    : currTemplate === 2 ? <T2ProfileRating/>
+                    : currTemplate === 3 ? <T3Rank />
+                    : currTemplate === 4 ? <T4Audio />
+                    : currTemplate === 5 ? <T5Intro />
+                    : currTemplate === 6 ? <T6Chatbox />
                     : <T7General />
                 } 
       </ProjectLayout>

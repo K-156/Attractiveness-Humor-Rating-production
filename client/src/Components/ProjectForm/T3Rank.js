@@ -14,11 +14,10 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T3Rank = () => {
-  const { submitFormData, data, getProject } = useAppContext();
+  const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
-  const isEditing =
-    sessionStorage.getItem("editMode") === "edit" ? true : false;
+  const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
   const rolesList = JSON.parse(sessionStorage.getItem("roles"));
   let roles = [];
   rolesList.forEach((dict) => {

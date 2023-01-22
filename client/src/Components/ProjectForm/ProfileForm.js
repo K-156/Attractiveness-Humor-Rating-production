@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo, useCallback} from "react";
 
 import { Box, TextField, Typography } from "@mui/material";
 
@@ -6,8 +6,8 @@ import "./ProjectForm.css";
 import AddableTwoFieldRoles from "../CustomFormFields/AddableTwoFieldRoles";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
-const ProfileFormCopy = ({ id, gender, role, setFormData, formData, templateNum }) => {
-
+const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) => {
+  
   const [error, setError] = useState(false);
   const [textLimit, setTextLimit] = useState({
     optionName: 0,
@@ -15,7 +15,7 @@ const ProfileFormCopy = ({ id, gender, role, setFormData, formData, templateNum 
   });
 
   const [attribute, setAttribute] = useState();
-  const handleOnChange = (event) => {
+  const handleOnChange = useCallback((event) => {
     const name = event.target.name;
     const value = event.target.value;
 
@@ -27,13 +27,12 @@ const ProfileFormCopy = ({ id, gender, role, setFormData, formData, templateNum 
           [gender]: {
             ...state[role][gender], 
             [id]: {
-              ...formData[role][gender][id],
+              ...state[role][gender][id],
               [name]: value,
             },
           }
         },
       }));
-
       setTextLimit((state) => ({
         ...state,
         [name]: value.length,
@@ -45,7 +44,7 @@ const ProfileFormCopy = ({ id, gender, role, setFormData, formData, templateNum 
       }));
       setError(false);
     }
-  };
+  }, []);
 
   return (
     <Box>
@@ -125,4 +124,4 @@ const ProfileFormCopy = ({ id, gender, role, setFormData, formData, templateNum 
   );
 };
 
-export default ProfileFormCopy;
+export default memo(ProfileForm);

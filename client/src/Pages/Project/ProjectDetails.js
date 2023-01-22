@@ -1,14 +1,15 @@
-import { useState, memo } from "react";
+import { useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
 import ProjectDetailsForm from "../../Components/ProjectForm/ProjectDetailsForm";
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { useEffect } from "react";
 
+const type = sessionStorage.getItem("editMode");
+const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
+const projId = sessionStorage.getItem("projId")
+
 const ProjectDetails = () => {
-  const type = sessionStorage.getItem("editMode");
-  const projId = sessionStorage.getItem("projId")
-  const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
 
   const { projDetails, getProject } = useAppContext();
 
@@ -44,7 +45,6 @@ const ProjectDetails = () => {
     graphic: projDetails?.graphic,
     graphicLink: projDetails?.graphicLink,
   });
-
 
   return (
     <div>

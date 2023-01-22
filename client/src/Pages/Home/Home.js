@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill, BsArrowRight } from "react-icons/bs";
@@ -42,7 +42,6 @@ const Home = () => {
   return (
     <div className={`backgroundImage-${theme} center`}>
       <script>{(document.title = "Welcome")}</script>
-
       <Box sx={{ position: "absolute", top: "16px", right: "8px" }}>
         <Button onClick={() => navigate("/alogin")}>
           <BsFillGearFill size="25px" style={{ color: "#A3A3A3" }} />

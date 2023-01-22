@@ -13,12 +13,11 @@ import { BsDash } from "react-icons/bs";
 import _ from "lodash";
 import "./ProjectForm.css";
 
+
 const T2ProfileRating = () => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
-  const isEditing =
-    sessionStorage.getItem("editMode") === "edit" ? true : false;
   const rolesList = JSON.parse(sessionStorage.getItem("roles"));
   let roles = [];
   rolesList.forEach((dict) => {
@@ -85,7 +84,6 @@ const T2ProfileRating = () => {
                     minRows={3}
                     onChange={(event) => {
                       const value = event.target.value;
-
                       setFormData((state) => ({
                         ...state,
                         [aRole]: {
@@ -103,7 +101,11 @@ const T2ProfileRating = () => {
                 <Box>
                   {_.map(["Lower", "Upper"], (type) => {
                     return (
-                      <Box className="secondColumn" sx={{ mb: 1 }}>
+                      <Box 
+                        key={type}
+                        className="secondColumn" 
+                        sx={{ mb: 1 }}
+                      >
                         <TextField
                           key={`T2-${type}`}
                           size="small"
@@ -139,14 +141,14 @@ const T2ProfileRating = () => {
                               "number"
                             ]
                           }
-                          InputLabelProps={{
-                            shrink:
-                              (isEditing ||
-                                formData[aRole]?.["range"][type.toLowerCase()][
-                                  "number"
-                                ]) &&
-                              true,
-                          }}
+                          // InputLabelProps={{
+                          //   shrink:
+                          //     (isEditing ||
+                          //       formData[aRole]?.["range"][type.toLowerCase()][
+                          //         "number"
+                          //       ]) &&
+                          //     true,
+                          // }}
                         />
                         <BsDash
                           size="40px"
@@ -185,14 +187,14 @@ const T2ProfileRating = () => {
                               "text"
                             ]
                           }
-                          InputLabelProps={{
-                            shrink:
-                              (isEditing ||
-                                formData[aRole]?.["range"][type.toLowerCase()][
-                                  "text"
-                                ] !== "") &&
-                              true,
-                          }}
+                          // InputLabelProps={{
+                          //   shrink:
+                          //     (isEditing ||
+                          //       formData[aRole]?.["range"][type.toLowerCase()][
+                          //         "text"
+                          //       ] !== "") &&
+                          //     true,
+                          // }}
                         />
                       </Box>
                     );
