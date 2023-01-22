@@ -65,6 +65,13 @@ UserSchema.methods.compareOTP = async function (candidateEmail) {
   return isMatch;
 };
 
+UserSchema.methods.checkOTPValid = async function (candidateEmail) {
+  const token = otplib.authenticator.generate(candidateEmail);
+  const isMatch = otplib.authenticator.check(token, candidateEmail);
+  return isMatch;
+};
+
+
 UserSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
   const salt = await bcrypt.genSalt(10);

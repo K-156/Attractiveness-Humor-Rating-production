@@ -57,6 +57,7 @@ const login = async (req, res) => {
   //   throw new BadRequestError("Please provide all values");
   // }
   const user = await User.findOne({ otp });
+  console.log(user?.startTime)
   if (!user) {
     throw new UnAuthenticatedError("User does not exist");
   }
@@ -64,15 +65,15 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnAuthenticatedError("Invalid Credentials");
   }
+  if (user?.startTime !== "undefined") {
+    throw new BadRequestError("OTP already used!")
+  }
   const token = user.createJWT();
   // user.password = undefined;
   res.status(StatusCodes.OK).json({ user, token });
 };
 
 const updateUser = async (req, res) => {
-  // const { id: userId } = req.params;
-  console.log(req.body);
-
   const { userResponse, role, rank, completionCode, endTime } = req.body;
 
   const user = await User.findOne({ _id: req.user.userId }).select("+password");
