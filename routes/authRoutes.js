@@ -10,9 +10,12 @@ import {
   deleteUsers,
   adminLogin,
   deleteAllUsers,
+  generateCompletionCode,
 } from "../controllers/authController.js";
 import authenticateUser from "../middleware/auth.js";
 
+
+router.route("/completionCode").get(generateCompletionCode);
 router.route("/").get(getAllUsers);
 router
   .route("/:id")
@@ -22,6 +25,7 @@ router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/admin/login").post(adminLogin);
 router.route("/updateUser/:id").patch(authenticateUser, updateUser);
-router.route("/allUsers/:id").delete(authenticateUser,deleteAllUsers)
+router.route("/allUsers/:id").delete(authenticateUser, deleteAllUsers);
+
 
 export default router;

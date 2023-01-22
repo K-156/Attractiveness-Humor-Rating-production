@@ -26,6 +26,9 @@ const UserSchema = new mongoose.Schema(
     otp: {
       type: String,
     },
+    completionCode: {
+      type: String,
+    },
     projId: {
       type: String,
     },
@@ -45,14 +48,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    userResponse: {
-      // attractivenessRating: [],
-      // rank: [],
-      // audioRating: [],
-      // writtenIntroRating: [],
-      // prewrittenResponse: [],
-    },
-    rank:[],
+    ipAddress: { type: String },
+    userResponse: {},
+    rank: [],
+    startTime: { type: Date},
+    endTime: { type: Date},
   },
   {
     timestamps: true,

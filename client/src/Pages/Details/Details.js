@@ -95,11 +95,11 @@ const Details = () => {
 
   const getIPStartTime = async () => {
     const res = await axios.get("https://geolocation-db.com/json/");
-    const currentTime = getCurrentTime();
+    const currentTime = new Date();
     setFormData((state) => ({
       ...state,
       IPAddress: res.data.IPv4,
-      start: currentTime,
+      start: currentTime.toISOString(),
     }));
   };
 

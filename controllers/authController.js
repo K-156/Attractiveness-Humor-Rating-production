@@ -13,6 +13,12 @@ const generateOTP = (email) => {
   return token;
 };
 
+const generateCompletionCode = (req, res) => {
+  const secret = new Date();
+  const token = authenticator.generate(secret);
+  res.status(StatusCodes.CREATED).json({ token });
+};
+
 const register = async (req, res) => {
   const { email } = req.body;
 
@@ -67,16 +73,23 @@ const updateUser = async (req, res) => {
   // const { id: userId } = req.params;
   console.log(req.body);
 
-  const { userResponse, role, rank } = req.body;
+  const { userResponse, role, rank, completionCode, endTime } = req.body;
 
   const user = await User.findOne({ _id: req.user.userId }).select("+password");
 
-  user.sex = req.body.formData?.sex;
-  user.age = req.body.formData?.age;
-  user.ethnicity = req.body.formData?.ethnicity;
+  if (req.body.formData) {
+    user.sex = req.body.formData.sex;
+    user.age = req.body.formData.age;
+    user.ethnicity = req.body.formData.ethnicity;
+    user.ipAddress = req.body.formData.IPAddress;
+    user.startTime = req.body.formData.start;
+  }
+
   user.userResponse = userResponse;
   user.role = role;
   user.rank = rank;
+  user.endTime = endTime;
+  user.completionCode = completionCode
 
   await user.save();
   const token = user.createJWT();
@@ -137,7 +150,7 @@ export {
   getAllUsers,
   getUsersByProjId,
   deleteUsers,
-  generateOTP,
+  generateCompletionCode,
   adminLogin,
   deleteAllUsers,
 };

@@ -112,18 +112,16 @@ const Rank = () => {
     rankDict[`option${index + 1}_rank_${sectionNum}`] = result + 1;
   });
 
-  console.log(rankDict);
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({
       currentUser: {
         ...user,
+        rank: [...user.rank, rankItems],
         userResponse: {
           ...user.userResponse,
           [sectionNum]: rankDict,
         },
-        rank: [...user.rank, rankItems],
       },
       id: user._id,
     });

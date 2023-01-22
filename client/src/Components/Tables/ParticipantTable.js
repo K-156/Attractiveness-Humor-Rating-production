@@ -23,7 +23,6 @@ const ParticipantTable = ({
 }) => {
   const [pageSize, setPageSize] = useState(5);
   const { users } = useAppContext();
-  console.log(users);
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");
     return (
@@ -111,8 +110,11 @@ const ParticipantTable = ({
           type: "date",
           valueFormatter: (params) => moment(params.value).format("DD/MM/YYYY"),
         },
+        { field: "sex", headerName: "Sex" },
+        { field: "age", headerName: "Age" },
+        { field: "ethnicity", headerName: "Ethnicity"},
         {
-          field: "IPAddress",
+          field: "ipAddress",
           headerName: "IP Address",
           renderCell: (params) => {
             return (
@@ -128,36 +130,38 @@ const ParticipantTable = ({
           },
         },
         {
-          field: "start",
+          field: "startTime",
           headerName: "Start",
           type: "dateTime",
           flex: 1.5,
           valueFormatter: (params) =>
             params.value === undefined
               ? "null"
-              : moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+              : moment(params.value).format("DD/MM/YYYY hh:mm A"),
         },
         {
-          field: "end",
+          field: "endTime",
           headerName: "End",
           type: "dateTime",
           flex: 1.5,
           valueFormatter: (params) =>
             params.value === undefined
               ? "null"
-              : moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
-          // valueGetter: (params) =>
-          //   moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+              : moment(params.value).format("DD/MM/YYYY hh:mm A"),
         },
         {
           field: "duration",
           headerName: "Total Time Taken",
           type: "dateTime",
           flex: 1.5,
-          valueFormatter: (params) =>
-            params.value === undefined
-              ? "null"
-              : moment(params.value).format("DD/MM/YYYY hh:mm:ss A"),
+          valueFormatter: (params) => {
+            const user = users.find((user) => user._id === params.id);
+            const start = user.startTime;
+            const end = user.endTime;
+            if (start === undefined || end === undefined) return "null";
+            const duration = moment.duration(moment(end).diff(moment(start)));
+            return duration.humanize()
+          },
         },
         { field: "otp", headerName: "OTP" },
         {
