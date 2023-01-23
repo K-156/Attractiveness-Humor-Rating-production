@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 
@@ -17,6 +17,9 @@ import { templates } from "../../Utils/templateList";
 const Section = () => {
 
   const { formData, sections, isEditing } = useAppContext();
+  const roleDict = JSON.parse(sessionStorage.getItem("roles"));
+  const roles = useMemo(() => _.map(roleDict, (aRole) => aRole.role), [roleDict])
+
   const location = useLocation();
   const sectionNum = parseInt(location.pathname.split("/").pop());
   const templateList = isEditing
@@ -26,26 +29,23 @@ const Section = () => {
 
   let templateType = null;
   const { template } = location.state;
-
   if (template === undefined) {
     templateType = templates[templateList[sectionNum - 1]];
   } else {
     templateType = template;
   }
 
-  const type = sessionStorage.getItem("editMode");
-
   return (
     <div>
       <script>
         {
           (document.title = `${
-            type === "add" ? "Add " : "Edit "
+            isEditing ? "Add " : "Edit "
           } Project | Section ${sectionNum}`)
         }
       </script>
       <ProjectLayout
-        isEdit={type === "edit"}
+        isEditing={isEditing}
         subtitle={`Section ${sectionNum}: ${templateType}`}
         activeStep={1}
         prevLink={
@@ -63,12 +63,12 @@ const Section = () => {
         sectionNum={sectionNum}
         templateNum={currTemplate}
       >
-        { currTemplate === 1 ? <T1Profile />
-                    : currTemplate === 2 ? <T2ProfileRating/>
-                    : currTemplate === 3 ? <T3Rank />
-                    : currTemplate === 4 ? <T4Audio />
-                    : currTemplate === 5 ? <T5Intro />
-                    : currTemplate === 6 ? <T6Chatbox />
+        { currTemplate === 1 ? <T1Profile roles={roles} roleDict={roleDict}/>
+                    : currTemplate === 2 ? <T2ProfileRating roles={roles} />
+                    : currTemplate === 3 ? <T3Rank roles={roles} />
+                    : currTemplate === 4 ? <T4Audio roles={roles} />
+                    : currTemplate === 5 ? <T5Intro roles={roles} />
+                    : currTemplate === 6 ? <T6Chatbox roles={roles} />
                     : <T7General />
                 } 
       </ProjectLayout>

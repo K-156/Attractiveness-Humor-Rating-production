@@ -4,7 +4,6 @@ import { useAppContext } from "../../Context/AppContext";
 import AddSection from "../../Components/ProjectForm/AddSections";
 import ProjectLayout from "../../Layout/ProjectLayout";
 
-const type = sessionStorage.getItem("editMode");
 const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
 const projId = sessionStorage.getItem("projId")
 
@@ -27,12 +26,12 @@ const ProjectDetails = () => {
       <script>
         {
           (document.title = `${
-            type === "add" ? "Add " : "Edit "
+            isEditing ? "Edit " : "Add "
           } Project | Project Details`)
         }
       </script>
       <ProjectLayout
-        isEdit={type === "edit"}
+        isEditing={isEditing}
         subtitle="Add Sections"
         activeStep={1}
         prevLink="/projects/details"
@@ -44,7 +43,7 @@ const ProjectDetails = () => {
         <AddSection
           formData={formData}
           setFormData={setFormData}
-          type={type}
+          isEditing={isEditing}
           data={data}
           projId={projId}
         />

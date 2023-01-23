@@ -1,4 +1,4 @@
-import { useState, memo, useCallback} from "react";
+import { useState, memo } from "react";
 
 import { Box, TextField, Typography } from "@mui/material";
 
@@ -9,13 +9,8 @@ import UploadOneFile from "../CustomFormFields/UploadOneFile";
 const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) => {
   
   const [error, setError] = useState(false);
-  const [textLimit, setTextLimit] = useState({
-    optionName: 0,
-    description: 0,
-  });
-
   const [attribute, setAttribute] = useState();
-  const handleOnChange = useCallback((event) => {
+  const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
@@ -33,18 +28,14 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
           }
         },
       }));
-      setTextLimit((state) => ({
-        ...state,
-        [name]: value.length,
-      }));
-    } else {
-      setAttribute((state) => ({
-        ...state,
-        [name]: value,
-      }));
-      setError(false);
+
+    setAttribute((state) => ({
+      ...state,
+      [name]: value,
+    }));
+    setError(false);
     }
-  }, []);
+  };
 
   return (
     <Box>
@@ -57,7 +48,7 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
               size="small"
               fullWidth
               inputProps={{ maxLength: 40 }}
-              helperText={`${textLimit["optionName"]} / 40`}
+              helperText={`${formData[role][gender][id].optionName.length} / 40`}
               onChange={handleOnChange}
               value={formData[role][gender][id] ? formData[role][gender][id].optionName : ""}
             />
@@ -73,7 +64,7 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
               multiline
               minRows={3}
               inputProps={{ maxLength: 200 }}
-              helperText={`${textLimit["description"]} / 200`}
+              helperText={`${formData[role][gender][id].description.length} / 200`}
               onChange={handleOnChange}
               value={formData[role][gender][id] ? formData[role][gender][id].description : ""}
             />

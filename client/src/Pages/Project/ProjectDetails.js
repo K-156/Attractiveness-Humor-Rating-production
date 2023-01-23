@@ -5,13 +5,12 @@ import ProjectDetailsForm from "../../Components/ProjectForm/ProjectDetailsForm"
 import ProjectLayout from "../../Layout/ProjectLayout";
 import { useEffect } from "react";
 
-const type = sessionStorage.getItem("editMode");
-const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
-const projId = sessionStorage.getItem("projId")
 
 const ProjectDetails = () => {
 
   const { projDetails, getProject } = useAppContext();
+  const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
+  const projId = sessionStorage.getItem("projId")
 
   useEffect(() => {
     getProject(projId).then((data) => {
@@ -56,12 +55,11 @@ const ProjectDetails = () => {
         }
       </script>
       <ProjectLayout
-        isEdit={isEditing}
+        isEditing={isEditing}
         subtitle={isEditing ? "" : "Create new project"}
         activeStep={0}
         prevLink="/projects"
         nextLink="/projects/sections"
-        state={{ type: type }}
         projectType="projDetails"
         formData={formData}
         nextDisabled={formData.roles.length === 0}

@@ -14,7 +14,7 @@ const ReorderList = ({
   setFormData,
   error,
   setError,
-  type,
+  isEditing,
   data,
   projId,
 }) => {
@@ -154,7 +154,7 @@ const ReorderList = ({
               <Button
                 id={index}
                 onClick={() => {
-                  if (type === "edit") {
+                  if (isEditing) {
                     setOpen(true);
                     setToDelete(index);
                   } else {

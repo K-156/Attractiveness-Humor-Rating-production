@@ -18,9 +18,6 @@ import UploadPreview from "../CustomFormFields/UploadPreview";
 
 const ProjectDetailsForm = ({ formData, setFormData }) => {
 
-  console.log(formData)
-
-  const [textLimit, setTextLimit] = useState(0)
   const [error, setError] = useState({
     title: false,
     roles: false,
@@ -31,9 +28,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
     const name = event.target.name;
     const value = event.target.value;
 
-      if (name === "description") {
-        setTextLimit(value.length)
-      } else if (name === "duration") {
+      if (name === "duration") {
         setError((state) => ({
           ...state,
           duration: event.target.value < 1 ? true : false,
@@ -73,7 +68,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                         multiline
                         minRows={3}
                         inputProps={{ maxLength: 200 }}
-                        helperText={`${textLimit} / 200`}
+                        helperText={`${formData["description"] ? formData["description"].length : 0} / 200`}
                         onChange={handleOnChange}
                     />
                   </Box>

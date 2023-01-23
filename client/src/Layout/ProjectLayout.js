@@ -11,7 +11,7 @@ import "./Layout.css";
 
 const ProjectLayout = ({
   children,
-  isEdit,
+  isEditing,
   subtitle,
   activeStep,
   nextLink,
@@ -41,7 +41,7 @@ const ProjectLayout = ({
         ) : (
           <>
             <Typography variant="h5" className="projectHeader">
-              {isEdit ? "Edit " : "Add "} Project
+              {isEditing ? "Edit " : "Add "} Project
             </Typography>
             <Typography variant="subtitle2" className="projectHeader">
               {subtitle}
@@ -58,12 +58,12 @@ const ProjectLayout = ({
             className="customButton-green"
             onClick={saveProject}
           >
-            {isEdit ? "Save Changes " : "Add Project"}
+            {isEditing ? "Save Changes " : "Add Project"}
           </Button>
         </Box>
       ) : (
         <>
-          {isEdit ? (
+          {isEditing ? (
             <SaveButton
               projectType={projectType}
               formData={formData}

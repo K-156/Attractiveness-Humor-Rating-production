@@ -40,7 +40,7 @@ const Summary = () => {
         }
       </script>
       <ProjectLayout
-        isEdit={type === "edit"}
+        isEditing={type === "edit"}
         subtitle=""
         activeStep={2}
         prevLink="/projects"
