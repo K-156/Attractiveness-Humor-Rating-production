@@ -1,40 +1,28 @@
-import { useState, memo } from "react";
-
 import { Box, TextField, Typography } from "@mui/material";
 
 import "./ProjectForm.css";
-import AddableTwoFieldRoles from "../CustomFormFields/AddableTwoFieldRoles";
+import AddableTwoFields from "../CustomFormFields/AddableTwoFields";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
 const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) => {
-  
-  const [error, setError] = useState(false);
-  const [attribute, setAttribute] = useState();
+
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
-    if (name === "optionName" || name === "description") {
-      setFormData((state) => ({
-        ...state,
-        [role]: {
-          ...state[role],
-          [gender]: {
-            ...state[role][gender], 
-            [id]: {
-              ...state[role][gender][id],
-              [name]: value,
-            },
-          }
-        },
-      }));
-
-    setAttribute((state) => ({
+    setFormData((state) => ({
       ...state,
-      [name]: value,
+      [role]: {
+        ...state[role],
+        [gender]: {
+          ...state[role][gender], 
+          [id]: {
+            ...state[role][gender][id],
+            [name]: value,
+          },
+        }
+      },
     }));
-    setError(false);
-    }
   };
 
   return (
@@ -48,7 +36,7 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
               size="small"
               fullWidth
               inputProps={{ maxLength: 40 }}
-              helperText={`${formData[role][gender][id].optionName.length} / 40`}
+              helperText={`${formData[role][gender][id] ? formData[role][gender][id].optionName.length : 0} / 40`}
               onChange={handleOnChange}
               value={formData[role][gender][id] ? formData[role][gender][id].optionName : ""}
             />
@@ -64,7 +52,7 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
               multiline
               minRows={3}
               inputProps={{ maxLength: 200 }}
-              helperText={`${formData[role][gender][id].description.length} / 200`}
+              helperText={`${formData[role][gender][id] ? formData[role][gender][id].description.length : 0} / 200`}
               onChange={handleOnChange}
               value={formData[role][gender][id] ? formData[role][gender][id].description : ""}
             />
@@ -95,16 +83,12 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
         <Box className="twoColumns">
           <Typography className="variable">Attributes</Typography>
           <Box className="secondColumn">
-            <AddableTwoFieldRoles
+            <AddableTwoFields
               id={id}
               items={formData[role][gender][id] ? formData[role][gender][id].attributes : []}
               formData={formData}
-              handleOnChange={handleOnChange}
               setFormData={setFormData}
               variable="attributes"
-              currValue={attribute}
-              error={error}
-              setError={setError}
               role={role}
               gender={gender}
             />
@@ -115,4 +99,4 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
   );
 };
 
-export default memo(ProfileForm);
+export default ProfileForm;

@@ -11,18 +11,14 @@ import {
 } from "@mui/material";
 import { BsDash } from "react-icons/bs";
 import _ from "lodash";
+
 import "./ProjectForm.css";
 
 
-const T2ProfileRating = () => {
+const T2ProfileRating = ({ roles }) => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
-  const rolesList = JSON.parse(sessionStorage.getItem("roles"));
-  let roles = [];
-  rolesList.forEach((dict) => {
-    roles.push(dict["role"]);
-  });
 
   useEffect(() => {
     getProject(projId).then((project) => {

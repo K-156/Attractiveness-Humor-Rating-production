@@ -1,23 +1,33 @@
-import { memo } from "react";
+import { useState } from "react";
 
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableTwoFieldRoles = ({
+const AddableTwoFields = ({
   id,
   items,
   formData,
-  handleOnChange,
   setFormData,
   variable,
-  currValue,
-  setError,
-  error,
   role,
   gender
 }) => {
+
+  const [error, setError] = useState(false);
+  const [currValue, setCurrValue] = useState();  
+
+  const handleOnChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value; 
+
+    setCurrValue((state) => ({
+      ...state, 
+      [name]:value
+    }));
+    setError(false)
+  }
 
   const onAdd = () => {
     if (items.includes(currValue)) {
@@ -31,7 +41,7 @@ const AddableTwoFieldRoles = ({
             ...state[role][gender],
             [id]: {
               ...state[role][gender][id],
-              [variable]: formData[role][gender][id][variable].concat(currValue),
+              [variable]: items.concat(currValue),
             },
           }
         },
@@ -52,7 +62,7 @@ const AddableTwoFieldRoles = ({
         [gender]: {
           ...state[role][gender],
           [id]: {
-            ...state[role][id],
+            ...state[role][gender][id],
             [variable]: items,
           },
         }
@@ -95,7 +105,10 @@ const AddableTwoFieldRoles = ({
         <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
           {_.map(items, (aItem, index) => {
             return (
-              <Box key={aItem.name + aItem.value} className="spaceBetween">
+              <Box 
+                key={aItem.name + aItem.value} 
+                className="spaceBetween"
+              >
                 <Typography
                   sx={{
                     fontSize: "14px",
@@ -104,7 +117,10 @@ const AddableTwoFieldRoles = ({
                 >
                   {index + 1}. {aItem.name}: {aItem.value}
                 </Typography>
-                <Button id={index} onClick={() => onDelete(index)}>
+                <Button 
+                  id={index} 
+                  onClick={() => onDelete(index)}
+                >
                   <RiDeleteBin6Fill
                     size={15}
                     style={{
@@ -122,4 +138,4 @@ const AddableTwoFieldRoles = ({
   );
 };
 
-export default memo(AddableTwoFieldRoles);
+export default AddableTwoFields;

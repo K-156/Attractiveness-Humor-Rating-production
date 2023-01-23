@@ -19,23 +19,18 @@ import ProfileForm from "./ProfileForm";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 
-const T1Profile = () => {
+const T1Profile = ({ roles, roleDict }) => {
   const { submitFormData, getProject, sectionNum } = useAppContext();
   const projId = sessionStorage.getItem("projId");
 
   const [formData, setFormData] = useState({});
-  const [roles, setRoles] = useState({})
   const [expanded, setExpanded] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     getProject(projId).then((project) => {
-      const { data, projDetails } = project;
-      _.map(projDetails.roles, (aRole) => {
-        setRoles((state) => ({
-          ...state, 
-          [aRole.role]: aRole.isGender
-        }))
+      const { data } = project;
+      _.map(roleDict, (aRole) => {
         formatData(data, aRole.role, aRole.isGender);
         formatCategorise(data, aRole.role, aRole.isGender);
       })
@@ -101,12 +96,13 @@ const T1Profile = () => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
+  console.log(formData)
 
   if (isLoading) {
     return <LoadingAnimation />;
   }
 
-  return _.map(Object.keys(roles), (aRole) => {
+  return _.map(roles, (aRole, index) => {
     return(
       <Box key={aRole} sx={{mb: 3}}>
         {aRole.toLowerCase() !== "na" && 
@@ -140,7 +136,7 @@ const T1Profile = () => {
                 />
               </Box>
             </Box>
-          { _.map(roles[aRole] ? ["Male", "Female"] : ["NA"], (gender) => {
+          { _.map(roleDict[index]["isGender"] ? ["Male", "Female"] : ["NA"], (gender) => {
             return(
               <Box className="flexColumn" sx={{m: 1}} key={gender}>
                 <Typography className="variable"><b>{gender === "NA" ? "" : gender}</b></Typography>
