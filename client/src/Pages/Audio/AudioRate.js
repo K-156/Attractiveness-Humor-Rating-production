@@ -12,6 +12,7 @@ import Instruction from "../../Components/Instruction/Instruction";
 import Audio from "../../Components/Audio/Audio";
 import links from "../../Utils/links";
 import { colorPalette } from "../../Utils/colorPalette";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const AudioRate = ({ title, link, isWritten }) => {
   const {
@@ -26,6 +27,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   } = useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const gender = localStorage.getItem("gender");
   const sectionNum = Number(localStorage.getItem("sectionNum"));
@@ -33,7 +35,9 @@ const AudioRate = ({ title, link, isWritten }) => {
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then(() => {
+        setIsLoading(false);
+      });
     }
   }, [activeProjectId]);
 
@@ -147,7 +151,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   function getRandomNumber(title) {
     // Check if a random number is stored in local storage
     const storedNumber = localStorage.getItem(`randomNumber${title}`);
-    const prevNumber = localStorage.getItem(`randomNumber${Number(title)-1}`);
+    const prevNumber = localStorage.getItem(`randomNumber${Number(title) - 1}`);
 
     // If a random number is stored, return it
     if (storedNumber) {
@@ -195,71 +199,80 @@ const AudioRate = ({ title, link, isWritten }) => {
             : `Audio ${title}`)
         }
       </script>
-      <Instruction type={isWritten ? "intro" : "audio"} />
-      <Grid container className="centerPadding" gap={2}>
-        <Grid item xs={4} px={4}>
-          <Typography
-            className="cardHeader"
-            sx={{ color: colorPalette[theme]["primary"] }}
-          >
-            {link.includes("q2")
-              ? arr[firstCandidate]?.optionName
-              : arr[lastCandidate]?.optionName}
-          </Typography>
-          <Box className="imageBox">
-            <img
-              src={
-                link.includes("q2")
-                  ? arr[firstCandidate]?.link
-                  : arr[lastCandidate]?.link
-              }
-              alt="candidate"
-            />
-          </Box>
-          {isWritten ? (
-            <IntroMessage
-              text={
-                data.length !== 0 &&
-                data[sectionNum][sections[sectionNum]][user.surveyRole]
-                  ?.introductions[randomNum]
-              }
-            />
-          ) : (
-            <Audio
-              src={
-                data.length !== 0 &&
-                data[sectionNum][sections[sectionNum]][user.surveyRole]
-                  ?.audioLink[randomNum]
-              }
-            />
-          )}
-        </Grid>
-        <Grid item xs={7} px={4}>
-          <AudioForm
-            data={
-              data.length !== 0 &&
-              data[sectionNum][sections[sectionNum]][user.surveyRole]?.questions
-            }
-            setRating={setRating}
-            isWritten={isWritten}
-            title={title}
-          />
-        </Grid>
-        <Grid item xs={12} className="spaceBetween" sx={{ py: 3, px: 9 }}>
-          <NextButton
-            isSurvey={true}
-            disabled={
-              data.length !== 0 &&
-              !isValid(
-                rating,
-                data[sectionNum][sections[sectionNum]][user.surveyRole]
-                  ?.questions.length
-              )
-            }
-            handleOnSubmit={handleOnSubmit}
-          />
-        </Grid>
-      </Grid>
+      {isLoading ? (
+        <div className={`background-${theme} center`}>
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Instruction type={isWritten ? "intro" : "audio"} />
+          <Grid container className="centerPadding" gap={2}>
+            <Grid item xs={4} px={4}>
+              <Typography
+                className="cardHeader"
+                sx={{ color: colorPalette[theme]["primary"] }}
+              >
+                {link.includes("q2")
+                  ? arr[firstCandidate]?.optionName
+                  : arr[lastCandidate]?.optionName}
+              </Typography>
+              <Box className="imageBox">
+                <img
+                  src={
+                    link.includes("q2")
+                      ? arr[firstCandidate]?.link
+                      : arr[lastCandidate]?.link
+                  }
+                  alt="candidate"
+                />
+              </Box>
+              {isWritten ? (
+                <IntroMessage
+                  text={
+                    data.length !== 0 &&
+                    data[sectionNum][sections[sectionNum]][user.surveyRole]
+                      ?.introductions[randomNum]
+                  }
+                />
+              ) : (
+                <Audio
+                  src={
+                    data.length !== 0 &&
+                    data[sectionNum][sections[sectionNum]][user.surveyRole]
+                      ?.audioLink[randomNum]
+                  }
+                />
+              )}
+            </Grid>
+            <Grid item xs={7} px={4}>
+              <AudioForm
+                data={
+                  data.length !== 0 &&
+                  data[sectionNum][sections[sectionNum]][user.surveyRole]
+                    ?.questions
+                }
+                setRating={setRating}
+                isWritten={isWritten}
+                title={title}
+              />
+            </Grid>
+            <Grid item xs={12} className="spaceBetween" sx={{ py: 3, px: 9 }}>
+              <NextButton
+                isSurvey={true}
+                disabled={
+                  data.length !== 0 &&
+                  !isValid(
+                    rating,
+                    data[sectionNum][sections[sectionNum]][user.surveyRole]
+                      ?.questions.length
+                  )
+                }
+                handleOnSubmit={handleOnSubmit}
+              />
+            </Grid>
+          </Grid>
+        </>
+      )}
     </div>
   );
 };

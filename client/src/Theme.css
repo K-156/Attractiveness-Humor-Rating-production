@@ -59,6 +59,61 @@
     z-index: 1;
 }
 
+.background-green {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.background-blue {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.background-yellow {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.background-pink {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
+.background-brown {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: 1;
+}
+
 /* Button */
 .customButton-green.MuiButton-contained {
     background: #264653;

@@ -20,7 +20,7 @@ import { colorPalette } from "../../Utils/colorPalette";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { theme, loginUser, user } = useAppContext();
+  const { theme, loginUser, user, isLoading } = useAppContext();
   const [isValid, setIsValid] = useState(true);
   const [formData, setFormData] = useState({ otp: "" });
   const [error, setError] = useState({ otp: false });

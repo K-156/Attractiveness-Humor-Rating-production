@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -17,18 +17,12 @@ import PrevButton from "../../Components/NavButton/PrevButton";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const Description = () => {
-  const {
-    theme,
-    data,
-    user,
-    setActiveProject,
-    getProject,
-    activeProjectId,
-    isLoading,
-  } = useAppContext();
+  const { theme, data, user, setActiveProject, getProject, activeProjectId } =
+    useAppContext();
 
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const { id, candidateCount, link } = location.state;
 
   const gender = localStorage.getItem("gender");
@@ -37,7 +31,9 @@ const Description = () => {
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then(() => {
+        setIsLoading(false);
+      });
     }
   }, [activeProjectId]);
 
@@ -95,7 +91,9 @@ const Description = () => {
     <div>
       <script>{(document.title = "Description")}</script>
       {isLoading ? (
-        <Loading />
+        <div className={`background-${theme} center`}>
+          <Loading />
+        </div>
       ) : (
         <>
           {" "}

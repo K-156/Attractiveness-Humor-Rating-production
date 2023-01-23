@@ -1,6 +1,6 @@
 import { useAppContext } from "../../Context/AppContext";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { Box, Grid } from "@mui/material";
 import _ from "lodash";
@@ -9,6 +9,7 @@ import ItemCard from "../../Components/ItemCard/ItemCard";
 import NextButton from "../../Components/NavButton/NextButton";
 import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Profiles = () => {
   const {
@@ -17,19 +18,20 @@ const Profiles = () => {
     getProject,
     activeProjectId,
     user,
-    data
+    data,
+    theme
   } = useAppContext();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
   const type = localStorage.getItem("type");
 
   const path =
-  data[Number(sectionNum) + 1] !== undefined
-    ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-    : links.find((link) => link.id === 8).path;
-
+    data[Number(sectionNum) + 1] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+      : links.find((link) => link.id === 8).path;
 
   const oppGender = (userGender) => {
     if (userGender === "female") {
@@ -42,7 +44,9 @@ const Profiles = () => {
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then(() => {
+        setIsLoading(false);
+      });
     }
   }, [activeProjectId]);
 
@@ -58,8 +62,6 @@ const Profiles = () => {
       navigate(path);
     }
   };
-
-
 
   let arr = [];
   let arrOfProfile = [];
@@ -93,30 +95,38 @@ const Profiles = () => {
   return (
     <div>
       <script>{(document.title = "Attractiveness")}</script>
-      <Instruction type="attractive" />
-      <Grid container spacing={1} py={2}>
-        {_.map(arr, (item, index) => {
-          return (
-            <Grid item key={index} xs={3}>
-              <ItemCard
-                id={index}
-                title={item.optionName}
-                img={item?.link}
-                description={item.description}
-                candidateCount={arr?.length}
-                gender={gender === "true" ? oppGender(user.sex) : "NA"}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
-      <Box className="flexEnd">
-        <NextButton
-          isSurvey={true}
-          text={type !== null ? type : "Next"}
-          handleOnSubmit={handleOnSubmit}
-        />
-      </Box>
+      {isLoading ? (
+        <div className={`background-${theme} center`}>
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Instruction type="attractive" />
+          <Grid container spacing={1} py={2}>
+            {_.map(arr, (item, index) => {
+              return (
+                <Grid item key={index} xs={3}>
+                  <ItemCard
+                    id={index}
+                    title={item.optionName}
+                    img={item?.link}
+                    description={item.description}
+                    candidateCount={arr?.length}
+                    gender={gender === "true" ? oppGender(user.sex) : "NA"}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          <Box className="flexEnd">
+            <NextButton
+              isSurvey={true}
+              text={type !== null ? type : "Next"}
+              handleOnSubmit={handleOnSubmit}
+            />
+          </Box>
+        </>
+      )}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import ChatTemplate from "../../Components/Chatbox/ChatTemplate";
 import NextButton from "../../Components/NavButton/NextButton";
 import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Chat = ({ title, link }) => {
   const {
@@ -18,6 +19,7 @@ const Chat = ({ title, link }) => {
     setActiveProject,
     activeProjectId,
     getProject,
+    theme,
   } = useAppContext();
   const navigate = useNavigate();
 
@@ -27,6 +29,7 @@ const Chat = ({ title, link }) => {
 
   const gender = localStorage.getItem("gender");
   const sectionNum = Number(localStorage.getItem("sectionNum"));
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setActiveProject();
@@ -81,6 +84,7 @@ const Chat = ({ title, link }) => {
           }
         }
         setItems(arr);
+        setIsLoading(false);
       });
     }
   }, [activeProjectId]);
@@ -128,24 +132,32 @@ const Chat = ({ title, link }) => {
 
   return (
     <div>
-      <Box sx={{ ml: 5, mb: 2 }}>
-        <Instruction type="prewritten" />
-      </Box>
-      <ChatTemplate
-        link={link}
-        selectMessage={selectMessage}
-        setSelectMessage={setSelectMessage}
-        firstCandidate={items[firstCandidate]}
-        lastCandidate={items[lastCandidate]}
-        title={title}
-      />
-      <Box className="spaceBetween" sx={{ mx: 5, my: 3 }}>
-        <NextButton
-          isSurvey={true}
-          disabled={selectMessage === null}
-          handleOnSubmit={handleOnSubmit}
-        />
-      </Box>
+      {isLoading ? (
+        <div className={`background-${theme} center`}>
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Box sx={{ ml: 5, mb: 2 }}>
+            <Instruction type="prewritten" />
+          </Box>
+          <ChatTemplate
+            link={link}
+            selectMessage={selectMessage}
+            setSelectMessage={setSelectMessage}
+            firstCandidate={items[firstCandidate]}
+            lastCandidate={items[lastCandidate]}
+            title={title}
+          />
+          <Box className="spaceBetween" sx={{ mx: 5, my: 3 }}>
+            <NextButton
+              isSurvey={true}
+              disabled={selectMessage === null}
+              handleOnSubmit={handleOnSubmit}
+            />
+          </Box>
+        </>
+      )}
     </div>
   );
 };

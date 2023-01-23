@@ -25,7 +25,6 @@ const Details = () => {
     updateUser,
     user,
     theme,
-    isLoading,
     activeProjectId,
     setActiveProject,
     getProject,
@@ -33,11 +32,14 @@ const Details = () => {
   } = useAppContext();
 
   const detailList = ["Sex", "Age", "Ethnicity"];
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then(() => {
+        setIsLoading(false);
+      });
     }
   }, [activeProjectId]);
 
@@ -90,10 +92,6 @@ const Details = () => {
     navigate(links.find((link) => link.id === sections[0]).path);
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   const getIPStartTime = async () => {
     const res = await axios.get("https://geolocation-db.com/json/");
     const currentTime = new Date();
@@ -107,82 +105,88 @@ const Details = () => {
   return (
     <div className={`backgroundImage-${theme} center`}>
       <script>{(document.title = "Personal Details")}</script>
-      <Card
-        className="absoluteCenter"
-        sx={{
-          px: 1,
-          py: 2,
-          width: "500px",
-        }}
-      >
-        <CardContent className="flexColumn center">
-          <Typography
-            variant="h5"
-            className="formCardHeader"
-            sx={{ color: colorPalette[theme]["primary"] }}
-          >
-            Fill in your details
-          </Typography>
-          <FormControl sx={{ width: "80%", my: 2 }}>
-            <FormGroup>
-              {_.map(detailList, (detail) => {
-                if (detail === "Sex") {
-                  return (
-                    <TextField
-                      select
-                      required
-                      key={detail}
-                      name="sex"
-                      label="Sex"
-                      value={formData.sex}
-                      onChange={handleOnChange}
-                      sx={{ my: 1 }}
-                    >
-                      <MenuItem id="female" value="female">
-                        Female
-                      </MenuItem>
-                      <MenuItem id="male" value="male">
-                        Male
-                      </MenuItem>
-                    </TextField>
-                  );
-                }
-                return (
-                  <TextField
-                    required
-                    key={detail}
-                    name={detail.toLowerCase()}
-                    label={detail}
-                    type={detail === "Age" ? "number" : "text"}
-                    sx={{ my: 1 }}
-                    InputProps={{ inputProps: { min: 1 } }}
-                    onChange={handleOnChange}
-                    error={detail === "Age" ? ageError : false}
-                    helperText={
-                      detail === "Age" && ageError
-                        ? "Age must be at least 1"
-                        : ""
-                    }
-                  />
-                );
-              })}
-            </FormGroup>
-          </FormControl>
-          <Button
-            disabled={!toSubmit}
-            type="submit"
-            variant="contained"
-            className={`customButton-${theme}`}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Card
+            className="absoluteCenter"
             sx={{
-              width: "80%",
-              mt: 2,
+              px: 1,
+              py: 2,
+              width: "500px",
             }}
-            onClick={handleOnSubmit}
           >
-            Submit
-          </Button>
-        </CardContent>
-      </Card>
+            <CardContent className="flexColumn center">
+              <Typography
+                variant="h5"
+                className="formCardHeader"
+                sx={{ color: colorPalette[theme]["primary"] }}
+              >
+                Fill in your details
+              </Typography>
+              <FormControl sx={{ width: "80%", my: 2 }}>
+                <FormGroup>
+                  {_.map(detailList, (detail) => {
+                    if (detail === "Sex") {
+                      return (
+                        <TextField
+                          select
+                          required
+                          key={detail}
+                          name="sex"
+                          label="Sex"
+                          value={formData.sex}
+                          onChange={handleOnChange}
+                          sx={{ my: 1 }}
+                        >
+                          <MenuItem id="female" value="female">
+                            Female
+                          </MenuItem>
+                          <MenuItem id="male" value="male">
+                            Male
+                          </MenuItem>
+                        </TextField>
+                      );
+                    }
+                    return (
+                      <TextField
+                        required
+                        key={detail}
+                        name={detail.toLowerCase()}
+                        label={detail}
+                        type={detail === "Age" ? "number" : "text"}
+                        sx={{ my: 1 }}
+                        InputProps={{ inputProps: { min: 1 } }}
+                        onChange={handleOnChange}
+                        error={detail === "Age" ? ageError : false}
+                        helperText={
+                          detail === "Age" && ageError
+                            ? "Age must be at least 1"
+                            : ""
+                        }
+                      />
+                    );
+                  })}
+                </FormGroup>
+              </FormControl>
+              <Button
+                disabled={!toSubmit}
+                type="submit"
+                variant="contained"
+                className={`customButton-${theme}`}
+                sx={{
+                  width: "80%",
+                  mt: 2,
+                }}
+                onClick={handleOnSubmit}
+              >
+                Submit
+              </Button>
+            </CardContent>
+          </Card>
+        </>
+      )}
     </div>
   );
 };

@@ -1,12 +1,11 @@
 import { useAppContext } from "../../Context/AppContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
   Card,
   CardContent,
   Typography,
-  useRadioGroup,
 } from "@mui/material";
 
 import NextButton from "../../Components/NavButton/NextButton";
@@ -23,14 +22,16 @@ const InstructionPage = ({ link }) => {
     getProject,
     sections,
     user,
-    isLoading,
   } = useAppContext();
   const sectionNum = localStorage.getItem("sectionNum");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then(() => {
+        setIsLoading(false);
+      });
     }
   }, [activeProjectId]);
 
@@ -70,9 +71,7 @@ const InstructionPage = ({ link }) => {
                 </Box>
                 <Box className="center" pt={1.5}>
                   <Typography className="textCenter">
-                    {data.length !== 0 &&
-                      data[sectionNum][sections[sectionNum]][user.surveyRole]
-                        ?.instruction}
+                    {data[sectionNum][sections[sectionNum]][user.surveyRole]?.instruction}
                   </Typography>
                 </Box>
               </CardContent>

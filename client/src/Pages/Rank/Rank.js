@@ -8,6 +8,7 @@ import Instruction from "../../Components/Instruction/Instruction";
 import NextButton from "../../Components/NavButton/NextButton";
 import DragAndDrop from "../../Components/DragAndDrop/DragAndDrop";
 import links from "../../Utils/links";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Rank = () => {
   const {
@@ -25,6 +26,7 @@ const Rank = () => {
 
   const gender = sessionStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setActiveProject();
@@ -61,6 +63,7 @@ const Rank = () => {
         }
         setAllItems(arr);
         setItems(arr);
+        setIsLoading(false);
       });
     }
   }, [activeProjectId]);
@@ -122,43 +125,51 @@ const Rank = () => {
   return (
     <div>
       <script>{(document.title = "Profile Ranking")}</script>
-      <Box className="spaceBetween">
-        <Box className="spaceBetween" sx={{ width: "250px" }}>
-          <Instruction type="rank" />
-          <Button
-            variant="contained"
-            className={`customButton-${theme}`}
-            onClick={handleViewProfile}
-          >
-            View Profiles
-          </Button>
-        </Box>
-        <Button
-          variant="contained"
-          className={`customButton-${theme}`}
-          onClick={() => {
-            setRankItems([]);
-            setItems(allItems);
-          }}
-        >
-          Reset Rank
-        </Button>
-      </Box>
-      <DragAndDrop
-        items={items}
-        setItems={setItems}
-        rankItems={rankItems}
-        setRankItems={setRankItems}
-        allItems={allItems}
-      />
-      <Box className="flexEnd" sx={{ mt: 3 }}>
-        <NextButton
-          disabled={rankItems.length < allItems.length}
-          ratingType="rank"
-          isSurvey={true}
-          handleOnSubmit={handleOnSubmit}
-        />
-      </Box>
+      {isLoading ? (
+        <div className={`background-${theme} center`}>
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Box className="spaceBetween">
+            <Box className="spaceBetween" sx={{ width: "250px" }}>
+              <Instruction type="rank" />
+              <Button
+                variant="contained"
+                className={`customButton-${theme}`}
+                onClick={handleViewProfile}
+              >
+                View Profiles
+              </Button>
+            </Box>
+            <Button
+              variant="contained"
+              className={`customButton-${theme}`}
+              onClick={() => {
+                setRankItems([]);
+                setItems(allItems);
+              }}
+            >
+              Reset Rank
+            </Button>
+          </Box>
+          <DragAndDrop
+            items={items}
+            setItems={setItems}
+            rankItems={rankItems}
+            setRankItems={setRankItems}
+            allItems={allItems}
+          />
+          <Box className="flexEnd" sx={{ mt: 3 }}>
+            <NextButton
+              disabled={rankItems.length < allItems.length}
+              ratingType="rank"
+              isSurvey={true}
+              handleOnSubmit={handleOnSubmit}
+            />
+          </Box>
+        </>
+      )}
     </div>
   );
 };

@@ -10,6 +10,7 @@ import NextButton from "../../Components/NavButton/NextButton";
 import { isValid } from "../../Utils/isValid";
 import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const AttractiveRate = () => {
   const {
@@ -29,6 +30,7 @@ const AttractiveRate = () => {
   const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setActiveProject();
@@ -55,7 +57,7 @@ const AttractiveRate = () => {
                 gender === "true" ? oppGender(user.sex) : "NA"
               ];
           }
-          setItems(arr)
+          setItems(arr);
         }
 
         for (const [key, value] of Object.entries(dataToDisplay)) {
@@ -64,7 +66,8 @@ const AttractiveRate = () => {
             arr.push(value);
           }
         }
-      })
+        setIsLoading(false);
+      });
     }
   }, [activeProjectId]);
 
@@ -77,10 +80,9 @@ const AttractiveRate = () => {
   };
 
   const path =
-  data[Number(sectionNum) + 1] !== undefined
-    ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-    : links.find((link) => link.id === 8).path;
-
+    data[Number(sectionNum) + 1] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+      : links.find((link) => link.id === 8).path;
 
   const handleViewProfile = (e) => {
     e.preventDefault();
@@ -115,38 +117,46 @@ const AttractiveRate = () => {
   return (
     <div>
       <script>{(document.title = "Profile Rating")}</script>
-      <Box className="spaceBetween" sx={{ width: "250px" }}>
-        <Instruction type="attractive" />
-        <Button
-          variant="contained"
-          className={`customButton-${theme}`}
-          onClick={handleViewProfile}
-        >
-          View Profiles
-        </Button>
-      </Box>
-      <Grid container spacing={1} py={2}>
-        {_.map(items, (item, index) => {
-          return (
-            <Grid item key={index} xs={3}>
-              <RatingCard
-                id={`option${index + 1}_rate`}
-                title={item.optionName}
-                img={item.link}
-                description={item.description}
-                setRating={setRating}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
-      <Box className="flexEnd">
-        <NextButton
-          isSurvey={true}
-          disabled={!isValid(rating, items.length)}
-          handleOnSubmit={handleOnSubmit}
-        />
-      </Box>
+      {isLoading ? (
+        <div className={`background-${theme} center`}>
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Box className="spaceBetween" sx={{ width: "250px" }}>
+            <Instruction type="attractive" />
+            <Button
+              variant="contained"
+              className={`customButton-${theme}`}
+              onClick={handleViewProfile}
+            >
+              View Profiles
+            </Button>
+          </Box>
+          <Grid container spacing={1} py={2}>
+            {_.map(items, (item, index) => {
+              return (
+                <Grid item key={index} xs={3}>
+                  <RatingCard
+                    id={`option${index + 1}_rate`}
+                    title={item.optionName}
+                    img={item.link}
+                    description={item.description}
+                    setRating={setRating}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          <Box className="flexEnd">
+            <NextButton
+              isSurvey={true}
+              disabled={!isValid(rating, items.length)}
+              handleOnSubmit={handleOnSubmit}
+            />
+          </Box>
+        </>
+      )}
     </div>
   );
 };

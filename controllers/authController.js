@@ -77,6 +77,10 @@ const updateUser = async (req, res) => {
 
   const user = await User.findOne({ _id: req.user.userId }).select("+password");
 
+  if (user?.endTime) {
+    throw new BadRequestError("User has already completed the survey!")
+  }
+
   if (req.body.formData) {
     user.sex = req.body.formData.sex;
     user.age = req.body.formData.age;
