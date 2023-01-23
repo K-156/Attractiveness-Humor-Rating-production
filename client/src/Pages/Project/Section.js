@@ -18,7 +18,7 @@ const Section = () => {
 
   const { formData, sections, isEditing } = useAppContext();
   const roleDict = JSON.parse(sessionStorage.getItem("roles"));
-  const roles = useMemo(() => _.map(roleDict, (aRole) => aRole.role), [roleDict])
+  const roles = useMemo(() => _.map(roleDict, (aRole) => aRole.role), [roleDict]);
 
   const location = useLocation();
   const sectionNum = parseInt(location.pathname.split("/").pop());
@@ -63,12 +63,12 @@ const Section = () => {
         sectionNum={sectionNum}
         templateNum={currTemplate}
       >
-        { currTemplate === 1 ? <T1Profile roles={roles} roleDict={roleDict}/>
-                    : currTemplate === 2 ? <T2ProfileRating roles={roles} />
-                    : currTemplate === 3 ? <T3Rank roles={roles} />
-                    : currTemplate === 4 ? <T4Audio roles={roles} />
-                    : currTemplate === 5 ? <T5Intro roles={roles} />
-                    : currTemplate === 6 ? <T6Chatbox roles={roles} />
+        { currTemplate === 1 ? <T1Profile roles={roles} roleDict={roleDict} key={sectionNum} />
+                    : currTemplate === 2 ? <T2ProfileRating roles={roles} key={sectionNum} />
+                    : currTemplate === 3 ? <T3Rank roles={roles} key={sectionNum} />
+                    : currTemplate === 4 ? <T4Audio roles={roles} key={sectionNum} />
+                    : currTemplate === 5 ? <T5Intro roles={roles} key={sectionNum} />
+                    : currTemplate === 6 ? <T6Chatbox roles={roles} key={sectionNum} />
                     : <T7General />
                 } 
       </ProjectLayout>

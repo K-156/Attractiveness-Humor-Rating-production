@@ -1,14 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
 import AddSection from "../../Components/ProjectForm/AddSections";
 import ProjectLayout from "../../Layout/ProjectLayout";
 
-const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
-const projId = sessionStorage.getItem("projId")
-
 const ProjectDetails = () => {
   const { sections, data, getProject } = useAppContext();
+  const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
+  const projId = sessionStorage.getItem("projId")
   const [formData, setFormData] = useState(sections);
 
   useEffect(() => {

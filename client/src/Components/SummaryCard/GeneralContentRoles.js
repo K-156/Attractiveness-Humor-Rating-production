@@ -76,11 +76,9 @@ const GeneralContentRoles = ({ content, handleOnClick }) => {
         });
         return (
           <>
-            {
-              <Box className="twoColumns">
-                <Typography className="summaryHeader">{role}</Typography>
-              </Box>
-            }
+            <Box className="twoColumns">
+              <Typography className="summaryHeader">{role}</Typography>
+            </Box>
             {displayOutput}
           </>
         );

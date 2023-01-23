@@ -26,6 +26,8 @@ const T1Profile = ({ roles, roleDict }) => {
   const [formData, setFormData] = useState({});
   const [expanded, setExpanded] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log(formData)
   
   useEffect(() => {
     getProject(projId).then((project) => {
