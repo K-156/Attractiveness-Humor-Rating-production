@@ -133,6 +133,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
                       <Link
                         className="projectLink"
                         to="/projects/samples/themes"
+                        target="_blank"
                       >
                         <i>View themes</i>
                       </Link>

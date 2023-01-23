@@ -1,7 +1,8 @@
 import { useState } from "react";
+
+import { Button, Box } from "@mui/material";
 import _ from "lodash";
 
-import PrevButton from "../../Components/NavButton/PrevButton";
 import TemplateCard from "../../Components/TemplateCard/TemplateCard";
 import SampleDialog from "../../Components/SampleDialog/SampleDialog";
 
@@ -23,10 +24,15 @@ const Themes =  () => {
     return (
         <div>
             <script>{document.title="Themes Samples"}</script>
-            <PrevButton 
-                text="Back"
-                link="/projects/details"
-            />
+            <Box className="flexEnd">
+                <Button 
+                    variant="contained"
+                    className="customButton-green"
+                    onClick={() => window.close()}
+                >
+                    Close
+                </Button>
+            </Box>
             {_.map(themeList, (theme) => {
                 return(
                     <TemplateCard

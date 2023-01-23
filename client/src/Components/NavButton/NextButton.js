@@ -58,7 +58,7 @@ const NextButton = ({
         : [];
       let dict = {};
       dict[templateNum] = data;
-      if (sectionNum == arr.length) {
+      if (sectionNum === arr.length) {
         arr.push(dict);
       } else {
         arr[sectionNum] = dict;

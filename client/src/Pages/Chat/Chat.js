@@ -52,7 +52,7 @@ const Chat = ({ title, link }) => {
   // find how many rank
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo == 3) {
+      if (templateNo === 3) {
         arrOfRank.push(Number(sectionNum));
       }
     }
@@ -90,7 +90,7 @@ const Chat = ({ title, link }) => {
   }
 
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key == 1 || key == 2 || key == 3 || key == 4) {
+    if (key === 1 || key === 2 || key === 3 || key === 4) {
       arr.push(value);
     }
   }

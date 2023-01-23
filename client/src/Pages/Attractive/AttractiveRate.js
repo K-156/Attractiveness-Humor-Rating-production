@@ -73,7 +73,7 @@ const AttractiveRate = () => {
   }
 
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key == 1 || key == 2 || key == 3 || key == 4) {
+    if (key === 1 || key === 2 || key === 3 || key === 4) {
       arr.push(value);
     }
   }

@@ -42,7 +42,11 @@ const AddSection = ({ formData, setFormData, type, data, projId }) => {
           <Box className="twoColumns">
             <Typography className="variable flexColumn">
               Sections
-              <Link className="projectLink" to="/projects/samples/templates">
+              <Link 
+                className="projectLink" 
+                to="/projects/samples/templates"
+                target="_blank"
+              >
                 <i>View Templates</i>
               </Link>
             </Typography>

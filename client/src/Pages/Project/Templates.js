@@ -1,9 +1,9 @@
 import { useState } from "react";
 
+import { Button, Box } from "@mui/material";
 import _ from "lodash";
 
 import TemplateCard from "../../Components/TemplateCard/TemplateCard";
-import PrevButton from "../../Components/NavButton/PrevButton";
 import { templates } from "../../Utils/templateList";
 import SampleDialog from "../../Components/SampleDialog/SampleDialog";
 
@@ -44,10 +44,16 @@ const Templates = () => {
         <script>
             {document.title = "Template Samples"}
         </script>
-        <PrevButton 
-            text="Back"
-            link="/projects/sections"
-        />
+        <Box className="flexEnd">
+            <Button 
+                variant="contained"
+                className="customButton-green"
+                onClick={() => window.close()}
+            >
+                Close
+            </Button>
+        </Box>
+       
         {_.map(_.range(1,8), (num)=> {
             return(
                 <TemplateCard 
