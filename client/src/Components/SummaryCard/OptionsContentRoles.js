@@ -12,7 +12,9 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
         return (
           <Box key={role}>
             <Box className="twoColumns">
-              <Typography className="summaryHeader">{role}</Typography>
+              <Typography className="summaryRole">
+                {role}
+              </Typography>
             </Box>
             {_.map(arr, (options, gender) => {
               if (gender !== "instruction") {
@@ -70,14 +72,14 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                   );
                 });
                 return (
-                  <>
+                  <Box>
                     <Box className="twoColumns">
                       <Typography className="summaryVariable">
-                        {gender}
+                        <b>{gender === "NA" ? "" : `- - - - - ${gender} - - - - -`}</b>
                       </Typography>
                     </Box>
                     {displayOutput}
-                  </>
+                  </Box>
                 );
               }
             })}
