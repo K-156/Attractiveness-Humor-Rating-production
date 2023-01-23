@@ -12,21 +12,18 @@ import links from "../../Utils/links";
 
 const Profiles = () => {
   const {
-    nextSection,
     sections,
     setActiveProject,
     getProject,
     activeProjectId,
+    user,
+    data
   } = useAppContext();
-  const location = useLocation();
-  const state = location.state;
   const navigate = useNavigate();
 
-  const role = sessionStorage.getItem("role");
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const userGender = sessionStorage.getItem("userGender");
-  const gender = sessionStorage.getItem("gender");
-  const sectionNum = sessionStorage.getItem("sectionNum");
+  const gender = localStorage.getItem("gender");
+  const sectionNum = localStorage.getItem("sectionNum");
+  const type = sessionStorage.getItem("type");
 
   const oppGender = (userGender) => {
     if (userGender === "female") {
@@ -45,15 +42,17 @@ const Profiles = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    nextSection();
-    sessionStorage.setItem(
-      "sectionNum",
-      Number(sessionStorage.getItem("sectionNum")) + 1
-    );
-    navigate(
-      links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-    );
-    // navigate(state["link"] ? state["link"] : path);
+    if (type === "Rate" || type === "Rank") {
+      navigate(links.find((link) => link.id === sections[sectionNum]).path);
+    } else {
+      localStorage.setItem(
+        "sectionNum",
+        Number(localStorage.getItem("sectionNum")) + 1
+      );
+      navigate(
+        links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+      );
+    }
   };
 
   let arr = [];
@@ -74,8 +73,8 @@ const Profiles = () => {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
       dataToDisplay =
-        data[element][1][role][
-          gender === "true" ? oppGender(userGender) : "NA"
+        data[element][1][user.surveyRole][
+          gender === "true" ? oppGender(user.sex) : "NA"
         ];
     }
   }
@@ -99,8 +98,7 @@ const Profiles = () => {
                 img={item?.link}
                 description={item.description}
                 candidateCount={arr?.length}
-                gender={gender === "true" ? oppGender(userGender) : "NA"}
-                // link={state["link"]}
+                gender={gender === "true" ? oppGender(user.sex) : "NA"}
               />
             </Grid>
           );
@@ -109,7 +107,7 @@ const Profiles = () => {
       <Box className="flexEnd">
         <NextButton
           isSurvey={true}
-          text={state ? state["type"] : "Next"}
+          text={type !== null ? type : "Next"}
           handleOnSubmit={handleOnSubmit}
         />
       </Box>

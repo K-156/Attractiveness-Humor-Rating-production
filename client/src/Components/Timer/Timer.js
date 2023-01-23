@@ -15,7 +15,7 @@ import { FiClock } from "react-icons/fi";
 import { HiArrowLeft } from "react-icons/hi";
 import { colorPalette } from "../../Utils/colorPalette";
 
-const durationMin = sessionStorage.getItem("duration");
+const durationMin = localStorage.getItem("duration");
 
 const Timer = () => {
   const { theme, user, removeUserFromLocalStorage } = useAppContext();
@@ -34,7 +34,7 @@ const Timer = () => {
 
   const expirationTime = durationMin;
   let otpTimestamp = user.startTime; // Timestamp when the OTP was generated
-
+  
   // Calculate the time remaining
   let remainingTime =
     durationMin * 60000 - (moment(Date.now()) - moment(otpTimestamp));

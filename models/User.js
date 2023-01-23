@@ -36,6 +36,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "participant",
     },
+    surveyRole: {
+      type: String,
+    },
     sex: {
       type: String,
       enum: ["female", "male"],

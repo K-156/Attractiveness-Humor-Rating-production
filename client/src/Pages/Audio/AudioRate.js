@@ -1,6 +1,6 @@
 import { useAppContext } from "../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Box, Grid, Typography } from "@mui/material";
 
@@ -14,17 +14,28 @@ import links from "../../Utils/links";
 import { colorPalette } from "../../Utils/colorPalette";
 
 const AudioRate = ({ title, link, isWritten }) => {
-  const { updateUser, nextSection, theme } = useAppContext();
+  const {
+    updateUser,
+    nextSection,
+    theme,
+    data,
+    sections,
+    setActiveProject,
+    activeProjectId,
+    getProject,
+  } = useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
 
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const role = sessionStorage.getItem("role");
+  const gender = localStorage.getItem("gender");
+  const sectionNum = Number(localStorage.getItem("sectionNum"));
 
-  const userGender = sessionStorage.getItem("userGender");
-  const gender = sessionStorage.getItem("gender");
-  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
-  const sections = JSON.parse(sessionStorage.getItem("sections"));
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId);
+    }
+  }, [activeProjectId]);
 
   const oppGender = (userGender) => {
     if (userGender === "female") {
@@ -78,8 +89,8 @@ const AudioRate = ({ title, link, isWritten }) => {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
       dataToDisplay =
-        data[element][1][role][
-          gender === "true" ? oppGender(userGender) : "NA"
+        data[element][1][user.surveyRole][
+          gender === "true" ? oppGender(user.sex) : "NA"
         ];
     }
   }
@@ -94,8 +105,6 @@ const AudioRate = ({ title, link, isWritten }) => {
   const lastCandidate =
     Number(user.rank[rankToDisplay][user.rank[rankToDisplay].length - 1]) - 1;
 
-  console.log(rating);
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
     isWritten
@@ -104,7 +113,8 @@ const AudioRate = ({ title, link, isWritten }) => {
             ...user,
             userResponse: {
               ...user.userResponse,
-              [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]: rating,
+              [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]:
+                rating,
             },
           },
           id: user._id,
@@ -114,7 +124,8 @@ const AudioRate = ({ title, link, isWritten }) => {
             ...user,
             userResponse: {
               ...user.userResponse,
-              [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]: rating,
+              [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]:
+                rating,
             },
           },
           id: user._id,
@@ -124,9 +135,9 @@ const AudioRate = ({ title, link, isWritten }) => {
       navigate(link);
     } else {
       nextSection();
-      sessionStorage.setItem(
+      localStorage.setItem(
         "sectionNum",
-        Number(sessionStorage.getItem("sectionNum")) + 1
+        Number(localStorage.getItem("sectionNum")) + 1
       );
       navigate(path);
     }
@@ -146,18 +157,20 @@ const AudioRate = ({ title, link, isWritten }) => {
     const randomNumber = isWritten
       ? Math.floor(
           Math.random() *
-            data[sectionNum][sections[sectionNum]][role].introductions.length
+            data[sectionNum][sections[sectionNum]][user.surveyRole]
+              ?.introductions.length
         )
       : Math.floor(
           Math.random() *
-            data[sectionNum][sections[sectionNum]][role].audioLink.length
+            data[sectionNum][sections[sectionNum]][user.surveyRole]?.audioLink
+              .length
         );
     localStorage.setItem(`randomNumber${title}`, randomNumber);
     return randomNumber;
   }
 
   // Use the getRandomNumber() function to get a random number
-  const randomNum = getRandomNumber(title);
+  const randomNum = data.length !== 0 ? getRandomNumber(title) : 0;
 
   return (
     <div>
@@ -176,40 +189,40 @@ const AudioRate = ({ title, link, isWritten }) => {
             sx={{ color: colorPalette[theme]["primary"] }}
           >
             {link.includes("q2")
-              ? arr[firstCandidate].optionName
-              : arr[lastCandidate].optionName}
+              ? arr[firstCandidate]?.optionName
+              : arr[lastCandidate]?.optionName}
           </Typography>
           <Box className="imageBox">
             <img
               src={
                 link.includes("q2")
-                  ? arr[firstCandidate].link
-                  : arr[lastCandidate].link
+                  ? arr[firstCandidate]?.link
+                  : arr[lastCandidate]?.link
               }
               alt="candidate"
             />
           </Box>
           {isWritten ? (
             <IntroMessage
-              text={
-                data[sectionNum][sections[sectionNum]][role].introductions[
-                  randomNum
-                ]
+              text={data.length !== 0 &&
+                data[sectionNum][sections[sectionNum]][user.surveyRole]
+                  ?.introductions[randomNum]
               }
             />
           ) : (
             <Audio
-              src={
-                data[sectionNum][sections[sectionNum]][role].audioLink[
-                  randomNum
-                ]
+              src={data.length !== 0 &&
+                data[sectionNum][sections[sectionNum]][user.surveyRole]
+                  ?.audioLink[randomNum]
               }
             />
           )}
         </Grid>
         <Grid item xs={7} px={4}>
           <AudioForm
-            data={data[sectionNum][sections[sectionNum]][role].questions}
+            data={data.length !== 0 &&
+              data[sectionNum][sections[sectionNum]][user.surveyRole]?.questions
+            }
             setRating={setRating}
             isWritten={isWritten}
             title={title}
@@ -218,10 +231,11 @@ const AudioRate = ({ title, link, isWritten }) => {
         <Grid item xs={12} className="spaceBetween" sx={{ py: 3, px: 9 }}>
           <NextButton
             isSurvey={true}
-            disabled={
+            disabled={data.length !== 0 &&
               !isValid(
                 rating,
-                data[sectionNum][sections[sectionNum]][role].questions.length
+                data[sectionNum][sections[sectionNum]][user.surveyRole]
+                  ?.questions.length
               )
             }
             handleOnSubmit={handleOnSubmit}

@@ -1,5 +1,4 @@
 import { useAppContext } from "../../Context/AppContext";
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
@@ -8,23 +7,35 @@ import { Box, Card, CardContent, Typography } from "@mui/material";
 import NextButton from "../../Components/NavButton/NextButton";
 import { colorPalette } from "../../Utils/colorPalette";
 import links from "../../Utils/links";
-import { getCurrentTime } from "../../Utils/getCurrentTime";
 
 const General = () => {
-  const { removeUserFromLocalStorage, theme, updateUser, user } =
-    useAppContext();
+  const {
+    removeUserFromLocalStorage,
+    theme,
+    updateUser,
+    user,
+    data,
+    setActiveProject,
+    activeProjectId,
+    getProject,
+    sections,
+  } = useAppContext();
   const location = useLocation();
 
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const sections = JSON.parse(sessionStorage.getItem("sections"));
-  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId);
+    }
+  }, [activeProjectId]);
 
-  let path = "/";
-  if (sectionNum + 1 !== sections.length) {
-    path = links.find(
-      (link) => link.id === sections[Number(sectionNum) + 1]
-    ).path;
-  }
+  const sectionNum = sections.length - 1;
+  console.log(sectionNum);
+
+  const path =
+    data[sectionNum + 1] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+      : "/";
 
   const getCompletionCode = async () => {
     return await axios.get("/api/v1/auth/completionCode");
@@ -38,7 +49,7 @@ const General = () => {
           currentUser: {
             ...user,
             completionCode: data.token,
-            endTime: new Date().toISOString(), 
+            endTime: new Date().toISOString(),
           },
           id: user._id,
         });
@@ -50,6 +61,7 @@ const General = () => {
     // Check if the OTP has expired
     if (location.pathname.includes("complete")) {
       removeUserFromLocalStorage();
+      localStorage.clear();
     }
   }, 5000);
 
@@ -82,16 +94,18 @@ const General = () => {
         >
           <CardContent sx={{ p: "24px" }}>
             <Typography className="textCenter" sx={{ whiteSpace: "pre-line" }}>
-              {data[sectionNum][sections[sectionNum]].text}
+              {data.length !== 0 &&
+                data[sectionNum][sections[sectionNum]]?.text}
             </Typography>
           </CardContent>
         </Card>
       </Box>
-      {data[sectionNum][sections[sectionNum]].isNext === "true" && (
-        <Box className="flexEnd" sx={{ py: 3, width: "80%", px: 6 }}>
-          <NextButton isSurvey={true} link={path} />
-        </Box>
-      )}
+      {data.length !== 0 &&
+        data[sectionNum][sections[sectionNum]]?.isNext === "true" && (
+          <Box className="flexEnd" sx={{ py: 3, width: "80%", px: 6 }}>
+            <NextButton isSurvey={true} link={path} />
+          </Box>
+        )}
     </div>
   );
 };

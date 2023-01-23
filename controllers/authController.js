@@ -74,7 +74,7 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { userResponse, role, rank, completionCode, endTime } = req.body;
+  const { userResponse, role, rank, completionCode, endTime, surveyRole } = req.body;
 
   const user = await User.findOne({ _id: req.user.userId }).select("+password");
 
@@ -91,6 +91,7 @@ const updateUser = async (req, res) => {
   user.rank = rank;
   user.endTime = endTime;
   user.completionCode = completionCode
+  user.surveyRole = surveyRole
 
   await user.save();
   const token = user.createJWT();

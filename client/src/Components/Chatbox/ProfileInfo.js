@@ -29,7 +29,7 @@ const ProfileInfo = ({ receiver, firstCandidate, lastCandidate }) => {
         <Box className="center">
           <img
             src={
-              receiver.includes("1") ? firstCandidate.link : lastCandidate.link
+              receiver.includes("1") ? firstCandidate?.link : lastCandidate?.link
             }
             style={{ width: "200px" }}
             alt="candidate profile"
@@ -40,13 +40,13 @@ const ProfileInfo = ({ receiver, firstCandidate, lastCandidate }) => {
           sx={{ color: colorPalette[theme]["primary"] }}
         >
           {receiver.includes("1")
-            ? firstCandidate.optionName.toUpperCase()
-            : lastCandidate.optionName.toUpperCase()}
+            ? firstCandidate?.optionName.toUpperCase()
+            : lastCandidate?.optionName.toUpperCase()}
         </Typography>
         <Typography sx={{ fontSize: "14px", textAlign: "center", pt: 1 }}>
           {receiver.includes("1")
-            ? firstCandidate.description
-            : lastCandidate.description}
+            ? firstCandidate?.description
+            : lastCandidate?.description}
         </Typography>
       </Box>
     </Box>

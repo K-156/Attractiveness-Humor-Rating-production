@@ -5,13 +5,10 @@ import { Button, Tooltip } from "@mui/material";
 
 import { colorPalette } from "../../Utils/colorPalette";
 
-const Instruction = ({ type }) => {
-  const { theme, activeProjectId, setActiveProject, getProject } =
+const Instruction = () => {
+  const { theme, activeProjectId, setActiveProject, getProject, user, data, sections } =
     useAppContext();
-  const sections= JSON.parse(sessionStorage.getItem("sections"));
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const role = sessionStorage.getItem("role");
-  const sectionNum = sessionStorage.getItem("sectionNum");
+  const sectionNum = localStorage.getItem("sectionNum");
 
   useEffect(() => {
     setActiveProject();
@@ -25,7 +22,8 @@ const Instruction = ({ type }) => {
       <Tooltip
         title={
           data.length !== 0
-            ? data[sectionNum][sections[sectionNum]][role].instruction
+            ? data[sectionNum][sections[sectionNum]][user.surveyRole]
+                ?.instruction
             : ""
         }
         placement="bottom-start"

@@ -7,35 +7,46 @@ import { BsFillGearFill, BsArrowRight } from "react-icons/bs";
 import _ from "lodash";
 
 import { colorPalette } from "../../Utils/colorPalette";
+import links from "../../Utils/links";
 
 const Home = () => {
-  const { getProject, setActiveProject, activeProjectId, theme, projDetails } =
-    useAppContext();
+  const {
+    getProject,
+    setActiveProject,
+    activeProjectId,
+    theme,
+    projDetails,
+    sections,
+  } = useAppContext();
   const navigate = useNavigate();
-  const rolesList = projDetails.roles
+  const rolesList = projDetails.roles;
   let roles = [];
   rolesList.forEach((dict) => {
     roles.push(dict["role"]);
   });
 
+  let sectionNum = localStorage.getItem("sectionNum");
+
   const handleOnClick = (event) => {
-    sessionStorage.setItem("role", event.target.id);
+    localStorage.setItem("role", event.target.id);
     rolesList.forEach((dict) => {
       if (dict["role"] === event.target.id) {
-        sessionStorage.setItem("gender", dict["isGender"])
+        localStorage.setItem("gender", dict["isGender"]);
       }
-    })
-    navigate(`/login`);
+    });
+    sectionNum === null
+      ? navigate(`/login`)
+      : navigate(links.find((link) => link.id === sections[sectionNum]).path);
   };
 
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId).then((proj)=>{
-        sessionStorage.setItem("data",JSON.stringify(proj.data));
-        sessionStorage.setItem("sections",JSON.stringify(proj.sections));
-        sessionStorage.setItem("duration", proj.projDetails.duration)
-      })
+      getProject(activeProjectId).then((proj) => {
+        localStorage.setItem("data", JSON.stringify(proj.data));
+        localStorage.setItem("sections", JSON.stringify(proj.sections));
+        localStorage.setItem("duration", proj.projDetails.duration);
+      });
     }
   }, [activeProjectId]);
 

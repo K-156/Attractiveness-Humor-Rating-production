@@ -18,7 +18,6 @@ import axios from "axios";
 import { colorPalette } from "../../Utils/colorPalette";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 import links from "../../Utils/links";
-import { getCurrentTime } from "../../Utils/getCurrentTime";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -34,8 +33,6 @@ const Details = () => {
   } = useAppContext();
 
   const detailList = ["Sex", "Age", "Ethnicity"];
-
-  // const { data } = JSON.parse(localStorage.getItem("data"));
 
   useEffect(() => {
     setActiveProject();
@@ -80,13 +77,16 @@ const Details = () => {
     }
   };
 
-  console.log(formData);
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({ currentUser: { ...user, formData }, id: user._id });
-    sessionStorage.setItem("userGender", formData.sex);
-    localStorage.setItem("userSection", 0);
+    updateUser({
+      currentUser: { ...user, surveyRole: localStorage.getItem("role") },
+      id: user._id,
+    }).then(() => {
+      localStorage.removeItem("role");
+    });
+    localStorage.setItem("sectionNum", 0);
     navigate(links.find((link) => link.id === sections[0]).path);
   };
 

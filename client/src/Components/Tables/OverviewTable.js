@@ -14,7 +14,7 @@ const OverviewTable = ({ data, projectId, sections }) => {
   const role = sessionStorage.getItem("role");
 
   const columns = ["_id"];
-  data.length !== 0 && sections.forEach((element) => {
+  sections !== null && sections.forEach((element) => {
     switch (element) {
       case 2:
         for (let i = 1; i <= 4; i++) {

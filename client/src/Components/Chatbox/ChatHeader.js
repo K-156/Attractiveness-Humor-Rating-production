@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { RxCross2 } from "react-icons/rx";
 import { colorPalette } from "../../Utils/colorPalette";
 
 
@@ -35,8 +34,8 @@ const ChatHeader = ({ receiver, firstCandidate, lastCandidate }) => {
                   }}
                 > 
                   {receiver.includes("1")
-                      ? firstCandidate.optionName.toUpperCase()
-                      : lastCandidate.optionName.toUpperCase()}
+                      ? firstCandidate?.optionName.toUpperCase()
+                      : lastCandidate?.optionName.toUpperCase()}
                 </Typography>
               </Box>
               <Box className="center">

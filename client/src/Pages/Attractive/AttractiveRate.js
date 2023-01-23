@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -12,17 +12,29 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const AttractiveRate = () => {
-  const { updateUser, user, nextSection, theme, prevSection, sections } =
-    useAppContext();
+  const {
+    updateUser,
+    user,
+    theme,
+    sections,
+    data,
+    setActiveProject,
+    activeProjectId,
+    getProject,
+  } = useAppContext();
   const [rating, setRating] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
 
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const role = sessionStorage.getItem("role");
-  const userGender = sessionStorage.getItem("userGender");
-  const gender = sessionStorage.getItem("gender");
-  const sectionNum = sessionStorage.getItem("sectionNum");
+  const gender = localStorage.getItem("gender");
+  const sectionNum = localStorage.getItem("sectionNum");
+
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId);
+    }
+  }, [activeProjectId]);
 
   const oppGender = (userGender) => {
     if (userGender === "female") {
@@ -54,8 +66,8 @@ const AttractiveRate = () => {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
       dataToDisplay =
-        data[element][1][role][
-          gender === "true" ? oppGender(userGender) : "NA"
+        data[element][1][user.surveyRole][
+          gender === "true" ? oppGender(user.sex) : "NA"
         ];
     }
   }
@@ -68,7 +80,7 @@ const AttractiveRate = () => {
 
   const handleViewProfile = (e) => {
     e.preventDefault();
-    prevSection();
+    sessionStorage.setItem("type", "Rate");
     navigate("/profiles", {
       state: {
         link: location.pathname,
@@ -89,10 +101,9 @@ const AttractiveRate = () => {
       },
       id: user._id,
     });
-    nextSection();
-    sessionStorage.setItem(
+    localStorage.setItem(
       "sectionNum",
-      Number(sessionStorage.getItem("sectionNum")) + 1
+      Number(localStorage.getItem("sectionNum")) + 1
     );
     navigate(path);
   };

@@ -7,7 +7,7 @@ import NextButton from "../../Components/NavButton/NextButton";
 import { colorPalette } from "../../Utils/colorPalette";
 import "./InstructionPage.css";
 
-const InstructionPage = ({ type, link }) => {
+const InstructionPage = ({ link }) => {
   const {
     theme,
     data,
@@ -15,9 +15,9 @@ const InstructionPage = ({ type, link }) => {
     setActiveProject,
     getProject,
     sections,
+    user
   } = useAppContext();
-  const role = sessionStorage.getItem("role");
-  const sectionNum = sessionStorage.getItem("sectionNum");
+  const sectionNum = localStorage.getItem("sectionNum");
 
   useEffect(() => {
     setActiveProject();
@@ -59,7 +59,7 @@ const InstructionPage = ({ type, link }) => {
             <Box className="center" pt={1.5}>
               <Typography className="textCenter">
                 {data.length !== 0
-                  ? data[sectionNum][sections[sectionNum]][role]?.instruction
+                  ? data[sectionNum][sections[sectionNum]][user.surveyRole]?.instruction
                   : ""}
               </Typography>
             </Box>

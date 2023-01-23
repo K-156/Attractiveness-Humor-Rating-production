@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 
@@ -10,19 +10,28 @@ import Instruction from "../../Components/Instruction/Instruction";
 import links from "../../Utils/links";
 
 const Chat = ({ title, link }) => {
-  const { updateUser, nextSection } = useAppContext();
+  const {
+    updateUser,
+    data,
+    sections,
+    user,
+    setActiveProject,
+    activeProjectId,
+    getProject,
+  } = useAppContext();
   const navigate = useNavigate();
 
   const [selectMessage, setSelectMessage] = useState(null);
-  const user = JSON.parse(localStorage.getItem("user"));
 
-  const data = JSON.parse(sessionStorage.getItem("data"));
-  const role = sessionStorage.getItem("role");
+  const gender = localStorage.getItem("gender");
+  const sectionNum = Number(localStorage.getItem("sectionNum"));
 
-  const userGender = sessionStorage.getItem("userGender");
-  const gender = sessionStorage.getItem("gender");
-  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
-  const sections = JSON.parse(sessionStorage.getItem("sections"));
+  useEffect(() => {
+    setActiveProject();
+    if (activeProjectId !== "") {
+      getProject(activeProjectId);
+    }
+  }, [activeProjectId]);
 
   const oppGender = (userGender) => {
     if (userGender === "female") {
@@ -74,8 +83,8 @@ const Chat = ({ title, link }) => {
     const element = arrOfProfile[i];
     if (element <= sectionNum) {
       dataToDisplay =
-        data[element][1][role][
-          gender === "true" ? oppGender(userGender) : "NA"
+        data[element][1][user.surveyRole][
+          gender === "true" ? oppGender(user.sex) : "NA"
         ];
     }
   }
@@ -88,13 +97,8 @@ const Chat = ({ title, link }) => {
 
   const firstCandidate = Number(user.rank[rankToDisplay][0]) - 1;
   const lastCandidate =
-    Number(
-      user.rank[rankToDisplay][
-        user.rank[rankToDisplay].length - 1
-      ]
-    ) - 1;
+    Number(user.rank[rankToDisplay][user.rank[rankToDisplay].length - 1]) - 1;
 
-      console.log(selectMessage)
   const handleOnSubmit = (e) => {
     e.preventDefault();
     updateUser({
@@ -102,18 +106,18 @@ const Chat = ({ title, link }) => {
         ...user,
         userResponse: {
           ...user.userResponse,
-          [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]: selectMessage,
+          [title === "1" ? `best_${sectionNum}` : `worst_${sectionNum}`]:
+            selectMessage,
         },
       },
       id: user._id,
-    })
+    });
     if (title === "1") {
       navigate(link);
     } else {
-      nextSection();
-      sessionStorage.setItem(
+      localStorage.setItem(
         "sectionNum",
-        Number(sessionStorage.getItem("sectionNum")) + 1
+        Number(localStorage.getItem("sectionNum")) + 1
       );
       navigate(path);
     }

@@ -17,7 +17,6 @@ const NextButton = ({
   data,
   projectType,
   templateNum,
-  open,
   setOpen,
   handleUpload,
 }) => {
