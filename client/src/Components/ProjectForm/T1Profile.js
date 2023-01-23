@@ -28,6 +28,8 @@ const T1Profile = ({ roles, roleDict }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   console.log(formData)
+  console.log(roles)
+  console.log(roleDict)
   
   useEffect(() => {
     getProject(projId).then((project) => {
@@ -41,6 +43,7 @@ const T1Profile = ({ roles, roleDict }) => {
   }, [])
 
   const formatData = (data, aRole) => {
+    console.log(data[sectionNum])
       setFormData((state) => ({
         ...state,
         [aRole]: {
@@ -124,7 +127,7 @@ const T1Profile = ({ roles, roleDict }) => {
                   fullWidth
                   multiline
                   minRows={3}
-                  maxRows={3}
+                  maxRows={5}
                   value={formData[aRole]?.instruction}
                   onChange={(event) => {
                     setFormData((state) => ({

@@ -17,7 +17,7 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
         );
 
         return (
-          <>
+          <Box key={role}>
             <Box className="twoColumns">
               <Typography className="summaryHeader">{role}</Typography>
             </Box>
@@ -103,7 +103,7 @@ const OptionsContent = ({ content, handleOnClick, header }) => {
                   </Box>
                 );
               })}
-          </>
+          </Box>
         );
       })}
     </>

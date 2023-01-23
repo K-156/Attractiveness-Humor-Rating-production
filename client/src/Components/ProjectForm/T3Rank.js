@@ -44,7 +44,7 @@ const T3Rank = ({ roles }) => {
 
   return _.map(roles, (aRole) => {
     return (
-      <Box sx={{ mb: 3 }}>
+      <Box key={aRole} sx={{ mb: 3 }}>
         <Typography sx={{ color: "#264653" }}>
           Role: <b>{aRole}</b>
         </Typography>
@@ -60,7 +60,7 @@ const T3Rank = ({ roles }) => {
                     fullWidth
                     multiline
                     minRows={3}
-                    maxRows={3}
+                    maxRows={5}
                     onChange={(event) => {
                       const value = event.target.value;
 

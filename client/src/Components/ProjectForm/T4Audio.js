@@ -27,12 +27,14 @@ const T4Audio = ({ roles }) => {
         data[aRole] = project.data[sectionNum]
           ? {
               instruction: project.data[sectionNum][4][aRole].instruction,
+              ratingInstruction: project.data[sectionNum][4][aRole].ratingInstruction,
               questions: project.data[sectionNum][4][aRole].questions,
               audio: project.data[sectionNum][4][aRole].audio,
               audioLink: project.data[sectionNum][4][aRole].audioLink,
             }
           : {
               instruction: "",
+              ratingInstruction: "",
               questions: [],
               audio: [],
               audioLink: [],
@@ -63,7 +65,7 @@ const T4Audio = ({ roles }) => {
 
   return _.map(roles, (aRole) => {
     return (
-      <Box sx={{ mb: 3 }}>
+      <Box key={aRole} sx={{ mb: 3 }}>
         <Typography sx={{ color: "#264653" }}>
           Role: <b>{aRole}</b>
         </Typography>
@@ -80,13 +82,36 @@ const T4Audio = ({ roles }) => {
                     fullWidth
                     multiline
                     minRows={3}
-                    maxRows={3}
+                    maxRows={5}
                     onChange={(event) => {
                       setFormData((state) => ({
                         ...state,
                         [aRole]: {
                           ...state[aRole],
                           instruction: event.target.value,
+                        },
+                      }));
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box className="twoColumns">
+                <Typography className="variable">Rating Instruction</Typography>
+                <Box className="secondColumn">
+                  <TextField
+                    value={formData[aRole]?.ratingInstruction}
+                    size="small"
+                    name="ratingInstruction"
+                    fullWidth
+                    multiline
+                    minRows={3}
+                    maxRows={5}
+                    onChange={(event) => {
+                      setFormData((state) => ({
+                        ...state,
+                        [aRole]: {
+                          ...state[aRole],
+                          ratingInstruction: event.target.value,
                         },
                       }));
                     }}

@@ -30,7 +30,8 @@ const UploadOneFile = ({
 
   const uploadFile = async (event) => {
     setIsLoading(true);
-    if (event.target.files !== undefined) {
+    const file = event.target.files;
+    if (file !== undefined && file.length > 0) {
       if (formData[role][gender][id]["img"] !== null) {
         setError(true);
         return;
@@ -40,7 +41,7 @@ const UploadOneFile = ({
         isEditing
           ? `${editProjectId}_${sectionNum}_${templateNum}_${id}_${role}`
           : `${createdProjectId}_${sectionNum}_${templateNum}_${id}_${role}`,
-        event.target.files[0]
+          file[0]
       );
 
       setFormData((state) => ({
@@ -51,7 +52,7 @@ const UploadOneFile = ({
             ...state[role][gender],
             [id]: {
               ...state[role][gender][id],
-              img: event.target.files[0].name,
+              img: file[0].name,
               link: fileLink,
             },
           }

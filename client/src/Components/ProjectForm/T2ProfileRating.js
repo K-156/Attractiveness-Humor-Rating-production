@@ -19,6 +19,7 @@ const T2ProfileRating = ({ roles }) => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     getProject(projId).then((project) => {
@@ -52,7 +53,28 @@ const T2ProfileRating = ({ roles }) => {
     });
   }, []);
 
-  const [formData, setFormData] = useState({});
+  const handleOnChange = (event, aRole) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    const type = name.includes("lower")
+      ? "lower"
+      : "upper";
+    setFormData((state) => ({
+      ...state,
+      [aRole]: {
+        ...state[aRole],
+        range: {
+          ...formData[aRole]["range"],
+          [type]: {
+            ...formData[aRole]["range"][type],
+            [name.includes("Num") ? "number" : "text"]:
+              value,
+          },
+        },
+      },
+    }));
+  }
 
   useEffect(() => {
     submitFormData(formData);
@@ -78,7 +100,7 @@ const T2ProfileRating = ({ roles }) => {
                     fullWidth
                     multiline
                     minRows={3}
-                    maxRows={3}
+                    maxRows={5}
                     onChange={(event) => {
                       const value = event.target.value;
                       setFormData((state) => ({
@@ -89,7 +111,7 @@ const T2ProfileRating = ({ roles }) => {
                         },
                       }));
                     }}
-                    value={formData[aRole]?.instruction}
+                    value={formData[aRole] ? formData[aRole].instruction : ""}
                   />
                 </Box>
               </Box>
@@ -111,41 +133,8 @@ const T2ProfileRating = ({ roles }) => {
                           width="30px"
                           InputProps={{ inputProps: { min: 1 } }}
                           type="number"
-                          onChange={(event) => {
-                            const name = event.target.name;
-                            const value = event.target.value;
-
-                            const type = name.includes("lower")
-                              ? "lower"
-                              : "upper";
-                            setFormData((state) => ({
-                              ...state,
-                              [aRole]: {
-                                ...state[aRole],
-                                range: {
-                                  ...formData[aRole]["range"],
-                                  [type]: {
-                                    ...formData[aRole]["range"][type],
-                                    [name.includes("Num") ? "number" : "text"]:
-                                      value,
-                                  },
-                                },
-                              },
-                            }));
-                          }}
-                          value={
-                            formData[aRole]?.["range"][type.toLowerCase()][
-                              "number"
-                            ]
-                          }
-                          // InputLabelProps={{
-                          //   shrink:
-                          //     (isEditing ||
-                          //       formData[aRole]?.["range"][type.toLowerCase()][
-                          //         "number"
-                          //       ]) &&
-                          //     true,
-                          // }}
+                          onChange={(event) => handleOnChange(event, aRole)}
+                          value={formData[aRole]? formData[aRole]["range"][type.toLowerCase()]["number"] : 0}
                         />
                         <BsDash
                           size="40px"
@@ -157,41 +146,8 @@ const T2ProfileRating = ({ roles }) => {
                           name={`${type.toLowerCase()}Text`}
                           label="Characteristics"
                           fullWidth
-                          onChange={(event) => {
-                            const name = event.target.name;
-                            const value = event.target.value;
-
-                            const type = name.includes("lower")
-                              ? "lower"
-                              : "upper";
-                            setFormData((state) => ({
-                              ...state,
-                              [aRole]: {
-                                ...state[aRole],
-                                range: {
-                                  ...formData[aRole]["range"],
-                                  [type]: {
-                                    ...formData[aRole]["range"][type],
-                                    [name.includes("Num") ? "number" : "text"]:
-                                      value,
-                                  },
-                                },
-                              },
-                            }));
-                          }}
-                          value={
-                            formData[aRole]?.["range"][type.toLowerCase()][
-                              "text"
-                            ]
-                          }
-                          // InputLabelProps={{
-                          //   shrink:
-                          //     (isEditing ||
-                          //       formData[aRole]?.["range"][type.toLowerCase()][
-                          //         "text"
-                          //       ] !== "") &&
-                          //     true,
-                          // }}
+                          onChange={(event) => handleOnChange(event, aRole)}
+                          value={formData[aRole]? formData[aRole]["range"][type.toLowerCase()]["text"] : ""}
                         />
                       </Box>
                     );

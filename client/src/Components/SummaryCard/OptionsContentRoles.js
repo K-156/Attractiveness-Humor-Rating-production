@@ -10,7 +10,7 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
     <>
       {_.map(content, (arr, role) => {
         return (
-          <>
+          <Box key={role}>
             <Box className="twoColumns">
               <Typography className="summaryHeader">{role}</Typography>
             </Box>
@@ -96,7 +96,7 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                 </Typography>
               )}
             </Box>
-          </>
+          </Box>
         );
       })}
     </>
