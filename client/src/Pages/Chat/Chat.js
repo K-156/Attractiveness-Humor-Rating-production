@@ -32,6 +32,7 @@ const Chat = ({ title, link }) => {
     setActiveProject();
     if (activeProjectId !== "") {
       getProject(activeProjectId).then((proj) => {
+        const { data } = proj;
         let arrOfRank = [];
 
         // find how many rank

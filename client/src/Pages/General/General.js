@@ -33,15 +33,18 @@ const General = () => {
     if (activeProjectId !== "") {
       getProject(activeProjectId).then((proj) => {
         const { data, sections } = proj;
+        console.log(data[sectionNum][sections[sectionNum]]?.isEnd)
         setIsEnd(data[sectionNum][sections[sectionNum]]?.isEnd);
-        if (isEnd == "true") {
+        if (data[sectionNum][sections[sectionNum]]?.isEnd == "true") {
           setSectionNum(sections.length - 1);
           removeUserFromLocalStorage();
           localStorage.clear();
         }
       });
     }
-  }, [activeProjectId, path]);
+  }, [activeProjectId, sectionNum]);
+
+  console.log(sectionNum)
 
 
   const getCompletionCode = async () => {
@@ -62,10 +65,11 @@ const General = () => {
         });
       });
     }
-  }, [path]);
+  }, [sectionNum]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    setSectionNum(Number(localStorage.getItem("sectionNum")) + 1)
     localStorage.setItem(
       "sectionNum",
       Number(localStorage.getItem("sectionNum")) + 1

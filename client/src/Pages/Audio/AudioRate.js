@@ -46,9 +46,9 @@ const AudioRate = ({ title, link, isWritten }) => {
   };
 
   const path =
-  data[Number(sectionNum) + 1] !== undefined
-    ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-    : links.find((link) => link.id === 8).path;
+    data[Number(sectionNum) + 1] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+      : links.find((link) => link.id === 8).path;
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -143,6 +143,7 @@ const AudioRate = ({ title, link, isWritten }) => {
     }
   };
 
+  let previousRandomNumber;
   // generate random number to play audio
   function getRandomNumber(title) {
     // Check if a random number is stored in local storage
@@ -150,11 +151,12 @@ const AudioRate = ({ title, link, isWritten }) => {
 
     // If a random number is stored, return it
     if (storedNumber) {
+      previousRandomNumber = storedNumber;
       return storedNumber;
     }
 
     // If no random number is stored, generate a new one and store it in local storage
-    const randomNumber = isWritten
+    let randomNumber = isWritten
       ? Math.floor(
           Math.random() *
             data[sectionNum][sections[sectionNum]][user.surveyRole]
@@ -165,6 +167,19 @@ const AudioRate = ({ title, link, isWritten }) => {
             data[sectionNum][sections[sectionNum]][user.surveyRole]?.audioLink
               .length
         );
+    while (randomNumber === previousRandomNumber) {
+      randomNumber = isWritten
+        ? Math.floor(
+            Math.random() *
+              data[sectionNum][sections[sectionNum]][user.surveyRole]
+                ?.introductions.length
+          )
+        : Math.floor(
+            Math.random() *
+              data[sectionNum][sections[sectionNum]][user.surveyRole]?.audioLink
+                .length
+          );
+    }
     localStorage.setItem(`randomNumber${title}`, randomNumber);
     return randomNumber;
   }
@@ -204,14 +219,16 @@ const AudioRate = ({ title, link, isWritten }) => {
           </Box>
           {isWritten ? (
             <IntroMessage
-              text={data.length !== 0 &&
+              text={
+                data.length !== 0 &&
                 data[sectionNum][sections[sectionNum]][user.surveyRole]
                   ?.introductions[randomNum]
               }
             />
           ) : (
             <Audio
-              src={data.length !== 0 &&
+              src={
+                data.length !== 0 &&
                 data[sectionNum][sections[sectionNum]][user.surveyRole]
                   ?.audioLink[randomNum]
               }
@@ -220,7 +237,8 @@ const AudioRate = ({ title, link, isWritten }) => {
         </Grid>
         <Grid item xs={7} px={4}>
           <AudioForm
-            data={data.length !== 0 &&
+            data={
+              data.length !== 0 &&
               data[sectionNum][sections[sectionNum]][user.surveyRole]?.questions
             }
             setRating={setRating}
@@ -231,7 +249,8 @@ const AudioRate = ({ title, link, isWritten }) => {
         <Grid item xs={12} className="spaceBetween" sx={{ py: 3, px: 9 }}>
           <NextButton
             isSurvey={true}
-            disabled={data.length !== 0 &&
+            disabled={
+              data.length !== 0 &&
               !isValid(
                 rating,
                 data[sectionNum][sections[sectionNum]][user.surveyRole]
