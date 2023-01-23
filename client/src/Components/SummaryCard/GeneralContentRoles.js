@@ -37,14 +37,14 @@ const GeneralContentRoles = ({ content, handleOnClick }) => {
                   {_.map(value, (aValue, index) => {
                     if (key === "range") {
                       return (
-                        <Typography key={key} className="rangeText">
+                        <Typography key={index} className="rangeText">
                           {`${index} bound: ${aValue.number} represents ${aValue.text}`}
                         </Typography>
                       );
                     } else if (key === "questions") {
                       return (
                         <Typography
-                          key={key}
+                          key={index}
                           sx={{
                             fontSize: "14px",
                             color: "#264653",
@@ -58,7 +58,7 @@ const GeneralContentRoles = ({ content, handleOnClick }) => {
                     } else {
                       return (
                         key !== "audioLink" && (
-                          <Typography key={key} className="summaryText">
+                          <Typography key={index} className="summaryText">
                             {index + 1}. {aValue}
                           </Typography>
                         )
@@ -75,12 +75,12 @@ const GeneralContentRoles = ({ content, handleOnClick }) => {
           );
         });
         return (
-          <>
+          <Box key={role}>
             <Box className="twoColumns">
               <Typography className="summaryHeader">{role}</Typography>
             </Box>
             {displayOutput}
-          </>
+          </Box>
         );
       })}
     </>

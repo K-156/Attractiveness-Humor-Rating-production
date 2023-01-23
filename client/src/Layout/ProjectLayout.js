@@ -27,6 +27,7 @@ const ProjectLayout = ({
   
   const saveProject = () => {
     navigate("/projects");
+    sessionStorage.clear();
   };
 
   return (
@@ -58,7 +59,7 @@ const ProjectLayout = ({
             className="customButton-green"
             onClick={saveProject}
           >
-            {isEditing ? "Save Changes " : "Add Project"}
+            Save Changes
           </Button>
         </Box>
       ) : (

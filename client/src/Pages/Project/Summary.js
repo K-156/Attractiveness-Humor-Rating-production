@@ -20,7 +20,6 @@ const Summary = () => {
   useEffect(() => {
     sessionStorage.setItem("editMode", "edit");
     getProject(projId);
-    sessionStorage.removeItem("projData")
   }, []);
 
   console.log(data)

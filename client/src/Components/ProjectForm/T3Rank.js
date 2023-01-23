@@ -20,15 +20,16 @@ const T3Rank = ({ roles }) => {
 
   useEffect(() => {
     getProject(projId).then((project) => {
+      console.log(project.data[sectionNum])
       const data = {};
       _.map(roles, (aRole) => {
         data[aRole] = {
-          instruction: project.data[sectionNum]?.[3][aRole].instruction,
+          instruction: project.data[sectionNum]?.length > 0 ? project.data[sectionNum][3][aRole].instruction : "",
           characteristics: {
             lowerbound:
-              project.data[sectionNum]?.[3][aRole].characteristics?.lowerbound,
+              project.data[sectionNum]?.length > 0 ? project.data[sectionNum][3][aRole].characteristics?.lowerbound : "",
             upperbound:
-              project.data[sectionNum]?.[3][aRole].characteristics?.upperbound,
+              project.data[sectionNum]?.length > 0 ? project.data[sectionNum][3][aRole].characteristics?.upperbound : ""
           },
         };
       });

@@ -16,9 +16,10 @@ import { templates } from "../../Utils/templateList";
 
 const Section = () => {
 
-  const { formData, sections, isEditing } = useAppContext();
+  const { formData, sections } = useAppContext();
   const roleDict = JSON.parse(sessionStorage.getItem("roles"));
   const roles = useMemo(() => _.map(roleDict, (aRole) => aRole.role), [roleDict]);
+  const isEditing = sessionStorage.getItem("editMode") === "edit";
 
   const location = useLocation();
   const sectionNum = parseInt(location.pathname.split("/").pop());
