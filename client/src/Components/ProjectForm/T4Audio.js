@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
-import _ from "lodash";
 
 import {
   Box,
@@ -10,25 +9,22 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import AddableFieldRoles from "../CustomFormFields/AddableFieldRoles";
+import _ from "lodash";
+
+import AddableFieldRoles from "../CustomFormFields/AddableFields";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
-const T4Audio = () => {
-  const { submitFormData, data, getProject } = useAppContext();
+const T4Audio = ({ roles }) => {
+  const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
-  const rolesList = JSON.parse(sessionStorage.getItem("roles"));
-  let roles = [];
-  rolesList.forEach((dict) => {
-    roles.push(dict["role"]);
-  });
 
   useEffect(() => {
     getProject(projId).then((project) => {
-      const dictionary = {};
+      const data = {};
       _.map(roles, (aRole) => {
-        dictionary[aRole] = project.data[sectionNum]
+        data[aRole] = project.data[sectionNum]
           ? {
               instruction: project.data[sectionNum][4][aRole].instruction,
               questions: project.data[sectionNum][4][aRole].questions,
@@ -42,7 +38,7 @@ const T4Audio = () => {
               audioLink: [],
             };
       });
-      setFormData(dictionary);
+      setFormData(data);
     });
   }, []);
 
@@ -84,6 +80,7 @@ const T4Audio = () => {
                     fullWidth
                     multiline
                     minRows={3}
+                    maxRows={3}
                     onChange={(event) => {
                       setFormData((state) => ({
                         ...state,

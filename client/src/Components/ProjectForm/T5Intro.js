@@ -11,19 +11,14 @@ import {
   Typography,
 } from "@mui/material";
 
-import AddableFieldRoles from "../CustomFormFields/AddableFieldRoles";
-import AddableNoRangeRoles from "../CustomFormFields/AddableNoRangeRoles";
+import AddableFields from "../CustomFormFields/AddableFields";
+import AddableNoRange from "../CustomFormFields/AddableNoRange";
 import "./ProjectForm.css";
 
-const T5Intro = () => {
-  const { getProject } = useAppContext();
+const T5Intro = ({ roles }) => {
+  const { getProject, submitFormData } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
-  const rolesList = JSON.parse(sessionStorage.getItem("roles"));
-  let roles = [];
-  rolesList.forEach((dict) => {
-    roles.push(dict["role"]);
-  });
 
   useEffect(() => {
     getProject(projId).then((project) => {
@@ -46,15 +41,34 @@ const T5Intro = () => {
   }, []);
 
   const [formData, setFormData] = useState({});
+  const [qn, setQn] = useState({});
+  const [intro, setIntro] = useState({});
   const [error, setError] = useState({
     questions: false,
     introductions: false,
   });
 
-  const [qn, setQn] = useState({});
-  const [intro, setIntro] = useState({});
+  const handleOnChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    const id = event.target.id;
+    if (id === "questions") {
+      setQn((state) => ({
+        ...state,
+        [name]: value,
+      }));
+    } else {
+      setIntro((state) => ({
+        ...state,
+        [name]: value,
+      }));
+    }
 
-  const { submitFormData } = useAppContext();
+    setError((state) => ({
+      ...state,
+      [name]: false,
+    }));
+  }
 
   useEffect(() => {
     submitFormData(formData);
@@ -78,11 +92,9 @@ const T5Intro = () => {
                     fullWidth
                     multiline
                     minRows={3}
+                    maxRows={3}
                     onChange={(event) => {
-                      const name = event.target.name;
                       const value = event.target.value;
-                      const id = event.target.id;
-
                       setFormData((state) => ({
                         ...state,
                         [aRole]: {
@@ -98,35 +110,13 @@ const T5Intro = () => {
               <Box className="twoColumns">
                 <Typography className="variable">Questions</Typography>
                 <Box className="secondColumn">
-                  <AddableFieldRoles
+                  <AddableFields
                     name="questions"
                     items={formData[aRole]?.["questions"]}
                     error={error["questions"]}
                     setError={setError}
                     errorText="Question added"
-                    handleOnChange={(event) => {
-                      const name = event.target.name;
-                      const value = event.target.value;
-                      const id = event.target.id;
-                      if (id === "questions") {
-                        setQn((state) => ({
-                          ...state,
-                          [name]: value,
-                        }));
-                      } else {
-                        setIntro((state) => ({
-                          ...state,
-                          [name]: value,
-                        }));
-                      }
-
-                      if (name === "questions" || name === "introductions") {
-                        setError((state) => ({
-                          ...state,
-                          [name]: false,
-                        }));
-                      }
-                    }}
+                    handleOnChange={handleOnChange}
                     currValue={qn}
                     setFormData={setFormData}
                     variable="questions"
@@ -139,34 +129,12 @@ const T5Intro = () => {
                   <Typography className="variable">Introductions</Typography>
                 </Box>
                 <Box className="secondColumn">
-                  <AddableNoRangeRoles
+                  <AddableNoRange
                     items={formData[aRole]?.["introductions"]}
                     error={error["introductions"]}
                     setError={setError}
                     errorText="Introduction added"
-                    handleOnChange={(event) => {
-                      const name = event.target.name;
-                      const value = event.target.value;
-                      const id = event.target.id;
-                      if (id === "questions") {
-                        setQn((state) => ({
-                          ...state,
-                          [name]: value,
-                        }));
-                      } else {
-                        setIntro((state) => ({
-                          ...state,
-                          [name]: value,
-                        }));
-                      }
-
-                      if (name === "questions" || name === "introductions") {
-                        setError((state) => ({
-                          ...state,
-                          [name]: false,
-                        }));
-                      }
-                    }}
+                    handleOnChange={handleOnChange}
                     currValue={intro?.["introductions"]}
                     setFormData={setFormData}
                     variable="introductions"

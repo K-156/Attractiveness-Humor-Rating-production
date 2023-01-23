@@ -13,22 +13,16 @@ import _ from "lodash";
 
 import "./ProjectForm.css";
 
-const T3Rank = () => {
+const T3Rank = ({ roles }) => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
-  const isEditing = sessionStorage.getItem("editMode") === "edit" ? true : false;
-  const rolesList = JSON.parse(sessionStorage.getItem("roles"));
-  let roles = [];
-  rolesList.forEach((dict) => {
-    roles.push(dict["role"]);
-  });
 
   useEffect(() => {
     getProject(projId).then((project) => {
-      const dictionary = {};
+      const data = {};
       _.map(roles, (aRole) => {
-        dictionary[aRole] = {
+        data[aRole] = {
           instruction: project.data[sectionNum]?.[3][aRole].instruction,
           characteristics: {
             lowerbound:
@@ -38,7 +32,7 @@ const T3Rank = () => {
           },
         };
       });
-      setFormData(dictionary);
+      setFormData(data);
     });
   }, []);
 
@@ -66,6 +60,7 @@ const T3Rank = () => {
                     fullWidth
                     multiline
                     minRows={3}
+                    maxRows={3}
                     onChange={(event) => {
                       const value = event.target.value;
 
@@ -110,18 +105,8 @@ const T3Rank = () => {
                         }}
                         sx={{ width: "180px" }}
                         value={
-                          formData[aRole]?.["characteristics"][
-                            type.toLowerCase()
-                          ]
+                          formData[aRole]?.["characteristics"][type.toLowerCase()]
                         }
-                        InputLabelProps={{
-                          shrink:
-                            (isEditing ||
-                              formData[aRole]?.["characteristics"][
-                                type.toLowerCase()
-                              ] !== "") &&
-                            true,
-                        }}
                       />
                     );
                   })}

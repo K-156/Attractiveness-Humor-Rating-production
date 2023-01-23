@@ -22,9 +22,9 @@ const T2ProfileRating = ({ roles }) => {
 
   useEffect(() => {
     getProject(projId).then((project) => {
-      const dictionary = {};
+      const data = {};
       _.map(roles, (aRole) => {
-        dictionary[aRole] = project.data[sectionNum]
+        data[aRole] = project.data[sectionNum]
           ? {
               instruction: project.data[sectionNum][2][aRole].instruction,
               range: {
@@ -48,7 +48,7 @@ const T2ProfileRating = ({ roles }) => {
               },
             };
       });
-      setFormData(dictionary);
+      setFormData(data);
     });
   }, []);
 
@@ -78,6 +78,7 @@ const T2ProfileRating = ({ roles }) => {
                     fullWidth
                     multiline
                     minRows={3}
+                    maxRows={3}
                     onChange={(event) => {
                       const value = event.target.value;
                       setFormData((state) => ({

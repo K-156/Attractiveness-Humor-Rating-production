@@ -1,10 +1,9 @@
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
-import { BsDash } from "react-icons/bs";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
-const AddableField = ({
+const AddableNoRange = ({
   items,
   error,
   setError,
@@ -13,15 +12,10 @@ const AddableField = ({
   currValue,
   setFormData,
   variable,
+  role,
 }) => {
   const onAdd = () => {
-    const variableList = [
-      _.map(items, (aItem) => {
-        return aItem[variable];
-      }),
-    ];
-
-    if (variableList.includes(currValue[variable])) {
+    if (items.includes(currValue)) {
       setError((state) => ({
         ...state,
         [variable]: true,
@@ -29,7 +23,10 @@ const AddableField = ({
     } else {
       setFormData((state) => ({
         ...state,
-        [variable]: items.concat(currValue),
+        [role]: {
+          ...state[role],
+          [variable]: items.concat(currValue),
+        },
       }));
     }
   };
@@ -42,7 +39,10 @@ const AddableField = ({
     }
     setFormData((state) => ({
       ...state,
-      [variable]: items,
+      [role]: {
+        ...state[role],
+        [variable]: items,
+      },
     }));
   };
 
@@ -55,7 +55,6 @@ const AddableField = ({
           onChange={handleOnChange}
           error={error}
           helperText={error ? errorText : ""}
-          id={variable}
           name={variable}
         />
         <Button onClick={onAdd}>
@@ -68,37 +67,7 @@ const AddableField = ({
           />
         </Button>
       </Box>
-      <Box>
-        {_.map(["Lower", "Upper"], (type) => {
-          return (
-            <Box key={type} className="secondColumn" sx={{ mt: 1 }}>
-              <TextField
-                size="small"
-                name={`${type.toLowerCase()}Num`}
-                label={`${type}bound`}
-                width="30px"
-                InputProps={{ inputProps: { min: 1 } }}
-                type="number"
-                onChange={handleOnChange}
-                id={variable}
-              />
-              <BsDash
-                size="40px"
-                style={{ marginLeft: "10px", marginRight: "10px" }}
-              />
-              <TextField
-                size="small"
-                name={`${type.toLowerCase()}Text`}
-                label="Characteristics"
-                fullWidth
-                onChange={handleOnChange}
-                id={variable}
-              />
-            </Box>
-          );
-        })}
-      </Box>
-      {
+      {items?.length > 0 &&
         <Box sx={{ pt: 1, pl: 2 }}>
           {_.map(items, (value, index) => {
             return (
@@ -109,9 +78,7 @@ const AddableField = ({
                     color: "#264653",
                   }}
                 >
-                  {index + 1}. {value["questions"]} ({value["lowerNum"]} -{" "}
-                  {value["lowerText"]}, {value["upperNum"]} -{" "}
-                  {value["upperText"]})
+                  {index + 1}. {value}
                 </Typography>
                 <Button id={index} onClick={() => onDelete(index)}>
                   <RiDeleteBin6Fill
@@ -131,4 +98,4 @@ const AddableField = ({
   );
 };
 
-export default AddableField;
+export default AddableNoRange;
