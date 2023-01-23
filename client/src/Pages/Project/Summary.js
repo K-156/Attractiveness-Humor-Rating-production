@@ -62,14 +62,30 @@ const Summary = () => {
             Add/Reorder Sections
           </Button>
         </Box>
-        {data &&
+        {/* {data &&
           _.map(data, (section, index) => {
             const templateNum = templateOrder[index];
+
             return (
               <SummaryCard
                 header={`Section ${index + 1}: ${templates[templateNum]}`}
                 template={templates[templateNum]}
                 content={section?.[templateNum]}
+                editLink={`/projects/sections/${index + 1}`}
+                key={index}
+                index={index}
+              />
+            );
+          })} */}
+        {data &&
+          _.map(templateOrder, (section, index) => {
+            console.log(data[index]?.[section]);
+            const templateNum = templateOrder[index];
+            return (
+              <SummaryCard
+                header={`Section ${index + 1}: ${templates[templateNum]}`}
+                template={templates[templateNum]}
+                content={data[index]?.[section]}
                 editLink={`/projects/sections/${index + 1}`}
                 key={index}
                 index={index}

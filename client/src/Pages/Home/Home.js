@@ -43,8 +43,6 @@ const Home = () => {
     setActiveProject();
     if (activeProjectId !== "") {
       getProject(activeProjectId).then((proj) => {
-        localStorage.setItem("data", JSON.stringify(proj.data));
-        localStorage.setItem("sections", JSON.stringify(proj.sections));
         localStorage.setItem("duration", proj.projDetails.duration);
       });
     }

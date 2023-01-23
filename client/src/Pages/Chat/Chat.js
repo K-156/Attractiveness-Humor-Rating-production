@@ -22,6 +22,8 @@ const Chat = ({ title, link }) => {
   const navigate = useNavigate();
 
   const [selectMessage, setSelectMessage] = useState(null);
+  const [items, setItems] = useState([]);
+  const [rankToDisplay, setRankToDisplay] = useState(0);
 
   const gender = localStorage.getItem("gender");
   const sectionNum = Number(localStorage.getItem("sectionNum"));
@@ -29,7 +31,56 @@ const Chat = ({ title, link }) => {
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then((proj) => {
+        let arrOfRank = [];
+
+        // find how many rank
+        for (const [sectionNum, dict] of Object.entries(data)) {
+          for (const [templateNo, data] of Object.entries(dict)) {
+            if (templateNo === 3) {
+              arrOfRank.push(Number(sectionNum));
+            }
+          }
+        }
+
+        // find which rank to display
+        for (let i = 0; i < arrOfRank.length; i++) {
+          const element = arrOfRank[i];
+          if (element < sectionNum) {
+            setRankToDisplay(i);
+          }
+        }
+
+        let arr = [];
+        let arrOfProfile = [];
+        let dataToDisplay = {};
+
+        // find how many profile
+        for (const [sectionNum, dict] of Object.entries(data)) {
+          for (const [templateNo, data] of Object.entries(dict)) {
+            if (Number(templateNo) === 1) {
+              arrOfProfile.push(Number(sectionNum));
+            }
+          }
+        }
+        // find which profile to display
+        for (let i = 0; i < arrOfProfile.length; i++) {
+          const element = arrOfProfile[i];
+          if (element <= sectionNum) {
+            dataToDisplay =
+              data[element][1][user.surveyRole][
+                gender === "true" ? oppGender(user.sex) : "NA"
+              ];
+          }
+        }
+
+        for (const [key, value] of Object.entries(dataToDisplay)) {
+          if (key == 1 || key == 2 || key == 3 || key == 4) {
+            arr.push(value);
+          }
+        }
+        setItems(arr);
+      });
     }
   }, [activeProjectId]);
 
@@ -42,58 +93,9 @@ const Chat = ({ title, link }) => {
   };
 
   const path =
-    data[sectionNum + 1] !== undefined
+    data[Number(sectionNum) + 1] !== undefined
       ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-      : links.find((link) => link.id === 8);
-
-  let arrOfRank = [];
-  let rankToDisplay = 0;
-
-  // find how many rank
-  for (const [sectionNum, dict] of Object.entries(data)) {
-    for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo === 3) {
-        arrOfRank.push(Number(sectionNum));
-      }
-    }
-  }
-
-  // find which rank to display
-  for (let i = 0; i < arrOfRank.length; i++) {
-    const element = arrOfRank[i];
-    if (element < sectionNum) {
-      rankToDisplay = i;
-    }
-  }
-
-  let arr = [];
-  let arrOfProfile = [];
-  let dataToDisplay = {};
-
-  // find how many profile
-  for (const [sectionNum, dict] of Object.entries(data)) {
-    for (const [templateNo, data] of Object.entries(dict)) {
-      if (Number(templateNo) === 1) {
-        arrOfProfile.push(Number(sectionNum));
-      }
-    }
-  }
-  // find which profile to display
-  for (let i = 0; i < arrOfProfile.length; i++) {
-    const element = arrOfProfile[i];
-    if (element <= sectionNum) {
-      dataToDisplay =
-        data[element][1][user.surveyRole][
-          gender === "true" ? oppGender(user.sex) : "NA"
-        ];
-    }
-  }
-
-  for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key === 1 || key === 2 || key === 3 || key === 4) {
-      arr.push(value);
-    }
-  }
+      : links.find((link) => link.id === 8).path;
 
   const firstCandidate = Number(user.rank[rankToDisplay][0]) - 1;
   const lastCandidate =
@@ -132,8 +134,8 @@ const Chat = ({ title, link }) => {
         link={link}
         selectMessage={selectMessage}
         setSelectMessage={setSelectMessage}
-        firstCandidate={arr[firstCandidate]}
-        lastCandidate={arr[lastCandidate]}
+        firstCandidate={items[firstCandidate]}
+        lastCandidate={items[lastCandidate]}
         title={title}
       />
       <Box className="spaceBetween" sx={{ mx: 5, my: 3 }}>

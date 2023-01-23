@@ -6,7 +6,7 @@ const links = [
   { id: 5, path: "/intro-instruction" },
   { id: 6, path: "/chat-instruction" },
   { id: 7, path: "/complete" },
-  { id: 8, path: "*" },
+  { id: 8, path: "/*" },
 ];
 
 export default links;

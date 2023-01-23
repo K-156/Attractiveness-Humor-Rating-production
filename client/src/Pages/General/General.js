@@ -1,7 +1,7 @@
 import { useAppContext } from "../../Context/AppContext";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import NextButton from "../../Components/NavButton/NextButton";
@@ -20,29 +20,36 @@ const General = () => {
     getProject,
     sections,
   } = useAppContext();
-  const location = useLocation();
+  const navigate = useNavigate();
+  const [isEnd, setIsEnd] = useState(false);
+  const [sectionNum, setSectionNum] = useState(localStorage.getItem("sectionNum"));
+  const path =
+    data[Number(sectionNum) + 1] !== undefined
+      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+      : "/";
 
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then((proj) => {
+        const { data, sections } = proj;
+        setIsEnd(data[sectionNum][sections[sectionNum]]?.isEnd);
+        if (isEnd == "true") {
+          setSectionNum(sections.length - 1);
+          removeUserFromLocalStorage();
+          localStorage.clear();
+        }
+      });
     }
-  }, [activeProjectId]);
+  }, [activeProjectId, path]);
 
-  const sectionNum = sections.length - 1;
-  console.log(sectionNum);
-
-  const path =
-    data[sectionNum + 1] !== undefined
-      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-      : "/";
 
   const getCompletionCode = async () => {
     return await axios.get("/api/v1/auth/completionCode");
   };
 
   useEffect(() => {
-    if (location.pathname.includes("complete")) {
+    if (isEnd == "true") {
       getCompletionCode().then((res) => {
         const { data } = res;
         updateUser({
@@ -55,17 +62,16 @@ const General = () => {
         });
       });
     }
-  }, []);
+  }, [path]);
 
-  setInterval(() => {
-    // Check if the OTP has expired
-    if (location.pathname.includes("complete")) {
-      removeUserFromLocalStorage();
-      localStorage.clear();
-    }
-  }, 5000);
-
-  // sessionStorage.clear();
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem(
+      "sectionNum",
+      Number(localStorage.getItem("sectionNum")) + 1
+    );
+    navigate(path);
+  };
 
   return (
     <div
@@ -100,12 +106,11 @@ const General = () => {
           </CardContent>
         </Card>
       </Box>
-      {data.length !== 0 &&
-        data[sectionNum][sections[sectionNum]]?.isNext === "true" && (
-          <Box className="flexEnd" sx={{ py: 3, width: "80%", px: 6 }}>
-            <NextButton isSurvey={true} link={path} />
-          </Box>
-        )}
+      {isEnd === "false" && (
+        <Box className="flexEnd" sx={{ py: 3, width: "80%", px: 6 }}>
+          <NextButton isSurvey={true} handleOnSubmit={handleOnSubmit} />
+        </Box>
+      )}
     </div>
   );
 };

@@ -28,11 +28,43 @@ const AttractiveRate = () => {
 
   const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     setActiveProject();
     if (activeProjectId !== "") {
-      getProject(activeProjectId);
+      getProject(activeProjectId).then((proj) => {
+        let arr = [];
+        let arrOfProfile = [];
+        let dataToDisplay = {};
+        const { data } = proj;
+        // find how many profile
+        for (const [sectionNum, dict] of Object.entries(data)) {
+          for (const [templateNo, data] of Object.entries(dict)) {
+            if (Number(templateNo) === 1) {
+              arrOfProfile.push(Number(sectionNum));
+            }
+          }
+        }
+        // find which profile to display
+        for (let i = 0; i < arrOfProfile.length; i++) {
+          const element = arrOfProfile[i];
+          if (element <= sectionNum) {
+            dataToDisplay =
+              data[element][1][user.surveyRole][
+                gender === "true" ? oppGender(user.sex) : "NA"
+              ];
+          }
+          setItems(arr)
+        }
+
+        for (const [key, value] of Object.entries(dataToDisplay)) {
+          if (key == 1 || key == 2 || key == 3 || key == 4) {
+            value["_id"] = Number(key);
+            arr.push(value);
+          }
+        }
+      })
     }
   }, [activeProjectId]);
 
@@ -45,38 +77,10 @@ const AttractiveRate = () => {
   };
 
   const path =
-    data[sections[Number(sectionNum) + 1]] !== undefined
-      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-      : links.find((link) => link.id === 8);
+  data[Number(sectionNum) + 1] !== undefined
+    ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+    : links.find((link) => link.id === 8).path;
 
-  let arr = [];
-  let arrOfProfile = [];
-  let dataToDisplay = {};
-
-  // find how many profile
-  for (const [sectionNum, dict] of Object.entries(data)) {
-    for (const [templateNo, data] of Object.entries(dict)) {
-      if (Number(templateNo) === 1) {
-        arrOfProfile.push(Number(sectionNum));
-      }
-    }
-  }
-  // find which profile to display
-  for (let i = 0; i < arrOfProfile.length; i++) {
-    const element = arrOfProfile[i];
-    if (element <= sectionNum) {
-      dataToDisplay =
-        data[element][1][user.surveyRole][
-          gender === "true" ? oppGender(user.sex) : "NA"
-        ];
-    }
-  }
-
-  for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key === 1 || key === 2 || key === 3 || key === 4) {
-      arr.push(value);
-    }
-  }
 
   const handleViewProfile = (e) => {
     e.preventDefault();
@@ -122,7 +126,7 @@ const AttractiveRate = () => {
         </Button>
       </Box>
       <Grid container spacing={1} py={2}>
-        {_.map(arr, (item, index) => {
+        {_.map(items, (item, index) => {
           return (
             <Grid item key={index} xs={3}>
               <RatingCard
@@ -139,7 +143,7 @@ const AttractiveRate = () => {
       <Box className="flexEnd">
         <NextButton
           isSurvey={true}
-          disabled={!isValid(rating, arr.length)}
+          disabled={!isValid(rating, items.length)}
           handleOnSubmit={handleOnSubmit}
         />
       </Box>

@@ -25,6 +25,12 @@ const Profiles = () => {
   const sectionNum = localStorage.getItem("sectionNum");
   const type = sessionStorage.getItem("type");
 
+  const path =
+  data[Number(sectionNum) + 1] !== undefined
+    ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+    : links.find((link) => link.id === 8).path;
+
+
   const oppGender = (userGender) => {
     if (userGender === "female") {
       return "Male";
@@ -49,11 +55,11 @@ const Profiles = () => {
         "sectionNum",
         Number(localStorage.getItem("sectionNum")) + 1
       );
-      navigate(
-        links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-      );
+      navigate(path);
     }
   };
+
+
 
   let arr = [];
   let arrOfProfile = [];

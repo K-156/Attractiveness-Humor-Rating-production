@@ -46,9 +46,9 @@ const AudioRate = ({ title, link, isWritten }) => {
   };
 
   const path =
-    data[sectionNum + 1] !== undefined
-      ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
-      : links.find((link) => link.id === 8);
+  data[Number(sectionNum) + 1] !== undefined
+    ? links.find((link) => link.id === sections[Number(sectionNum) + 1]).path
+    : links.find((link) => link.id === 8).path;
 
   const user = JSON.parse(localStorage.getItem("user"));
 

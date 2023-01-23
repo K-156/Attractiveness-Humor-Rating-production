@@ -29,7 +29,6 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                         </Typography>
                       </Box>
                       {_.map(value, (aValue, aKey) => {
-                        console.log(aKey, aValue);
                         return (
                           <Box key={aKey} className="twoColumns">
                             <Typography className="summaryVariable">
