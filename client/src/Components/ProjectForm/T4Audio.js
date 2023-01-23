@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 
-import AddableFieldRoles from "../CustomFormFields/AddableFields";
+import AddableField from "../CustomFormFields/AddableFields";
 import UploadFiles from "../CustomFormFields/UploadFiles";
 import "./ProjectForm.css";
 
@@ -96,7 +96,7 @@ const T4Audio = ({ roles }) => {
               <Box className="twoColumns">
                 <Typography className="variable">Questions</Typography>
                 <Box className="secondColumn">
-                  <AddableFieldRoles
+                  <AddableField
                     items={formData[aRole]?.["questions"]}
                     error={error["questions"]}
                     setError={setError}
