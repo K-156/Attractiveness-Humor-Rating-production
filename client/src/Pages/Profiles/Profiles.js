@@ -23,7 +23,7 @@ const Profiles = () => {
 
   const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
-  const type = sessionStorage.getItem("type");
+  const type = localStorage.getItem("type");
 
   const path =
   data[Number(sectionNum) + 1] !== undefined

@@ -84,7 +84,7 @@ const AttractiveRate = () => {
 
   const handleViewProfile = (e) => {
     e.preventDefault();
-    sessionStorage.setItem("type", "Rate");
+    localStorage.setItem("type", "Rate");
     navigate("/profiles", {
       state: {
         link: location.pathname,

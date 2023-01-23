@@ -110,7 +110,7 @@ const Rank = () => {
 
   const handleViewProfile = (e) => {
     e.preventDefault();
-    sessionStorage.setItem("type", "Rank");
+    localStorage.setItem("type", "Rank");
     navigate("/profiles", {
       state: {
         link: location.pathname,

@@ -57,7 +57,6 @@ const login = async (req, res) => {
   //   throw new BadRequestError("Please provide all values");
   // }
   const user = await User.findOne({ otp });
-  console.log(user?.startTime)
   if (!user) {
     throw new UnAuthenticatedError("User does not exist");
   }
@@ -66,7 +65,7 @@ const login = async (req, res) => {
     throw new UnAuthenticatedError("Invalid Credentials");
   }
   if (user?.startTime) {
-    throw new BadRequestError("OTP already used!")
+    throw new BadRequestError("OTP has already been used!")
   }
   const token = user.createJWT();
   // user.password = undefined;

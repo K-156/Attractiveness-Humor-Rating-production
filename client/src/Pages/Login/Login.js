@@ -24,6 +24,7 @@ const Login = () => {
   const [isValid, setIsValid] = useState(true);
   const [formData, setFormData] = useState({ otp: "" });
   const [error, setError] = useState({ otp: false });
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleOnChange = (event) => {
     setIsValid(true);
@@ -48,8 +49,9 @@ const Login = () => {
     }
 
     await loginUser(formData).then((userData) => {
-      if (!userData) {
+      if (userData.status === 401 || userData.status === 400) {
         setIsValid(false);
+        setErrorMsg(userData.data.msg);
         setTimeout(() => {
           setIsValid(true);
         }, 3000);
@@ -97,7 +99,7 @@ const Login = () => {
                   <Box height="30px"></Box>
                 ) : (
                   <Alert severity="error" sx={{ mb: 2, width: "80%" }}>
-                    Invalid code
+                    {errorMsg}
                   </Alert>
                 )}
                 <Button

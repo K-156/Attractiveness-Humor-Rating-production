@@ -143,15 +143,14 @@ const AudioRate = ({ title, link, isWritten }) => {
     }
   };
 
-  let previousRandomNumber;
   // generate random number to play audio
   function getRandomNumber(title) {
     // Check if a random number is stored in local storage
     const storedNumber = localStorage.getItem(`randomNumber${title}`);
+    const prevNumber = localStorage.getItem(`randomNumber${Number(title)-1}`);
 
     // If a random number is stored, return it
     if (storedNumber) {
-      previousRandomNumber = storedNumber;
       return storedNumber;
     }
 
@@ -167,7 +166,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             data[sectionNum][sections[sectionNum]][user.surveyRole]?.audioLink
               .length
         );
-    while (randomNumber === previousRandomNumber) {
+    while (randomNumber === prevNumber) {
       randomNumber = isWritten
         ? Math.floor(
             Math.random() *

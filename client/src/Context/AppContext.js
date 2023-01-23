@@ -171,6 +171,7 @@ const AppProvider = ({ children }) => {
         type: LOGIN_USER_ERROR,
         payload: { msg: error.response.data.msg },
       });
+      return error.response
     }
   };
 
