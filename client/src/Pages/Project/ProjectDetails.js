@@ -45,7 +45,7 @@ const ProjectDetails = () => {
     graphic: projDetails?.graphic,
     graphicLink: projDetails?.graphicLink,
   });
-
+ 
   return (
     <div>
       <script>
@@ -64,6 +64,7 @@ const ProjectDetails = () => {
         state={{ type: type }}
         projectType="projDetails"
         formData={formData}
+        nextDisabled={formData.roles.length === 0}
       >
         <ProjectDetailsForm formData={formData} setFormData={setFormData} />
       </ProjectLayout>
