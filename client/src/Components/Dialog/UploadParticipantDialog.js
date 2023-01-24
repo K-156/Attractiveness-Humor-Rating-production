@@ -6,7 +6,7 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import UploadFiles from "../CustomFormFields/UploadFiles";
+import UploadOneFile from "../CustomFormFields/UploadOneFile";
 import NextButton from "../NavButton/NextButton";
 
 const UploadParticipantDialog = ({
@@ -32,13 +32,13 @@ const UploadParticipantDialog = ({
             </Typography>
             <Typography className="variable-subtitle">(in .csv)</Typography>
           </Box>
-          <UploadFiles
-            items={formData["email"]}
-            emailList={formData["emailLink"]}
+          <UploadOneFile
+            formData={formData}
             setFormData={setFormData}
             variable="email"
             accept=".csv"
             style={{ width: "350px" }}
+            email={true}
           />
         </Box>
         <Box className="twoColumns">

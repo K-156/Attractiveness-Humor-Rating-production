@@ -11,54 +11,34 @@ const UploadFiles = ({
   setFormData,
   variable,
   accept,
-  audio,
   templateNum,
   style,
   role,
   emailList,
   audioList,
+  sectionNum
 }) => {
-  const {
-    uploadFiles,
-    isEditing,
-    editProjectId,
-    createdProjectId,
-    sectionNum,
-  } = useAppContext();
+  const { uploadFiles } = useAppContext();
+  const projId = sessionStorage.getItem("projId");
+
   let fileLink = "";
   const [isLoading, setIsLoading] = useState(false);
 
   const uploadFile = async (event) => {
     setIsLoading(true);
     if (event.target.files !== undefined) {
-      if (audio) {
-        fileLink = await uploadFiles(
-          isEditing
-            ? `${editProjectId}_${sectionNum}_${templateNum}_${items.length}_${role}`
-            : `${createdProjectId}_${sectionNum}_${templateNum}_${items.length}_${role}`,
-          event.target.files[0]
-        );
-        setFormData((state) => ({
-          ...state,
-          [role]: {
-            ...state[role],
-            [variable]: items.concat(event.target.files[0].name),
-            audioLink: [...state[role].audioLink, fileLink],
-          },
-        }));
-      } else {
-        fileLink = await uploadFiles(
-          isEditing
-            ? `${editProjectId}_projDetails_email_${items?.length}.csv`
-            : `${createdProjectId}_projDetails_email_${items?.length}.csv`,
-          event.target.files[0]
-        );
-        setFormData((state) => ({
-          ...state,
+      fileLink = await uploadFiles(
+        `${projId}_${sectionNum}_${templateNum}_${items.length}_${role}`,
+        event.target.files[0]
+      );
+      setFormData((state) => ({
+        ...state,
+        [role]: {
+          ...state[role],
           [variable]: items.concat(event.target.files[0].name),
-          emailLink: [...state.emailLink, fileLink],
-        }));
-      }
+          audioLink: [...state[role].audioLink, fileLink],
+        },
+      }));
     }
     setIsLoading(false);
   };
@@ -66,11 +46,9 @@ const UploadFiles = ({
   const onDelete = (index) => {
     if (index === 0) {
       items.shift();
-      emailList?.shift();
       audioList?.shift();
     } else {
       items.splice(index, 1);
-      emailList?.splice(index, 1);
       audioList?.splice(index, 1);
     }
     if (role !== undefined) {

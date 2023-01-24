@@ -13,37 +13,74 @@ const UploadOneFile = ({
   accept,
   templateNum,
   role,
-  gender
+  gender,
+  email,
+  sectionNum,
 }) => {
-  const {
-    uploadFiles,
-    isEditing,
-    createdProjectId,
-    editProjectId,
-    sectionNum,
-  } = useAppContext();
+  const { uploadFiles } = useAppContext();
+  const projId = sessionStorage.getItem("projId");
 
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   let fileLink = "";
-
   const uploadFile = async (event) => {
-    setIsLoading(true);
+    
     const file = event.target.files;
     if (file !== undefined && file.length > 0) {
-      if (formData[role][gender][id]["img"] !== null) {
-        setError(true);
-        return;
-      }
-
-      fileLink = await uploadFiles(
-        isEditing
-          ? `${editProjectId}_${sectionNum}_${templateNum}_${id}_${role}`
-          : `${createdProjectId}_${sectionNum}_${templateNum}_${id}_${role}`,
+      if (email) {
+        if (formData["email"] !== null) {
+          setError(true);
+          return;
+        }
+        setIsLoading(true);
+        fileLink = await uploadFiles(
+          `${projId}_projDetails_email.csv`,
           file[0]
-      );
+        );
+        setFormData((state) => ({
+          ...state,
+          email: file[0].name,
+          emailLink: [...state.emailLink, fileLink],
+        }));
+      } else {
+        if (formData[role][gender][id]["img"] !== null) {
+          setError(true);
+          return;
+        }
+        setIsLoading(true);
+        fileLink = await uploadFiles(
+          `${projId}_${sectionNum}_${templateNum}_${id}_${role}_${gender}`,
+          file[0]
+        );
+        setFormData((state) => ({
+          ...state,
+          [role]: {
+            ...state[role],
+            [gender]: {
+              ...state[role][gender],
+              [id]: {
+                ...state[role][gender][id],
+                img: file[0].name,
+                link: fileLink,
+              },
+            },
+          },
+        }));
+      }
+    }
+    setIsLoading(false);
+  };
 
+  const onDelete = () => {
+    setError(false);
+    if (email) {
+      setFormData((state) => ({
+        ...state,
+        email: [],
+        emailLink: [],
+      }));
+    } else {
       setFormData((state) => ({
         ...state,
         [role]: {
@@ -52,32 +89,13 @@ const UploadOneFile = ({
             ...state[role][gender],
             [id]: {
               ...state[role][gender][id],
-              img: file[0].name,
-              link: fileLink,
+              img: null,
+              link: null,
             },
-          }
+          },
         },
       }));
     }
-    setIsLoading(false);
-  };
-
-  const onDelete = () => {
-    setError(false);
-    setFormData((state) => ({
-      ...state,
-      [role]: {
-        ...state[role],
-        [gender]: {
-          ...state[role][gender],
-          [id]: {
-            ...state[role][gender][id],
-            img: null,
-            link: null,
-          },
-        }
-      },
-    }));
   };
 
   return (
@@ -101,16 +119,16 @@ const UploadOneFile = ({
           image.
         </Alert>
       )}
-      <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
-        {formData[role][gender][id]["img"] && (
-          <Box key={formData[role][gender][id]["img"]} className="spaceBetween">
+      {email && formData["email"]?.length !== 0 ? (
+        <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
+          <Box key={formData["email"]} className="spaceBetween">
             <Typography
               sx={{
                 fontSize: "14px",
                 color: "#264653",
               }}
             >
-              {formData[role][gender][id]["img"]}
+              {formData["email"]}
             </Typography>
             <Button onClick={onDelete}>
               <RiDeleteBin6Fill
@@ -122,8 +140,35 @@ const UploadOneFile = ({
               />
             </Button>
           </Box>
-        )}
-      </Box>
+        </Box>
+      ) : (
+        <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
+          {formData[role]?.[gender][id]["img"] && (
+            <Box
+              key={formData[role][gender][id]["img"]}
+              className="spaceBetween"
+            >
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  color: "#264653",
+                }}
+              >
+                {formData[role][gender][id]["img"]}
+              </Typography>
+              <Button onClick={onDelete}>
+                <RiDeleteBin6Fill
+                  size={15}
+                  style={{
+                    color: "#264653",
+                    pointerEvents: "none",
+                  }}
+                />
+              </Button>
+            </Box>
+          )}
+        </Box>
+      )}
     </Box>
   );
 };

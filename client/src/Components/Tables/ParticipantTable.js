@@ -13,7 +13,6 @@ import { BsInfoCircle } from "react-icons/bs";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 const ParticipantTable = ({
-  data,
   setRowsSelected,
   projectId,
   setDeleteOpen,

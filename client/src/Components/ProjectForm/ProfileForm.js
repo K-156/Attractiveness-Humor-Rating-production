@@ -5,8 +5,20 @@ import "./ProjectForm.css";
 import AddableTwoFields from "../CustomFormFields/AddableTwoFields";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
+<<<<<<< Updated upstream
 const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) => {
   console.log("profile form")
+=======
+const ProfileForm = ({
+  id,
+  gender,
+  role,
+  setFormData,
+  formData,
+  templateNum,
+  sectionNum,
+}) => {
+>>>>>>> Stashed changes
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -16,12 +28,12 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
       [role]: {
         ...state[role],
         [gender]: {
-          ...state[role][gender], 
+          ...state[role][gender],
           [id]: {
             ...state[role][gender][id],
             [name]: value,
           },
-        }
+        },
       },
     }));
   };
@@ -37,9 +49,17 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
               size="small"
               fullWidth
               inputProps={{ maxLength: 40 }}
-              helperText={`${formData[role][gender][id] ? formData[role][gender][id].optionName.length : 0} / 40`}
+              helperText={`${
+                formData[role][gender][id]
+                  ? formData[role][gender][id].optionName.length
+                  : 0
+              } / 40`}
               onChange={handleOnChange}
-              value={formData[role][gender][id] ? formData[role][gender][id].optionName : ""}
+              value={
+                formData[role][gender][id]
+                  ? formData[role][gender][id].optionName
+                  : ""
+              }
             />
           </Box>
         </Box>
@@ -53,9 +73,17 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
               multiline
               minRows={3}
               inputProps={{ maxLength: 200 }}
-              helperText={`${formData[role][gender][id] ? formData[role][gender][id].description.length : 0} / 200`}
+              helperText={`${
+                formData[role][gender][id]
+                  ? formData[role][gender][id].description.length
+                  : 0
+              } / 200`}
               onChange={handleOnChange}
-              value={formData[role][gender][id] ? formData[role][gender][id].description : ""}
+              value={
+                formData[role][gender][id]
+                  ? formData[role][gender][id].description
+                  : ""
+              }
             />
           </Box>
         </Box>
@@ -78,6 +106,7 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
               templateNum={templateNum}
               role={role}
               gender={gender}
+              sectionNum={sectionNum}
             />
           </Box>
         </Box>
@@ -86,7 +115,11 @@ const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) =
           <Box className="secondColumn">
             <AddableTwoFields
               id={id}
-              items={formData[role][gender][id] ? formData[role][gender][id].attributes : []}
+              items={
+                formData[role][gender][id]
+                  ? formData[role][gender][id].attributes
+                  : []
+              }
               formData={formData}
               setFormData={setFormData}
               variable="attributes"

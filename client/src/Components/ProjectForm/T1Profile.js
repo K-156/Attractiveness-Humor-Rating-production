@@ -18,45 +18,44 @@ import "./ProjectForm.css";
 import ProfileForm from "./ProfileForm";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
-
 const T1Profile = ({ roles, roleDict }) => {
-  const { submitFormData, getProject, sectionNum } = useAppContext();
+  const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
+  const sectionNum = sessionStorage.getItem("sectionNum");
 
   const [formData, setFormData] = useState({});
   const [expanded, setExpanded] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     getProject(projId).then((project) => {
       const { data } = project;
       _.map(roleDict, (aRole) => {
         formatData(data, aRole.role, aRole.isGender);
         formatCategorise(data, aRole.role, aRole.isGender);
-      })
-      setIsLoading(false)
-    })
-  }, [])
+      });
+      setIsLoading(false);
+    });
+  }, []);
 
   const formatData = (data, aRole) => {
-    console.log(data[sectionNum])
-      setFormData((state) => ({
-        ...state,
-        [aRole]: {
-          instruction: data[sectionNum]
-            ? data[sectionNum]?.[1][aRole].instruction
-            : "",
-        },
-      }));
-      setExpanded((state) => ({
-        ...state, 
-        [aRole]: {}
-      }))
+    setFormData((state) => ({
+      ...state,
+      [aRole]: {
+        instruction: data[sectionNum]
+          ? data[sectionNum]?.[1][aRole].instruction
+          : "",
+      },
+    }));
+    setExpanded((state) => ({
+      ...state,
+      [aRole]: {},
+    }));
   };
 
   const formatCategorise = (data, aRole, isGender) => {
     const genderList = isGender ? ["Male", "Female"] : ["NA"];
-    _.map(genderList, (gender) =>{
+    _.map(genderList, (gender) => {
       _.map(_.range(1, 5), (num) => {
         setFormData((state) => ({
           ...state,
@@ -78,21 +77,23 @@ const T1Profile = ({ roles, roleDict }) => {
                 attributes: data[sectionNum]
                   ? data[sectionNum][1][aRole][gender][num].attributes
                   : [],
-              }
-            }
-        }}))
+              },
+            },
+          },
+        }));
         setExpanded((state) => ({
           ...state,
           [aRole]: {
             ...state[aRole],
             [gender]: {
               ...state[aRole][gender],
-              [num]: false
-            }
-          }
-        }))        
-    })
-  })}
+              [num]: false,
+            },
+          },
+        }));
+      });
+    });
+  };
 
   const handleInstruction = useCallback((id, value) => {
     setFormData((state) => ({
@@ -108,20 +109,20 @@ const T1Profile = ({ roles, roleDict }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-  console.log(formData)
+  console.log(formData);
 
   if (isLoading) {
     return <LoadingAnimation />;
   }
 
   return _.map(roles, (aRole, index) => {
-    return(
-      <Box key={aRole} sx={{mb: 3}}>
-        {aRole.toLowerCase() !== "na" && 
-          <Typography sx={{color: "#264653"}}>
+    return (
+      <Box key={aRole} sx={{ mb: 3 }}>
+        {aRole.toLowerCase() !== "na" && (
+          <Typography sx={{ color: "#264653" }}>
             Role: <b>{aRole}</b>
           </Typography>
-        }
+        )}
         <Card>
           <CardContent>
             <Box className="twoColumns">
@@ -150,55 +151,63 @@ const T1Profile = ({ roles, roleDict }) => {
                 />
               </Box>
             </Box>
-          { _.map(roleDict[index]["isGender"] ? ["Male", "Female"] : ["NA"], (gender) => {
-            return(
-              <Box className="flexColumn" sx={{m: 1}} key={gender}>
-                <Typography className="variable"><b>{gender === "NA" ? "" : gender}</b></Typography>
-                {_.map(_.range(1, 5), (num) => {
-                  return(
-                    <Accordion
-                      disableGutters
-                      key={num}
-                      onChange={() => 
-                        setExpanded((state) => ({
-                          ...state, 
-                          [aRole]: {
-                            ...state[aRole],
-                            [gender]: {
-                              ...state[aRole][gender],
-                              [num]: !expanded[aRole][gender][num]
-                            }
+            {_.map(
+              roleDict[index]["isGender"] ? ["Male", "Female"] : ["NA"],
+              (gender) => {
+                return (
+                  <Box className="flexColumn" sx={{ m: 1 }} key={gender}>
+                    <Typography className="variable">
+                      <b>{gender === "NA" ? "" : gender}</b>
+                    </Typography>
+                    {_.map(_.range(1, 5), (num) => {
+                      return (
+                        <Accordion
+                          disableGutters
+                          key={num}
+                          onChange={() =>
+                            setExpanded((state) => ({
+                              ...state,
+                              [aRole]: {
+                                ...state[aRole],
+                                [gender]: {
+                                  ...state[aRole][gender],
+                                  [num]: !expanded[aRole][gender][num],
+                                },
+                              },
+                            }))
                           }
-                        }))
-                      }
-                    >
-                    <AccordionSummary className="accordionSummary">
-                      <Typography className="accordionTitle">
-                        <IoIosArrowForward 
-                          style={{ 
-                            marginRight: 10,
-                            rotate: expanded[aRole][gender][num] ? "90deg" : "none"
-                          }} 
-                          />
-                        OPTION {num}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <ProfileForm
-                        id={num}
-                        gender={gender}
-                        role={aRole}
-                        formData={formData}
-                        setFormData={setFormData}
-                        templateNum={1}
-                      />
-                    </AccordionDetails>
-                  </Accordion>
-                  );
-                })}
-              </Box>
-            );
-          })}
+                        >
+                          <AccordionSummary className="accordionSummary">
+                            <Typography className="accordionTitle">
+                              <IoIosArrowForward
+                                style={{
+                                  marginRight: 10,
+                                  rotate: expanded[aRole][gender][num]
+                                    ? "90deg"
+                                    : "none",
+                                }}
+                              />
+                              OPTION {num}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <ProfileForm
+                              id={num}
+                              gender={gender}
+                              role={aRole}
+                              formData={formData}
+                              setFormData={setFormData}
+                              templateNum={1}
+                              sectionNum={sectionNum}
+                            />
+                          </AccordionDetails>
+                        </Accordion>
+                      );
+                    })}
+                  </Box>
+                );
+              }
+            )}
           </CardContent>
         </Card>
       </Box>

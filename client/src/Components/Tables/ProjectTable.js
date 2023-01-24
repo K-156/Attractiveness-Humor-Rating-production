@@ -20,7 +20,6 @@ import _ from "lodash";
 
 import "./Tables.css";
 import DeleteDialog from "../Dialog/DeleteDialog";
-import { GET_PROJECT_BEGIN } from "../../Context/actions";
 
 const ProjectTable = ({ data, setDeleteSuccess }) => {
   const navigate = useNavigate();

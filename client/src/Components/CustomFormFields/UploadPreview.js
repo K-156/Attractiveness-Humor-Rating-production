@@ -10,29 +10,22 @@ import HomeSample from "./HomeSample";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 const UploadPreview = ({ setFormData, formData }) => {
-  const { uploadFiles, isEditing, editProjectId, createdProjectId } =
-    useAppContext();
+  const { uploadFiles } = useAppContext();
+  const projId = sessionStorage.getItem("projId");
   let fileLink = "";
 
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const uploadFile = async (event) => {
-    setIsLoading(true);
     const file = event.target.files;
     if (file !== undefined && file.length !== 0) {
       if (formData["graphic"] !== null) {
         setError(true);
         return;
       }
-
-      fileLink = await uploadFiles(
-        isEditing
-          ? `${editProjectId}_projDetails_graphic`
-          : `${createdProjectId}_projDetails_graphic`,
-          file[0]
-      );
-
+      setIsLoading(true);
+      fileLink = await uploadFiles(`${projId}_projDetails_graphic`, file[0]);
       setFormData((state) => ({
         ...state,
         graphic: file[0].name,
@@ -41,7 +34,6 @@ const UploadPreview = ({ setFormData, formData }) => {
     }
     setIsLoading(false);
   };
-
   const onDelete = () => {
     setError(false);
     setFormData((state) => ({
@@ -65,7 +57,7 @@ const UploadPreview = ({ setFormData, formData }) => {
         {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"} />}
       </Box>
       {error && (
-        <Alert severity="error" sx={{ width: "480px" }}>
+        <Alert severity="error" sx={{ width: "480px", mt: 1 }}>
           <AlertTitle sx={{ fontWeight: "bold" }}>Upload Failed</AlertTitle>
           Only <b>ONE</b> image allowed. Delete the current image to add new
           image.
