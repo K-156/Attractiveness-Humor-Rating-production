@@ -5,10 +5,6 @@ import "./ProjectForm.css";
 import AddableTwoFields from "../CustomFormFields/AddableTwoFields";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
-<<<<<<< Updated upstream
-const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) => {
-  console.log("profile form")
-=======
 const ProfileForm = ({
   id,
   gender,
@@ -18,7 +14,6 @@ const ProfileForm = ({
   templateNum,
   sectionNum,
 }) => {
->>>>>>> Stashed changes
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
