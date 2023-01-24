@@ -10,7 +10,6 @@ const areEqual = (prevProps, nextProps) => {
   const gender = prevProps["gender"];
   const prev = prevProps["formData"][role][gender];
   const next = nextProps["formData"][role][gender];
-
   return JSON.stringify(prev) === JSON.stringify(next);
 }
 

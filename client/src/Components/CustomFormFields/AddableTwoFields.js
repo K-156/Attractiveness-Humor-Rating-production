@@ -1,27 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { MdModeEditOutline } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
 import _ from "lodash";
 
 const AddableTwoFields = ({
   id,
   items,
-  formData,
   setFormData,
   variable,
   role,
   gender
 }) => {
-
   const [error, setError] = useState(false);
-  const [currValue, setCurrValue] = useState();  
+  const [currValue, setCurrValue] = useState({
+    name: "", value: ""
+  }); 
+  const [editIndex, setEditIndex] = useState(null); 
+  const [, updateState] = useState();
 
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value; 
-
+    
     setCurrValue((state) => ({
       ...state, 
       [name]:value
@@ -49,6 +53,7 @@ const AddableTwoFields = ({
     }
   };
 
+  const forceUpdate = useCallback(() => updateState({}), []);
   const onDelete = (index) => {
     if (index === 0) {
       items.shift();
@@ -68,7 +73,31 @@ const AddableTwoFields = ({
         }
       },
     }));
+    forceUpdate();
   };
+
+  const onEdit = (index) => {
+    setCurrValue(items[index]);
+    setEditIndex(index);
+    setError(false)
+  }
+
+  useEffect(() => {
+    setFormData((state) => ({
+      ...state,
+      [role]: {
+        ...state[role],
+        [gender]: {
+          ...state[role][gender],
+          [id]: {
+            ...state[role][gender][id],
+            [variable]: items,
+          },
+        }
+      },
+    }));
+  }, [items])
+
 
   return (
     <Box className="flexColumn">
@@ -77,6 +106,7 @@ const AddableTwoFields = ({
           name="name"
           label="Name"
           size="small"
+          value={currValue["name"]}
           onChange={handleOnChange}
           error={error}
           helperText={error ? "Name-value added" : ""}
@@ -86,20 +116,36 @@ const AddableTwoFields = ({
           name="value"
           label="Value"
           size="small"
+          value={currValue["value"]}
           onChange={handleOnChange}
           error={error}
           helperText={error ? "Name-value added" : ""}
           sx={{ width: "180px" }}
         />
-        <Button onClick={onAdd}>
-          <CgAdd
-            size={20}
-            style={{
-              color: "#264653",
-              pointerEvents: "none",
+        { editIndex !== null
+        ? <Button 
+            onClick={() => {
+              items[editIndex] = currValue;
+              setEditIndex(null);
+              setCurrValue({name: "", value: ""});
             }}
-          />
-        </Button>
+            sx={{color: "#264653"}}
+          >
+            <IoIosSave
+              size={20}
+              style={{pointerEvents: "none"}}
+            />
+          </Button> 
+        : <Button onClick={onAdd}>
+            <CgAdd
+              size={20}
+              style={{
+                color: "#264653",
+                pointerEvents: "none",
+              }}
+            />
+          </Button>
+        }
       </Box>
       {items?.length > 0 &&
         <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
@@ -117,18 +163,34 @@ const AddableTwoFields = ({
                 >
                   {index + 1}. {aItem.name}: {aItem.value}
                 </Typography>
-                <Button 
-                  id={index} 
-                  onClick={() => onDelete(index)}
-                >
-                  <RiDeleteBin6Fill
-                    size={15}
-                    style={{
-                      color: "#264653",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </Button>
+                <Box>
+                  <Button 
+                    id={index} 
+                    onClick={() => onDelete(index)}
+                    sx={{minWidth: "10px", mx: 1}}
+                  >
+                    <RiDeleteBin6Fill
+                      size={15}
+                      style={{
+                        color: "#264653",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </Button>
+                  <Button 
+                      id={index} 
+                      onClick={() => onEdit(index)}
+                      sx={{minWidth: "10px"}}
+                    >
+                      <MdModeEditOutline 
+                        size={15}
+                        style={{
+                          color: "#264653",
+                          pointerEvents: "none",
+                        }}
+                      />
+                  </Button>
+                </Box>
               </Box>
             );
           })}
