@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { 
   Box, 
@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { MdModeEditOutline } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
 import _ from "lodash";
 
 const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
@@ -18,6 +20,7 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
   const [currValue, setCurrValue] = useState({
     role: "", isGender: null
   });
+  const [editIndex, setEditIndex] = useState(null);
 
   const onAdd = () => {
     const roles = items.filter((aItem) => (
@@ -47,6 +50,19 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
       roles: items,
     }));
   };
+  
+  const onEdit = (index) => {
+    setCurrValue(items[index]);
+    setEditIndex(index);
+  }
+
+  useEffect(() => {
+    setFormData((state) => ({
+      ...state, 
+      roles: items
+    })) 
+  }, [items])
+
 
   return (
     <Box className="flexColumn">
@@ -57,6 +73,7 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
           error={error}
           helperText={error ? errorText : ""}
           id="roles"
+          value={currValue["role"]}
           onChange={(event) => {
             setError((state) => ({
               ...state, 
@@ -68,16 +85,31 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
             }))
           }}
         />
-        <Button 
-          onClick={onAdd}
-          disabled={currValue["isGender"] === null || currValue["role"] === ""}
-          sx={{color: "#264653"}}
-        >
-          <CgAdd
-            size={20}
-            style={{pointerEvents: "none"}}
-          />
-        </Button>
+        { editIndex !== null
+        ?  <Button 
+            onClick={() => {
+              items[editIndex] = currValue;
+              setEditIndex(null);
+            }}
+            disabled={currValue["isGender"] === null || currValue["role"] === ""}
+            sx={{color: "#264653"}}
+          >
+            <IoIosSave
+              size={20}
+              style={{pointerEvents: "none"}}
+            />
+          </Button> 
+        : <Button 
+            onClick={onAdd}
+            disabled={currValue["isGender"] === null || currValue["role"] === ""}
+            sx={{color: "#264653"}}
+          >
+            <CgAdd
+              size={20}
+              style={{pointerEvents: "none"}}
+            />
+          </Button>
+        }
       </Box>
       <Box>
       <Typography className="variable" sx={{ fontSize:"14px", pt:"9px", width:"350px"}}>
@@ -125,18 +157,34 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
                 >
                   {index + 1}. {aItem["role"]} ({aItem["isGender"] ? "Yes" : "No"}) 
                 </Typography>
-                <Button 
-                  id={index} 
-                  onClick={() => onDelete(index)}
-                >
-                  <RiDeleteBin6Fill
-                    size={15}
-                    style={{ 
-                      color: "#264653", 
-                      pointerEvents: "none" 
-                    }}
-                  />
-                </Button>
+                <Box>
+                  <Button 
+                    id={index} 
+                    onClick={() => onDelete(index)}
+                    sx={{minWidth: "10px", mx: 1}}
+                  >
+                    <RiDeleteBin6Fill
+                      size={15}
+                      style={{ 
+                        color: "#264653", 
+                        pointerEvents: "none" 
+                      }}
+                    />
+                  </Button>
+                  <Button 
+                    id={index} 
+                    onClick={() => onEdit(index)}
+                    sx={{minWidth: "10px"}}
+                  >
+                    <MdModeEditOutline 
+                      size={15}
+                      style={{
+                        color: "#264653",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </Button>
+                </Box>
               </Box>
             );
           })}

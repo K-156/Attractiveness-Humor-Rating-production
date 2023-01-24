@@ -1,6 +1,7 @@
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
 import { BsDash } from "react-icons/bs";
+import { MdModeEditOutline } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import _ from "lodash";
 
@@ -120,8 +121,23 @@ const AddableFields = ({
                   {value["lowerText"]}, {value["upperNum"]} -{" "}
                   {value["upperText"]})
                 </Typography>
-                <Button id={index} onClick={() => onDelete(index)}>
+                <Button 
+                  id={index} 
+                  onClick={() => onDelete(index)}
+                >
                   <RiDeleteBin6Fill
+                    size={15}
+                    style={{
+                      color: "#264653",
+                      pointerEvents: "none",
+                    }}
+                  />
+                </Button>
+                <Button 
+                  id={index} 
+                  // onClick={}
+                >
+                  <MdModeEditOutline 
                     size={15}
                     style={{
                       color: "#264653",

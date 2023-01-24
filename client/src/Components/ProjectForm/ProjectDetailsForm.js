@@ -40,7 +40,7 @@ const ProjectDetailsForm = ({ formData, setFormData }) => {
         [name]: value,
       }));    
   }
-
+  
   return(
       <Card>
           <CardContent sx={{p:2, pl: 10}}>
