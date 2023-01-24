@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
 import { Box, Button } from "@mui/material";
@@ -11,7 +11,8 @@ import { templates } from "../../Utils/templateList";
 import LoadingAnimation from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Summary = () => {
-  const { projDetails, data, createProject, getProject, isLoading } = useAppContext();
+  const { projDetails, data, createProject, getProject, isLoading } =
+    useAppContext();
   const navigate = useNavigate();
   const type = sessionStorage.getItem("editMode");
   const templateOrder = JSON.parse(sessionStorage.getItem("templates"));
@@ -20,9 +21,8 @@ const Summary = () => {
   useEffect(() => {
     sessionStorage.setItem("editMode", "edit");
     getProject(projId);
+    sessionStorage.removeItem("projData");
   }, []);
-
-  console.log(data)
 
   if (isLoading) {
     return <LoadingAnimation />;
@@ -55,7 +55,7 @@ const Summary = () => {
           <Button
             variant="contained"
             className="customButton-green"
-            onClick={() => navigate("/projects/sections") }
+            onClick={() => navigate("/projects/sections")}
           >
             Add/Reorder Sections
           </Button>

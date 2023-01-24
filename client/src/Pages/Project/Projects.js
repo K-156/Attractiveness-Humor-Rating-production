@@ -12,22 +12,18 @@ import _ from "lodash";
 
 const Projects = () => {
   const navigate = useNavigate();
-  const {
-    getAllProjects,
-    projects,
-    createProject,
-    setOriginalState,
-  } = useAppContext();
+  const { getAllProjects, projects, createProject, setOriginalState } =
+    useAppContext();
 
   const [deleteSuccess, setDeleteSuccess] = useState(false);
-  const options = []
+  const options = [];
   _.map(projects, (project) => {
     const { projDetails } = project;
     options.push(`${project._id}: ${projDetails.title}`);
   });
   const [projectId, setProjectId] = useState(null);
   const [filterProj, setFilterProj] = useState(projects);
-  
+
   const handleOnClick = async () => {
     const createdProjectId = await createProject();
     navigate("/projects/details");
@@ -37,11 +33,9 @@ const Projects = () => {
   };
 
   const handleSearch = (projects, projectId) => {
-    const id = projectId.split(": ")[0]
-    setFilterProj(projects.filter((aProject) => 
-      aProject["_id"] === id
-    ))
-  }
+    const id = projectId.split(": ")[0];
+    setFilterProj(projects.filter((aProject) => aProject["_id"] === id));
+  };
 
   useEffect(() => {
     getAllProjects();
@@ -50,7 +44,7 @@ const Projects = () => {
 
   useEffect(() => {
     setFilterProj(projects);
-  }, [projects])
+  }, [projects]);
 
   return (
     <div>
@@ -60,7 +54,7 @@ const Projects = () => {
       ) : (
         <>
           <Box className="spaceBetween" sx={{ mx: 6 }}>
-            <SearchBar 
+            <SearchBar
               handleSearch={() => handleSearch(projects, projectId)}
               handleSearchChange={(event, value) => {
                 if (value) {
@@ -72,7 +66,6 @@ const Projects = () => {
               }}
               projectId={projectId}
               options={options}
-
             />
             <Button
               variant="contained"
