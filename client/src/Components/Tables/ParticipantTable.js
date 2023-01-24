@@ -102,8 +102,8 @@ const ParticipantTable = ({
           align: "left",
           headerAlign: "left",
         },
-        { field: "name", headerName: "Name", flex: 1.5 },
-        { field: "email", headerName: "Email", flex: 2.5 },
+        { field: "name", headerName: "Name" },
+        { field: "email", headerName: "Email" },
         {
           field: "createdAt",
           headerName: "Date Added",
@@ -131,6 +131,7 @@ const ParticipantTable = ({
         {
           field: "ipAddress",
           headerName: "IP Address",
+          minWidth: 150,
           renderCell: (params) => {
             return (
               <Box>
@@ -148,7 +149,7 @@ const ParticipantTable = ({
           field: "startTime",
           headerName: "Start",
           type: "dateTime",
-          flex: 1.5,
+          minWidth: 100,
           valueFormatter: (params) =>
             params.value === undefined
               ? "null"
@@ -158,7 +159,7 @@ const ParticipantTable = ({
           field: "endTime",
           headerName: "End",
           type: "dateTime",
-          flex: 1.5,
+          minWidth: 100,
           valueFormatter: (params) =>
             params.value === undefined
               ? "null"
@@ -168,7 +169,7 @@ const ParticipantTable = ({
           field: "duration",
           headerName: "Total Time Taken",
           type: "dateTime",
-          flex: 1.5,
+          minWidth: 100,
           valueFormatter: (params) => {
             const user = users.find((user) => user._id === params.id);
             const start = user.startTime;
@@ -178,11 +179,15 @@ const ParticipantTable = ({
             return duration.humanize();
           },
         },
-        { field: "otp", headerName: "OTP" },
+        { 
+          field: "otp", 
+          headerName: "OTP",
+          minWidth: 100,
+        },
         {
           field: "completionCode",
-          headerName: "Completion code",
-          flex: 1,
+          headerName: "Completion Code",
+          minWidth: 150,
           valueFormatter: (params) =>
             params.value === undefined ? "null" : params.value,
         },
