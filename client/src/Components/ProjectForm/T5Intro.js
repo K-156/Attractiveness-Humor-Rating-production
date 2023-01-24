@@ -68,7 +68,7 @@ const T5Intro = ({ roles }) => {
       ...state,
       [name]: false,
     }));
-  }
+  };
 
   useEffect(() => {
     submitFormData(formData);
@@ -116,11 +116,11 @@ const T5Intro = ({ roles }) => {
                     error={error["questions"]}
                     setError={setError}
                     errorText="Question added"
-                    handleOnChange={handleOnChange}
                     currValue={qn}
                     setFormData={setFormData}
                     variable="questions"
                     role={aRole}
+                    
                   />
                 </Box>
               </Box>
@@ -139,6 +139,7 @@ const T5Intro = ({ roles }) => {
                     setFormData={setFormData}
                     variable="introductions"
                     role={aRole}
+                    setIntro={setIntro}
                   />
                 </Box>
               </Box>

@@ -61,6 +61,8 @@ const T4Audio = ({ roles }) => {
     submitFormData(formData);
   }, [formData]);
 
+  console.log(formData)
+
   return _.map(roles, (aRole) => {
     return (
       <Box key={aRole} sx={{ mb: 3 }}>
@@ -129,6 +131,7 @@ const T4Audio = ({ roles }) => {
                     setFormData={setFormData}
                     variable="questions"
                     role={aRole}
+                    setQn={setQn}
                   />
                 </Box>
               </Box>

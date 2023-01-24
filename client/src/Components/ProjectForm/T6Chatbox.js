@@ -18,6 +18,7 @@ const T6Chatbox = ({ roles }) => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const [value, setValue] = useState([]);
 
   useEffect(() => {
     getProject(projId).then((project) => {
@@ -100,6 +101,7 @@ const T6Chatbox = ({ roles }) => {
                     setFormData={setFormData}
                     variable="messages"
                     role={aRole}
+                    value={value}
                   />
                 </Box>
               </Box>

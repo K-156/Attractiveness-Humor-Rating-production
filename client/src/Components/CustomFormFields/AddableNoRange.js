@@ -1,6 +1,10 @@
+import { useState } from "react";
+
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { CgAdd } from "react-icons/cg";
+import { IoIosSave } from "react-icons/io";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { MdModeEditOutline } from "react-icons/md";
 import _ from "lodash";
 
 const AddableNoRange = ({
@@ -8,12 +12,15 @@ const AddableNoRange = ({
   error,
   setError,
   errorText,
-  handleOnChange,
   currValue,
   setFormData,
   variable,
   role,
+  setIntro
 }) => {
+  const [editIndex, setEditIndex] = useState(null);
+  const [value, setValue] = useState([]);
+
   const onAdd = () => {
     if (items.includes(currValue)) {
       setError((state) => ({
@@ -46,6 +53,36 @@ const AddableNoRange = ({
     }));
   };
 
+  const onEdit = (index) => {
+    setValue((state) => ({
+      ...state,
+      [variable]: items[index],
+    }));
+    setEditIndex(index);
+  };
+  const handleOnChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setIntro((state) => ({
+      ...state,
+      [name]: value,
+    }));
+
+    setError((state) => ({
+      ...state,
+      [name]: false,
+    }));
+
+    setValue((state) => ({
+      ...state,
+      [name]: value,
+    }));
+  };
+
+  console.log(value);
+  console.log(items);
+
   return (
     <Box className="flexColumn">
       <Box className="secondColumn">
@@ -56,18 +93,30 @@ const AddableNoRange = ({
           error={error}
           helperText={error ? errorText : ""}
           name={variable}
+          value={value[variable]}
         />
-        <Button onClick={onAdd}>
-          <CgAdd
-            size={20}
-            style={{
-              color: "#264653",
-              pointerEvents: "none",
+        {editIndex !== null ? (
+          <Button
+            onClick={() => {
+              items[editIndex] = value[variable];
+              setEditIndex(null);
             }}
-          />
-        </Button>
+            disabled={value.length === 0}
+            sx={{ color: "#264653" }}
+          >
+            <IoIosSave size={20} style={{ pointerEvents: "none" }} />
+          </Button>
+        ) : (
+          <Button
+            onClick={onAdd}
+            disabled={value.length === 0}
+            sx={{ color: "#264653" }}
+          >
+            <CgAdd size={20} style={{ pointerEvents: "none" }} />
+          </Button>
+        )}
       </Box>
-      {items?.length > 0 &&
+      {items?.length > 0 && (
         <Box sx={{ pt: 1, pl: 2 }}>
           {_.map(items, (value, index) => {
             return (
@@ -80,20 +129,39 @@ const AddableNoRange = ({
                 >
                   {index + 1}. {value}
                 </Typography>
-                <Button id={index} onClick={() => onDelete(index)}>
-                  <RiDeleteBin6Fill
-                    size={15}
-                    style={{
-                      color: "#264653",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </Button>
+                <Box>
+                  <Button
+                    sx={{ minWidth: "10px", mx: 1 }}
+                    id={index}
+                    onClick={() => onDelete(index)}
+                  >
+                    <RiDeleteBin6Fill
+                      size={15}
+                      style={{
+                        color: "#264653",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </Button>
+                  <Button
+                    id={index}
+                    onClick={() => onEdit(index)}
+                    sx={{ minWidth: "10px" }}
+                  >
+                    <MdModeEditOutline
+                      size={15}
+                      style={{
+                        color: "#264653",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </Button>
+                </Box>
               </Box>
             );
           })}
         </Box>
-      }
+      )}
     </Box>
   );
 };
