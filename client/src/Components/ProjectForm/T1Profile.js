@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
 import {
@@ -95,17 +95,6 @@ const T1Profile = ({ roles, roleDict }) => {
     });
   };
 
-  // const handleInstruction = useCallback((id, value) => {
-  //   setFormData((state) => ({
-  //       ...state,
-  //       [id]: {
-  //         ...state[id],
-  //         instruction: value,
-  //       },
-  //     }));
-  // }, [])
-
-
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
@@ -138,7 +127,6 @@ const T1Profile = ({ roles, roleDict }) => {
                   maxRows={5}
                   id={aRole}
                   value={formData[aRole]?.instruction}
-                  // onChange={handleInstruction}
                   onChange={(event) => {
                     setFormData((state) => ({
                       ...state,

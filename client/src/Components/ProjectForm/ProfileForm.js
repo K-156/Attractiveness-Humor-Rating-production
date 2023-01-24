@@ -1,9 +1,18 @@
-
+import { memo } from "react";
 import { Box, TextField, Typography } from "@mui/material";
 
 import "./ProjectForm.css";
 import AddableTwoFields from "../CustomFormFields/AddableTwoFields";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
+
+const areEqual = (prevProps, nextProps) => {
+  const role = prevProps["role"];
+  const gender = prevProps["gender"];
+  const prev = prevProps["formData"][role][gender];
+  const next = nextProps["formData"][role][gender];
+
+  return JSON.stringify(prev) === JSON.stringify(next);
+}
 
 const ProfileForm = ({
   id,
@@ -128,4 +137,4 @@ const ProfileForm = ({
   );
 };
 
-export default ProfileForm;
+export default memo(ProfileForm, areEqual);
