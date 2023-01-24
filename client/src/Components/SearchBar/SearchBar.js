@@ -16,6 +16,7 @@ const SearchBar = ({ handleSearch, handleSearchChange, projectId, options}) => {
                     <TextField {...params} label="Project" size="small" />
                 )}
                 onChange={handleSearchChange}
+                isOptionEqualToValue={(option, value) => option === value}
             />
             <Button
                 variant="contained"

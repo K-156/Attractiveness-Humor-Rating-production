@@ -91,7 +91,7 @@ const ParticipantTable = ({
       onSelectionModelChange={(id) => setRowsSelected(id)}
       disableSelectionOnClick
       rows={users}
-      loading={isLoading && <LoadingAnimation />}
+      loading={isLoading}
       getRowId={(row) => row["_id"]}
       columns={[
         {
