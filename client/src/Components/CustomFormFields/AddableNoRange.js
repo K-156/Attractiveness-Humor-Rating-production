@@ -16,7 +16,8 @@ const AddableNoRange = ({
   setFormData,
   variable,
   role,
-  setIntro
+  setIntro,
+  setMessages,
 }) => {
   const [editIndex, setEditIndex] = useState(null);
   const [value, setValue] = useState([]);
@@ -64,10 +65,16 @@ const AddableNoRange = ({
     const name = event.target.name;
     const value = event.target.value;
 
-    setIntro((state) => ({
-      ...state,
-      [name]: value,
-    }));
+    if (name === "introductions") {
+      setIntro((state) => ({
+        ...state,
+        [name]: value,
+      }));
+    }
+
+    if (name === "messages") {
+      setMessages(value);
+    }
 
     setError((state) => ({
       ...state,
