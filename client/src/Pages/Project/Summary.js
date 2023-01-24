@@ -2,7 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
-import { Box, Button } from "@mui/material";
+import { 
+  Box, 
+  Button,
+  Card,
+  CardContent, 
+  Typography
+} from "@mui/material";
 import _ from "lodash";
 
 import SummaryCard from "../../Components/SummaryCard/SummaryCard";
@@ -17,6 +23,7 @@ const Summary = () => {
   const type = sessionStorage.getItem("editMode");
   const templateOrder = JSON.parse(sessionStorage.getItem("templates"));
   const projId = sessionStorage.getItem("projId");
+  const roles = sessionStorage.getItem("roles");
 
   useEffect(() => {
     sessionStorage.setItem("editMode", "edit");
@@ -51,11 +58,18 @@ const Summary = () => {
           content={projDetails}
           editLink="/projects/details"
         />
+        { roles === "[]" && 
+            <Typography className="center" sx={{my: 2, color:"#264653"}} >
+              <i>Please add in roles in <b>Project Details </b>before adding other sections. 
+              If there is no role, please add in "NA" as the role.</i>
+            </Typography>
+          }
         <Box className="flexEnd" sx={{ mt: 2, mb: 1 }}>
           <Button
             variant="contained"
             className="customButton-green"
             onClick={() => navigate("/projects/sections")}
+            disabled={ roles==="[]" }
           >
             Add/Reorder Sections
           </Button>
@@ -75,14 +89,14 @@ const Summary = () => {
               />
             );
           })}
-        {data?.length === 0 && (
-          <SummaryCard
-            header="Section - No section added"
-            template={7}
-            content=""
-            editLink={`/projects/sections/`}
-            index={1}
-          />
+        {roles !== "[]" && templateOrder?.length === 0 && (
+          <Card sx={{my: 1}}>
+            <CardContent>
+              <Typography className="summaryHeader">
+                No section added
+              </Typography>
+            </CardContent>
+          </Card>
         )}
       </ProjectLayout>
     </div>

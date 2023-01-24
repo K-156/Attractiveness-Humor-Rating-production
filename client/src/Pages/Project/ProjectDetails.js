@@ -44,6 +44,8 @@ const ProjectDetails = () => {
     graphic: projDetails?.graphic,
     graphicLink: projDetails?.graphicLink,
   });
+
+  console.log(formData)
  
   return (
     <div>

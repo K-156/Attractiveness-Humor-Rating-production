@@ -10,6 +10,7 @@ const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
   const navigate = useNavigate();
   const handleSubmit = (formData) => {
     if (projectType === "projDetails") {
+      sessionStorage.setItem("roles", JSON.stringify(formData["roles"]))
       updateProject(projId, projectType, formData);
     }
     if (projectType === "projData") {

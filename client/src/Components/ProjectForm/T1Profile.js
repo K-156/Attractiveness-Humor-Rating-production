@@ -98,7 +98,7 @@ const T1Profile = ({ roles, roleDict }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-
+  
   if (isLoading) {
     return <LoadingAnimation />;
   }
