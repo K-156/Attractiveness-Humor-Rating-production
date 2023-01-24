@@ -95,15 +95,15 @@ const T1Profile = ({ roles, roleDict }) => {
     });
   };
 
-  const handleInstruction = useCallback((id, value) => {
-    setFormData((state) => ({
-        ...state,
-        [id]: {
-          ...state[id],
-          instruction: value,
-        },
-      }));
-  }, [])
+  // const handleInstruction = useCallback((id, value) => {
+  //   setFormData((state) => ({
+  //       ...state,
+  //       [id]: {
+  //         ...state[id],
+  //         instruction: value,
+  //       },
+  //     }));
+  // }, [])
 
 
   useEffect(() => {
@@ -138,16 +138,16 @@ const T1Profile = ({ roles, roleDict }) => {
                   maxRows={5}
                   id={aRole}
                   value={formData[aRole]?.instruction}
-                  onChange={handleInstruction}
-                  // onChange={(event) => {
-                  //   setFormData((state) => ({
-                  //     ...state,
-                  //     [aRole]: {
-                  //       ...state[aRole],
-                  //       instruction: event.target.value,
-                  //     },
-                  //   }));
-                  // }}
+                  // onChange={handleInstruction}
+                  onChange={(event) => {
+                    setFormData((state) => ({
+                      ...state,
+                      [aRole]: {
+                        ...state[aRole],
+                        instruction: event.target.value,
+                      },
+                    }));
+                  }}
                 />
               </Box>
             </Box>

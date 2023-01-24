@@ -15,7 +15,6 @@ const Projects = () => {
   const {
     getAllProjects,
     projects,
-    isLoading,
     createProject,
     setOriginalState,
   } = useAppContext();

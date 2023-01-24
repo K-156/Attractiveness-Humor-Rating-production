@@ -159,6 +159,7 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
           deleteAllUsers(event.target.name);
           deleteProject(event.target.name);
           setDeleteSuccess(true);
+          setOpen(false)
         }}
         id={toDelete.id}
         text="This project and the files will be permanently deleted from the storage"
