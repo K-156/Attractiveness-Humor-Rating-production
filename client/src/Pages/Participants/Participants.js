@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { useAppContext } from "../../Context/AppContext";
 import axios from "axios";
 
-import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import _ from "lodash";
 import ParticipantTable from "../../Components/Tables/ParticipantTable";
 import DeleteDialog from "../../Components/Dialog/DeleteDialog";
 import ConfirmDialog from "../../Components/Dialog/ConfirmDialog";
 import UploadParticipantDialog from "../../Components/Dialog/UploadParticipantDialog";
+import SearchBar from "../../Components/SearchBar/SearchBar";
 
 const Participants = () => {
   const {
@@ -146,29 +146,16 @@ const Participants = () => {
   return (
     <div>
       <script>{(document.title = "Participants")}</script>
-      <Box sx={{ display: "flex" }}>
-        <Autocomplete
-          options={options}
-          sx={{ width: 250, mr: 3 }}
-          value={projectId}
-          renderInput={(params) => (
-            <TextField {...params} label="Project" size="small" />
-          )}
-          onChange={(event, value) => {
-            if (value) {
-              setProjectId(value);
-            }
-          }}
-        />
-        <Button
-          variant="contained"
-          className="customButton-green"
-          sx={{ px: 3 }}
-          onClick={handleSearch}
-        >
-          Search
-        </Button>
-      </Box>
+      <SearchBar 
+        handleSearch={handleSearch}
+        handleSearchChange={(event, value) => {
+          if (value) {
+            setProjectId(value);
+          }
+        }}
+        projectId={projectId}
+        options={options}
+      />
       <ParticipantTable
         data={users}
         setRowsSelected={setRowsSelected}
@@ -206,85 +193,3 @@ const Participants = () => {
 };
 
 export default Participants;
-
-var today = new Date();
-var dd = String(today.getDate());
-var mm = String(today.getMonth() + 1);
-var yyyy = today.getFullYear();
-var time =
-  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-today = dd + "/" + mm + "/" + yyyy + " " + time;
-
-const testing = [
-  {
-    _id: 1,
-    name: "Alan",
-    email: "alan@gmail.com",
-    dateAdded: today,
-    IPAddress: "123.34.67",
-    start: today,
-    end: today,
-    role: "employer",
-  },
-  {
-    _id: 2,
-    name: "Betty",
-    email: "betty@gmail.com",
-    dateAdded: today,
-    IPAddress: "123.34.67",
-    start: today,
-    end: today,
-    role: "employer",
-  },
-  {
-    _id: 3,
-    name: "Charles",
-    email: "charles@gmail.com",
-    dateAdded: today,
-    IPAddress: "123.34.67",
-    start: today,
-    end: today,
-    role: "job seeker",
-  },
-  {
-    _id: 4,
-    name: "Daniel",
-    email: "daniel@gmail.com",
-    dateAdded: today,
-    IPAddress: "123.34.67",
-    start: today,
-    end: today,
-    role: "employer",
-  },
-  {
-    _id: 5,
-    name: "Emily",
-    email: "emily@gmail.com",
-    dateAdded: today,
-    IPAddress: "123.34.67",
-    start: today,
-    end: today,
-    role: "employer",
-  },
-  {
-    _id: 6,
-    name: "Fanny",
-    email: "fanny@gmail.com",
-    dateAdded: today,
-    IPAddress: "123.34.67",
-    start: today,
-    end: today,
-    role: "employer",
-  },
-  {
-    _id: 7,
-    name: "Gerald",
-    email: "gerald@gmail.com",
-    dateAdded: today,
-    IPAddress: "123.34.67",
-    start: today,
-    end: today,
-    role: "job seeker",
-  },
-];

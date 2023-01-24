@@ -6,6 +6,7 @@ import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import _ from "lodash";
 
 import OverviewTable from "../../Components/Tables/OverviewTable";
+import SearchBar from "../../Components/SearchBar/SearchBar";
 
 const Overview = () => {
   const {
@@ -69,29 +70,16 @@ const Overview = () => {
   return (
     <div>
       <script>{(document.title = "Overview")}</script>
-      <Box sx={{ display: "flex" }}>
-        <Autocomplete
-          options={options}
-          sx={{ width: 250, mr: 3 }}
-          value={projectId}
-          renderInput={(params) => (
-            <TextField {...params} label="Project" size="small" />
-          )}
-          onChange={(event, value) => {
-            if (value) {
-              setProjectId(value);
-            }
-          }}
-        />
-        <Button
-          variant="contained"
-          className="customButton-green"
-          sx={{ px: 3 }}
-          onClick={handleOnClick}
-        >
-          Search
-        </Button>
-      </Box>
+      <SearchBar 
+        handleSearch={handleOnClick}
+        handleSearchChange={(event, value) => {
+          if (value) {
+            setProjectId(value);
+          }
+        }}
+        projectId={projectId}
+        options={options}
+      />
       <OverviewTable
         data={displayData}
         projectId={projectId}
@@ -103,65 +91,3 @@ const Overview = () => {
 
 export default Overview;
 
-const data = [
-  {
-    _id: 1,
-    option1_rank: 7,
-    option2_rank: 8,
-    option3_rank: 5,
-    option4_rank: 8,
-    best_q1: 8,
-    best_q2: 2,
-    best_q3: 5,
-    best_q4: 3,
-    best_q5: 2,
-  },
-  {
-    _id: 2,
-    option1_rank: 4,
-    option2_rank: 2,
-    option3_rank: 1,
-    option4_rank: 7,
-    best_q1: 5,
-    best_q2: 3,
-    best_q3: 2,
-    best_q4: 7,
-    best_q5: 8,
-  },
-  {
-    _id: 3,
-    option1_rank: 4,
-    option2_rank: 2,
-    option3_rank: 1,
-    option4_rank: 7,
-    best_q1: 5,
-    best_q2: 3,
-    best_q3: 2,
-    best_q4: 7,
-    best_q5: 8,
-  },
-  {
-    _id: 4,
-    option1_rank: 7,
-    option2_rank: 8,
-    option3_rank: 5,
-    option4_rank: 8,
-    best_q1: 8,
-    best_q2: 2,
-    best_q3: 5,
-    best_q4: 3,
-    best_q5: 2,
-  },
-  {
-    _id: 5,
-    option1_rank: 4,
-    option2_rank: 2,
-    option3_rank: 1,
-    option4_rank: 7,
-    best_q1: 5,
-    best_q2: 3,
-    best_q3: 2,
-    best_q4: 7,
-    best_q5: 8,
-  },
-];
