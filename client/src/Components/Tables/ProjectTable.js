@@ -77,10 +77,10 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
         <Table size="small">
           <TableHead className="tableHeader">
             <TableRow>
-              <TableCell className="tableHeader-cell" sx={{ width: "5%" }}>
+              <TableCell className="tableHeader-cell" sx={{ width: "5%", minWidth:"150px"}}>
                 ID
               </TableCell>
-              <TableCell className="tableHeader-cell" sx={{ width: "75%" }}>
+              <TableCell className="tableHeader-cell" sx={{ width: "75%", minWidth:"300px" }}>
                 Project Name
               </TableCell>
               <TableCell></TableCell>

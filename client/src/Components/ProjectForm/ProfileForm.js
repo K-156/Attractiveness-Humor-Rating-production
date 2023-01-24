@@ -1,3 +1,4 @@
+
 import { Box, TextField, Typography } from "@mui/material";
 
 import "./ProjectForm.css";
@@ -5,7 +6,7 @@ import AddableTwoFields from "../CustomFormFields/AddableTwoFields";
 import UploadOneFile from "../CustomFormFields/UploadOneFile";
 
 const ProfileForm = ({ id, gender, role, setFormData, formData, templateNum }) => {
-
+  console.log("profile form")
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
