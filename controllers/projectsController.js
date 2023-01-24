@@ -96,17 +96,16 @@ const sendEmail = async (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const { email, name, otp, projId } = req.body;
-  const {projDetails} = await Project.findOne({ _id: projId });
-
+  const { projDetails } = await Project.findOne({ _id: projId });
 
   const msg = {
     to: email, // Change to your recipient
     from: "limstephanie156@gmail.com", // Change to your verified sender
     subject: `Participants of ${projDetails.title}`,
-    html: 
-    `Dear ${name}, </br></br> Thank you for signing up to participate in this survey. `
-    + "Please click the following link:"
-    + `<br><br>Your OTP number is ${otp}. You only have ${projDetails.duration} minutes to complete the survey. When the time is up, you would not be able to continue or return to the survey. <br><br> Thank you.`,
+    html:
+      `Dear ${name}, </br></br> Thank you for signing up to participate in this survey. ` +
+      "Please click the following link:" +
+      `<br><br>Your OTP number is ${otp}. You only have ${projDetails.duration} minutes to complete the survey. When the time is up, you would not be able to continue or return to the survey. <br><br> Thank you.`,
   };
 
   sgMail
@@ -121,7 +120,7 @@ const sendEmail = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Success! Email Sent!" });
 };
 
-const displayOutput = async (req, res) => {
+const displayOutputFromArray = async (req, res) => {
   const readCSVPromise = (link) => {
     return new Promise((resolve, reject) => {
       const data = [];
@@ -162,6 +161,43 @@ const displayOutput = async (req, res) => {
     const results = data.reduce((acc, val) => acc.concat(val), []);
     console.log(results);
     res.status(StatusCodes.OK).json({ results });
+  });
+};
+
+const displayOutput = async (req, res) => {
+  const readCSVPromise = (link) => {
+    return new Promise((resolve, reject) => {
+      const data = [];
+      request
+        .get(link)
+        .on("error", (err) => {
+          console.log(err);
+          reject(err);
+        })
+        .pipe(iconv.decodeStream("utf8"))
+        .pipe(csv())
+        .on("data", (row) => {
+          console.log(row);
+          data.push(row);
+        })
+        .on("end", () => {
+          console.log("CSV file successfully processed");
+          resolve(data);
+        });
+    });
+  };
+
+  const { id: projectId } = req.params;
+
+  const project = await Project.findOne({ _id: projectId });
+  if (!project) {
+    throw new NotFoundError(`No project with id ${projectId}`);
+  }
+
+  const link = project.emailList.emailLink;
+  readCSVPromise(link).then((data) => {
+    console.log(data)
+    res.status(StatusCodes.OK).json({ data });
   });
 };
 

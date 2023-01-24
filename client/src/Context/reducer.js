@@ -119,7 +119,7 @@ const reducer = (state, action) => {
       projDetails: action.payload?.projDetails,
       theme: action.payload?.projDetails.theme,
       sections: action.payload?.sections,
-      emailList: action.payload ? action.payload.emailList : [],
+      // emailList: action.payload ? action.payload.emailList : [],
     };
   }
   if (action.type === GET_PROJECT_ERROR) {

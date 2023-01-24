@@ -13,7 +13,7 @@ const ProjectSchema = new mongoose.Schema(
         default: "untitled",
       },
       description: String,
-      consent:String,
+      consent: String,
       roles: [],
       duration: String,
       theme: {
@@ -24,8 +24,8 @@ const ProjectSchema = new mongoose.Schema(
       graphicLink: String,
     },
     emailList: {
-      email: [],
-      emailLink: [],
+      email: "",
+      emailLink: "",
     },
     sections: {
       type: [],

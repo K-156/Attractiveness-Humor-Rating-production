@@ -75,12 +75,12 @@ const initialState = {
   sectionNum: 0,
   fileLink: "",
   errorMsg: "",
-  emailList: "",
+  emailList: { email: "", emailLink: "" },
   participants: [],
   activeProjectData: [],
   isValid: true,
   users: [],
-  projId:"",
+  projId: "",
 };
 
 const AppContext = createContext();
@@ -171,7 +171,7 @@ const AppProvider = ({ children }) => {
         type: LOGIN_USER_ERROR,
         payload: { msg: error.response.data.msg },
       });
-      return error.response
+      return error.response;
     }
   };
 
@@ -212,7 +212,7 @@ const AppProvider = ({ children }) => {
         type: GET_PROJECT_SUCCESS,
         payload: project,
       });
-      return project
+      return project;
       // localStorage.setItem("data", JSON.stringify(project));
     } catch (error) {
       dispatch({
@@ -263,7 +263,7 @@ const AppProvider = ({ children }) => {
         type: CREATE_PROJECT_SUCCESS,
         payload: data.project._id,
       });
-      return data.project._id
+      return data.project._id;
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({

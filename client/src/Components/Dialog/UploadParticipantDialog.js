@@ -16,6 +16,7 @@ const UploadParticipantDialog = ({
   setFormData,
   handleUpload,
 }) => {
+
   return (
     <Dialog open={open}>
       <DialogTitle

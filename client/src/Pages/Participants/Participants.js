@@ -52,7 +52,7 @@ const Participants = () => {
   const readCSV = async (id) => {
     try {
       const { data } = await axios.get(`/api/v1/projects/participants/${id}`);
-      return data.results;
+      return data.data;
     } catch (error) {
       if (error.response.status !== 401) {
         console.log(error.response.data.msg);
@@ -63,6 +63,7 @@ const Participants = () => {
   const handleUpload = async () => {
     setIsLoading(true);
     const participants = await readCSV(projectId.split(":")[0]);
+    console.log(participants)
     const registerPromises = participants.map((element) => {
       return registerUser({
         name: element.Name,

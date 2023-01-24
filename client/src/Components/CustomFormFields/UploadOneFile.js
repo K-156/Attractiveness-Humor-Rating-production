@@ -25,11 +25,11 @@ const UploadOneFile = ({
 
   let fileLink = "";
   const uploadFile = async (event) => {
-    
+    console.log(formData);
     const file = event.target.files;
     if (file !== undefined && file.length > 0) {
       if (email) {
-        if (formData["email"] !== null) {
+        if (formData["email"] !== "") {
           setError(true);
           return;
         }
@@ -41,7 +41,7 @@ const UploadOneFile = ({
         setFormData((state) => ({
           ...state,
           email: file[0].name,
-          emailLink: [...state.emailLink, fileLink],
+          emailLink: fileLink,
         }));
       } else {
         if (formData[role][gender][id]["img"] !== null) {
@@ -77,8 +77,8 @@ const UploadOneFile = ({
     if (email) {
       setFormData((state) => ({
         ...state,
-        email: [],
-        emailLink: [],
+        email: "",
+        emailLink: "",
       }));
     } else {
       setFormData((state) => ({
@@ -97,7 +97,7 @@ const UploadOneFile = ({
       }));
     }
   };
-
+console.log(typeof error)
   return (
     <Box className="flexColumn">
       <Box className="secondColumn">
@@ -112,14 +112,20 @@ const UploadOneFile = ({
         </Button>
         {isLoading && <LoadingAnimation size="1rem" marginLeft={"1rem"} />}
       </Box>
-      {error && (
+      {error && email ? (
+        <Alert severity="error" sx={{ width: "350px", mt: 1 }}>
+          <AlertTitle sx={{ fontWeight: "bold" }}>Upload Failed</AlertTitle>
+          Only <b>ONE</b> csv file allowed. Delete the current file to add new
+          file.
+        </Alert>
+      ):(error &&
         <Alert severity="error">
           <AlertTitle sx={{ fontWeight: "bold" }}>Upload Failed</AlertTitle>
           Only <b>ONE</b> image allowed. Delete the current image to add new
           image.
         </Alert>
       )}
-      {email && formData["email"]?.length !== 0 ? (
+      {email && formData["email"] !== "" ? (
         <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
           <Box key={formData["email"]} className="spaceBetween">
             <Typography
