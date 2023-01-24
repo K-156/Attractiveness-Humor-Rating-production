@@ -157,8 +157,9 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
         handleDelete={(event) => {
           // delete registered participants
           deleteAllUsers(event.target.name);
-          deleteProject(event.target.name);
-          setDeleteSuccess(true);
+          deleteProject(event.target.name).then(() => {
+            setDeleteSuccess(true);
+          });
           setOpen(false)
         }}
         id={toDelete.id}
