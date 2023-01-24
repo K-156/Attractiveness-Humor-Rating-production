@@ -39,7 +39,7 @@ const T7General = () => {
 
     setFormData((state) => ({
       ...state,
-      [name]: value,
+      [name]: value === "Yes",
     }));
   };
 
@@ -76,14 +76,14 @@ const T7General = () => {
               row
               className="secondColumn"
               sx={{ justifyContent: "space-around" }}
-              defaultValue={formData.isEnd}
+              value={formData.isEnd ? "Yes" : "No"}
             >
               {_.map(["Yes", "No"], (option) => {
                 return (
                   <FormControlLabel
                     key={option}
                     name="isEnd"
-                    value={option === "Yes"}
+                    value={option}
                     control={<Radio size="small" />}
                     label={option}
                     labelPlacement="start"

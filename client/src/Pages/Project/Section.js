@@ -70,7 +70,7 @@ const Section = () => {
                     : currTemplate === 4 ? <T4Audio roles={roles} key={sectionNum} />
                     : currTemplate === 5 ? <T5Intro roles={roles} key={sectionNum} />
                     : currTemplate === 6 ? <T6Chatbox roles={roles} key={sectionNum} />
-                    : <T7General />
+                    : <T7General key={sectionNum} />
                 } 
       </ProjectLayout>
     </div>

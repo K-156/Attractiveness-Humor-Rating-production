@@ -120,6 +120,7 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
       <RadioGroup
         row
         className="secondColumn"
+        value={currValue["isGender"] === null ? null : currValue["isGender"] ? "Yes" : "No"}
         sx={{ justifyContent: "space-around" }}
       >
           {_.map(["Yes", "No"], (option) => {
