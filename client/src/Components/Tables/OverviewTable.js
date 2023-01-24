@@ -14,47 +14,49 @@ const OverviewTable = ({ data, projectId, sections }) => {
   const role = sessionStorage.getItem("role");
 
   const columns = ["_id"];
-  sections !== null && sections.forEach((element) => {
-    switch (element) {
-      case 2:
-        for (let i = 1; i <= 4; i++) {
-          columns.push(`option${i}_rate`);
-        }
-        break;
-      case 3:
-        for (let i = 1; i <= 4; i++) {
-          columns.push(`option${i}_rank`);
-        }
-        break;
-      case 4:
-        const audioIndex = sections.indexOf(4);
-        const audioQns = surveyData[audioIndex]?.["4"][role]?.questions.length;
-        for (let i = 1; i <= audioQns; i++) {
-          columns.push(`best_audio_q${i}`);
-        }
-        for (let i = 1; i <= audioQns; i++) {
-          columns.push(`worst_audio_q${i}`);
-        }
+  sections.length !== 0 &&
+    sections.forEach((element) => {
+      switch (element) {
+        case 2:
+          for (let i = 1; i <= 4; i++) {
+            columns.push(`option${i}_rate`);
+          }
+          break;
+        case 3:
+          for (let i = 1; i <= 4; i++) {
+            columns.push(`option${i}_rank`);
+          }
+          break;
+        case 4:
+          const audioIndex = sections.indexOf(4);
+          const audioQns =
+            surveyData[audioIndex]?.["4"]?.[role]?.questions.length;
+          for (let i = 1; i <= audioQns; i++) {
+            columns.push(`best_audio_q${i}`);
+          }
+          for (let i = 1; i <= audioQns; i++) {
+            columns.push(`worst_audio_q${i}`);
+          }
 
-        break;
-      case 5:
-        const introIndex = sections.indexOf(5);
-        const introQns = surveyData[introIndex]?.["5"][role]?.questions.length;
-        for (let i = 1; i <= introQns; i++) {
-          columns.push(`best_intro_q${i}`);
-        }
-        for (let i = 1; i <= introQns; i++) {
-          columns.push(`worst_intro_q${i}`);
-        }
-        break;
-      case 6:
-        columns.push("best_prewritten_msg");
-        columns.push("worst_prewritten_msg");
-        break;
-      default:
-        console.log("no need column name");
-    }
-  });
+          break;
+        case 5:
+          const introIndex = sections.indexOf(5);
+          const introQns = surveyData[introIndex]?.["5"]?.[role]?.questions.length;
+          for (let i = 1; i <= introQns; i++) {
+            columns.push(`best_intro_q${i}`);
+          }
+          for (let i = 1; i <= introQns; i++) {
+            columns.push(`worst_intro_q${i}`);
+          }
+          break;
+        case 6:
+          columns.push("best_prewritten_msg");
+          columns.push("worst_prewritten_msg");
+          break;
+        default:
+          console.log("no need column name");
+      }
+    });
 
   const CustomToolBar = () => {
     const today = moment(new Date()).format("DD-MM-YYYY");

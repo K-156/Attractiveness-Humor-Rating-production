@@ -62,7 +62,7 @@ const Overview = () => {
       const { data, sections, projDetails } = proj;
       sessionStorage.setItem("data", JSON.stringify(data));
       sessionStorage.setItem("sections", JSON.stringify(sections));
-      sessionStorage.setItem("role", projDetails.roles["0"]["role"])
+      sessionStorage.setItem("role", projDetails.roles["0"]?.["role"])
     });
     getUsersByProjId(projectId?.split(":")[0]);
   }, []);
