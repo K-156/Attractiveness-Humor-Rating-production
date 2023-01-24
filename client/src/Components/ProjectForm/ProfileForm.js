@@ -53,8 +53,8 @@ const ProfileForm = ({
               fullWidth
               inputProps={{ maxLength: 40 }}
               helperText={`${
-                formData[role][gender][id]
-                  ? formData[role][gender][id].optionName.length
+                formData[role][gender][id].optionName !== undefined
+                  ? formData[role]?.[gender][id]?.optionName?.length
                   : 0
               } / 40`}
               onChange={handleOnChange}
@@ -77,8 +77,8 @@ const ProfileForm = ({
               minRows={3}
               inputProps={{ maxLength: 200 }}
               helperText={`${
-                formData[role][gender][id]
-                  ? formData[role][gender][id].description.length
+                formData[role][gender][id].description !== undefined
+                  ? formData[role][gender][id].description?.length
                   : 0
               } / 200`}
               onChange={handleOnChange}

@@ -43,7 +43,7 @@ const T1Profile = ({ roles, roleDict }) => {
       ...state,
       [aRole]: {
         instruction: data[sectionNum]
-          ? data[sectionNum]?.[1][aRole].instruction
+          ? data[sectionNum]?.[1][aRole]?.instruction
           : "",
       },
     }));
@@ -65,17 +65,17 @@ const T1Profile = ({ roles, roleDict }) => {
               ...state[aRole]?.[gender],
               [num]: {
                 optionName: data[sectionNum]
-                  ? data[sectionNum]?.[1][aRole][gender][num].optionName
+                  ? data[sectionNum]?.[1][aRole]?.[gender][num].optionName
                   : "",
                 description: data[sectionNum]
-                  ? data[sectionNum]?.[1][aRole][gender][num].description
+                  ? data[sectionNum]?.[1][aRole]?.[gender][num].description
                   : "",
                 img: data[sectionNum]
-                  ? data[sectionNum][1][aRole][gender][num].img
+                  ? data[sectionNum][1][aRole]?.[gender][num].img
                   : null,
                 link: null,
                 attributes: data[sectionNum]
-                  ? data[sectionNum][1][aRole][gender][num].attributes
+                  ? data[sectionNum][1][aRole]?.[gender][num].attributes
                   : [],
               },
             },

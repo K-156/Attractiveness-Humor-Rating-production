@@ -20,31 +20,35 @@ const T3Rank = ({ roles }) => {
 
   useEffect(() => {
     getProject(projId).then((project) => {
-      console.log(project.data[sectionNum])
+      console.log(project.data[sectionNum]);
       const data = {};
       _.map(roles, (aRole) => {
         data[aRole] = {
-          instruction: project.data[sectionNum] ? project.data[sectionNum][3][aRole].instruction : "",
+          instruction: project.data[sectionNum]
+            ? project.data[sectionNum][3][aRole].instruction
+            : "",
           characteristics: {
-            lowerbound:
-              project.data[sectionNum] ? project.data[sectionNum][3][aRole].characteristics?.lowerbound : "",
-            upperbound:
-              project.data[sectionNum] ? project.data[sectionNum][3][aRole].characteristics?.upperbound : ""
+            lowerbound: project.data[sectionNum]
+              ? project.data[sectionNum][3][aRole].characteristics?.lowerbound
+              : "",
+            upperbound: project.data[sectionNum]
+              ? project.data[sectionNum][3][aRole].characteristics?.upperbound
+              : "",
           },
         };
       });
-      console.log(data)
+      console.log(data);
       setFormData(data);
     });
   }, []);
 
   const [formData, setFormData] = useState({});
-  console.log(formData)
-  console.log(formData["Employer"]?.["characteristics"])
 
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
+
+  console.log(formData["employer"]?.["characteristics"]["lowerbound"]);
 
   return _.map(roles, (aRole) => {
     return (
@@ -109,14 +113,16 @@ const T3Rank = ({ roles }) => {
                         }}
                         sx={{ width: "180px" }}
                         value={
-                          formData[aRole]?.["characteristics"][type.toLowerCase()]
+                          formData[aRole]?.["characteristics"][
+                            type.toLowerCase()
+                          ]
                         }
                         InputLabelProps={{
                           shrink:
                             (isEditing ||
                               formData[aRole]?.["characteristics"][
                                 type.toLowerCase()
-                              ] !== "") &&
+                              ] !== undefined) &&
                             true,
                         }}
                       />
