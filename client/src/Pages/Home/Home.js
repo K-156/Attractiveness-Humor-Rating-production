@@ -18,6 +18,7 @@ const Home = () => {
     theme,
     projDetails,
     sections,
+    user,
   } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -36,9 +37,14 @@ const Home = () => {
         localStorage.setItem("gender", dict["isGender"]);
       }
     });
-    sectionNum === null
-      ? navigate(`/login`)
-      : navigate(links.find((link) => link.id === sections[sectionNum]).path);
+    if (user.role === "admin" && sectionNum === null) {
+      navigate(`/consent`);
+    } else if (user.role === "admin") {
+      navigate(links.find((link) => link.id === sections[sectionNum]).path);
+    } else
+      sectionNum === null
+        ? navigate(`/login`)
+        : navigate(links.find((link) => link.id === sections[sectionNum]).path);
   };
 
   useEffect(() => {

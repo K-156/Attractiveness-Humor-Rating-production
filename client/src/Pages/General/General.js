@@ -39,30 +39,41 @@ const General = () => {
         if (sectionNum === null) setSectionNum(sections.length - 1);
         setIsEnd(data[sectionNum][sections[sectionNum]]?.isEnd);
         if (data[sectionNum][sections[sectionNum]]?.isEnd == "true") {
-          getCompletionCode().then((res) => {
-            const { data } = res;
+          if (user.role === "admin") {
             updateUser({
               currentUser: {
                 ...user,
-                completionCode: data.token,
-                endTime: new Date().toISOString(),
+                userResponse: {},
+                rank: [],
               },
               id: user._id,
             });
-          });
-          localStorage.clear();
-          setIsLoading(false);
+            localStorage.clear();
+            setIsLoading(false);
+          } else {
+            getCompletionCode().then((res) => {
+              const { data } = res;
+              updateUser({
+                currentUser: {
+                  ...user,
+                  completionCode: data.token,
+                  endTime: new Date().toISOString(),
+                },
+                id: user._id,
+              });
+            });
+            localStorage.clear();
+            setIsLoading(false);
+          }
         }
         setIsLoading(false);
       });
     }
   }, [activeProjectId, sectionNum]);
 
-
   const getCompletionCode = async () => {
     return await axios.get("/api/v1/auth/completionCode");
   };
-
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
