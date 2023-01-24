@@ -14,7 +14,7 @@ import _ from "lodash";
 import "./ProjectForm.css";
 
 const T3Rank = ({ roles }) => {
-  const { submitFormData, getProject } = useAppContext();
+  const { submitFormData, getProject, isEditing } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
 
@@ -24,20 +24,23 @@ const T3Rank = ({ roles }) => {
       const data = {};
       _.map(roles, (aRole) => {
         data[aRole] = {
-          instruction: project.data[sectionNum]?.length > 0 ? project.data[sectionNum][3][aRole].instruction : "",
+          instruction: project.data[sectionNum] ? project.data[sectionNum][3][aRole].instruction : "",
           characteristics: {
             lowerbound:
-              project.data[sectionNum]?.length > 0 ? project.data[sectionNum][3][aRole].characteristics?.lowerbound : "",
+              project.data[sectionNum] ? project.data[sectionNum][3][aRole].characteristics?.lowerbound : "",
             upperbound:
-              project.data[sectionNum]?.length > 0 ? project.data[sectionNum][3][aRole].characteristics?.upperbound : ""
+              project.data[sectionNum] ? project.data[sectionNum][3][aRole].characteristics?.upperbound : ""
           },
         };
       });
+      console.log(data)
       setFormData(data);
     });
   }, []);
 
   const [formData, setFormData] = useState({});
+  console.log(formData)
+  console.log(formData["Employer"]?.["characteristics"])
 
   useEffect(() => {
     submitFormData(formData);
@@ -108,6 +111,14 @@ const T3Rank = ({ roles }) => {
                         value={
                           formData[aRole]?.["characteristics"][type.toLowerCase()]
                         }
+                        InputLabelProps={{
+                          shrink:
+                            (isEditing ||
+                              formData[aRole]?.["characteristics"][
+                                type.toLowerCase()
+                              ] !== "") &&
+                            true,
+                        }}
                       />
                     );
                   })}
