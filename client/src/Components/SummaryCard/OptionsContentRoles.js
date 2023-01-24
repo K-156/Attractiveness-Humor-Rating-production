@@ -21,7 +21,7 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                 const displayOutput = _.map(options, (value, key) => {
                   const optionNum = key[key.length - 1];
                   return (
-                    <Box key={key}>
+                    <Box key={optionNum}>
                       <Box sx={{ mx: "10px", mt: 2 }}>
                         <Typography
                           className="summaryText"
@@ -38,13 +38,13 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                             </Typography>
                             {aKey !== "link" &&
                             typeof aValue === "string" &&
-                            aValue.length > 100 ? (
-                              <MoreText
+                            aValue.length > 100 
+                            ? <MoreText
                                 handleOnClick={handleOnClick}
                                 id={variableMap[aKey]}
                                 value={aValue}
                               />
-                            ) : aKey.toLowerCase() === "attributes" ? (
+                            : aKey.toLowerCase() === "attributes" ? (
                               <Box>
                                 {_.map(aValue, (attribute, index) => {
                                   return (
@@ -72,7 +72,7 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                   );
                 });
                 return (
-                  <Box>
+                  <Box key={gender}>
                     <Box className="twoColumns">
                       <Typography className="summaryVariable">
                         <b>{gender === "NA" ? "" : `- - - - - ${gender} - - - - -`}</b>

@@ -91,6 +91,7 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
             onClick={() => {
               items[editIndex] = currValue;
               setEditIndex(null);
+              setCurrValue( {role: "", isGender: null })
             }}
             disabled={currValue["isGender"] === null || currValue["role"] === ""}
             sx={{color: "#264653"}}
