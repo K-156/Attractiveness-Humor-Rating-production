@@ -34,24 +34,25 @@ const Timer = () => {
 
   const expirationTime = durationMin;
   let otpTimestamp = user.startTime; // Timestamp when the OTP was generated
-  
+
   // Calculate the time remaining
   let remainingTime =
-    durationMin * 60000 - (moment(Date.now()) - moment(otpTimestamp));
+    user.role === "admin"
+      ? durationMin * 60000
+      : durationMin * 60000 - (moment(Date.now()) - moment(otpTimestamp));
 
   // Timer function that checks for expired OTPs
   setInterval(() => {
     // Check if the OTP has expired
     if (moment(Date.now()) - moment(otpTimestamp) > expirationTime * 60000) {
       // Kick out the participant
-      setIsAlert(true)
+      setIsAlert(true);
     }
     if (isAlert === true) {
-        removeUserFromLocalStorage();
-        navigate("/");
+      removeUserFromLocalStorage();
+      navigate("/");
     }
   }, 5000);
-
 
   const formatDuration = (duration) => {
     const hour = Math.floor(duration / 60);

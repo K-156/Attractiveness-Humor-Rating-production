@@ -30,7 +30,7 @@ const OverviewTable = ({ data, projectId, sections }) => {
         case 4:
           const audioIndex = sections.indexOf(4);
           const audioQns =
-            surveyData[audioIndex]?.["4"]?.[role]?.questions.length;
+            surveyData?.[audioIndex]?.["4"]?.[role]?.questions?.length;
           for (let i = 1; i <= audioQns; i++) {
             columns.push(`best_audio_q${i}`);
           }
@@ -41,7 +41,7 @@ const OverviewTable = ({ data, projectId, sections }) => {
           break;
         case 5:
           const introIndex = sections.indexOf(5);
-          const introQns = surveyData[introIndex]?.["5"]?.[role]?.questions.length;
+          const introQns = surveyData?.[introIndex]?.["5"]?.[role]?.questions?.length;
           for (let i = 1; i <= introQns; i++) {
             columns.push(`best_intro_q${i}`);
           }

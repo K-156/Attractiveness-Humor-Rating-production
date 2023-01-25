@@ -48,7 +48,7 @@ const T3Rank = ({ roles }) => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData["employer"]?.["characteristics"]["lowerbound"]);
+  console.log(isEditing);
 
   return _.map(roles, (aRole) => {
     return (
@@ -91,6 +91,9 @@ const T3Rank = ({ roles }) => {
                   sx={{ justifyContent: "space-between" }}
                 >
                   {_.map(["Lowerbound", "Upperbound"], (type) => {
+                    console.log(
+                      formData[aRole]?.["characteristics"][type.toLowerCase()]
+                    );
                     return (
                       <TextField
                         key={type}
@@ -119,11 +122,9 @@ const T3Rank = ({ roles }) => {
                         }
                         InputLabelProps={{
                           shrink:
-                            (isEditing ||
-                              formData[aRole]?.["characteristics"][
-                                type.toLowerCase()
-                              ] !== undefined) &&
-                            true,
+                            formData[aRole]?.["characteristics"][
+                              type.toLowerCase()
+                            ] !== "" && true,
                         }}
                       />
                     );

@@ -24,7 +24,7 @@ const Rank = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const gender = sessionStorage.getItem("gender");
+  const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,17 +44,19 @@ const Rank = () => {
             }
           }
         }
+
         // find which profile to display
         for (let i = 0; i < arrOfProfile.length; i++) {
           const element = arrOfProfile[i];
-          if (element <= sectionNum) {
+          if (element <= Number(sectionNum)) {
+            console.log(data[element][1][user.surveyRole])
             dataToDisplay =
               data[element][1][user.surveyRole][
                 gender === "true" ? oppGender(user.sex) : "NA"
               ];
           }
         }
-
+        
         for (const [key, value] of Object.entries(dataToDisplay)) {
           if (key == 1 || key == 2 || key == 3 || key == 4) {
             value["_id"] = Number(key);

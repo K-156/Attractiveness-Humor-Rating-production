@@ -18,7 +18,7 @@ import "./ProjectForm.css";
 
 const T7General = () => {
   const { submitFormData, getProject } = useAppContext();
-  const projId = sessionStorage.getItem("projId")
+  const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
 
   useEffect(() => {
@@ -36,18 +36,24 @@ const T7General = () => {
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-
-    setFormData((state) => ({
-      ...state,
-      [name]: value === "Yes",
-    }));
+    if (name === "text") {
+      setFormData((state) => ({
+        ...state,
+        [name]: value,
+      }));
+    } else {
+      setFormData((state) => ({
+        ...state,
+        [name]: value === "Yes",
+      }));
+    }
   };
 
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData)
+  console.log(formData);
 
   return (
     <Card>

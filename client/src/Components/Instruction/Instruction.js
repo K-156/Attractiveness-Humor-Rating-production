@@ -5,9 +5,16 @@ import { Button, Tooltip } from "@mui/material";
 
 import { colorPalette } from "../../Utils/colorPalette";
 
-const Instruction = () => {
-  const { theme, activeProjectId, setActiveProject, getProject, user, data, sections } =
-    useAppContext();
+const Instruction = ({ type }) => {
+  const {
+    theme,
+    activeProjectId,
+    setActiveProject,
+    getProject,
+    user,
+    data,
+    sections,
+  } = useAppContext();
   const sectionNum = localStorage.getItem("sectionNum");
 
   useEffect(() => {
@@ -17,14 +24,17 @@ const Instruction = () => {
     }
   }, [activeProjectId]);
 
+  console.log(data[sectionNum][sections[sectionNum]][user.surveyRole]);
+
   return (
     <div className="flexStart">
       <Tooltip
         title={
-          data.length !== 0
+          data.length !== 0 && (type === "audio" || type === "written")
             ? data[sectionNum][sections[sectionNum]][user.surveyRole]
+                ?.ratingInstruction
+            : data[sectionNum][sections[sectionNum]][user.surveyRole]
                 ?.instruction
-            : ""
         }
         placement="bottom-start"
         slotProps={{
