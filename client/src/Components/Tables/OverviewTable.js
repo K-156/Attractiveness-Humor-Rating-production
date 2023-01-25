@@ -11,7 +11,7 @@ import moment from "moment";
 
 const OverviewTable = ({ displayData, projectId, isLoading }) => {
   const [pageSize, setPageSize] = useState(5);
-  const role = sessionStorage.getItem("role");
+  const role = sessionStorage.getItem("role").split(",");
   const { sections, data } = useAppContext();
 
   const columns = ["_id"];
@@ -31,8 +31,14 @@ const OverviewTable = ({ displayData, projectId, isLoading }) => {
           break;
         case 4:
           const audioIndex = sections.indexOf(4);
-          const audioQns =
-            data?.[audioIndex]?.["4"]?.[role]?.questions?.length;
+          let audioQns = 0;
+          // find which questions is the longest
+          for (let i = 0; i < role.length; i++) {
+            const tempAudio = data[audioIndex][4][role[i]].questions.length;
+            if (tempAudio > audioQns) {
+              audioQns = tempAudio;
+            }
+          }
           for (let i = 1; i <= audioQns; i++) {
             columns.push(`best_audio_q${i}`);
           }
@@ -43,8 +49,13 @@ const OverviewTable = ({ displayData, projectId, isLoading }) => {
           break;
         case 5:
           const introIndex = sections.indexOf(5);
-          const introQns =
-            data?.[introIndex]?.["5"]?.[role]?.questions?.length;
+          let introQns = 0;
+          for (let i = 0; i < role.length; i++) {
+            const tempIntro = data[introIndex][5][role[i]].questions.length;
+            if (tempIntro > introQns) {
+              introQns = tempIntro;
+            }
+          }
           for (let i = 1; i <= introQns; i++) {
             columns.push(`best_intro_q${i}`);
           }

@@ -48,7 +48,11 @@ const Overview = () => {
       const { data, sections, projDetails } = proj;
       sessionStorage.setItem("data", JSON.stringify(data));
       sessionStorage.setItem("sections", JSON.stringify(sections));
-      sessionStorage.setItem("role", projDetails.roles["0"]["role"])
+      let roles = [];
+      projDetails.roles.forEach((dict) => {
+        roles.push(dict["role"]);
+      });
+      sessionStorage.setItem("role", roles);
     });
     await getUsersByProjId(projectId.split(":")[0]);
     setIsLoading(false);
@@ -61,7 +65,7 @@ const Overview = () => {
       const { data, sections, projDetails } = proj;
       sessionStorage.setItem("data", JSON.stringify(data));
       sessionStorage.setItem("sections", JSON.stringify(sections));
-      sessionStorage.setItem("role", projDetails.roles["0"]?.["role"])
+      sessionStorage.setItem("role", projDetails.roles["0"]?.["role"]);
     });
     getUsersByProjId(projectId?.split(":")[0]);
   }, []);
@@ -69,7 +73,7 @@ const Overview = () => {
   return (
     <div>
       <script>{(document.title = "Overview")}</script>
-      <SearchBar 
+      <SearchBar
         handleSearch={handleOnClick}
         handleSearchChange={(event, value) => {
           if (value) {
@@ -90,4 +94,3 @@ const Overview = () => {
 };
 
 export default Overview;
-
