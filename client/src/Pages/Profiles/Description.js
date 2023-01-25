@@ -27,6 +27,17 @@ const Description = () => {
 
   const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
+  
+  // check profiles viewed
+  useEffect(() => {
+    const getProfileView = JSON.parse(localStorage.getItem("profiles"));
+
+    const profileView = getProfileView === null ? [] : getProfileView;    
+    if (!profileView.includes(id.toString())) {
+      profileView.push(id.toString());
+    }
+    localStorage.setItem("profiles", JSON.stringify(profileView))
+  }, [id])
 
   useEffect(() => {
     setActiveProject();

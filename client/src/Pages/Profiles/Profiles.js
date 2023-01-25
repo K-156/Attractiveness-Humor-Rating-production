@@ -27,6 +27,7 @@ const Profiles = () => {
   const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
   const type = localStorage.getItem("type");
+  const profileView = JSON.parse(localStorage.getItem("profiles"));
 
   const path =
     data[Number(sectionNum) + 1] !== undefined
@@ -66,7 +67,6 @@ const Profiles = () => {
   let arr = [];
   let arrOfProfile = [];
   let dataToDisplay = {};
-
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
     for (const [templateNo, data] of Object.entries(dict)) {
@@ -113,6 +113,7 @@ const Profiles = () => {
                     description={item.description}
                     candidateCount={arr?.length}
                     gender={gender === "true" ? oppGender(user.sex) : "NA"}
+
                   />
                 </Grid>
               );
@@ -123,6 +124,7 @@ const Profiles = () => {
               isSurvey={true}
               text={type !== null ? type : "Next"}
               handleOnSubmit={handleOnSubmit}
+              disabled={profileView === null || profileView?.length < arr?.length}
             />
           </Box>
         </>
