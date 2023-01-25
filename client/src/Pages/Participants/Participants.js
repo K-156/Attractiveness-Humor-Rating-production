@@ -63,7 +63,7 @@ const Participants = () => {
   const handleUpload = async () => {
     setIsLoading(true);
     const participants = await readCSV(projectId.split(":")[0]);
-    console.log(participants)
+    console.log(participants);
     const registerPromises = participants.map((element) => {
       return registerUser({
         name: element.Name,
@@ -139,6 +139,7 @@ const Participants = () => {
         name: user.name,
         otp: user.otp,
         projId: user.projId,
+        type: "start",
       });
     });
     setSendOpen(false);
@@ -147,7 +148,7 @@ const Participants = () => {
   return (
     <div>
       <script>{(document.title = "Participants")}</script>
-      <SearchBar 
+      <SearchBar
         handleSearch={handleSearch}
         handleSearchChange={(event, value) => {
           if (value) {

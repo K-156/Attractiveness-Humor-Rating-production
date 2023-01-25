@@ -95,17 +95,21 @@ const deleteProject = async (req, res) => {
 const sendEmail = async (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const { email, name, otp, projId } = req.body;
+  const { email, name, otp, projId, completionCode, type } = req.body;
   const { projDetails } = await Project.findOne({ _id: projId });
+  const html =
+    type === "start"
+      ? `Dear ${name}, </br></br> Thank you for signing up to participate in this survey. ` +
+        "Please click the following link:" +
+        `<br><br>Your OTP number is ${otp}. You only have ${projDetails.duration} minutes to complete the survey. When the time is up, you would not be able to continue or return to the survey. <br><br> Thank you.`
+      : `Dear ${name}, </br></br> Thank you for completing this survey. ` +
+      `<br><br>Your completion code is ${completionCode}. You may used this to claim your survey rewards. <br><br> Thank you.`;
 
   const msg = {
     to: email, // Change to your recipient
     from: "limstephanie156@gmail.com", // Change to your verified sender
     subject: `Participants of ${projDetails.title}`,
-    html:
-      `Dear ${name}, </br></br> Thank you for signing up to participate in this survey. ` +
-      "Please click the following link:" +
-      `<br><br>Your OTP number is ${otp}. You only have ${projDetails.duration} minutes to complete the survey. When the time is up, you would not be able to continue or return to the survey. <br><br> Thank you.`,
+    html,
   };
 
   sgMail
@@ -196,7 +200,7 @@ const displayOutput = async (req, res) => {
 
   const link = project.emailList.emailLink;
   readCSVPromise(link).then((data) => {
-    console.log(data)
+    console.log(data);
     res.status(StatusCodes.OK).json({ data });
   });
 };

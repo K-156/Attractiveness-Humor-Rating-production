@@ -19,6 +19,7 @@ const General = () => {
     activeProjectId,
     getProject,
     sections,
+    sendEmail,
   } = useAppContext();
   const navigate = useNavigate();
   const [isEnd, setIsEnd] = useState(false);
@@ -38,7 +39,7 @@ const General = () => {
         const { data, sections } = proj;
         if (sectionNum === null) setSectionNum(sections.length - 1);
         setIsEnd(data[sectionNum][sections[sectionNum]]?.isEnd);
-        if (data[sectionNum][sections[sectionNum]]?.isEnd == "true") {
+        if (data[sectionNum][sections[sectionNum]]?.isEnd === true) {
           if (user.role === "admin") {
             updateUser({
               currentUser: {
@@ -62,6 +63,14 @@ const General = () => {
                 id: user._id,
               });
             });
+            // sendEmail({
+            //   email: user.email,
+            //   name: user.name,
+            //   otp: user.otp,
+            //   projId: user.projId,
+            //   completionCode: user.completionCode,
+            //   type: "end",
+            // });
             localStorage.clear();
             setIsLoading(false);
           }
