@@ -65,6 +65,7 @@ const NavBar = () => {
             className="logoutButton"
             onClick={() => {
               removeUserFromLocalStorage();
+              sessionStorage.clear();
               navigate("/");
             }}
           >

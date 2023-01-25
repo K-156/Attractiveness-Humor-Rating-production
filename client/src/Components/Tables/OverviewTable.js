@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAppContext } from "../../Context/AppContext";
 
 import {
   DataGrid,
@@ -8,12 +9,13 @@ import {
 import _ from "lodash";
 import moment from "moment";
 
-const OverviewTable = ({ data, projectId, sections, isLoading }) => {
+const OverviewTable = ({ displayData, projectId, isLoading }) => {
   const [pageSize, setPageSize] = useState(5);
-  const surveyData = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
+  const { sections, data } = useAppContext();
 
   const columns = ["_id"];
+
   sections.length !== 0 &&
     sections.forEach((element) => {
       switch (element) {
@@ -30,7 +32,7 @@ const OverviewTable = ({ data, projectId, sections, isLoading }) => {
         case 4:
           const audioIndex = sections.indexOf(4);
           const audioQns =
-            surveyData?.[audioIndex]?.["4"]?.[role]?.questions?.length;
+            data?.[audioIndex]?.["4"]?.[role]?.questions?.length;
           for (let i = 1; i <= audioQns; i++) {
             columns.push(`best_audio_q${i}`);
           }
@@ -42,7 +44,7 @@ const OverviewTable = ({ data, projectId, sections, isLoading }) => {
         case 5:
           const introIndex = sections.indexOf(5);
           const introQns =
-            surveyData?.[introIndex]?.["5"]?.[role]?.questions?.length;
+            data?.[introIndex]?.["5"]?.[role]?.questions?.length;
           for (let i = 1; i <= introQns; i++) {
             columns.push(`best_intro_q${i}`);
           }
@@ -95,12 +97,12 @@ const OverviewTable = ({ data, projectId, sections, isLoading }) => {
       onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
       rowsPerPageOptions={[5, 10, 20]}
       disableSelectionOnClick
-      rows={data}
+      rows={displayData}
       loading={isLoading}
       getRowId={(row) => row["_id"]}
-      columns={_.map(columns, (key) => {
+      columns={_.map(columns, (key, index) => {
         return {
-          key: key,
+          key: `${key}_${index}`,
           field: key,
           headerName: key === "_id" ? "User ID" : key,
           valueFormatter: (params) =>

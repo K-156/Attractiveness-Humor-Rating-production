@@ -80,7 +80,7 @@ const Overview = () => {
         options={options}
       />
       <OverviewTable
-        data={displayData}
+        displayData={displayData}
         projectId={projectId}
         sections={sections}
         isLoading={isLoading}
