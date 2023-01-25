@@ -37,9 +37,9 @@ const Home = () => {
         localStorage.setItem("gender", dict["isGender"]);
       }
     });
-    if (user.role === "admin" && sectionNum === null) {
+    if (user?.role === "admin" && sectionNum === null) {
       navigate(`/consent`);
-    } else if (user.role === "admin") {
+    } else if (user?.role === "admin") {
       navigate(links.find((link) => link.id === sections[sectionNum]).path);
     } else
       sectionNum === null
