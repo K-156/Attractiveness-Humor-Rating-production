@@ -149,7 +149,7 @@ const Chat = ({ title, link }) => {
             lastCandidate={items[lastCandidate]}
             title={title}
           />
-          <Box className="spaceBetween" sx={{ mx: 5, my: 3 }}>
+          <Box className="flexEnd" sx={{ mx: 5, my: 3 }}>
             <NextButton
               isSurvey={true}
               disabled={selectMessage === null}

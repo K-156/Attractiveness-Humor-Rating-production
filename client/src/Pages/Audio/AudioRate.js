@@ -256,7 +256,7 @@ const AudioRate = ({ title, link, isWritten }) => {
                 title={title}
               />
             </Grid>
-            <Grid item xs={12} className="spaceBetween" sx={{ py: 3, px: 9 }}>
+            <Grid item xs={12} className="flexEnd" sx={{ py: 3, px: 9 }}>
               <NextButton
                 isSurvey={true}
                 disabled={
