@@ -11,7 +11,7 @@ import moment from "moment";
 
 const OverviewTable = ({ displayData, projectId, isLoading }) => {
   const [pageSize, setPageSize] = useState(5);
-  const role = sessionStorage.getItem("role").split(",");
+  const role = sessionStorage.getItem("role") !== null ? sessionStorage.getItem("role").split(",") : null;
   const { sections, data } = useAppContext();
 
   const columns = ["_id"];
