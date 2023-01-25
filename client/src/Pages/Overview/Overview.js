@@ -83,6 +83,7 @@ const Overview = () => {
         data={displayData}
         projectId={projectId}
         sections={sections}
+        isLoading={isLoading}
       />
     </div>
   );

@@ -8,7 +8,7 @@ import {
 import _ from "lodash";
 import moment from "moment";
 
-const OverviewTable = ({ data, projectId, sections }) => {
+const OverviewTable = ({ data, projectId, sections, isLoading }) => {
   const [pageSize, setPageSize] = useState(5);
   const surveyData = JSON.parse(sessionStorage.getItem("data"));
   const role = sessionStorage.getItem("role");
@@ -41,7 +41,8 @@ const OverviewTable = ({ data, projectId, sections }) => {
           break;
         case 5:
           const introIndex = sections.indexOf(5);
-          const introQns = surveyData?.[introIndex]?.["5"]?.[role]?.questions?.length;
+          const introQns =
+            surveyData?.[introIndex]?.["5"]?.[role]?.questions?.length;
           for (let i = 1; i <= introQns; i++) {
             columns.push(`best_intro_q${i}`);
           }
@@ -95,6 +96,7 @@ const OverviewTable = ({ data, projectId, sections }) => {
       rowsPerPageOptions={[5, 10, 20]}
       disableSelectionOnClick
       rows={data}
+      loading={isLoading}
       getRowId={(row) => row["_id"]}
       columns={_.map(columns, (key) => {
         return {

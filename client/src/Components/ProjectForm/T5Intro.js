@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 import AddableFields from "../CustomFormFields/AddableFields";
 import AddableNoRange from "../CustomFormFields/AddableNoRange";
@@ -19,8 +20,10 @@ const T5Intro = ({ roles }) => {
   const { getProject, submitFormData } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getProject(projId).then((project) => {
       const dictionary = {};
       _.map(roles, (aRole) => {
@@ -37,6 +40,7 @@ const T5Intro = ({ roles }) => {
             };
       });
       setFormData(dictionary);
+      setIsLoading(false);
     });
   }, []);
 
@@ -73,6 +77,14 @@ const T5Intro = ({ roles }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
+
+  if (isLoading) {
+    return (
+      <div className={`background-blue center`}>
+        <Loading />
+      </div>
+    );
+  }
 
   return _.map(roles, (aRole) => {
     return (
@@ -120,7 +132,6 @@ const T5Intro = ({ roles }) => {
                     setFormData={setFormData}
                     variable="questions"
                     role={aRole}
-                    
                   />
                 </Box>
               </Box>

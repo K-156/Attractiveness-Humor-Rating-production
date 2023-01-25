@@ -21,7 +21,7 @@ import _ from "lodash";
 import "./Tables.css";
 import DeleteDialog from "../Dialog/DeleteDialog";
 
-const ProjectTable = ({ data, setDeleteSuccess }) => {
+const ProjectTable = ({ data, setDeleteSuccess,setIsLoading }) => {
   const navigate = useNavigate();
   const {
     setEditProject,
@@ -50,7 +50,7 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
     sessionStorage.setItem("editMode", "edit");
     sessionStorage.setItem("projId", id);
     const data = await getProject(id);
-    const {sections, projDetails} = data;
+    const { sections, projDetails } = data;
     sessionStorage.setItem("templates", JSON.stringify(sections));
     sessionStorage.setItem("roles", JSON.stringify(projDetails.roles));
     setEditProject(id);
@@ -76,10 +76,16 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
         <Table size="small">
           <TableHead className="tableHeader">
             <TableRow>
-              <TableCell className="tableHeader-cell" sx={{ width: "5%", minWidth:"150px"}}>
+              <TableCell
+                className="tableHeader-cell"
+                sx={{ width: "5%", minWidth: "150px" }}
+              >
                 ID
               </TableCell>
-              <TableCell className="tableHeader-cell" sx={{ width: "75%", minWidth:"300px" }}>
+              <TableCell
+                className="tableHeader-cell"
+                sx={{ width: "75%", minWidth: "300px" }}
+              >
                 Project Name
               </TableCell>
               <TableCell></TableCell>
@@ -154,13 +160,15 @@ const ProjectTable = ({ data, setDeleteSuccess }) => {
         open={open}
         setOpen={setOpen}
         isActive={toDelete.isActive}
-        handleDelete={(event) => {
+        handleDelete={async (event) => {
           // delete registered participants
-          deleteAllUsers(event.target.name);
-          deleteProject(event.target.name).then(() => {
+          setIsLoading(true);
+          await deleteAllUsers(event.target.name);
+          await deleteProject(event.target.name).then(() => {
             setDeleteSuccess(true);
           });
-          setOpen(false)
+          setOpen(false);
+          setIsLoading(false);
         }}
         id={toDelete.id}
         text="This project and the files will be permanently deleted from the storage"

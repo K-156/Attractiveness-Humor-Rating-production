@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 import "./ProjectForm.css";
 import AddableNoRange from "../CustomFormFields/AddableNoRange";
@@ -18,8 +19,10 @@ const T6Chatbox = ({ roles }) => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getProject(projId).then((project) => {
       const data = {};
       _.map(roles, (aRole) => {
@@ -34,6 +37,7 @@ const T6Chatbox = ({ roles }) => {
             };
       });
       setFormData(data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -47,6 +51,14 @@ const T6Chatbox = ({ roles }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
+
+  if (isLoading) {
+    return (
+      <div className={`background-blue center`}>
+        <Loading />
+      </div>
+    );
+  }
 
   return _.map(roles, (aRole) => {
     return (

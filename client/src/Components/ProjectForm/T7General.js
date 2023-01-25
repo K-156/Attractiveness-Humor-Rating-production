@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 import "./ProjectForm.css";
 
@@ -20,14 +21,17 @@ const T7General = () => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getProject(projId).then((proj) => {
       const { data } = proj;
       setFormData({
         text: data[sectionNum] ? data[sectionNum][7]?.text : "",
         isEnd: data[sectionNum] ? data[sectionNum][7]?.isEnd : true,
       });
+      setIsLoading(false);
     });
   }, []);
 
@@ -53,7 +57,13 @@ const T7General = () => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData);
+  if (isLoading) {
+    return (
+      <div className={`background-blue center`}>
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <Card>

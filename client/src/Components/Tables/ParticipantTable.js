@@ -10,7 +10,6 @@ import { Box, Button, Tooltip } from "@mui/material";
 import _ from "lodash";
 import moment from "moment";
 import { BsInfoCircle } from "react-icons/bs";
-import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 const ParticipantTable = ({
   setRowsSelected,

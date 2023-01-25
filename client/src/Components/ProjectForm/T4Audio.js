@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 import AddableField from "../CustomFormFields/AddableFields";
 import UploadFiles from "../CustomFormFields/UploadFiles";
@@ -19,15 +20,18 @@ const T4Audio = ({ roles }) => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getProject(projId).then((project) => {
       const data = {};
       _.map(roles, (aRole) => {
         data[aRole] = project.data[sectionNum]
           ? {
               instruction: project.data[sectionNum][4][aRole].instruction,
-              ratingInstruction: project.data[sectionNum][4][aRole].ratingInstruction,
+              ratingInstruction:
+                project.data[sectionNum][4][aRole].ratingInstruction,
               questions: project.data[sectionNum][4][aRole].questions,
               audio: project.data[sectionNum][4][aRole].audio,
               audioLink: project.data[sectionNum][4][aRole].audioLink,
@@ -41,6 +45,7 @@ const T4Audio = ({ roles }) => {
             };
       });
       setFormData(data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -61,7 +66,13 @@ const T4Audio = ({ roles }) => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData)
+  if (isLoading) {
+    return (
+      <div className={`background-blue center`}>
+        <Loading />
+      </div>
+    );
+  }
 
   return _.map(roles, (aRole) => {
     return (

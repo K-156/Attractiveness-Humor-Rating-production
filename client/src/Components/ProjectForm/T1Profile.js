@@ -98,9 +98,13 @@ const T1Profile = ({ roles, roleDict }) => {
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
-  
+
   if (isLoading) {
-    return <LoadingAnimation />;
+    return (
+      <div className={`background-blue center`}>
+        <LoadingAnimation />
+      </div>
+    );
   }
 
   return _.map(roles, (aRole, index) => {

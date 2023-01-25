@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import _ from "lodash";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 import "./ProjectForm.css";
 
@@ -17,8 +18,10 @@ const T3Rank = ({ roles }) => {
   const { submitFormData, getProject, isEditing } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getProject(projId).then((project) => {
       console.log(project.data[sectionNum]);
       const data = {};
@@ -37,8 +40,8 @@ const T3Rank = ({ roles }) => {
           },
         };
       });
-      console.log(data);
       setFormData(data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -48,7 +51,13 @@ const T3Rank = ({ roles }) => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(isEditing);
+  if (isLoading) {
+    return (
+      <div className={`background-blue center`}>
+        <Loading />
+      </div>
+    );
+  }
 
   return _.map(roles, (aRole) => {
     return (

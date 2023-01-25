@@ -23,13 +23,16 @@ const Projects = () => {
   });
   const [projectId, setProjectId] = useState(null);
   const [filterProj, setFilterProj] = useState(projects);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOnClick = async () => {
+    setIsLoading(true);
     const createdProjectId = await createProject();
     navigate("/projects/details");
     sessionStorage.setItem("editMode", "add");
     sessionStorage.setItem("projId", createdProjectId);
     sessionStorage.setItem("sectionNum", 0);
+    setIsLoading(false);
   };
 
   const handleSearch = (projects, projectId) => {
@@ -49,8 +52,10 @@ const Projects = () => {
   return (
     <div>
       <script>{(document.title = "Projects")}</script>
-      {!filterProj ? (
-        <Loading />
+      {isLoading ? (
+        <div className={`background-blue center`}>
+          <Loading />
+        </div>
       ) : (
         <>
           <Box className="spaceBetween" sx={{ mx: 6 }}>
@@ -75,7 +80,11 @@ const Projects = () => {
               Add Project
             </Button>
           </Box>
-          <ProjectTable data={filterProj} setDeleteSuccess={setDeleteSuccess} />
+          <ProjectTable
+            data={filterProj}
+            setDeleteSuccess={setDeleteSuccess}
+            setIsLoading={setIsLoading}
+          />
         </>
       )}
       <SuccessAlert

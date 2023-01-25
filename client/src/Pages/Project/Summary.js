@@ -1,14 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "../../Context/AppContext";
 
-import { 
-  Box, 
-  Button,
-  Card,
-  CardContent, 
-  Typography
-} from "@mui/material";
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import _ from "lodash";
 
 import SummaryCard from "../../Components/SummaryCard/SummaryCard";
@@ -17,22 +11,29 @@ import { templates } from "../../Utils/templateList";
 import LoadingAnimation from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Summary = () => {
-  const { projDetails, data, createProject, getProject, isLoading } =
-    useAppContext();
+  const { projDetails, data, createProject, getProject } = useAppContext();
   const navigate = useNavigate();
   const type = sessionStorage.getItem("editMode");
   const templateOrder = JSON.parse(sessionStorage.getItem("templates"));
   const projId = sessionStorage.getItem("projId");
   const roles = sessionStorage.getItem("roles");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     sessionStorage.setItem("editMode", "edit");
-    getProject(projId);
+    getProject(projId).then(() => {
+      setIsLoading(false);
+    });
     sessionStorage.removeItem("projData");
   }, []);
 
   if (isLoading) {
-    return <LoadingAnimation />;
+    return (
+      <div className={`background-blue center`}>
+        <LoadingAnimation />
+      </div>
+    );
   }
 
   return (
@@ -58,18 +59,20 @@ const Summary = () => {
           content={projDetails}
           editLink="/projects/details"
         />
-        { roles === "[]" && 
-            <Typography className="center" sx={{my: 2, color:"#264653"}} >
-              <i>Please add in roles in <b>Project Details </b>before adding other sections. 
-              If there is no role, please add in "NA" as the role.</i>
-            </Typography>
-          }
+        {roles === "[]" && (
+          <Typography className="center" sx={{ my: 2, color: "#264653" }}>
+            <i>
+              Please add in roles in <b>Project Details </b>before adding other
+              sections. If there is no role, please add in "NA" as the role.
+            </i>
+          </Typography>
+        )}
         <Box className="flexEnd" sx={{ mt: 2, mb: 1 }}>
           <Button
             variant="contained"
             className="customButton-green"
             onClick={() => navigate("/projects/sections")}
-            disabled={ roles==="[]" }
+            disabled={roles === "[]"}
           >
             Add/Reorder Sections
           </Button>
@@ -90,7 +93,7 @@ const Summary = () => {
             );
           })}
         {roles !== "[]" && templateOrder?.length === 0 && (
-          <Card sx={{my: 1}}>
+          <Card sx={{ my: 1 }}>
             <CardContent>
               <Typography className="summaryHeader">
                 No section added

@@ -11,17 +11,19 @@ import {
 } from "@mui/material";
 import { BsDash } from "react-icons/bs";
 import _ from "lodash";
+import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 import "./ProjectForm.css";
-
 
 const T2ProfileRating = ({ roles }) => {
   const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
   const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getProject(projId).then((project) => {
       const data = {};
       _.map(roles, (aRole) => {
@@ -50,6 +52,7 @@ const T2ProfileRating = ({ roles }) => {
             };
       });
       setFormData(data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -57,9 +60,7 @@ const T2ProfileRating = ({ roles }) => {
     const name = event.target.name;
     const value = event.target.value;
 
-    const type = name.includes("lower")
-      ? "lower"
-      : "upper";
+    const type = name.includes("lower") ? "lower" : "upper";
     setFormData((state) => ({
       ...state,
       [aRole]: {
@@ -68,19 +69,25 @@ const T2ProfileRating = ({ roles }) => {
           ...formData[aRole]["range"],
           [type]: {
             ...formData[aRole]["range"][type],
-            [name.includes("Num") ? "number" : "text"]:
-              value,
+            [name.includes("Num") ? "number" : "text"]: value,
           },
         },
       },
     }));
-  }
+  };
 
   useEffect(() => {
     submitFormData(formData);
   }, [formData]);
 
-  console.log(formData);
+  if (isLoading) {
+    return (
+      <div className={`background-blue center`}>
+        <Loading />
+      </div>
+    );
+  }
+
 
   return _.map(roles, (aRole) => {
     return (
@@ -120,11 +127,7 @@ const T2ProfileRating = ({ roles }) => {
                 <Box>
                   {_.map(["Lower", "Upper"], (type) => {
                     return (
-                      <Box 
-                        key={type}
-                        className="secondColumn" 
-                        sx={{ mb: 1 }}
-                      >
+                      <Box key={type} className="secondColumn" sx={{ mb: 1 }}>
                         <TextField
                           key={`T2-${type}`}
                           size="small"
@@ -134,7 +137,13 @@ const T2ProfileRating = ({ roles }) => {
                           InputProps={{ inputProps: { min: 1 } }}
                           type="number"
                           onChange={(event) => handleOnChange(event, aRole)}
-                          value={formData[aRole]? formData[aRole]["range"][type.toLowerCase()]["number"] : 0}
+                          value={
+                            formData[aRole]
+                              ? formData[aRole]["range"][type.toLowerCase()][
+                                  "number"
+                                ]
+                              : 0
+                          }
                         />
                         <BsDash
                           size="40px"
@@ -147,7 +156,13 @@ const T2ProfileRating = ({ roles }) => {
                           label="Characteristics"
                           fullWidth
                           onChange={(event) => handleOnChange(event, aRole)}
-                          value={formData[aRole]? formData[aRole]["range"][type.toLowerCase()]["text"] : ""}
+                          value={
+                            formData[aRole]
+                              ? formData[aRole]["range"][type.toLowerCase()][
+                                  "text"
+                                ]
+                              : ""
+                          }
                         />
                       </Box>
                     );
