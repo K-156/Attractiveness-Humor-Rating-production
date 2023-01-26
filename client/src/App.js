@@ -162,7 +162,13 @@ function App() {
               element={<Chat key="chatQ2" title="2" link="/complete" />}
             />
           </Route>
-          <Route path="/complete" element={<General />} />
+          <Route
+            element={
+              <ProtectedRoute>
+                <Route path="/complete" element={<General />} />
+              </ProtectedRoute>
+            }
+          ></Route>
 
           {/* Admin */}
           <Route

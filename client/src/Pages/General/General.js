@@ -20,6 +20,7 @@ const General = () => {
     getProject,
     sections,
     sendEmail,
+    logoutUser,
   } = useAppContext();
   const navigate = useNavigate();
   const [isEnd, setIsEnd] = useState(false);
@@ -71,6 +72,7 @@ const General = () => {
                 id: user._id,
               });
             });
+            logoutUser(user._id);
             localStorage.clear();
             setIsLoading(false);
           }
