@@ -54,6 +54,14 @@ const General = () => {
           } else {
             getCompletionCode().then((res) => {
               const { data } = res;
+              sendEmail({
+                email: user.email,
+                name: user.name,
+                completionCode: data.token,
+                projId: user.projId,
+                type: "end",
+                userid: user._id,
+              });
               updateUser({
                 currentUser: {
                   ...user,
@@ -63,14 +71,6 @@ const General = () => {
                 id: user._id,
               });
             });
-            // sendEmail({
-            //   email: user.email,
-            //   name: user.name,
-            //   otp: user.otp,
-            //   projId: user.projId,
-            //   completionCode: user.completionCode,
-            //   type: "end",
-            // });
             localStorage.clear();
             setIsLoading(false);
           }
