@@ -198,7 +198,10 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = () => {
+  const logoutUser = async (id) => {
+    dispatch({ type: LOGOUT_USER });
+
+    await axios.get(`/api/v1/auth/logout/${id}`);
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();
   };
@@ -550,6 +553,7 @@ const AppProvider = ({ children }) => {
         getUsersByProjId,
         deleteUsers,
         deleteAllUsers,
+        logoutUser
       }}
     >
       {children}

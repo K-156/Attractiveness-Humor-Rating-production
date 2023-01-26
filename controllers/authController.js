@@ -65,7 +65,7 @@ const login = async (req, res) => {
     throw new UnAuthenticatedError("Invalid Credentials");
   }
   if (user?.startTime) {
-    throw new BadRequestError("OTP has already been used!")
+    throw new BadRequestError("OTP has already been used!");
   }
   const token = user.createJWT();
   // user.password = undefined;
@@ -73,12 +73,13 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { userResponse, role, rank, completionCode, endTime, surveyRole } = req.body;
+  const { userResponse, role, rank, completionCode, endTime, surveyRole } =
+    req.body;
 
   const user = await User.findOne({ _id: req.user.userId }).select("+password");
 
   if (user?.endTime) {
-    throw new BadRequestError("User has already completed the survey!")
+    throw new BadRequestError("User has already completed the survey!");
   }
 
   if (req.body.formData) {
@@ -93,13 +94,31 @@ const updateUser = async (req, res) => {
   user.role = role;
   user.rank = rank;
   user.endTime = endTime;
-  user.completionCode = completionCode
-  user.surveyRole = surveyRole
+  user.completionCode = completionCode;
+  user.surveyRole = surveyRole;
 
   await user.save();
   const token = user.createJWT();
   // user.password = undefined;
   res.status(StatusCodes.OK).json({ user, token });
+};
+
+const logout = async (req, res) => {
+  // Get the JWT from the request headers
+  const token = req.headers.authorization;
+
+  User.findOneAndUpdate(
+    { _id: req.params.id },
+    { $pull: { tokens: token } },
+    function (err, user) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(StatusCodes.OK).send({ message: "Successfully logged out" });
+      }
+    }
+  );
+
 };
 
 const getAllUsers = async (req, res) => {
@@ -151,6 +170,7 @@ const deleteAllUsers = async (req, res) => {
 export {
   register,
   login,
+  logout,
   updateUser,
   getAllUsers,
   getUsersByProjId,

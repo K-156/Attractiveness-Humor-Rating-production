@@ -11,6 +11,7 @@ import {
   adminLogin,
   deleteAllUsers,
   generateCompletionCode,
+  logout,
 } from "../controllers/authController.js";
 import authenticateUser from "../middleware/auth.js";
 
@@ -23,6 +24,7 @@ router
   .delete(authenticateUser, deleteUsers);
 router.route("/register").post(register);
 router.route("/login").post(login);
+router.route("/logout/:id").get(logout);
 router.route("/admin/login").post(adminLogin);
 router.route("/updateUser/:id").patch(authenticateUser, updateUser);
 router.route("/allUsers/:id").delete(authenticateUser, deleteAllUsers);

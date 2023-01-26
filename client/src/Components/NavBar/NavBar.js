@@ -14,7 +14,8 @@ import "./NavBar.css";
 const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { removeUserFromLocalStorage } = useAppContext();
+  const { logoutUser, user } = useAppContext();
+  console.log(user._id)
   const [tab, setTab] = useState(location.pathname);
   const navList = [
     {
@@ -64,7 +65,7 @@ const NavBar = () => {
             variant="contained"
             className="logoutButton"
             onClick={() => {
-              removeUserFromLocalStorage();
+              logoutUser(user._id);
               sessionStorage.clear();
               navigate("/");
             }}
