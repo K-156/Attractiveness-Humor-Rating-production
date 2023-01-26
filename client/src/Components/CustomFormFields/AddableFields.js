@@ -170,7 +170,7 @@ const AddableFields = ({
         })}
       </Box>
       {
-        <Box sx={{ pt: 1, pl: 2 }}>
+        <Box sx={{ pt: 1, pl: 2, width: "500px"}}>
           {_.map(items, (value, index) => {
             return (
               <Box key={value} className="spaceBetween">

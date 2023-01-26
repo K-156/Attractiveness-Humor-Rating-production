@@ -148,7 +148,7 @@ const AddableTwoFields = ({
         }
       </Box>
       {items?.length > 0 &&
-        <Box sx={{ pt: 1, pl: 2, pr: 8 }}>
+        <Box sx={{ pt: 1, pl: 2, width: "500px" }}>
           {_.map(items, (aItem, index) => {
             return (
               <Box 

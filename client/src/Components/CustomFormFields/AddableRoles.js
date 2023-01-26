@@ -145,7 +145,7 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
         </RadioGroup>
       </Box>
       {items.length > 0 &&
-        <Box sx={{ pt: 1, pl: 2}}>
+        <Box sx={{ pt: 1, pl: 2, width: "500px"}}>
           {_.map(items, (aItem, index) => {
             return (
               <Box
