@@ -72,7 +72,6 @@ const General = () => {
                 id: user._id,
               });
             });
-            logoutUser(user._id);
             localStorage.clear();
             setIsLoading(false);
           }
