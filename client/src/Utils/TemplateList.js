@@ -29,6 +29,7 @@ const variableMap = {
   graphic: "Landing Page Image",
   range: "Range",
   isEnd: "Is this the end of the survey?",
+  ratingInstruction: "Rating Instruction"
 };
 
 export { templates, variableMap };
