@@ -29,7 +29,9 @@ const ProjectDetails = () => {
           data.projDetails.graphic?.length === 0
             ? null
             : data.projDetails.graphic,
-        graphicLink: data.projDetails.graphicLink,
+        graphicLink: data.projDetails?.graphicLink === undefined
+                    ? "https://res.cloudinary.com/dqbrhsxcs/image/upload/v1674728751/default_gr/default_graphic.svg"
+                    : data.projDetails.graphicLink,
       });
     });
   }, []);
@@ -42,7 +44,7 @@ const ProjectDetails = () => {
     duration: projDetails?.duration,
     theme: projDetails?.theme === undefined ? "green" : projDetails.theme,
     graphic: projDetails?.graphic,
-    graphicLink: projDetails?.graphicLink,
+    graphicLink: projDetails?.graphicLink
   });
 
   console.log(formData)
