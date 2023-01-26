@@ -167,9 +167,9 @@ function App() {
           {/* Admin */}
           <Route
             element={
-              // <ProtectedRoute>
-              <DashboardLayout />
-              // </ProtectedRoute>
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
             }
           >
             <Route path="/overview" element={<Overview />} />

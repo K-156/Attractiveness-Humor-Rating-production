@@ -15,7 +15,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { logoutUser, user } = useAppContext();
-  console.log(user._id)
   const [tab, setTab] = useState(location.pathname);
   const navList = [
     {
