@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAppContext();
+  const { user, logoutUser } = useAppContext();
 
   const token = localStorage.getItem("token");
 
@@ -12,8 +12,8 @@ const ProtectedRoute = ({ children }) => {
     const expirationDate = new Date(decodedToken.exp * 1000);
     if (expirationDate < new Date()) {
       // token has expired
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      logoutUser(user._id);
+      return <Navigate to="/" />;
     }
   }
 

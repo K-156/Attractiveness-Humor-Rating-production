@@ -16,9 +16,11 @@ const Overview = () => {
     users,
     getAllProjects,
   } = useAppContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const currentProjId = sessionStorage.getItem("projId");
   const sections = JSON.parse(sessionStorage.getItem("sections"));
+
 
   const options = [];
   _.map(projects, (project) => {

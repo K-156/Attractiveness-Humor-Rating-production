@@ -21,7 +21,6 @@ const Participants = () => {
     deleteUsers,
     emailList,
   } = useAppContext();
-
   const options = [];
   _.map(projects, (project) => {
     const { projDetails } = project;

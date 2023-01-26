@@ -10,8 +10,6 @@ const auth = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(payload.exp);
-    console.log(Date.now() / 1000);
     if (payload.exp < Date.now() / 1000) {
       // if token has expired
       return res

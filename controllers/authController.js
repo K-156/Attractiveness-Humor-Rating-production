@@ -118,7 +118,6 @@ const logout = async (req, res) => {
       }
     }
   );
-
 };
 
 const getAllUsers = async (req, res) => {
