@@ -22,6 +22,7 @@ const Messages = ({ setSelectMessage, theme, themeHover, title }) => {
     if (activeProjectId !== "") {
       getProject(activeProjectId);
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   const type = title === "1" ? "best" : "worst";

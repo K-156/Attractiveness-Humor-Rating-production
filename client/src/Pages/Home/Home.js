@@ -55,6 +55,7 @@ const Home = () => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   return (

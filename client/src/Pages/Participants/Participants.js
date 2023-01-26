@@ -93,6 +93,7 @@ const Participants = () => {
       getProject(projectId?.split(":")[0]);
       getUsersByProjId(projectId?.split(":")[0]);
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

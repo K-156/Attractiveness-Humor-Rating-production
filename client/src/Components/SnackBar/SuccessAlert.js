@@ -1,5 +1,4 @@
 import { Alert, Button, Snackbar } from "@mui/material";
-import { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
 
 const SuccessAlert = ({ isSuccess, setIsSuccess, text }) => {

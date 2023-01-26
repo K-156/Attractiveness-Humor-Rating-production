@@ -15,7 +15,7 @@ import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 import "./ProjectForm.css";
 
 const T3Rank = ({ roles }) => {
-  const { submitFormData, getProject, isEditing } = useAppContext();
+  const { submitFormData, getProject } = useAppContext();
   const projId = sessionStorage.getItem("projId");
   const sectionNum = sessionStorage.getItem("sectionNum");
   const [isLoading, setIsLoading] = useState(true);
@@ -43,12 +43,14 @@ const T3Rank = ({ roles }) => {
       setFormData(data);
       setIsLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
     submitFormData(formData);
+    // eslint-disable-next-line
   }, [formData]);
 
   if (isLoading) {

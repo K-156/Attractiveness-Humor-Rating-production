@@ -42,6 +42,7 @@ const AttractiveRate = () => {
         const { data } = proj;
         // find how many profile
         for (const [sectionNum, dict] of Object.entries(data)) {
+          // eslint-disable-next-line
           for (const [templateNo, data] of Object.entries(dict)) {
             if (Number(templateNo) === 1) {
               arrOfProfile.push(Number(sectionNum));
@@ -61,7 +62,7 @@ const AttractiveRate = () => {
         }
 
         for (const [key, value] of Object.entries(dataToDisplay)) {
-          if (key == 1 || key == 2 || key == 3 || key == 4) {
+          if (key === "1" || key === "2" || key === "3" || key === "4") {
             value["_id"] = Number(key);
             arr.push(value);
           }
@@ -69,6 +70,7 @@ const AttractiveRate = () => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   const oppGender = (userGender) => {

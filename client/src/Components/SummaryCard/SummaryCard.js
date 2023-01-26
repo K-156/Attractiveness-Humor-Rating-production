@@ -23,10 +23,6 @@ import OptionsContentRoles from "./OptionsContentRoles";
 const SummaryCard = ({ header, content, editLink, template, index }) => {
   const {
     setSectionNum,
-    setEditProject,
-    createdProjectId,
-    getAllProjects,
-    editProjectId,
   } = useAppContext();
 
   const navigate = useNavigate();
@@ -42,11 +38,6 @@ const SummaryCard = ({ header, content, editLink, template, index }) => {
   };
   const handleOnEdit = () => {
     sessionStorage.setItem("editMode", "edit");
-    // if (editProjectId === "") {
-    //   getAllProjects().then(() => {
-    //     setEditProject(createdProjectId);
-    //   });
-    // }
     sessionStorage.setItem("sectionNum", index);
     setSectionNum(index);
     navigate(editLink, {

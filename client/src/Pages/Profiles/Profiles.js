@@ -49,6 +49,7 @@ const Profiles = () => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   const handleOnSubmit = (e) => {
@@ -69,6 +70,7 @@ const Profiles = () => {
   let dataToDisplay = {};
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
+    // eslint-disable-next-line
     for (const [templateNo, data] of Object.entries(dict)) {
       if (Number(templateNo) === 1) {
         arrOfProfile.push(Number(sectionNum));

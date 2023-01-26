@@ -26,6 +26,7 @@ const Summary = () => {
       setIsLoading(false);
     });
     sessionStorage.removeItem("projData");
+    // eslint-disable-next-line
   }, []);
 
   if (isLoading) {

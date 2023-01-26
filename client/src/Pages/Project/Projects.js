@@ -43,6 +43,7 @@ const Projects = () => {
   useEffect(() => {
     getAllProjects();
     setOriginalState();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

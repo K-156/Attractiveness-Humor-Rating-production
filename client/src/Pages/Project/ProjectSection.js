@@ -18,6 +18,7 @@ const ProjectDetails = () => {
     getProject(projId).then((project) => {
       setFormData(project.sections)
     })
+    // eslint-disable-next-line
   }, []);
 
   return (

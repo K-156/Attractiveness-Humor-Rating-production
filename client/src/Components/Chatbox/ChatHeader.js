@@ -9,7 +9,6 @@ import { RxMagnifyingGlass } from "react-icons/rx";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { colorPalette } from "../../Utils/colorPalette";
 
-
 const ChatHeader = ({ receiver, firstCandidate, lastCandidate }) => {
 
   const { theme } = useAppContext();

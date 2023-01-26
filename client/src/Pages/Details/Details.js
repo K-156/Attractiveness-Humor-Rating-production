@@ -41,6 +41,7 @@ const Details = () => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   const [formData, setFormData] = useState({

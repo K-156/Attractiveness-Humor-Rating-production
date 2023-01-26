@@ -36,6 +36,7 @@ const T1Profile = ({ roles, roleDict }) => {
       });
       setIsLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const formatData = (data, aRole) => {
@@ -97,6 +98,7 @@ const T1Profile = ({ roles, roleDict }) => {
 
   useEffect(() => {
     submitFormData(formData);
+    // eslint-disable-next-line
   }, [formData]);
 
   if (isLoading) {

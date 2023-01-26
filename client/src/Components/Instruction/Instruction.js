@@ -22,9 +22,8 @@ const Instruction = ({ type }) => {
     if (activeProjectId !== "") {
       getProject(activeProjectId);
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
-
-  console.log(data[sectionNum][sections[sectionNum]][user.surveyRole]);
 
   return (
     <div className="flexStart">

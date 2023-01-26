@@ -96,6 +96,7 @@ const AddableTwoFields = ({
         }
       },
     }));
+    // eslint-disable-next-line
   }, [items])
 
 

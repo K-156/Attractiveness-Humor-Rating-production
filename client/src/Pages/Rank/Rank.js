@@ -38,6 +38,7 @@ const Rank = () => {
         const { data } = proj;
         // find how many profile
         for (const [sectionNum, dict] of Object.entries(data)) {
+          // eslint-disable-next-line
           for (const [templateNo, data] of Object.entries(dict)) {
             if (Number(templateNo) === 1) {
               arrOfProfile.push(Number(sectionNum));
@@ -49,16 +50,16 @@ const Rank = () => {
         for (let i = 0; i < arrOfProfile.length; i++) {
           const element = arrOfProfile[i];
           if (element <= Number(sectionNum)) {
-            console.log(data[element][1][user.surveyRole])
+            console.log(data[element][1][user.surveyRole]);
             dataToDisplay =
               data[element][1][user.surveyRole][
                 gender === "true" ? oppGender(user.sex) : "NA"
               ];
           }
         }
-        
+
         for (const [key, value] of Object.entries(dataToDisplay)) {
-          if (key == 1 || key == 2 || key == 3 || key == 4) {
+          if (key === "1" || key === "2" || key === "3" || key === "4") {
             value["_id"] = Number(key);
             arr.push(value);
           }
@@ -68,6 +69,7 @@ const Rank = () => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   const oppGender = (userGender) => {
@@ -88,6 +90,7 @@ const Rank = () => {
   const [rankItems, setRankItems] = useState([]);
 
   const rankDict = {};
+  // eslint-disable-next-line
   rankItems.map((item, index) => {
     const result = rankItems.indexOf(index + 1);
     rankDict[`option${index + 1}_rank`] = result + 1;

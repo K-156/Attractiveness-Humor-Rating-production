@@ -39,6 +39,7 @@ const T6Chatbox = ({ roles }) => {
       setFormData(data);
       setIsLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const [formData, setFormData] = useState({});
@@ -50,6 +51,7 @@ const T6Chatbox = ({ roles }) => {
 
   useEffect(() => {
     submitFormData(formData);
+    // eslint-disable-next-line
   }, [formData]);
 
   if (isLoading) {

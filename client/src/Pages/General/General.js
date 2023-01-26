@@ -20,7 +20,6 @@ const General = () => {
     getProject,
     sections,
     sendEmail,
-    logoutUser,
   } = useAppContext();
   const navigate = useNavigate();
   const [isEnd, setIsEnd] = useState(false);
@@ -79,6 +78,7 @@ const General = () => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId, sectionNum]);
 
   const getCompletionCode = async () => {

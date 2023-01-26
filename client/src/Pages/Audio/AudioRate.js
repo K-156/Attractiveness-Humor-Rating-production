@@ -39,6 +39,7 @@ const AudioRate = ({ title, link, isWritten }) => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   const oppGender = (userGender) => {
@@ -61,8 +62,9 @@ const AudioRate = ({ title, link, isWritten }) => {
 
   // find how many rank
   for (const [sectionNum, dict] of Object.entries(data)) {
+    // eslint-disable-next-line
     for (const [templateNo, data] of Object.entries(dict)) {
-      if (templateNo == 3) {
+      if (templateNo === "3") {
         arrOfRank.push(Number(sectionNum));
       }
     }
@@ -82,6 +84,7 @@ const AudioRate = ({ title, link, isWritten }) => {
 
   // find how many profile
   for (const [sectionNum, dict] of Object.entries(data)) {
+    // eslint-disable-next-line
     for (const [templateNo, data] of Object.entries(dict)) {
       if (Number(templateNo) === 1) {
         arrOfProfile.push(Number(sectionNum));
@@ -100,7 +103,7 @@ const AudioRate = ({ title, link, isWritten }) => {
   }
 
   for (const [key, value] of Object.entries(dataToDisplay)) {
-    if (key == 1 || key == 2 || key == 3 || key == 4) {
+    if (key === "1" || key === "2" || key === "3" || key === "4") {
       arr.push(value);
     }
   }

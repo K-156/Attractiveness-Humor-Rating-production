@@ -70,6 +70,7 @@ const Overview = () => {
       sessionStorage.setItem("role", projDetails.roles["0"]?.["role"]);
     });
     getUsersByProjId(projectId?.split(":")[0]);
+    // eslint-disable-next-line
   }, []);
 
   return (

@@ -28,6 +28,7 @@ const Timer = () => {
   let duration = { hour: 0, min: 0, inSec: 0 };
 
   useEffect(() => {
+    // eslint-disable-next-line
     duration = formatDuration(remainingTime / 60000);
     clearTimer(getDeadTime());
   }, []);

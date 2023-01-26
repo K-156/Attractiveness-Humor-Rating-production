@@ -33,6 +33,7 @@ const InstructionPage = ({ link }) => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   return (

@@ -34,6 +34,7 @@ const ProjectDetails = () => {
                     : data.projDetails.graphicLink,
       });
     });
+    // eslint-disable-next-line
   }, []);
 
   const [formData, setFormData] = useState({

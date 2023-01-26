@@ -47,6 +47,7 @@ const T4Audio = ({ roles }) => {
       setFormData(data);
       setIsLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const [formData, setFormData] = useState({});
@@ -64,6 +65,7 @@ const T4Audio = ({ roles }) => {
 
   useEffect(() => {
     submitFormData(formData);
+    // eslint-disable-next-line
   }, [formData]);
 
   if (isLoading) {

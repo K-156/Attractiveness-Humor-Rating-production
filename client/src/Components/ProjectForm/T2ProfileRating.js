@@ -54,6 +54,7 @@ const T2ProfileRating = ({ roles }) => {
       setFormData(data);
       setIsLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const handleOnChange = (event, aRole) => {
@@ -78,6 +79,7 @@ const T2ProfileRating = ({ roles }) => {
 
   useEffect(() => {
     submitFormData(formData);
+    // eslint-disable-next-line
   }, [formData]);
 
   if (isLoading) {

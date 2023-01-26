@@ -19,7 +19,6 @@ import _ from "lodash";
 const AudioForm = ({ data, setRating, isWritten, title }) => {
 
   const [listen, setListen] = useState(false);
-  const sectionNum = Number(sessionStorage.getItem("sectionNum"));
 
   const type = title === "1" ? "best" : "worst";
 
@@ -33,6 +32,7 @@ const AudioForm = ({ data, setRating, isWritten, title }) => {
   };
 
   let arr = [];
+  // eslint-disable-next-line
   for (const [key, value] of Object.entries(data)) {
     arr.push(value)
   }

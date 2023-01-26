@@ -17,7 +17,7 @@ const SaveButton = ({ projectType, formData, templateNum, sectionNum }) => {
       let arr = data;
       let dict = {};
       dict[templateNum] = formData;
-      if (sectionNum == arr.length + 1) {
+      if (Number(sectionNum) === arr.length + 1) {
         arr.push(dict);
       } else {
         arr[sectionNum - 1] = dict;

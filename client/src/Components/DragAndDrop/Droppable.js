@@ -2,7 +2,6 @@ import { useAppContext } from "../../Context/AppContext";
 
 import { useDroppable } from "@dnd-kit/core";
 import { Box } from "@mui/material";
-import _ from "lodash";
 
 import { colorPalette } from "../../Utils/colorPalette";
 

@@ -21,6 +21,7 @@ const ConsentForm = () => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line
   }, [activeProjectId]);
 
   return (

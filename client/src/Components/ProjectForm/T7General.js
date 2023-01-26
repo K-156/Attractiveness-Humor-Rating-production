@@ -33,6 +33,7 @@ const T7General = () => {
       });
       setIsLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const [formData, setFormData] = useState({});
@@ -55,6 +56,7 @@ const T7General = () => {
 
   useEffect(() => {
     submitFormData(formData);
+    // eslint-disable-next-line
   }, [formData]);
 
   if (isLoading) {

@@ -42,6 +42,7 @@ const T5Intro = ({ roles }) => {
       setFormData(dictionary);
       setIsLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const [formData, setFormData] = useState({});
@@ -76,6 +77,7 @@ const T5Intro = ({ roles }) => {
 
   useEffect(() => {
     submitFormData(formData);
+    // eslint-disable-next-line
   }, [formData]);
 
   if (isLoading) {

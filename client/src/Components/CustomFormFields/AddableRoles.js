@@ -62,6 +62,7 @@ const AddableRoles = ({ items, error, setError, errorText, setFormData }) => {
       ...state, 
       roles: items
     })) 
+    // eslint-disable-next-line
   }, [items])
 
 
