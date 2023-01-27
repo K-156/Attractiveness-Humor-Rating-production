@@ -8,7 +8,6 @@ const templates = {
   7: "Template 7 - General",
 };
 
-
 const variableMap = {
   title: "Project Title",
   email: "Upload Participant Email",
@@ -29,7 +28,7 @@ const variableMap = {
   graphic: "Landing Page Image",
   range: "Range",
   isEnd: "Is this the end of the survey?",
-  ratingInstruction: "Rating Instruction"
+  ratingInstruction: "Rating Instruction",
 };
 
 export { templates, variableMap };
