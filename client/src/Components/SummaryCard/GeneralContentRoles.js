@@ -3,7 +3,7 @@ import _ from "lodash";
 
 import MoreText from "./MoreText";
 import "./SummaryCard.css";
-import { variableMap } from "../../Utils/templateList";
+import { variableMap } from "../../Utils/variableList";
 
 const GeneralContentRoles = ({ content, handleOnClick }) => {
   return (

@@ -12,12 +12,11 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 
-import { templates } from "../../Utils/templateList";
+import { templates } from "../../Utils/variableList";
 import "./ProjectForm.css";
 import ReorderList from "../ReorderList/ReorderList";
 
 const AddSection = ({ formData, setFormData, isEditing, data, projId }) => {
-
   const [error, setError] = useState({
     profile: false,
     rank: false,
@@ -42,8 +41,8 @@ const AddSection = ({ formData, setFormData, isEditing, data, projId }) => {
           <Box className="twoColumns">
             <Typography className="variable flexColumn">
               Sections
-              <Link 
-                className="projectLink" 
+              <Link
+                className="projectLink"
                 to="/projects/samples/templates"
                 target="_blank"
               >

@@ -3,7 +3,7 @@ import _ from "lodash";
 
 import MoreText from "./MoreText";
 import "./SummaryCard.css";
-import { variableMap } from "../../Utils/templateList";
+import { variableMap } from "../../Utils/variableList";
 
 const GeneralContent = ({ content, handleOnClick }) => {
   return (
@@ -63,7 +63,8 @@ const GeneralContent = ({ content, handleOnClick }) => {
                           color: "#264653",
                         }}
                       >
-                        {index + 1}. {aValue["role"]} ({aValue["isGender"] ? "Yes" : "No"}) 
+                        {index + 1}. {aValue["role"]} (
+                        {aValue["isGender"] ? "Yes" : "No"})
                       </Typography>
                     );
                   } else {

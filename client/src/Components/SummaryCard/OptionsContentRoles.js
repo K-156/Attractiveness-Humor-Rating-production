@@ -3,7 +3,7 @@ import _ from "lodash";
 
 import MoreText from "./MoreText";
 import "./SummaryCard.css";
-import { variableMap } from "../../Utils/templateList";
+import { variableMap } from "../../Utils/variableList";
 
 const OptionsContentRoles = ({ content, handleOnClick }) => {
   return (
@@ -12,9 +12,7 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
         return (
           <Box key={role}>
             <Box className="twoColumns">
-              <Typography className="summaryRole">
-                {role}
-              </Typography>
+              <Typography className="summaryRole">{role}</Typography>
             </Box>
             {_.map(arr, (options, gender) => {
               if (gender !== "instruction") {
@@ -38,13 +36,13 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                             </Typography>
                             {aKey !== "link" &&
                             typeof aValue === "string" &&
-                            aValue.length > 100 
-                            ? <MoreText
+                            aValue.length > 100 ? (
+                              <MoreText
                                 handleOnClick={handleOnClick}
                                 id={variableMap[aKey]}
                                 value={aValue}
                               />
-                            : aKey.toLowerCase() === "attributes" ? (
+                            ) : aKey.toLowerCase() === "attributes" ? (
                               <Box>
                                 {_.map(aValue, (attribute, index) => {
                                   return (
@@ -75,7 +73,11 @@ const OptionsContentRoles = ({ content, handleOnClick }) => {
                   <Box key={gender}>
                     <Box className="twoColumns">
                       <Typography className="summaryVariable">
-                        <b>{gender === "NA" ? "" : `- - - - - ${gender} - - - - -`}</b>
+                        <b>
+                          {gender === "NA"
+                            ? ""
+                            : `- - - - - ${gender} - - - - -`}
+                        </b>
                       </Typography>
                     </Box>
                     {displayOutput}

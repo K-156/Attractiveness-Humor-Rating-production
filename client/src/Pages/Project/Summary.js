@@ -7,7 +7,7 @@ import _ from "lodash";
 
 import SummaryCard from "../../Components/SummaryCard/SummaryCard";
 import ProjectLayout from "../../Layout/ProjectLayout";
-import { templates } from "../../Utils/templateList";
+import { templates } from "../../Utils/variableList";
 import LoadingAnimation from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const Summary = () => {

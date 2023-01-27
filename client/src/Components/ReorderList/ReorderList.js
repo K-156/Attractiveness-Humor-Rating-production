@@ -6,7 +6,7 @@ import _ from "lodash";
 import { TfiArrowCircleUp, TfiArrowCircleDown } from "react-icons/tfi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-import { templates } from "../../Utils/templateList";
+import { templates } from "../../Utils/variableList";
 import DeleteDialog from "../Dialog/DeleteDialog";
 
 const ReorderList = ({
