@@ -6,7 +6,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill, BsArrowRight } from "react-icons/bs";
 import _ from "lodash";
 
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import links from "../../Utils/links";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
@@ -76,7 +76,7 @@ const Home = () => {
                 variant="h5"
                 sx={{
                   fontWeight: "bold",
-                  color: colorPalette[theme]?.secondary,
+                  color: themePalette[theme]?.secondary,
                 }}
               >
                 {projDetails?.title}
@@ -104,7 +104,7 @@ const Home = () => {
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        color: colorPalette[theme]?.secondary,
+                        color: themePalette[theme]?.secondary,
                       }}
                     >
                       I am an/a...

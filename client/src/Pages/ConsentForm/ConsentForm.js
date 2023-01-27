@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { BsArrowLeft } from "react-icons/bs";
 
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const ConsentForm = () => {
@@ -36,7 +36,7 @@ const ConsentForm = () => {
               <Typography
                 variant="h5"
                 className="formCardHeader"
-                sx={{ color: colorPalette[theme]["primary"] }}
+                sx={{ color: themePalette[theme]["primary"] }}
               >
                 Consent Form
               </Typography>
@@ -49,7 +49,7 @@ const ConsentForm = () => {
                 <Button
                   sx={{
                     textTransform: "none",
-                    color: colorPalette[theme]["primary"],
+                    color: themePalette[theme]["primary"],
                     mr: 5,
                   }}
                   onClick={() => navigate("/")}

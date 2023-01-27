@@ -6,7 +6,7 @@ import ChatHeader from "./ChatHeader";
 import ChatMessageArea from "./ChatMessageArea";
 import Messages from "./Messages";
 import MessageSelected from "./MessageSelected";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import ProfileInfo from "./ProfileInfo";
 
 const ChatTemplate = ({
@@ -39,20 +39,20 @@ const ChatTemplate = ({
             {selectMessage === null ? (
               <Messages
                 setSelectMessage={setSelectMessage}
-                theme={colorPalette[theme]["primary"]}
-                themeHover={colorPalette[theme]["primaryLight"]}
+                theme={themePalette[theme]["primary"]}
+                themeHover={themePalette[theme]["primaryLight"]}
                 title={title}
               />
             ) : (
               <MessageSelected
                 selectMessage={selectMessage}
-                theme={colorPalette[theme]["primary"]}
+                theme={themePalette[theme]["primary"]}
               />
             )}
           </CardContent>
         </Box>
         <CardContent sx={{ borderTop: "1.5px solid #D9D9D9" }}>
-          <ChatMessageArea theme={colorPalette[theme]["primary"]} />
+          <ChatMessageArea theme={themePalette[theme]["primary"]} />
         </CardContent>
       </Box>
     </Card>

@@ -11,7 +11,7 @@ import IntroMessage from "../../Components/Message/IntroMessage";
 import Instruction from "../../Components/Instruction/Instruction";
 import Audio from "../../Components/Audio/Audio";
 import links from "../../Utils/links";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
 const AudioRate = ({ title, link, isWritten }) => {
@@ -213,7 +213,7 @@ const AudioRate = ({ title, link, isWritten }) => {
             <Grid item xs={4} px={4}>
               <Typography
                 className="cardHeader"
-                sx={{ color: colorPalette[theme]["primary"] }}
+                sx={{ color: themePalette[theme]["primary"] }}
               >
                 {link.includes("q2")
                   ? arr[firstCandidate]?.optionName

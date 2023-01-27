@@ -4,7 +4,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { BsFillGearFill } from "react-icons/bs";
 import _ from "lodash";
 
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import "./HomeSample.css";
 
 const HomeSample = ({ theme, title, description, roleList, graphic }) => {
@@ -22,7 +22,7 @@ const HomeSample = ({ theme, title, description, roleList, graphic }) => {
             sx={{
               fontSize: "12px",
               fontWeight: "bold",
-              color: colorPalette[theme]["secondary"],
+              color: themePalette[theme]["secondary"],
             }}
           >
             {title}
@@ -41,7 +41,7 @@ const HomeSample = ({ theme, title, description, roleList, graphic }) => {
                 sx={{
                   fontSize: "8px",
                   fontWeight: "bold",
-                  color: colorPalette[theme]["secondary"],
+                  color: themePalette[theme]["secondary"],
                 }}
               >
                 I am an/a...
@@ -64,11 +64,7 @@ const HomeSample = ({ theme, title, description, roleList, graphic }) => {
           </Grid>
         </Grid>
         <Grid item xs={5.5}>
-          <img
-            src={graphic}
-            alt="landing page"
-            style={{ width: "100%" }}
-          />
+          <img src={graphic} alt="landing page" style={{ width: "100%" }} />
         </Grid>
       </Grid>
     </div>

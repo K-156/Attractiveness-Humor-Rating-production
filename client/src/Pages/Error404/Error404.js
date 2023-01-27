@@ -5,7 +5,7 @@ import { Box, Button } from "@mui/material";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
 import { ReactComponent as ErrorImage } from "../../Assets/error404.svg";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 
 const Error404 = ({ text }) => {
   const { theme } = useAppContext();
@@ -23,7 +23,7 @@ const Error404 = ({ text }) => {
       >
         <Button
           sx={{
-            color: colorPalette[theme]["secondary"],
+            color: themePalette[theme]["secondary"],
             width: "200px",
             textTransform: "none",
             fontSize: "16px",

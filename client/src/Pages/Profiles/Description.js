@@ -14,7 +14,7 @@ import _ from "lodash";
 
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 import PrevButton from "../../Components/NavButton/PrevButton";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 
 const Description = () => {
   const { theme, data, user, setActiveProject, getProject, activeProjectId } =
@@ -27,17 +27,17 @@ const Description = () => {
 
   const gender = localStorage.getItem("gender");
   const sectionNum = localStorage.getItem("sectionNum");
-  
+
   // check profiles viewed
   useEffect(() => {
     const getProfileView = JSON.parse(localStorage.getItem("profiles"));
 
-    const profileView = getProfileView === null ? [] : getProfileView;    
+    const profileView = getProfileView === null ? [] : getProfileView;
     if (!profileView.includes(id.toString())) {
       profileView.push(id.toString());
     }
-    localStorage.setItem("profiles", JSON.stringify(profileView))
-  }, [id])
+    localStorage.setItem("profiles", JSON.stringify(profileView));
+  }, [id]);
 
   useEffect(() => {
     setActiveProject();
@@ -123,7 +123,7 @@ const Description = () => {
                     </Box>
                     <Typography
                       className="cardHeader"
-                      sx={{ color: colorPalette[theme]["primary"] }}
+                      sx={{ color: themePalette[theme]["primary"] }}
                     >
                       {arr[id]?.optionName}
                     </Typography>
@@ -138,7 +138,7 @@ const Description = () => {
                               sx={{
                                 fontSize: "14px",
                                 fontWeight: "bold",
-                                color: colorPalette[theme]["secondary"],
+                                color: themePalette[theme]["secondary"],
                               }}
                             >
                               {name}
@@ -166,7 +166,7 @@ const Description = () => {
           >
             <Typography
               className="cardHeader"
-              sx={{ color: colorPalette[theme]["primary"] }}
+              sx={{ color: themePalette[theme]["primary"] }}
             >
               CANDIDATES
             </Typography>
@@ -181,11 +181,11 @@ const Description = () => {
                 mt: 2,
                 ".MuiPaginationItem-root": {
                   mx: 2,
-                  color: colorPalette[theme]["primary"],
+                  color: themePalette[theme]["primary"],
                 },
                 ".MuiPaginationItem-root.Mui-selected": {
                   color: "#FFFFFF",
-                  backgroundColor: colorPalette[theme]["primary"],
+                  backgroundColor: themePalette[theme]["primary"],
                 },
               }}
             />

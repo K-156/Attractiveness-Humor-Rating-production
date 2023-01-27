@@ -4,7 +4,7 @@ import { useAppContext } from "../../Context/AppContext";
 import { Box, Button, Card, Slider, Tooltip, Typography } from "@mui/material";
 import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
 import { BiFastForward, BiRewind } from "react-icons/bi";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 
 const AudioPlayer = ({
   isPlaying,
@@ -49,7 +49,7 @@ const AudioPlayer = ({
           onChange={(event) =>
             (audioElem.current.currentTime = event.target.value)
           }
-          sx={{ color: colorPalette[theme]["primary"] }}
+          sx={{ color: themePalette[theme]["primary"] }}
         />
         <Typography
           sx={{
@@ -68,19 +68,19 @@ const AudioPlayer = ({
                 currentTime - 5 < 0 ? 0 : currentTime - 5)
             }
           >
-            <BiRewind size={30} color={colorPalette[theme]["primary"]} />
+            <BiRewind size={30} color={themePalette[theme]["primary"]} />
           </Button>
         </Tooltip>
         <Button onClick={() => setIsPlaying(!isPlaying)}>
           {isPlaying ? (
             <AiFillPauseCircle
               size={30}
-              color={colorPalette[theme]["primary"]}
+              color={themePalette[theme]["primary"]}
             />
           ) : (
             <AiFillPlayCircle
               size={30}
-              color={colorPalette[theme]["primary"]}
+              color={themePalette[theme]["primary"]}
             />
           )}
         </Button>
@@ -91,7 +91,7 @@ const AudioPlayer = ({
                 currentTime + 5 > duration ? duration : currentTime + 5)
             }
           >
-            <BiFastForward size={30} color={colorPalette[theme]["primary"]} />
+            <BiFastForward size={30} color={themePalette[theme]["primary"]} />
           </Button>
         </Tooltip>
       </Box>

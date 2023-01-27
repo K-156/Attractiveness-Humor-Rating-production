@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import NextButton from "../../Components/NavButton/NextButton";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import links from "../../Utils/links";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
@@ -98,7 +98,7 @@ const General = () => {
   return (
     <div
       className={`backgroundImage-${theme}`}
-      style={{ backgroundColor: colorPalette[theme]["background"] }}
+      style={{ backgroundColor: themePalette[theme]["background"] }}
     >
       <script>{(document.title = "Thank you")}</script>
       {isLoading ? (
@@ -121,7 +121,7 @@ const General = () => {
           <Box className="center">
             <Card
               sx={{
-                background: colorPalette[theme]["primary"],
+                background: themePalette[theme]["primary"],
                 color: "#FFFFFF",
                 minWidth: "500px",
               }}

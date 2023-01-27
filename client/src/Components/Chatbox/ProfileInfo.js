@@ -2,8 +2,7 @@ import { useAppContext } from "../../Context/AppContext";
 
 import { Box, Typography, CardHeader } from "@mui/material";
 import { RxCross2 } from "react-icons/rx";
-import { colorPalette } from "../../Utils/colorPalette";
-
+import { themePalette } from "../../Utils/themePalette";
 
 const ProfileInfo = ({ receiver, firstCandidate, lastCandidate }) => {
   const { theme } = useAppContext();
@@ -12,7 +11,7 @@ const ProfileInfo = ({ receiver, firstCandidate, lastCandidate }) => {
     <Box sx={{ width: "400px", borderRight: "solid 1px #D9D9D9" }}>
       <CardHeader
         sx={{
-          backgroundColor: colorPalette[theme]["primary"],
+          backgroundColor: themePalette[theme]["primary"],
           color: "#FFFFFF",
           py: "12px",
         }}
@@ -29,7 +28,9 @@ const ProfileInfo = ({ receiver, firstCandidate, lastCandidate }) => {
         <Box className="center">
           <img
             src={
-              receiver.includes("1") ? firstCandidate?.link : lastCandidate?.link
+              receiver.includes("1")
+                ? firstCandidate?.link
+                : lastCandidate?.link
             }
             style={{ width: "200px" }}
             alt="candidate profile"
@@ -37,7 +38,7 @@ const ProfileInfo = ({ receiver, firstCandidate, lastCandidate }) => {
         </Box>
         <Typography
           className="cardHeader"
-          sx={{ color: colorPalette[theme]["primary"] }}
+          sx={{ color: themePalette[theme]["primary"] }}
         >
           {receiver.includes("1")
             ? firstCandidate?.optionName.toUpperCase()

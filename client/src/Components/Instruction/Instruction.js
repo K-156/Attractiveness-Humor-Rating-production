@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { Button, Tooltip } from "@mui/material";
 
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 
 const Instruction = ({ type }) => {
   const {
@@ -39,10 +39,10 @@ const Instruction = ({ type }) => {
         slotProps={{
           tooltip: {
             sx: {
-              backgroundColor: colorPalette[theme]["primaryLight"],
-              color: colorPalette[theme]["primary"],
+              backgroundColor: themePalette[theme]["primaryLight"],
+              color: themePalette[theme]["primary"],
               p: 2,
-              border: `solid 1px ${colorPalette[theme]["primary"]}`,
+              border: `solid 1px ${themePalette[theme]["primary"]}`,
               fontSize: "14px",
               textAlign: "center",
               maxWidth: 800,
@@ -56,7 +56,7 @@ const Instruction = ({ type }) => {
           className={`customButton-${theme}`}
           sx={{
             "&.MuiButton-contained:hover": {
-              background: colorPalette[theme]["primary"],
+              background: themePalette[theme]["primary"],
             },
           }}
         >

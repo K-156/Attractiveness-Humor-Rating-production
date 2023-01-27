@@ -13,7 +13,7 @@ import {
 import moment from "moment";
 import { FiClock } from "react-icons/fi";
 import { HiArrowLeft } from "react-icons/hi";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 
 const durationMin = localStorage.getItem("duration");
 
@@ -123,7 +123,7 @@ const Timer = () => {
       <Typography
         className="center"
         sx={{
-          color: isWarning ? "#F47070" : colorPalette[theme]?.["secondary"],
+          color: isWarning ? "#F47070" : themePalette[theme]?.["secondary"],
           mb: 1,
           fontSize: "14px",
         }}

@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 
 import PrevButton from "../../Components/NavButton/PrevButton";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ const Login = () => {
                 <Typography
                   variant="h5"
                   className="formCardHeader"
-                  sx={{ color: colorPalette[theme]["primary"] }}
+                  sx={{ color: themePalette[theme]["primary"] }}
                 >
                   LOGIN
                 </Typography>

@@ -1,15 +1,10 @@
 import { useAppContext } from "../../Context/AppContext";
 import { useEffect, useState } from "react";
 
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 import NextButton from "../../Components/NavButton/NextButton";
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import "./InstructionPage.css";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 
@@ -53,7 +48,7 @@ const InstructionPage = ({ link }) => {
             </Box>
             <Card
               sx={{
-                background: colorPalette[theme]?.["primary"],
+                background: themePalette[theme]?.["primary"],
                 color: "#FFFFFF",
                 mx: 30,
                 width: "80%",
@@ -72,7 +67,10 @@ const InstructionPage = ({ link }) => {
                 </Box>
                 <Box className="center" pt={1.5}>
                   <Typography className="textCenter">
-                    {data[sectionNum][sections[sectionNum]][user.surveyRole]?.instruction}
+                    {
+                      data[sectionNum][sections[sectionNum]][user.surveyRole]
+                        ?.instruction
+                    }
                   </Typography>
                 </Box>
               </CardContent>

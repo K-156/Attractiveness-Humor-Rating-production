@@ -15,7 +15,7 @@ import {
 import _ from "lodash";
 import axios from "axios";
 
-import { colorPalette } from "../../Utils/colorPalette";
+import { themePalette } from "../../Utils/themePalette";
 import Loading from "../../Components/LoadingAnimation/LoadingAnimation";
 import links from "../../Utils/links";
 
@@ -122,7 +122,7 @@ const Details = () => {
               <Typography
                 variant="h5"
                 className="formCardHeader"
-                sx={{ color: colorPalette[theme]["primary"] }}
+                sx={{ color: themePalette[theme]["primary"] }}
               >
                 Fill in your details
               </Typography>
