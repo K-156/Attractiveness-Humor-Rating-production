@@ -4,7 +4,7 @@ import { useAppContext } from "../Context/AppContext";
 import { Box } from "@mui/material";
 
 import Timer from "../Components/Timer/Timer";
-import { colorPalette } from "../Utils/colorPalette";
+// import { colorPalette } from "../Utils/colorPalette";
 
 const SurveyLayout = () => {
 
@@ -13,7 +13,7 @@ const SurveyLayout = () => {
     return(
         <Box
             sx={{
-                backgroundColor: colorPalette[theme]?.["background"],
+                // backgroundColor: colorPalette[theme]?.["background"],
                 p: "25px 25px 50px 25px",
                 minHeight:"100vh"
             }}
