@@ -43,7 +43,12 @@ const Participants = () => {
     setIsLoading(true);
     setCreateProject(projectId?.split(":")[0]);
     sessionStorage.setItem("projId", projectId);
-    await getProject(projectId.split(":")[0]);
+    await getProject(projectId.split(":")[0]).then((proj) => {
+      const { data, sections, projDetails } = proj;
+      sessionStorage.setItem("data", JSON.stringify(data));
+      sessionStorage.setItem("sections", JSON.stringify(sections));
+      sessionStorage.setItem("role", projDetails.roles["0"]?.["role"]);
+    });
     await getUsersByProjId(projectId.split(":")[0]);
     setIsLoading(false);
   };
@@ -86,11 +91,21 @@ const Participants = () => {
     getAllProjects();
     if (currentProjId !== undefined) {
       setCreateProject(currentProjId?.split(":")[0]);
-      getProject(currentProjId?.split(":")[0]);
+      getProject(currentProjId?.split(":")[0]).then((proj) => {
+        const { data, sections, projDetails } = proj;
+        sessionStorage.setItem("data", JSON.stringify(data));
+        sessionStorage.setItem("sections", JSON.stringify(sections));
+        sessionStorage.setItem("role", projDetails.roles["0"]?.["role"]);
+      });
       getUsersByProjId(currentProjId?.split(":")[0]);
     } else {
       setCreateProject(projectId?.split(":")[0]);
-      getProject(projectId?.split(":")[0]);
+      getProject(projectId?.split(":")[0]).then((proj) => {
+        const { data, sections, projDetails } = proj;
+        sessionStorage.setItem("data", JSON.stringify(data));
+        sessionStorage.setItem("sections", JSON.stringify(sections));
+        sessionStorage.setItem("role", projDetails.roles["0"]?.["role"]);
+      });
       getUsersByProjId(projectId?.split(":")[0]);
     }
     // eslint-disable-next-line
